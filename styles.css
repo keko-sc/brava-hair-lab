@@ -1099,13 +1099,13 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
   .hero-in{ grid-template-columns:1fr; gap:2.5rem; }
   .hero-media{ max-width:440px; margin-inline:auto; width:100%; }
   .fam-cab{ grid-template-columns:1fr; }
-  .fam-fig{ max-width:340px; aspect-ratio:16/10; }
+  .fam-fig{ width:min(340px,100%); max-width:none; aspect-ratio:16/10; margin-inline:auto; }
   .adn-grid{ grid-template-columns:1fr; }
-  .adn-fig{ max-width:400px; }
+  .adn-fig{ width:min(400px,100%); max-width:none; margin-inline:auto; }
   .piso{ grid-template-columns:1fr; }
   .piso:nth-child(even) .piso-fig{ order:0; }
   .detalle{ grid-template-columns:1fr; }
-  .detalle-fig{ position:static; max-width:360px; }
+  .detalle-fig{ position:static; width:min(360px,100%); max-width:none; margin-inline:auto; }
   .pie-top{ grid-template-columns:1fr 1fr; }
   .pie-marca{ grid-column:1 / -1; }
 }
@@ -1130,17 +1130,24 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
   .hero-a{ padding-block:1.4rem 1rem; }
   .hero-a .hero-ctas{ flex-wrap:wrap; }
   .hero-a .hero-ctas .btn{ padding:.85rem 1.4rem; font-size:.94rem; }
-  .hero-a .marco-mandos{ margin-top:8px; }
-  /* En celular el marco no se apila debajo: se pone al lado del titular,
-     más pequeño. Así la banda de sellos llega a asomar. */
+  .hero-a .marco-mandos{ margin-top:10px; }
+  /* La etiqueta iba en flex y se partía en bloques descolocados con el punto
+     colgando. Aquí fluye como texto normal, centrada, y si no cabe parte en
+     dos líneas limpias. */
+  .ha-eyebrow{ display:block; text-align:center; line-height:1.7; }
+  .ha-eyebrow .punto{ display:inline-block; vertical-align:middle; margin-inline:.5rem; }
+  /* En celular todo va apilado en una columna y nada se solapa: etiqueta,
+     titular, cifras, párrafo, botones y, debajo de todo, la imagen a ancho
+     completo con sus mandos justo después. */
   .hero-a-in{
-    grid-template-columns:minmax(0,1fr) 44%;
-    grid-template-areas:"texto marco";
-    column-gap:1rem; align-items:center;
+    grid-template-columns:minmax(0,1fr);
+    grid-template-areas:"texto" "marco";
+    row-gap:1.5rem; align-items:start;
     padding-inline:calc((100% - min(100% - 2rem, var(--wrap))) / 2);
   }
-  .ha-titulo{ font-size:clamp(2.4rem,11.5vw,3.1rem); margin-right:-1rem; }
-  .ha-marco-zona{ justify-self:stretch; align-self:center; align-items:center; width:100%; max-width:none; margin-top:0; }
+  /* El titular ya no cruza por encima de la imagen: no hay nada al lado. */
+  .ha-titulo{ font-size:clamp(2.4rem,11.5vw,3.1rem); margin-right:0; }
+  .ha-marco-zona{ justify-self:stretch; align-self:start; align-items:center; width:100%; max-width:none; margin-top:0; }
   .ha-marco{ height:auto; max-height:none; aspect-ratio:6/5; width:100%; }
   .ha-cifras{ display:flex; gap:1.6rem; border-right:0; border-top:1px solid var(--linea-o); padding:.8rem 0 0; margin-top:.9rem; }
   .ha-cifras strong{ font-size:1.5rem; }
@@ -1160,14 +1167,25 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
      quince nombres estiraría la sección muchísimo. */
   .fam{ padding:.5rem .8rem; font-size:.74rem; }
   .apto-fila{
+    /* Con justify-content:center heredado, el desbordamiento se reparte a los
+       dos lados y la tira nace con el primer sello cortado. En una tira que
+       se desliza el contenido tiene que empezar en el borde. */
+    justify-content:flex-start;
     flex-wrap:nowrap; overflow-x:auto; scroll-snap-type:x proximity;
+    /* El ajuste por snap no contaba el relleno lateral y dejaba la tira
+       arrancada en 16 px, con el primer sello pegado al borde de la pantalla
+       en vez de al margen de la página. */
+    scroll-padding-inline-start:1rem;
     gap:.9rem; scrollbar-width:none;
     margin-inline:-1rem; padding-inline:1rem;
   }
   .apto-fila::-webkit-scrollbar{ display:none; }
   .apto-item{ flex:0 0 122px; scroll-snap-align:start; gap:.6rem; }
   .apto-item .ic{ width:50px; height:50px; }
-  .apto-t{ font-size:.78rem; }
+  /* En escritorio cada sello cabe en una línea; en una caja de 122 px no.
+     Sin esto, «Apto en embarazo y lactancia» se salía 44 px y se montaba
+     encima del sello siguiente. */
+  .apto-t{ font-size:.78rem; white-space:normal; text-wrap:balance; }
   .banda-cta{ flex-direction:column; align-items:flex-start; }
   .marquesina-pista{ font-size:.95rem; animation-duration:21s; }
   .wrap,.nav-in,.hero-in{ width:calc(100% - 2rem); }
@@ -1175,7 +1193,10 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
   .avisobar{ font-size:.72rem; padding-block:.7rem; text-align:left; }
   .avisobar-sep{ display:none; }
   .hero{ padding-block:1.5rem 3rem; }
-  .hero-ctas{ flex-direction:column; align-items:stretch; }
+  /* .ha-pie es una rejilla con justify-items:start, así que la fila de
+     botones se quedaba del ancho de su contenido. Aquí ocupa la columna. */
+  .ha-pie{ justify-items:stretch; }
+  .hero-ctas{ flex-direction:column; align-items:stretch; width:100%; }
   .hero-ctas .btn{ width:100%; }
   .hero-meta{ gap:1rem 1.4rem; }
   .hero-card{ right:auto; left:-3%; top:5%; padding:.6rem .9rem; }
@@ -1183,7 +1204,11 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
   .abordaje-par{ grid-template-columns:1fr; }
   .paso{ grid-template-columns:1fr; gap:1.2rem; }
   .pasos::before{ display:none; }
-  .paso figure{ max-width:200px; aspect-ratio:3/4; }
+  /* En columna única la foto del paso iba pegada a la izquierda mientras el
+     texto iba centrado. Se centra con un ancho explícito: la figura no tiene
+     contenido en flujo (la imagen va absoluta), así que con solo márgenes
+     automáticos se quedaría en cero. */
+  .paso figure{ width:min(200px,100%); max-width:none; aspect-ratio:3/4; margin-inline:auto; }
   .paso:nth-child(even) figure{ transform:none; }
   .paso-txt{ padding-left:0; }
   .ciencia-par,.avisos-par,.ideas-par,.faq-lista,.descartes-lista,.opciones-2{ grid-template-columns:1fr; }

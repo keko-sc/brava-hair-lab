@@ -28,6 +28,16 @@ SRC = "assets/photos/source"
 DST = "assets/img"
 LADO_MINIMO = 800
 
+# Peso máximo del archivo terminado. La portada puede permitirse más: es lo
+# primero que se ve y se carga con prioridad. El resto va diferido, así que
+# se aprieta. Si a calidad 88 no cabe, se baja de cinco en cinco hasta que
+# quepa, nunca por debajo de 70.
+TOPE_KB = {"portada": 400}
+TOPE_KB_POR_DEFECTO = 150
+TOPE_KB_DURO = 250
+CALIDAD = 88
+CALIDAD_MINIMA = 70
+
 # Cada hueco de la página tiene su forma. Aquí van los lienzos a los que se
 # prepara cada foto: siempre la proporción REAL del hueco, para que el
 # navegador no vuelva a recortar por encima del encuadre ya decidido.
@@ -201,7 +211,21 @@ for f in FOTOS:
         out, escala, tam = completa(im, f["fx"], f["fy"], f.get("max_ampliacion", 1.0), ANCHO, ALTO)
         detalle = (f"x{escala:.2f} → {tam[0]}x{tam[1]} de {ANCHO}x{ALTO} ({prop})"
                    + ("  ⚠ salta el mínimo" if f.get("salta_minimo") else ""))
-    out.save(os.path.join(DST, f["cod"].lower() + ".webp"), "WEBP", quality=88, method=6)
+    ruta_out = os.path.join(DST, f["cod"].lower() + ".webp")
+    tope = TOPE_KB.get(f.get("marco", "portada"), TOPE_KB_POR_DEFECTO)
+    calidad = CALIDAD
+    while True:
+        out.save(ruta_out, "WEBP", quality=calidad, method=6)
+        kb = os.path.getsize(ruta_out) / 1024
+        if kb <= tope or calidad <= CALIDAD_MINIMA:
+            break
+        calidad -= 5
+    if calidad < CALIDAD:
+        detalle += "  · %d KB a calidad %d (tope %d)" % (round(kb), calidad, tope)
+    else:
+        detalle += "  · %d KB" % round(kb)
+    if kb > TOPE_KB_DURO:
+        detalle += "  ⚠ PASA DEL TOPE DURO de %d KB" % TOPE_KB_DURO
     dentro.append((f["cod"], f["arch"], f["modo"], detalle, f["nota"]))
 
 print("EN ROTACIÓN")

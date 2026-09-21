@@ -138,20 +138,42 @@
   /* ═══════════ 4 · Huecos de foto
      Cada hueco apunta a un archivo. Si el archivo existe, la foto lo
      rellena. Sustituir una foto = dejar el archivo en su sitio. ═══════ */
+  /* Antes esto probaba el archivo con new Image() y el src se asignaba de
+     inmediato: el navegador se descargaba los veintitantos huecos de golpe y
+     el loading="lazy" llegaba tarde, cuando la imagen ya estaba en memoria.
+     Ahora el <img> entra en el DOM con sus atributos puestos ANTES del src,
+     así que la carga diferida la decide el navegador de verdad. El hueco que
+     no tenga archivo se queda con la trama: el onerror retira la imagen. */
+  function esDelHero(fig) { return !!(fig.closest && fig.closest("[data-escenas]")); }
+
   function montarFoto(fig) {
     if (fig.dataset.probado === "si") return;
     var archivo = fig.getAttribute("data-archivo");
     if (!archivo) return;
     fig.dataset.probado = "si";
-    var img = new Image();
-    img.onload = function () {
+
+    var img = document.createElement("img");
+    img.alt = "";                                  // hasta que cargue no anuncia nada
+    img.decoding = "async";
+    if (esDelHero(fig)) {
+      // La portada se ve de entrada: no tiene sentido diferirla.
+      img.loading = "eager";
+      img.setAttribute("fetchpriority", "high");
+    } else {
+      img.loading = "lazy";
+    }
+    img.addEventListener("load", function () {
       img.alt = fig.getAttribute("title") || "";
-      img.loading = "lazy"; img.decoding = "async";
-      fig.insertBefore(img, fig.firstChild);
       fig.classList.add("llena");
       document.dispatchEvent(new CustomEvent("foto-lista", { detail: fig }));
-    };
-    img.src = archivo;
+    });
+    img.addEventListener("error", function () {
+      // Hueco todavía sin foto: fuera la imagen, se queda la trama de marca.
+      if (img.parentNode) img.parentNode.removeChild(img);
+      fig.dataset.probado = "";
+    });
+    fig.insertBefore(img, fig.firstChild);
+    img.src = archivo;                             // el src, lo último
   }
   function initFotos() { qa("[data-foto]").forEach(montarFoto); }
 
