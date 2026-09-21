@@ -1,0 +1,1215 @@
+/* ══════════════════════════════════════════════════════════════════
+   BRAVA HAIR LAB · Fiber x Scalp Studio
+   Sistema reutilizado del proyecto Escobar Wellness (trabajo propio):
+   imágenes en arco, titular con cursiva de acento, versalitas
+   espaciadas, cifras, píldoras de familia, tarjetas compactas,
+   proceso numerado, capa a pantalla completa y WhatsApp flotante.
+   Identidad de BRAVA: paleta café/crema/camel, Fraunces + Instrument
+   Sans, y la trama de líneas onduladas de la marca.
+   ══════════════════════════════════════════════════════════════════ */
+
+:root{
+  /* ── Marca ── */
+  --camel:        #B4926F;   /* el color exacto del logo */
+  --camel-claro:  #C9A67F;   /* sobre fondo oscuro */
+  --camel-hover:  #8E6F4F;
+  --camel-texto:  #7A5D40;   /* camel legible como texto sobre claro: 5,2:1 */
+
+  /* ── Oscuros: la marca vive aquí ── */
+  --cafe:         #1D160E;
+  --cafe-alt:     #2A2118;
+  --tabaco:       #3A2E22;
+
+  /* ── Claros ── */
+  --crema:        #F4EEE4;
+  --arena:        #E7DDCE;
+  --lino:         #DCCFBC;
+
+  /* ── Texto ── */
+  --tinta:        #241C14;   /* sobre claro */
+  --tinta-suave:  #6A5B4B;   /* 5,7:1 sobre crema */
+  --crema-texto:  #F4EEE4;   /* sobre oscuro */
+  --crema-suave:  #B3A493;   /* 7,4:1 sobre café */
+
+  /* La zona SCALP: mismo mundo, matiz frío (lino desaturado) */
+  --frio:         #EAE7E1;
+  --frio-alt:     #D8D3CA;
+
+  --linea:    rgba(36,28,20,.16);
+  --linea-2:  rgba(36,28,20,.09);
+  --linea-o:  rgba(244,238,228,.14);
+  --sombra:      0 1px 2px rgba(29,22,14,.05), 0 8px 26px -14px rgba(29,22,14,.28);
+  --sombra-alta: 0 2px 6px rgba(29,22,14,.07), 0 26px 60px -26px rgba(29,22,14,.45);
+
+  --f-disp: "Instrument Serif", Georgia, serif;
+  --f-body: "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --ease:    cubic-bezier(.22,1,.36,1);
+  --ease-io: cubic-bezier(.65,0,.35,1);
+
+  --nav-h: 66px;
+  --wrap: 1220px;
+  --r: 16px;
+
+  /* Trama de la marca: líneas onduladas verticales */
+  --trama: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='58' height='140' viewBox='0 0 58 140'%3E%3Cg fill='none' stroke='%23B4926F' stroke-width='1.1' stroke-linecap='round'%3E%3Cpath d='M14 -6 C23 12 5 26 14 44 C23 62 5 76 14 94 C23 112 5 126 14 146'/%3E%3Cpath d='M43 -6 C52 12 34 26 43 44 C52 62 34 76 43 94 C52 112 34 126 43 146'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{ overflow-x:clip; scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body{
+  margin:0; overflow-x:clip;
+  background:var(--crema); color:var(--tinta);
+  font-family:var(--f-body);
+  font-size:clamp(1.0625rem,1rem + .22vw,1.125rem);
+  line-height:1.7; letter-spacing:-.004em;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+img,svg{ max-width:100%; display:block; }
+img{ height:auto; }
+a{ color:inherit; }
+button{ font:inherit; color:inherit; }
+h1,h2,h3,h4,h5{ margin:0; font-family:var(--f-disp); font-weight:400; font-variation-settings:"SOFT" 40,"WONK" 1; }
+p{ margin:0; }
+ul,ol{ margin:0; padding:0; list-style:none; }
+::selection{ background:var(--camel); color:var(--cafe); }
+[hidden]{ display:none !important; }
+
+:focus-visible{ outline:2px solid var(--camel); outline-offset:3px; border-radius:4px; }
+[tabindex="-1"]:focus{ outline:none; }
+
+.skip{
+  position:absolute; left:-9999px; top:0; z-index:999;
+  background:var(--cafe); color:var(--crema-texto);
+  padding:.8rem 1.2rem; border-radius:0 0 10px 0; text-decoration:none;
+}
+.skip:focus{ left:0; }
+
+/* ───────────────────────── La trama de la marca ───────────────────── */
+.trama{
+  position:absolute; inset:0; pointer-events:none;
+  background-image:var(--trama); background-size:58px 140px;
+  opacity:.07;
+}
+.oscuro .trama, .arco .trama, .arco-sm .trama, .arco-hero .trama{ opacity:.10; }
+.trama-fondo{ z-index:0; opacity:.06; }
+
+/* ───────────────────────────── Utilidades ─────────────────────────── */
+.wrap{ width:min(100% - 2.5rem, var(--wrap)); margin-inline:auto; position:relative; z-index:1; }
+
+.seccion{
+  position:relative;
+  padding-block:clamp(4.5rem,10vw,8.5rem);
+  /* El titular nunca queda tapado por el menú: alto real + 16 px, lo mide el JS */
+  scroll-margin-top:calc(var(--nav-real, var(--nav-h)) + 16px);
+}
+.oscuro{ background:var(--cafe); color:var(--crema-texto); }
+.oscuro h1,.oscuro h2,.oscuro h3,.oscuro h4{ color:var(--crema-texto); }
+
+.seccion-cab{ max-width:46rem; margin-inline:auto; text-align:center; margin-bottom:clamp(2.75rem,6vw,4.5rem); }
+
+.eyebrow{
+  font-size:.72rem; font-weight:500; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--camel-texto);
+  display:flex; align-items:center; gap:.7rem; justify-content:center;
+  margin-bottom:1.1rem;
+}
+.oscuro .eyebrow{ color:var(--camel-claro); }
+.eyebrow .punto{ width:4px; height:4px; border-radius:50%; background:var(--camel); }
+
+.titulo{
+  font-size:clamp(2.5rem,1.6rem + 3.6vw,5.5rem);
+  line-height:1.02; letter-spacing:-.03em;
+  font-variation-settings:"SOFT" 50,"WONK" 1,"opsz" 100;
+  text-wrap:balance; margin-bottom:1.5rem;
+}
+/* La cursiva de acento: la mitad del carácter de la página */
+.titulo em, .hero-titulo em{
+  font-style:italic; color:var(--camel-texto);
+  font-variation-settings:"SOFT" 90,"WONK" 1,"opsz" 120;
+}
+.oscuro .titulo em{ color:var(--camel-claro); }
+.titulo-c{ max-width:15ch; margin-inline:auto; }
+
+.parrafo{ color:var(--tinta-suave); max-width:40rem; }
+.parrafo + .parrafo{ margin-top:1.1rem; }
+.parrafo.centro{ margin-inline:auto; }
+.parrafo.destacado{ font-size:1.1em; color:var(--tinta); }
+.oscuro .parrafo{ color:var(--crema-suave); }
+.oscuro .parrafo.destacado{ color:var(--crema-texto); }
+
+.num{
+  font-family:var(--f-disp); font-size:.76rem; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--camel-texto); margin-bottom:.85rem;
+}
+.oscuro .num{ color:var(--camel-claro); }
+
+.nota-trabajo{
+  display:inline-block; margin-top:1.25rem;
+  font-size:.73rem; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--camel-texto); background:rgba(180,146,111,.12);
+  border:1px solid rgba(180,146,111,.3);
+  padding:.42rem .9rem; border-radius:999px;
+}
+.pendiente{
+  display:inline-block;
+  font-size:.7rem; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--camel-texto); background:rgba(180,146,111,.12);
+  border:1px dashed rgba(180,146,111,.45);
+  padding:.32rem .75rem; border-radius:999px;
+}
+.oscuro .pendiente, .c-card-wa .pendiente{ color:var(--camel-claro); background:rgba(201,166,127,.14); border-color:rgba(201,166,127,.4); }
+.pendiente-mini{ font-size:.64rem; padding:.24rem .6rem; }
+.cargando{ color:var(--tinta-suave); font-size:.92rem; }
+
+/* ─────────────────────────── Revelados ────────────────────────────── */
+/* Solo se esconde si hay JS para volver a mostrarlo. Sin JS no se aplica
+   nada de esto y la página se lee entera. */
+.js .reveal{
+  opacity:0; transform:translateY(24px);
+  transition:opacity .7s var(--ease), transform .7s var(--ease);
+  /* Red de seguridad en CSS: si el JS no llega a cargar, a los 5 s el
+     contenido se muestra igualmente. Nunca una página en blanco. */
+  animation:revelarSeguro .01s 5s forwards;
+}
+@keyframes revelarSeguro{ to{ opacity:1; transform:none; } }
+.js .reveal.is-visible{ opacity:1; transform:none; }
+.js .reveal[data-split]{ opacity:1; transform:none; }
+
+.ln{
+  display:block; overflow:hidden;
+  /* La cursiva sobresale por los dos lados: si el recorte va justo al texto,
+     se come la E de «Evolved.» y el punto final. */
+  padding:0 .16em .07em .14em; margin-inline:-.14em -.16em;
+}
+.ln-i{ display:block; }
+.js .ln-i{ transform:translateY(106%); transition:transform 1s var(--ease); }
+.js [data-split].is-in .ln-i{ transform:none; }
+[data-split] .ln:nth-child(2) .ln-i{ transition-delay:.09s; }
+[data-split] .ln:nth-child(3) .ln-i{ transition-delay:.18s; }
+
+.js [data-escalonado] > *{
+  opacity:0; transform:translateY(22px);
+  transition:opacity .65s var(--ease), transform .65s var(--ease);
+  animation:revelarSeguro .01s 5s forwards;
+}
+.js [data-escalonado].is-visible > *{ opacity:1; transform:none; }
+.js [data-escalonado].is-visible > *:nth-child(2){ transition-delay:.07s; }
+.js [data-escalonado].is-visible > *:nth-child(3){ transition-delay:.14s; }
+.js [data-escalonado].is-visible > *:nth-child(4){ transition-delay:.21s; }
+.js [data-escalonado].is-visible > *:nth-child(5){ transition-delay:.28s; }
+.js [data-escalonado].is-visible > *:nth-child(6){ transition-delay:.35s; }
+.js [data-escalonado].is-visible > *:nth-child(7){ transition-delay:.42s; }
+
+/* ──────────────────────────── Botones ─────────────────────────────── */
+.btn{
+  --btn-bg:var(--cafe); --btn-fg:var(--crema-texto);
+  display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
+  background:var(--btn-bg); color:var(--btn-fg);
+  padding:.95rem 1.7rem; border-radius:999px; border:1px solid transparent;
+  font-size:.92rem; font-weight:500; letter-spacing:-.01em;
+  text-decoration:none; cursor:pointer;
+  transition:transform .4s var(--ease), box-shadow .4s var(--ease), background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease);
+  box-shadow:0 1px 2px rgba(29,22,14,.08);
+}
+.btn:hover{ transform:translateY(-3px); box-shadow:var(--sombra-alta); }
+.btn-sm{ padding:.6rem 1.15rem; font-size:.84rem; }
+.btn-grande{ padding:1.1rem 2.1rem; font-size:1rem; }
+.btn-acento{ --btn-bg:var(--camel); --btn-fg:var(--cafe); }
+.btn-acento:hover{ --btn-bg:var(--camel-hover); --btn-fg:var(--crema-texto); }
+.btn-ghost{ --btn-bg:transparent; --btn-fg:var(--tinta); border-color:var(--linea); box-shadow:none; }
+.btn-ghost:hover{ --btn-bg:var(--arena); border-color:rgba(36,28,20,.28); }
+.btn-claro{ --btn-fg:var(--crema-texto); border-color:var(--linea-o); }
+.btn-claro:hover{ --btn-bg:rgba(244,238,228,.08); border-color:var(--camel-claro); }
+.btn-wa{ --btn-bg:#1f7a54; --btn-fg:#FFFFFF; }
+.btn-wa:hover{ --btn-bg:#1a6647; }
+.btn-chispa{ font-size:.85em; opacity:.9; transition:transform .5s var(--ease); }
+.btn:hover .btn-chispa{ transform:rotate(90deg) scale(1.15); }
+.ic-wa{ display:inline-flex; }
+
+/* Iconos de línea: sin relleno. Sin esta regla el SVG se pinta en negro. */
+.ic{ width:42px; height:42px; }
+.ic path{ fill:none; stroke:var(--camel); stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+
+/* ──────────────── Marco de arco: la firma visual del sistema ───────── */
+.arco,.arco-sm,.arco-hero{
+  position:relative; margin:0; overflow:hidden;
+  background:var(--lino); box-shadow:var(--sombra);
+}
+.arco{ border-radius:50% 50% 14px 14px / 30% 30% 2% 2%; }
+.arco-hero{ border-radius:50% 50% 18px 18px / 34% 34% 2% 2%; }
+.arco-sm{ border-radius:50% 50% 12px 12px / 22% 22% 2% 2%; }
+.oscuro .arco, .oscuro .arco-sm, .oscuro .arco-hero{ background:var(--cafe-alt); }
+
+.arco img,.arco-sm img,.arco-hero img{
+  width:100%; height:100%; object-fit:cover; position:absolute; inset:0;
+  /* Tratamiento común: unifica fotos de origen distinto */
+  filter:saturate(.86) contrast(1.04) brightness(1.02) sepia(.08);
+}
+/* Velo cálido en camel: iguala la temperatura de todas las fotos */
+.arco::after,.arco-sm::after,.arco-hero::after{
+  content:""; position:absolute; inset:0; pointer-events:none; z-index:2;
+  background:linear-gradient(155deg, rgba(180,146,111,.22), rgba(244,238,228,.08) 45%, rgba(29,22,14,.16));
+  mix-blend-mode:soft-light;
+}
+.arco::before,.arco-hero::before,.arco-sm::before{
+  content:""; position:absolute; inset:0; pointer-events:none; z-index:3;
+  box-shadow:inset 0 0 0 1px rgba(244,238,228,.24); border-radius:inherit;
+}
+/* El isotipo en marca de agua, mientras no hay foto */
+.arco .trama::after,.arco-sm .trama::after,.arco-hero .trama::after{
+  content:""; position:absolute; inset:0;
+  background:url("assets/img/marca/isotipo.webp") center / min(44%,190px) no-repeat;
+  opacity:.5;
+}
+.llena .trama{ display:none; }
+.llena .foto-tag{ display:none; }
+
+.foto-tag{
+  position:absolute; left:12px; bottom:12px; z-index:4;
+  padding:.28rem .6rem; border-radius:999px;
+  font-size:.6rem; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--camel-claro); background:rgba(29,22,14,.62);
+  border:1px solid rgba(180,146,111,.45);
+  backdrop-filter:blur(3px);
+}
+
+/* ─────────────────── Banda de aviso de versión ────────────────────── */
+.avisobar{
+  background:var(--arena); color:var(--tinta-suave);
+  border-top:1px solid var(--linea-2);
+  font-size:.76rem; line-height:1.55; text-align:center;
+  padding-block:.8rem;
+}
+.avisobar p{ max-width:66rem; margin-inline:auto; }
+.avisobar strong{ color:var(--camel-texto); font-weight:600; }
+.avisobar-sep{ padding-inline:.5rem; opacity:.45; }
+
+/* ───────────────────────────── Nav ────────────────────────────────── */
+.nav{
+  position:sticky; top:0; z-index:90;
+  background:rgba(244,238,228,0); border-bottom:1px solid transparent;
+  transition:background .45s var(--ease), border-color .45s var(--ease), box-shadow .45s var(--ease);
+}
+.nav.is-fija{ background:var(--crema); border-bottom-color:var(--linea-2); box-shadow:0 1px 24px -12px rgba(29,22,14,.34); }
+/* Sobre la portada, que es café, el menú va en claro. Al fijarse vuelve al
+   crema y el texto recupera la tinta. */
+.nav:not(.is-fija){ background:var(--cafe); }
+.nav:not(.is-fija) .logo-txt,
+.nav:not(.is-fija) .nav-links a{ color:var(--crema-texto); }
+.nav:not(.is-fija) .logo-txt em{ color:var(--crema-suave); }
+.nav:not(.is-fija) .nav-links a:hover{ color:var(--camel-claro); }
+.nav:not(.is-fija) .burger{ border-color:var(--linea-o); }
+.nav:not(.is-fija) .burger span{ background:var(--crema-texto); }
+@supports (backdrop-filter:blur(14px)){
+  .nav.is-fija{ background:rgba(244,238,228,.94); backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%); }
+}
+.nav-in{
+  width:min(100% - 2.5rem, var(--wrap)); margin-inline:auto;
+  height:var(--nav-h); display:flex; align-items:center; gap:1.5rem;
+  transition:height .4s var(--ease);
+}
+.nav.is-fija .nav-in{ height:calc(var(--nav-h) - 8px); }
+.logo{ display:flex; align-items:center; gap:.7rem; text-decoration:none; margin-right:auto; }
+.logo img{ height:30px; width:auto; }
+.logo-txt{ display:flex; flex-direction:column; line-height:1.2; font-size:.78rem; letter-spacing:.22em; text-transform:uppercase; }
+.logo-txt em{ font-style:normal; font-size:.56rem; letter-spacing:.2em; color:var(--tinta-suave); }
+.nav-links{ display:flex; gap:1.6rem; }
+.nav-links a{ position:relative; text-decoration:none; font-size:.89rem; color:var(--tinta-suave); padding-block:.35rem; transition:color .3s var(--ease); }
+.nav-links a::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:1px; background:currentColor; transform:scaleX(0); transform-origin:right; transition:transform .45s var(--ease); }
+.nav-links a:hover{ color:var(--tinta); }
+.nav-links a:hover::after{ transform:scaleX(1); transform-origin:left; }
+.nav-cta{ --btn-bg:var(--camel); --btn-fg:var(--cafe); }
+.nav-cta:hover{ --btn-bg:var(--camel-hover); --btn-fg:var(--crema-texto); }
+
+.burger{ display:none; position:relative; width:42px; height:42px; border:1px solid var(--linea); background:transparent; border-radius:999px; cursor:pointer; padding:0; }
+.burger span{ position:absolute; left:50%; top:50%; width:17px; height:1.5px; background:var(--tinta); border-radius:2px; transition:transform .4s var(--ease); }
+.burger span:first-child{ transform:translate(-50%,-50%) translateY(-3.5px); }
+.burger span:last-child{ transform:translate(-50%,-50%) translateY(3.5px); }
+.burger[aria-expanded="true"] span:first-child{ transform:translate(-50%,-50%) rotate(45deg); }
+.burger[aria-expanded="true"] span:last-child{ transform:translate(-50%,-50%) rotate(-45deg); }
+
+.menu{
+  position:fixed; inset:0; z-index:88; background:var(--crema);
+  padding:calc(var(--nav-h) + 3rem) 1.5rem 2rem;
+  display:flex; flex-direction:column; justify-content:center; gap:1.5rem;
+  opacity:0; transition:opacity .4s var(--ease);
+}
+.menu.is-abierto{ opacity:1; }
+.menu nav{ display:flex; flex-direction:column; gap:.3rem; }
+.menu nav a{ font-family:var(--f-disp); font-size:clamp(1.5rem,6.5vw,2rem); text-decoration:none; padding-block:.35rem; border-bottom:1px solid var(--linea-2); font-variation-settings:"SOFT" 60,"WONK" 1; }
+.menu-cta{ align-self:flex-start; }
+.menu-pie{ font-size:.85rem; color:var(--tinta-suave); }
+.menu-pie span{ font-size:.75rem; opacity:.7; }
+
+
+.hero{
+  position:relative; overflow:hidden;
+  background:var(--cafe); color:var(--crema-texto);
+}
+.hero h1{ color:var(--crema-texto); }
+.hero .eyebrow{ color:var(--camel-claro); justify-content:flex-start; }
+.hero em{ color:var(--camel-claro); }
+.hero .btn-ghost{ --btn-fg:var(--crema-texto); border-color:var(--linea-o); }
+.hero .btn-ghost:hover{ --btn-bg:rgba(244,238,228,.08); border-color:var(--camel-claro); }
+.hero-ctas{ display:flex; flex-wrap:wrap; gap:.8rem; }
+
+/* Las escenas y sus mandos son comunes a las dos propuestas */
+.escena{
+  position:absolute; inset:0; margin:0; opacity:0;
+  transition:opacity 1.1s var(--ease);
+  background:
+    radial-gradient(120% 90% at 22% 12%, rgba(180,146,111,.30), transparent 62%),
+    linear-gradient(152deg, #2E2825 0%, #1C1917 55%, #241F1C 100%);
+}
+.escena.esta-activa{ opacity:1; }
+.escena img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; }
+.escena .trama::after{
+  content:""; position:absolute; inset:0;
+  background:url("assets/img/marca/isotipo.webp") center / min(44%,190px) no-repeat; opacity:.45;
+}
+.marco-tag{ position:absolute; left:14px; bottom:14px; z-index:6; }
+/* En el marco de curvas, la esquina inferior izquierda queda fuera de la
+   forma: la etiqueta va centrada abajo, donde sí hay superficie. */
+.ha-marco .marco-tag{ left:50%; transform:translateX(-50%); bottom:16px; }
+.marco-tag .foto-tag{ position:static; }
+.marco-mandos{ display:flex; align-items:center; gap:.5rem; }
+.marco-flecha{
+  width:32px; height:32px; border-radius:50%; flex:none; padding:0;
+  border:1px solid var(--linea-o); background:transparent; color:var(--crema-suave);
+  display:grid; place-items:center; cursor:pointer;
+  transition:border-color .3s var(--ease), color .3s var(--ease);
+}
+.marco-flecha:hover{ border-color:var(--camel-claro); color:var(--crema-texto); }
+.marco-puntos{ display:flex; gap:.45rem; align-items:center; }
+.marco-puntos button{ width:7px; height:7px; padding:0; border:0; border-radius:50%; cursor:pointer;
+  background:rgba(244,238,228,.3); transition:background .3s var(--ease), transform .3s var(--ease); }
+.marco-puntos button:hover{ background:var(--crema-suave); }
+.marco-puntos button[aria-current="true"]{ background:var(--camel); transform:scale(1.5); }
+
+/* ───────────────── A · "Monograma" ─────────────────
+   La forma sale del isotipo: dos curvas enfrentadas partidas por una
+   línea vertical. El titular cruza la imagen; las cifras van en vertical. */
+.hero-a{
+  padding-block:28px;
+  min-height:calc(100svh - var(--tope,66px) - var(--banda-h,170px));
+  display:flex; align-items:center;
+}
+.hero-a-in{
+  position:relative; z-index:2; width:100%;
+  /* La columna de texto se alinea con el menu; la imagen llega a 40px del
+     borde derecho de la ventana. */
+  padding-inline:calc((100% - min(100% - 2.5rem, var(--wrap))) / 2) 40px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  grid-template-areas:"texto marco";
+  column-gap:clamp(1.5rem,3vw,3rem);
+  align-items:center;
+}
+/* La columna izquierda es UN bloque: sus separaciones las manda este flex,
+   no el reparto de filas de la rejilla (que era lo que abria los huecos). */
+.ha-texto{ grid-area:texto; display:flex; flex-direction:column; align-items:flex-start; }
+.ha-eyebrow{ margin-bottom:clamp(.7rem,1.3vh,1.05rem); }
+
+/* El marco: curvas enfrentadas a izquierda y derecha, nada de arco.
+   Medio ancho de ventana, y de alto casi todo el hero (40px arriba/abajo). */
+.ha-marco-zona{ grid-area:marco; position:relative; align-self:center;
+  display:flex; flex-direction:column; align-items:flex-end; }
+.ha-marco{
+  /* Proporcion FIJA: es la misma a la que se preparan las fotos, asi el
+     navegador no vuelve a recortar por encima del encuadre ya decidido.
+     El alto sale del hueco libre; el ancho, de la proporcion, sin pasar
+     de medio ancho de ventana. */
+  position:relative; aspect-ratio:6/5;
+  height:min(calc(100svh - var(--tope,66px) - var(--banda-h,170px) - 102px), 41.6vw);
+  width:auto; max-height:720px;
+  /* radio horizontal corto y vertical completo: los lados se curvan,
+     arriba y abajo quedan casi rectos. Es la geometria del monograma. */
+  border-radius:30% / 50%;
+  overflow:hidden; box-shadow:var(--sombra-alta);
+  background:var(--cafe-alt);
+}
+.ha-marco::before{
+  content:""; position:absolute; inset:0; z-index:4; pointer-events:none;
+  border-radius:inherit; box-shadow:inset 0 0 0 1px rgba(244,238,228,.2);
+}
+/* Los mandos, debajo del marco y fuera de la foto. */
+.hero-a .marco-mandos{ margin-top:14px; align-self:center; }
+
+.ha-titulo{
+  position:relative; z-index:3;
+  font-size:clamp(64px,8vw,132px);
+  line-height:.9; letter-spacing:-.035em; text-wrap:balance;
+  /* asoma un poco por encima de la imagen */
+  margin-right:clamp(-5rem,-3.5vw,-1.5rem);
+}
+.ha-titulo em{ font-style:italic; }
+
+.ha-titulo-zona{ position:relative; z-index:3; }
+/* Las cifras cuelgan del titular: filete camel y en linea, se leen como
+   su pie, no como un bloque suelto. */
+.ha-cifras{
+  display:flex; gap:clamp(1.5rem,3vw,2.75rem); align-items:baseline;
+  margin-top:clamp(.7rem,1.4vh,1.1rem); padding-top:.75rem;
+  border-top:1px solid var(--camel); width:fit-content;
+}
+.ha-cifras li{ display:flex; align-items:baseline; gap:.5rem; }
+.ha-cifras strong{ font-family:var(--f-disp); font-weight:400; font-size:clamp(2rem,1rem + 1.7vw,3.1rem); line-height:1; letter-spacing:-.02em; }
+.ha-cifras span{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--crema-suave); }
+
+.ha-pie{ margin-top:clamp(.9rem,1.7vh,1.35rem); display:grid; gap:1.15rem; justify-items:start; }
+.ha-sub{ color:var(--crema-suave); max-width:32rem; font-size:clamp(1.05rem,.95rem + .4vw,1.31rem); line-height:1.55; }
+/* Tres botones: envuelven si no caben, y en celular van apilados. */
+.hero-a .hero-ctas{ flex-wrap:wrap; }
+.hero-a .hero-ctas .btn{ padding:1.05rem 1.7rem; font-size:1rem; white-space:nowrap; }
+.ha-lugar{ margin-top:clamp(.9rem,1.7vh,1.35rem); font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--crema-suave); }
+.ha-lugar span{ color:var(--camel-claro); }
+
+/* ────────────── Banda de sellos, pegada a la portada ────────────── */
+.banda-apto{
+  position:relative; overflow:hidden;
+  background:var(--crema); color:var(--tinta);
+  padding-block:clamp(1.35rem,2.4vw,1.9rem);
+  border-bottom:1px solid var(--linea-2);
+}
+.apto-fila{ display:flex; align-items:stretch; justify-content:space-between; gap:clamp(.6rem,1.1vw,1.15rem); }
+.apto-item{
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+  gap:.7rem; flex:1 1 auto; min-width:0;
+}
+.apto-item .ic{ width:clamp(48px,4.2vw,62px); height:clamp(48px,4.2vw,62px); flex:none; }
+/* Trazo fino: el icono es grande, así que la línea se afina para que no pese */
+.apto-item .ic path{ stroke:var(--camel-texto); stroke-width:1.15; }
+.apto-t{ font-size:clamp(.74rem,.6rem + .28vw,.82rem); line-height:1.35; color:var(--tinta); white-space:nowrap; }
+
+/* ─────────────────────────── Marquesina ───────────────────────────── */
+.marquesina{ overflow:hidden; background:var(--arena); border-block:1px solid var(--linea-2); padding-block:.9rem; }
+.marquesina-pista{
+  display:flex; align-items:center; gap:1.5rem; width:max-content;
+  animation:marq 28s linear infinite;
+  font-family:var(--f-disp); font-size:1.05rem; color:var(--tinta-suave);
+  font-variation-settings:"SOFT" 70,"WONK" 1;
+}
+.marquesina-pista i{ color:var(--camel); font-style:normal; font-size:.7rem; }
+@keyframes marq{ to{ transform:translateX(-50%); } }
+
+/* ───────────────────── Comparador antes / después ──────────────────── */
+.antesdespues{ background:var(--crema); }
+/* La sección entera tiene que caber en una pantalla de 900 px: marcos más
+   bajos, pareja más estrecha y cabecera apretada. */
+.antesdespues{ padding-block:clamp(1.1rem,1.9vw,1.6rem); }
+.antesdespues .seccion-cab{ margin-bottom:clamp(.7rem,1.3vw,1rem); }
+.antesdespues .titulo{ font-size:clamp(1.7rem,1.15rem + 1.5vw,2.4rem); line-height:1.04; margin-bottom:.5rem; }
+.antesdespues .seccion-cab .parrafo{ font-size:.94rem; max-width:52rem; }
+.antesdespues .nota-trabajo{ margin-top:.6rem; }
+.comparadores{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(1.2rem,3vw,2rem); max-width:900px; margin-inline:auto; }
+.comparador{
+  --p:50%;
+  position:relative; margin:0; aspect-ratio:3/4; overflow:hidden;
+  border-radius:50% 50% 14px 14px / 30% 30% 2% 2%;
+  background:var(--lino); box-shadow:var(--sombra); touch-action:pan-y;
+}
+.cmp-cara{ position:absolute; inset:0;
+  background:
+    radial-gradient(120% 90% at 22% 12%, var(--oro-22, rgba(180,146,111,.2)), transparent 62%),
+    linear-gradient(152deg, var(--lino) 0%, var(--arena) 52%, var(--lino) 100%); }
+.cmp-despues{ background:
+    radial-gradient(120% 90% at 78% 14%, rgba(180,146,111,.3), transparent 62%),
+    linear-gradient(152deg, var(--arena) 0%, var(--crema) 52%, var(--arena) 100%); }
+.cmp-cara img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  filter:saturate(.86) contrast(1.04) brightness(1.02) sepia(.08); }
+.cmp-cara .trama::after{
+  content:""; position:absolute; inset:0;
+  background:url("assets/img/marca/isotipo.webp") center / min(40%,170px) no-repeat; opacity:.42;
+}
+/* La cara "antes" se recorta hasta donde esté el tirador */
+.cmp-antes{ clip-path:inset(0 calc(100% - var(--p)) 0 0); }
+.cmp-tirador{ position:absolute; top:0; bottom:0; left:var(--p); width:2px; z-index:5;
+  background:var(--crema); transform:translateX(-1px); pointer-events:none;
+  box-shadow:0 0 14px rgba(29,22,14,.35); }
+.cmp-tirador i{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:46px; height:46px; border-radius:50%;
+  background:var(--crema); border:1px solid var(--camel);
+  box-shadow:var(--sombra-alta);
+}
+.cmp-tirador i::before, .cmp-tirador i::after{
+  content:""; position:absolute; top:50%; width:0; height:0;
+  border-block:5px solid transparent;
+}
+.cmp-tirador i::before{ left:11px; border-right:7px solid var(--camel-texto); transform:translateY(-50%); }
+.cmp-tirador i::after{ right:11px; border-left:7px solid var(--camel-texto); transform:translateY(-50%); }
+.cmp-rango{ position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0; z-index:6; cursor:ew-resize; }
+.cmp-rango:focus-visible + .cmp-et{ outline:none; }
+.comparador:focus-within{ outline:2px solid var(--camel); outline-offset:3px; }
+.cmp-et{
+  position:absolute; top:1.1rem; z-index:5;
+  font-size:.62rem; letter-spacing:.18em; text-transform:uppercase;
+  padding:.28rem .7rem; border-radius:999px;
+  background:rgba(29,22,14,.6); color:var(--crema-texto); border:1px solid var(--linea-o);
+}
+.cmp-et-a{ left:1.1rem; }
+.cmp-et-b{ right:1.1rem; }
+.comparador figcaption{ position:absolute; left:0; right:0; bottom:1rem; z-index:5; text-align:center; }
+.comparador .foto-tag{ bottom:auto; top:3.4rem; }
+
+.banda-cta{
+  margin-top:clamp(2.5rem,5vw,3.5rem);
+  background:var(--cafe); color:var(--crema-texto); border-radius:20px;
+  padding:clamp(1.5rem,3vw,2rem) clamp(1.5rem,4vw,2.5rem);
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1.2rem;
+}
+.banda-cta p{ font-family:var(--f-disp); font-size:clamp(1.15rem,1rem + .8vw,1.6rem); letter-spacing:-.02em; max-width:34ch; }
+
+/* ─────────────────────────── Dos abordajes ────────────────────────── */
+.abordaje-par{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(1.8rem,4vw,3.5rem); }
+.abordaje .arco{ aspect-ratio:1/1; margin-bottom:1.8rem; }
+.abordaje-t{ font-size:clamp(1.6rem,1.2rem + 1.4vw,2.3rem); letter-spacing:-.025em; margin-bottom:.8rem; }
+.abordaje-n{ margin-top:1.1rem; font-size:.75rem; letter-spacing:.16em; text-transform:uppercase; color:var(--camel-texto); }
+.abordaje-frio .arco{ background:var(--frio-alt); }
+
+/* ──────────────────────── Proceso numerado ────────────────────────── */
+.metodo{ background:var(--arena); }
+.pasos{ display:grid; gap:clamp(2.5rem,5vw,4rem); max-width:1000px; margin-inline:auto; position:relative; }
+.pasos::before{ content:""; position:absolute; left:calc(24% + 1px); top:4%; bottom:4%; width:1px; background:linear-gradient(to bottom, transparent, var(--linea), transparent); }
+.paso{ display:grid; grid-template-columns:24% 1fr; gap:clamp(1.5rem,4vw,3.5rem); align-items:center; }
+.paso figure{ margin:0; aspect-ratio:3/4; }
+.paso-txt{ padding-left:clamp(.5rem,2vw,1.5rem); }
+.paso-n{ font-family:var(--f-disp); font-size:.8rem; letter-spacing:.22em; color:var(--camel-texto); margin-bottom:.7rem; }
+.paso-txt h3{ font-size:clamp(1.4rem,1.15rem + 1.1vw,2rem); letter-spacing:-.025em; margin-bottom:.7rem; }
+.paso-txt p{ color:var(--tinta-suave); max-width:36rem; }
+.paso-t{ margin-top:.9rem; font-size:.76rem; letter-spacing:.14em; text-transform:uppercase; color:var(--camel-texto); }
+/* Desalineadas en vertical entre un paso y el siguiente */
+.paso:nth-child(even) figure{ transform:translateY(14px); }
+
+/* ──────────────────────────── Cita de marca ───────────────────────── */
+
+/* ──────────────────────────── El catálogo ─────────────────────────── */
+/* Ninguna de las dos filas de pestañas se fija: el menú ya es fijo. */
+.fam-tabs{ display:flex; gap:.55rem; justify-content:center; flex-wrap:wrap; margin-bottom:clamp(2.5rem,5vw,3.5rem); position:relative; z-index:1; }
+.fam{
+  display:inline-flex; align-items:center; gap:.55rem;
+  background:var(--crema); border:1px solid var(--linea); border-radius:999px;
+  padding:.62rem 1.25rem; font-size:.86rem; color:var(--tinta-suave); cursor:pointer;
+  transition:background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
+}
+.fam span{ font-size:.72rem; color:var(--camel-texto); background:rgba(180,146,111,.16); border-radius:999px; min-width:1.5rem; padding:.05rem .45rem; text-align:center; }
+.fam:hover{ border-color:var(--camel); color:var(--tinta); transform:translateY(-2px); }
+.fam[aria-selected="true"]{ background:var(--cafe); color:var(--crema-texto); border-color:var(--cafe); }
+.fam[aria-selected="true"] span{ background:rgba(244,238,228,.16); color:var(--camel-claro); }
+
+
+.fam-cab{ display:grid; grid-template-columns:.42fr .58fr; gap:clamp(1.8rem,5vw,4rem); align-items:center; margin-bottom:clamp(1.5rem,3vw,2.5rem); }
+.fam-fig{ aspect-ratio:4/5; }
+.fam-titulo{ font-size:clamp(1.8rem,1.3rem + 2vw,2.9rem); letter-spacing:-.028em; line-height:1.06; margin-bottom:1rem; }
+.grupo-cab{ max-width:46rem; margin-bottom:1.8rem; }
+.grupo-sep{ margin-top:clamp(2.5rem,5vw,4rem); }
+.grupo-titulo{ font-size:clamp(1.5rem,1.2rem + 1.2vw,2.1rem); letter-spacing:-.025em; margin-bottom:.7rem; }
+
+.ciencia{ margin:2rem 0; }
+.ciencia-et{ font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--camel-texto); margin-bottom:1rem; }
+.ciencia-par{ display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; }
+.ciencia-col{ background:var(--arena); border:1px solid var(--linea-2); border-radius:var(--r); padding:1.5rem 1.4rem; }
+.ciencia-si{ background:var(--cafe); color:var(--crema-texto); border-color:transparent; }
+.ciencia-cab{ font-size:.7rem; letter-spacing:.16em; text-transform:uppercase; color:var(--camel-texto); margin-bottom:.9rem; }
+.ciencia-si .ciencia-cab{ color:var(--camel-claro); }
+.ciencia-col ul{ display:grid; gap:.7rem; }
+.ciencia-col li{ font-size:.93rem; line-height:1.55; padding-left:1.1rem; position:relative; color:var(--tinta-suave); }
+.ciencia-si li{ color:var(--crema-suave); }
+.ciencia-col li::before{ content:"✦"; position:absolute; left:0; font-size:.62rem; color:var(--camel); top:.35em; }
+
+.sellos{ display:flex; flex-wrap:wrap; gap:.5rem; margin:1.8rem 0; }
+.sellos-centro{ justify-content:center; margin-top:clamp(2.5rem,5vw,3.5rem); }
+.sellos li{ padding:.42rem 1rem; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-suave); border:1px solid var(--linea); border-radius:999px; }
+
+.avisos-par{ display:grid; grid-template-columns:repeat(2,1fr); gap:1.2rem; margin:1.8rem 0 2.4rem; }
+.aviso-nota{ padding-left:1.1rem; border-left:2px solid var(--camel); font-size:.92rem; color:var(--tinta-suave); line-height:1.65; }
+.aviso-medico{
+  background:rgba(180,146,111,.1); border:1px solid rgba(180,146,111,.35);
+  border-radius:var(--r); padding:1.3rem 1.5rem; margin:2rem 0;
+  font-size:.96rem; color:var(--tinta); max-width:58rem;
+}
+
+.ideas-par{ display:grid; grid-template-columns:repeat(2,1fr); gap:1.2rem; margin:0 0 2.4rem; }
+.idea{ background:var(--arena); border:1px solid var(--linea-2); border-radius:var(--r); padding:1.7rem 1.6rem; }
+.idea-marcada{ background:var(--cafe); color:var(--crema-texto); border-color:transparent; }
+.idea h5{ font-size:1.25rem; letter-spacing:-.02em; margin-bottom:.7rem; }
+.idea p{ font-size:.93rem; line-height:1.66; color:var(--tinta-suave); }
+.idea-marcada p{ color:var(--crema-suave); }
+.idea-pie{ margin-top:.8rem; font-size:.8rem !important; letter-spacing:.06em; }
+
+/* Tarjetas compactas */
+
+.descansos{ margin-top:2.2rem; background:var(--arena); border:1px solid var(--linea-2); border-radius:var(--r); padding:1.5rem 1.6rem; max-width:44rem; }
+.descansos-t{ font-family:var(--f-disp); font-size:1.15rem; margin-bottom:.9rem; }
+.descansos ul{ display:grid; gap:.55rem; }
+.descansos li{ font-size:.93rem; color:var(--tinta-suave); display:flex; gap:.7rem; }
+.descansos span{ color:var(--camel); font-size:.65rem; margin-top:.45rem; }
+
+
+/* ──────────────────────────── Tecnología ──────────────────────────── */
+
+/* ───────────────────────── Los dos espacios ───────────────────────── */
+.espacios{ background:var(--arena); }
+.pisos{ display:grid; gap:clamp(3rem,6vw,4.5rem); }
+.piso{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(1.8rem,5vw,4rem); align-items:center; }
+.piso:nth-child(even) .piso-fig{ order:2; }
+.piso-fig{ aspect-ratio:3/2; }
+.piso-frio .piso-fig{ background:var(--frio-alt); }
+.piso-txt h3{ font-size:clamp(1.7rem,1.3rem + 1.6vw,2.6rem); letter-spacing:-.028em; margin-bottom:.9rem; }
+
+/* ── El cruce de pisos ─────────────────────────────────────────────────
+   Subir de piso: el Piso 1 se va hacia arriba mientras el Piso 2 entra
+   desde abajo y acaba cubriéndolo. Se apoya en position:sticky, o sea que
+   el scroll sigue siendo el del navegador: no se bloquea, no se secuestra
+   y no hay pin de ningún tipo. GSAP solo añade el desplazamiento y el
+   atenuado, enganchados al scroll (scrub).
+   La clase .cruce la pone el JS, y solo en escritorio, con GSAP cargado y
+   si el usuario no ha pedido menos movimiento. Sin ella los dos pisos se
+   quedan uno debajo del otro, que es lo que pasa en celular. */
+.pisos.cruce{
+  /* flow-root, no block: hace falta que el margen de abajo del segundo piso
+     cuente DENTRO de la caja de contenido del contenedor. Si se colapsa hacia
+     fuera —lo que hace un block normal—, el sticky del segundo se queda sin
+     recorrido y el piso pasa de largo sin llegar nunca a su posición fija. */
+  display:flow-root;
+  /* El aire que queda por encima y por debajo de cada tarjeta cuando está
+     fija. Un solo número: lo usan el top del sticky y el alto. */
+  --aire-piso:3vh;
+}
+.pisos.cruce .piso{
+  position:sticky;
+  /* alto real del menú, medido por el JS; nunca un valor a ojo */
+  top:calc(var(--nav-real, var(--nav-h)) + var(--aire-piso));
+  /* Cada piso ocupa casi toda la pantalla, pero no toda: queda aire por
+     arriba y por abajo para que se vea que hay algo antes y después.
+     Y NUNCA más de lo que cabe entre el menú fijo y el borde de abajo: si
+     no cabe, encoge la tarjeta entera. La imagen no se recorta jamás. */
+  height:min(85vh, calc(100svh - var(--nav-real, var(--nav-h)) - var(--aire-piso) * 2));
+  grid-template-rows:1fr;
+  padding:clamp(1.4rem,2.4vw,2.2rem);
+  border-radius:28px;
+  background:var(--crema);
+  box-shadow:var(--sombra);
+}
+/* La imagen crece con la tarjeta; el texto se queda centrado en vertical. */
+.pisos.cruce .piso-fig{ align-self:stretch; aspect-ratio:auto; height:100%; }
+/* La cola: el recorrido que el Piso 2 necesita para quedarse fijo. Solo
+   existe con el cruce activo; sin él no pinta nada. */
+.pisos-cola{ display:none; }
+.pisos.cruce .pisos-cola{ display:block; height:40vh; }
+.pisos.cruce .piso-txt{ align-self:center; }
+/* El segundo piso llega desde abajo con su propio matiz: el gris claro
+   del Santuario. Al cubrir al primero se nota el cambio de mundo. */
+.pisos.cruce .piso-frio{
+  margin-top:32vh;
+  background:var(--frio);
+  box-shadow:var(--sombra-alta);
+}
+
+/* ─────────────────────────── ADN de marca ─────────────────────────── */
+/* ── ADN de marca: la única sección en camel ─────────────────────────────
+   Fondo #B4926F a sangre. El texto principal va en café oscuro; el
+   antetítulo y la línea de cierre, en crema, que sobre camel destacan. */
+.adn{ background:var(--camel); color:var(--cafe); }
+.adn h2, .adn h3{ color:var(--cafe); }
+.adn .parrafo, .adn .parrafo.destacado{ color:var(--cafe); }
+/* Sobre camel la trama se nota mucho más que sobre café: se baja. */
+.adn .trama-fondo{ opacity:.035; }
+.adn .eyebrow{ color:var(--crema-texto); }
+.adn .eyebrow .punto{ background:var(--crema-texto); }
+.adn .titulo em{ color:var(--crema-texto); font-style:italic; }
+.adn-cierre{ font-style:italic; }
+/* Los marcos de foto, en café: contra el camel se leen como huecos. */
+.adn .arco, .adn .arco-sm{ background:var(--cafe-alt); }
+.adn .arco .trama, .adn .arco-sm .trama{ opacity:.14; }
+/* Si aparece un botón, relleno café con texto crema. */
+.adn .btn{ --btn-bg:var(--cafe); --btn-fg:var(--crema-texto); border-color:var(--cafe); }
+.adn .btn:hover{ --btn-bg:var(--tabaco); --btn-fg:var(--crema-texto); border-color:var(--tabaco); }
+/* Etiquetas de trabajo: legibles sobre camel. */
+.adn .pendiente, .adn .nota-trabajo{ color:var(--cafe); background:rgba(244,238,228,.42);
+  border-color:rgba(29,22,14,.34); }
+
+.adn-grid{ display:grid; grid-template-columns:1.15fr .85fr; gap:clamp(2.2rem,6vw,5rem); align-items:center; }
+.adn-txt .eyebrow{ justify-content:flex-start; }
+.adn-txt .parrafo + .parrafo{ margin-top:1.2rem; }
+.adn-cierre{ margin-top:1.8rem; font-family:var(--f-disp); font-style:italic; font-size:clamp(1.5rem,1.2rem + 1.6vw,2.4rem); color:var(--crema-texto); letter-spacing:-.02em; }
+.adn-fig{ aspect-ratio:3/4; }
+
+/* ────────────────────────────── FAQ ───────────────────────────────── */
+.faq-lista{ display:grid; grid-template-columns:repeat(2,1fr); gap:.6rem 1.2rem; align-items:start; }
+.fq{ background:var(--arena); border:1px solid var(--linea-2); border-radius:14px; padding:0 1.3rem; transition:border-color .35s var(--ease), box-shadow .35s var(--ease); }
+.fq[open]{ border-color:rgba(180,146,111,.4); box-shadow:var(--sombra); }
+.fq summary{ display:flex; align-items:center; justify-content:space-between; gap:1.2rem; padding-block:1.15rem; cursor:pointer; list-style:none; font-family:var(--f-disp); font-size:clamp(1rem,.96rem + .3vw,1.16rem); letter-spacing:-.018em; line-height:1.35; }
+.fq summary::-webkit-details-marker{ display:none; }
+.fq summary::after{ content:""; flex:none; width:11px; height:11px; border-right:1.5px solid var(--camel-texto); border-bottom:1.5px solid var(--camel-texto); transform:rotate(45deg) translateY(-3px); transition:transform .4s var(--ease); }
+.fq[open] summary::after{ transform:rotate(225deg) translateY(-3px); }
+.fq > div{ padding-bottom:1.3rem; }
+.fq p{ font-size:.93rem; color:var(--tinta-suave); line-height:1.7; }
+
+/* ──────────────────────────── Contacto ────────────────────────────── */
+/* Las tres tarjetas miden lo mismo y sus botones se apoyan abajo: si una
+   lleva dos acciones, no se dispara de alto respecto a las otras. */
+.contacto-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:1rem; align-items:stretch; }
+.c-card{ display:flex; flex-direction:column; background:var(--cafe-alt); border:1px solid var(--linea-o);
+  border-radius:20px; padding:1.8rem 1.6rem; transition:transform .5s var(--ease), box-shadow .5s var(--ease); }
+.c-card .btn:first-of-type{ margin-top:auto; }
+.c-card .btn{ justify-content:center; }
+.c-card:hover{ transform:translateY(-4px); box-shadow:var(--sombra-alta); }
+.c-card-wa{ background:var(--camel); color:var(--cafe); border-color:transparent; }
+.c-et{ font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--camel-claro); margin-bottom:.55rem; }
+.c-card-wa .c-et{ color:var(--cafe); opacity:.72; }
+.c-card h3{ font-size:1.5rem; letter-spacing:-.025em; margin-bottom:.8rem; }
+.c-card-wa h3{ color:var(--cafe); }
+.c-dato{ margin-bottom:.9rem; }
+.c-txt{ font-size:.9rem; line-height:1.65; color:var(--crema-suave); margin-bottom:1rem; }
+.c-card-wa .c-txt{ color:rgba(29,22,14,.8); }
+.c-card address{ font-style:normal; font-family:var(--f-disp); font-size:1.18rem; line-height:1.45; margin-bottom:.9rem; }
+
+/* ────────────────────────────── Pie ───────────────────────────────── */
+.pie{ background:var(--cafe); color:var(--crema-suave); padding-block:clamp(3rem,6vw,4.5rem) 2rem; font-size:.9rem; }
+.pie-top{ display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:2.5rem; padding-bottom:2.5rem; border-bottom:1px solid var(--linea-o); }
+.pie-logo{ width:min(150px,50vw); height:auto; margin-bottom:1rem; }
+.pie-marca p{ line-height:1.6; max-width:22rem; }
+.pie-nav{ display:grid; gap:.5rem; align-content:start; }
+.pie-nav a{ text-decoration:none; transition:color .3s var(--ease); width:fit-content; }
+.pie-nav a:hover{ color:var(--camel-claro); }
+.pie-datos{ display:grid; gap:.55rem; align-content:start; justify-items:start; }
+.pie-legal{ padding-top:1.75rem; display:grid; gap:.7rem; font-size:.78rem; line-height:1.6; }
+.pie-legal strong{ color:var(--camel-claro); }
+.pie-mini{ display:flex; flex-wrap:wrap; gap:.6rem; align-items:center; margin-top:.4rem; font-size:.74rem; opacity:.8; }
+
+/* ─────────────────────── WhatsApp flotante ────────────────────────── */
+.wa-flotante{
+  position:fixed; right:1.1rem; bottom:1.1rem; z-index:70;
+  width:54px; height:54px; border-radius:50%;
+  background:#1f7a54; color:#fff; display:grid; place-items:center;
+  box-shadow:0 10px 30px -10px rgba(31,122,84,.75), 0 2px 6px rgba(0,0,0,.14);
+  opacity:0; visibility:hidden; transform:translateY(12px);
+  transition:opacity .45s var(--ease), transform .45s var(--ease), visibility .45s;
+}
+.wa-flotante.se-ve{ opacity:1; visibility:visible; transform:none; }
+.wa-flotante:hover{ transform:translateY(-4px) scale(1.05); }
+
+/* ─────────────────────── Guion de fotos ───────────────────────────── */
+
+/* ══════════════ Capas a pantalla completa (detalle y buscador) ══════ */
+body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden; }
+
+.capa{
+  position:fixed; inset:0; z-index:200; height:100dvh;
+  display:flex; flex-direction:column;
+  background:rgba(244,238,228,.86);
+  opacity:0; transition:opacity .32s var(--ease);
+}
+@supports (backdrop-filter:blur(18px)){
+  /* La página se difumina detrás, no se corta a negro */
+  .capa{ background:rgba(244,238,228,.72); backdrop-filter:blur(22px) saturate(130%); -webkit-backdrop-filter:blur(22px) saturate(130%); }
+}
+.capa.esta-abierta{ opacity:1; }
+
+.capa-cab{ flex:none; display:flex; align-items:center; gap:1.25rem; padding:.85rem clamp(1rem,3vw,2rem); border-bottom:1px solid var(--linea-2); }
+.capa-marca{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--camel-texto); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.capa-guia{ display:flex; align-items:center; gap:.3rem; margin-inline:auto; font-size:.78rem; color:var(--tinta-suave); }
+.capa-guia li{ display:flex; align-items:center; gap:.45rem; padding:.28rem .75rem; border-radius:999px; border:1px solid transparent; white-space:nowrap; transition:color .3s var(--ease), background .3s var(--ease), border-color .3s var(--ease); }
+.capa-guia li span{ width:19px; height:19px; flex:none; border-radius:50%; display:grid; place-items:center; font-size:.66rem; background:rgba(36,28,20,.09); color:var(--tinta-suave); }
+.capa-guia li[aria-current="step"]{ color:var(--tinta); background:var(--arena); border-color:rgba(180,146,111,.35); }
+.capa-guia li[aria-current="step"] span{ background:var(--camel); color:var(--cafe); }
+.capa-guia li.hecho span{ background:var(--camel-claro); color:var(--cafe); }
+.capa-x{ flex:none; margin-left:auto; width:44px; height:44px; border-radius:50%; border:1px solid var(--linea); background:var(--crema); color:var(--tinta); display:grid; place-items:center; cursor:pointer; transition:background .3s var(--ease), color .3s var(--ease), transform .3s var(--ease); }
+.capa-x:hover{ background:var(--cafe); color:var(--crema-texto); transform:rotate(90deg); }
+
+.capa-scroll{ flex:1 1 auto; overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; }
+.capa-dentro{ width:min(100% - 2.5rem, 1000px); margin-inline:auto; padding-block:clamp(1.75rem,5vw,3.25rem) clamp(2rem,6vw,4rem); }
+.paso-c{ animation:pasoIn .45s var(--ease) both; }
+@keyframes pasoIn{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:none; } }
+.capa-pie{ flex:none; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.8rem clamp(1rem,3vw,2rem); border-top:1px solid var(--linea-2); background:rgba(231,221,206,.75); font-size:.85rem; color:var(--tinta-suave); }
+.capa-nav{ display:flex; gap:.5rem; }
+.capa-flecha{ display:inline-flex; align-items:center; gap:.5rem; padding:.6rem 1.05rem; border:1px solid var(--linea); border-radius:999px; font-size:.78rem; background:var(--crema); cursor:pointer; transition:border-color .3s var(--ease), color .3s var(--ease); }
+.capa-flecha:hover{ border-color:var(--camel); color:var(--camel-texto); }
+.capa-indice{ font-size:.75rem; letter-spacing:.14em; text-transform:uppercase; }
+
+/* Detalle del protocolo */
+.detalle{ display:grid; grid-template-columns:.42fr .58fr; gap:clamp(1.8rem,4vw,3.2rem); align-items:start; }
+.detalle-fig{ aspect-ratio:4/5; position:sticky; top:0; }
+.detalle-t{ font-family:var(--f-disp); font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem); line-height:1.03; letter-spacing:-.03em; margin-bottom:.5rem; }
+.detalle-sub{ font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--camel-texto); margin-bottom:1.5rem; }
+.detalle-cuerpo > p{ color:var(--tinta-suave); margin-bottom:1.2rem; }
+.detalle-datos{ display:grid; gap:1rem; padding:1.4rem 0; border-block:1px solid var(--linea-2); margin-bottom:1.4rem; }
+.detalle-datos dt{ font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; color:var(--camel-texto); margin-bottom:.2rem; }
+.detalle-datos dd{ margin:0; font-size:.94rem; color:var(--tinta-suave); }
+.detalle-lista{ display:grid; gap:.55rem; margin-bottom:1.4rem; }
+.detalle-lista li{ font-size:.92rem; color:var(--tinta-suave); display:flex; gap:.7rem; }
+.detalle-lista li::before{ content:"✦"; color:var(--camel); font-size:.62rem; margin-top:.45rem; }
+.detalle-aviso{ padding-left:1.1rem; border-left:2px solid var(--camel); font-size:.92rem; color:var(--tinta-suave); }
+
+/* Buscador */
+.capa-titulo{ font-family:var(--f-disp); font-size:clamp(1.9rem,1.4rem + 2.2vw,3rem); line-height:1.06; letter-spacing:-.03em; }
+.capa-sub{ margin-top:1rem; color:var(--tinta-suave); max-width:44rem; }
+.opciones{ display:grid; gap:.7rem; margin-top:2.2rem; }
+.opciones-2{ grid-template-columns:repeat(2,1fr); }
+.opcion{ display:flex; align-items:center; gap:1rem; text-align:left; width:100%; padding:1.05rem 1.2rem; background:var(--crema); border:1px solid var(--linea); border-radius:14px; cursor:pointer; transition:border-color .3s var(--ease), background .3s var(--ease), transform .3s var(--ease); }
+.opcion:hover{ border-color:var(--camel); transform:translateY(-2px); }
+.opcion.elegida{ border-color:var(--camel); background:rgba(180,146,111,.12); }
+.opcion-dib{ flex:none; width:42px; height:42px; }
+.opcion-dib path{ fill:none; stroke:var(--camel); stroke-width:2.2; stroke-linecap:round; }
+.opcion-txt{ font-size:.98rem; }
+.opcion-marca{ margin-left:auto; width:18px; height:18px; flex:none; border:1px solid var(--linea); border-radius:50%; }
+.opcion.elegida .opcion-marca{ border-color:var(--camel); background:var(--camel); }
+.capa-acciones{ display:flex; flex-wrap:wrap; gap:.8rem; align-items:center; margin-top:2rem; }
+.volver{ background:none; border:0; cursor:pointer; font-size:.8rem; letter-spacing:.06em; color:var(--tinta-suave); }
+.volver:hover{ color:var(--camel-texto); }
+
+.res-item{ background:var(--crema); border:1px solid var(--linea-2); border-radius:var(--r); padding:1.4rem 1.3rem; display:grid; gap:.7rem; }
+.res-lista{ display:grid; gap:.8rem; margin-top:2rem; }
+.res-item.elegido{ border-color:var(--camel); background:rgba(180,146,111,.1); }
+.res-cab{ display:flex; align-items:flex-start; gap:.9rem; cursor:pointer; }
+.res-cab input{ margin-top:.35em; width:18px; height:18px; flex:none; accent-color:var(--camel); }
+.res-nombre{ display:block; font-family:var(--f-disp); font-size:1.24rem; letter-spacing:-.02em; }
+.res-sub{ display:block; font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--tinta-suave); margin-top:.3rem; }
+.res-que{ font-size:.92rem; color:var(--tinta-suave); }
+.res-porque{ font-size:.92rem; padding-left:1rem; border-left:2px solid var(--camel); }
+.bloque-res{ margin-top:2.5rem; }
+.bloque-res > h3{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--tinta-suave); padding-bottom:.8rem; border-bottom:1px solid var(--linea-2); margin-bottom:1.2rem; }
+.nota-regla{ margin-top:.8rem; font-size:.9rem; padding-left:1rem; border-left:2px solid var(--camel); color:var(--tinta-suave); }
+.tambien{ margin-top:1.2rem; font-size:.88rem; color:var(--tinta-suave); }
+.descartes summary{ cursor:pointer; list-style:none; font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; padding:1rem 0; border-block:1px solid var(--linea-2); position:relative; }
+.descartes summary::-webkit-details-marker{ display:none; }
+.descartes summary::after{ content:"+"; position:absolute; right:.2rem; top:50%; transform:translateY(-50%); color:var(--camel-texto); font-size:1.1rem; }
+.descartes[open] summary::after{ content:"−"; }
+.descartes-lista{ display:grid; grid-template-columns:repeat(2,1fr); gap:.9rem 2rem; padding:1.4rem 0 .4rem; }
+.desc-n{ display:block; font-size:.95rem; }
+.desc-m{ display:block; font-size:.85rem; color:var(--tinta-suave); }
+
+/* Sin resultado: el mensaje que corresponda, nunca una pantalla vacía */
+.sin-res{ background:var(--cafe); color:var(--crema-texto); border-radius:20px; padding:clamp(1.8rem,4vw,2.6rem); margin-top:1.5rem; position:relative; overflow:hidden; }
+.sin-res-t{ font-family:var(--f-disp); font-size:clamp(1.5rem,1.2rem + 1.4vw,2.2rem); letter-spacing:-.025em; margin-bottom:.9rem; }
+.sin-res p{ color:var(--crema-suave); }
+.sin-res-et{ font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--camel-claro); margin-bottom:.8rem; }
+
+/* En contacto, la pareja de botones va una encima de otra dentro de la tarjeta. */
+.c-card-wa .btn + .btn{ margin-top:.6rem; }
+/* La tarjeta es camel: un botón camel encima no se vería. Va en café. */
+.c-card-wa .c-agenda{ --btn-bg:var(--cafe); --btn-fg:var(--crema-texto); border-color:var(--cafe); }
+.c-card-wa .c-agenda:hover{ --btn-bg:var(--tabaco); border-color:var(--tabaco); }
+.wa-caja{ margin-top:2.5rem; background:var(--arena); border:1px solid rgba(180,146,111,.4); border-radius:20px; padding:1.8rem 1.6rem; }
+.wa-caja h3{ font-size:1.3rem; margin-bottom:.6rem; }
+.wa-msg{ margin-top:1.2rem; padding:1.1rem 1.2rem; background:var(--crema); border:1px dashed rgba(180,146,111,.5); border-radius:12px; font-family:var(--f-body); font-size:.88rem; white-space:pre-wrap; line-height:1.6; }
+
+/* ── Pantallas de poca altura (portátiles de 768–900 px) ──
+   Se aprieta lo que no es titular ni botones para que la banda de
+   iconos siga entrando entera en la primera pantalla. */
+@media (max-height: 900px) and (min-height: 841px) and (min-width: 1081px){
+  .ha-titulo{ font-size:min(clamp(64px,8vw,132px), 12.2vh); }
+  .ha-eyebrow{ margin-bottom:.75rem; }
+  .ha-cifras{ margin-top:.8rem; padding-top:.65rem; }
+  .ha-pie{ margin-top:1rem; gap:.95rem; }
+  .ha-sub{ font-size:1.25rem; }
+  .ha-lugar{ margin-top:1rem; }
+}
+
+@media (max-height: 840px) and (min-width: 1081px){
+  .ha-titulo{ font-size:min(clamp(56px,8vw,132px), 13vh); }
+  .ha-eyebrow{ margin-bottom:.7rem; }
+  .ha-cifras{ margin-top:.6rem; padding-top:.55rem; }
+  .ha-cifras strong{ font-size:2.5rem; }
+  .ha-pie{ margin-top:.75rem; gap:.8rem; }
+  .ha-sub{ font-size:1.14rem; line-height:1.48; }
+  .hero-a .hero-ctas{ gap:.6rem; }
+  .hero-a .hero-ctas .btn{ padding:.82rem 1.6rem; font-size:.97rem; }
+  .ha-lugar{ margin-top:.9rem; }
+}
+
+/* Portatiles de 768 px: el marco baja de 480 px y el texto tiene que
+   caber dentro de el para no empujar la banda de sellos. */
+@media (max-height: 790px) and (min-width: 1081px){
+  .ha-titulo{ font-size:min(clamp(56px,8vw,132px), 11.6vh); }
+  .ha-cifras strong{ font-size:2.2rem; }
+  .ha-pie{ margin-top:.7rem; gap:.85rem; }
+  .ha-sub{ font-size:1.14rem; line-height:1.45; }
+  .ha-lugar{ margin-top:.7rem; }
+}
+
+/* ── El catálogo: en la página solo la entrada ──────────────────────────
+   Un bloque pequeño —titular, dos líneas y un botón— que abre el catálogo
+   entero en la misma capa a pantalla completa que usa el buscador. */
+/* Banda en café profundo, a todo el ancho: un corte entre la sección de
+   arriba y la de abajo. El color, el antetítulo en camel claro, la cursiva
+   del titular y el texto en crema los pone la clase .oscuro, la misma que
+   usan las demás bandas oscuras. */
+.catalogo-entrada{ padding-block:clamp(1.4rem,2vw,2.2rem); }
+/* El aire muerto estaba en la sección de encima, no aquí: la banda arranca
+   mucho antes. Se recorta solo cuando es la banda la que viene detrás. */
+.seccion:has(+ .catalogo-entrada){ padding-bottom:clamp(1.4rem,2.2vw,2rem); }
+/* En portátiles de poca altura media pantalla son menos píxeles: la banda
+   se aprieta un punto más para no pasarse. */
+@media (max-height:800px) and (min-width:1081px){
+  .catalogo-entrada{ padding-block:1rem; }
+  .cat-entrada .parrafo{ margin-bottom:.9rem; }
+}
+.cat-entrada{ max-width:48rem; margin-inline:auto; text-align:center; }
+.cat-entrada .eyebrow{ margin-bottom:.4rem; }
+/* 15ch parte "Veinticuatro protocolos." por la mitad: aquí cabe entero. */
+.cat-entrada .titulo{ font-size:clamp(2.4rem,2rem + 2.2vw,3.8rem); line-height:1.03; margin-bottom:.8rem; max-width:24ch; }
+/* Las dos líneas tienen que ser dos, no tres: 40rem parte la primera. */
+.cat-entrada .parrafo{ max-width:48rem; font-size:1rem; margin-bottom:clamp(1rem,1.6vw,1.35rem); }
+/* El botón es la única acción de la banda: que pese. */
+.cat-entrada .btn{ padding:1.22rem 2.8rem; font-size:1.1rem; font-weight:500; letter-spacing:.005em; box-shadow:var(--sombra-alta); }
+.cat-entrada .btn:hover{ transform:translateY(-3px); }
+.contexto-fuente[hidden]{ display:none; }
+
+/* ── El catálogo dentro de la capa ── */
+#capa-catalogo .fam-tabs{ margin-bottom:clamp(1.8rem,3.5vw,2.75rem); }
+.cat-bloque + .cat-bloque{ margin-top:clamp(2.2rem,4vw,3.25rem); }
+.cat-bloque-t{
+  display:flex; align-items:baseline; gap:.6rem;
+  font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--camel-texto);
+  padding-bottom:.7rem; border-bottom:1px solid var(--camel); margin-bottom:1.2rem;
+}
+.cat-bloque-t span{ margin-left:auto; color:var(--tinta-suave); letter-spacing:.1em; }
+
+.tarjetas{ display:grid; grid-template-columns:repeat(auto-fill,minmax(285px,1fr)); gap:1rem; }
+.tarjeta{
+  display:flex; flex-direction:column; text-align:left; width:100%;
+  padding:1.4rem 1.35rem; background:var(--crema); border:1px solid var(--linea-2);
+  border-radius:var(--r); cursor:pointer; position:relative; overflow:hidden;
+  transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);
+  /* Llegada escalonada: la tarjeta sube al abrirse la capa. */
+  animation:tarjetaEntra .5s var(--ease) both;
+}
+.tarjeta::before{
+  content:""; position:absolute; inset:0 0 auto 0; height:2px; background:var(--camel);
+  transform:scaleX(0); transform-origin:left; transition:transform .5s var(--ease);
+}
+.tarjeta:hover{ transform:translateY(-5px); box-shadow:var(--sombra-alta); border-color:transparent; }
+.tarjeta:hover::before{ transform:scaleX(1); }
+.tarjeta-top{ display:flex; align-items:baseline; justify-content:space-between; gap:.9rem; margin-bottom:.65rem; }
+.tarjeta-nombre{ font-family:var(--f-disp); font-size:1.2rem; letter-spacing:-.018em; line-height:1.2; }
+.tarjeta-meta{ font-size:.76rem; color:var(--camel-texto); white-space:nowrap; }
+.tarjeta-sub{ font-size:.68rem; letter-spacing:.11em; text-transform:uppercase; color:var(--tinta-suave); margin-bottom:.7rem; }
+.tarjeta-txt{ font-size:.92rem; color:var(--tinta-suave); line-height:1.6; margin-bottom:.8rem; }
+.tarjeta-para{ font-size:.85rem; color:var(--tinta-suave); line-height:1.55; margin-bottom:1rem; }
+.tarjeta-para-et{ color:var(--camel-texto); font-weight:600; }
+.tarjeta-mas{ margin-top:auto; border-top:1px solid var(--linea-2); padding-top:.7rem;
+  display:flex; align-items:center; justify-content:space-between;
+  font-size:.75rem; letter-spacing:.06em; text-transform:uppercase; color:var(--tinta-suave); }
+.tarjeta-mas::after{ content:"+"; font-size:1.05rem; color:var(--camel-texto); transition:transform .35s var(--ease); }
+.tarjeta:hover .tarjeta-mas::after{ transform:rotate(90deg); }
+.tarjeta-destacada{ border-color:var(--camel); }
+@keyframes tarjetaEntra{ from{ opacity:0; transform:translateY(18px); } to{ opacity:1; transform:none; } }
+.tarjeta:nth-child(2){ animation-delay:.04s; }
+.tarjeta:nth-child(3){ animation-delay:.08s; }
+.tarjeta:nth-child(4){ animation-delay:.12s; }
+.tarjeta:nth-child(5){ animation-delay:.16s; }
+.tarjeta:nth-child(n+6){ animation-delay:.2s; }
+
+/* El contexto del grupo dentro de la capa: plegado, no estorba al detalle. */
+.detalle-ctx{ grid-column:1 / -1; margin-top:clamp(2rem,4vw,3rem);
+  border-top:1px solid var(--linea); padding-top:1.3rem; }
+.detalle-ctx summary{ cursor:pointer; font-size:.72rem; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--camel-texto); }
+.detalle-ctx summary:hover{ color:var(--camel-hover); }
+.detalle-ctx-in{ margin-top:1.8rem; }
+.detalle-ctx-in .fam-cab{ grid-template-columns:1fr; }
+.detalle-ctx-in .fam-fig{ max-width:360px; }
+
+}
+
+/* El contexto del grupo dentro de la capa: plegado, no estorba al detalle. */
+.detalle-ctx{ grid-column:1 / -1; margin-top:clamp(2rem,4vw,3rem);
+  border-top:1px solid var(--linea); padding-top:1.3rem; }
+.detalle-ctx summary{ cursor:pointer; font-size:.72rem; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--camel-texto); }
+.detalle-ctx summary:hover{ color:var(--camel-hover); }
+.detalle-ctx-in{ margin-top:1.8rem; }
+.detalle-ctx-in .fam-cab{ grid-template-columns:1fr; }
+.detalle-ctx-in .fam-fig{ max-width:360px; }
+
+/* ── Galería "El Lab, por dentro" ───────────────────────────────────────
+   Dos marcos quietos, uno al lado del otro. No se mueven, no giran y no
+   cambian de tamaño: lo único que cambia es la imagen de dentro, que se
+   releva con el scroll. Los marcos se quedan en su sitio con
+   position:sticky.
+   OJO: aquí no se puede usar overflow:hidden en la sección. Un ancestro con
+   overflow distinto de visible/clip se convierte en el scrollport del sticky
+   y lo deja sin efecto. Por eso el recorte lateral es overflow-x:clip. */
+/* El camel del ADN entra justo detrás: 120 px de respiro entre el final de
+   las fotos y el corte de color. */
+.galeria{ padding-block:clamp(1.2rem,2vw,1.7rem) 120px; overflow-x:clip; overflow-y:visible; }
+.reel-cab{ display:flex; align-items:baseline; gap:1rem 1.4rem; flex-wrap:wrap; margin-bottom:0; }
+.reel-t{ font-family:var(--f-disp); font-size:clamp(1.6rem,1.1rem + 1.5vw,2.4rem);
+  line-height:1.05; letter-spacing:-.03em; color:var(--crema-texto); }
+.reel-t em{ font-style:italic; color:var(--camel-claro); }
+
+/* El recorrido: cada pareja aguanta una pantalla entera de scroll.
+   Cuatro esperas de 100vh + tres cambios de 25vh + el alto de la escena. */
+.reel{ position:relative; z-index:1; height:560vh; }
+.reel-escena{
+  position:sticky;
+  /* alto real del menú, medido por el JS; nunca un valor a ojo */
+  top:calc(var(--nav-real, var(--nav-h)) + 3vh);
+  height:calc(100svh - var(--nav-real, var(--nav-h)) - 6vh);
+  display:flex; align-items:center; justify-content:center;
+  gap:clamp(1.5rem,4vw,4rem);
+}
+.reel-marco{
+  position:relative; margin:0; overflow:hidden; flex:none;
+  /* 30vw, salvo que no quepa de alto: entonces manda el alto de la escena. */
+  width:min(30vw, calc((100svh - var(--nav-real, var(--nav-h)) - 6vh) * .5625));
+  aspect-ratio:9/16;
+  border-radius:22px; background:var(--cafe-alt); box-shadow:var(--sombra-alta);
+}
+/* Las cuatro tomas de cada marco ocupan el mismo sitio y se relevan. */
+.reel-toma{ position:absolute; inset:0; opacity:0; }
+.reel-toma[data-primera]{ opacity:1; }
+.reel-toma img, .reel-toma video{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  filter:saturate(.86) contrast(1.04) brightness(1.02) sepia(.08);
+}
+.reel-toma .foto-tag{ z-index:3; }
+
+@media (max-width:760px){
+  /* Los dos marcos uno debajo de otro, y las imágenes cambiando igual. */
+  .reel{ height:480vh; }
+  .reel-escena{ flex-direction:column; gap:1rem;
+    top:calc(var(--nav-real, var(--nav-h)) + 2vh);
+    height:calc(100svh - var(--nav-real, var(--nav-h)) - 4vh); }
+  .reel-marco{
+    width:min(58vw, calc(((100svh - var(--nav-real, var(--nav-h)) - 4vh - 1rem) / 2) * .5625));
+  }
+}
+
+/* Sin GSAP o con movimiento reducido: las ocho seguidas, sin sticky. */
+.reel.suelto{ height:auto; }
+.reel.suelto .reel-escena{ position:static; height:auto; display:grid;
+  grid-template-columns:minmax(0,1fr); gap:clamp(1rem,3vw,1.6rem);
+  padding:clamp(1.2rem,3vw,2rem) 1.25rem; }
+.reel.suelto .reel-marco{ width:100%; max-width:420px; margin-inline:auto;
+  aspect-ratio:auto; background:none; box-shadow:none; overflow:visible;
+  display:grid; gap:clamp(1rem,3vw,1.6rem); }
+.reel.suelto .reel-toma{ position:relative; inset:auto; opacity:1 !important;
+  aspect-ratio:9/16; border-radius:22px; overflow:hidden;
+  background:var(--cafe-alt); box-shadow:var(--sombra-alta); }
+
+/* ═══════════════════════════ RESPONSIVE ═══════════════════════════ */
+@media (max-width:1080px){
+  .nav-links,.nav-cta{ display:none; }
+  .burger{ display:block; }
+  .hero-in{ grid-template-columns:1fr; gap:2.5rem; }
+  .hero-media{ max-width:440px; margin-inline:auto; width:100%; }
+  .fam-cab{ grid-template-columns:1fr; }
+  .fam-fig{ max-width:340px; aspect-ratio:16/10; }
+  .adn-grid{ grid-template-columns:1fr; }
+  .adn-fig{ max-width:400px; }
+  .piso{ grid-template-columns:1fr; }
+  .piso:nth-child(even) .piso-fig{ order:0; }
+  .detalle{ grid-template-columns:1fr; }
+  .detalle-fig{ position:static; max-width:360px; }
+  .pie-top{ grid-template-columns:1fr 1fr; }
+  .pie-marca{ grid-column:1 / -1; }
+}
+
+@media (max-width:1080px){
+  .comparadores{ grid-template-columns:1fr; max-width:460px; margin-inline:auto; }
+  .hero-a-in{ grid-template-columns:minmax(0,1fr); grid-template-areas:"texto" "marco";
+      padding-inline:calc((100% - min(100% - 2.5rem, var(--wrap))) / 2); }
+  .ha-marco-zona{ justify-self:center; width:100%; max-width:440px; margin-top:2rem; }
+  .ha-marco-zona{ align-items:center; }
+  .ha-marco{ height:auto; max-height:none; aspect-ratio:6/5; width:100%; }
+  .ha-titulo{ margin-right:0; font-size:clamp(56px,8.5vw,110px); }
+  .apto-fila{ flex-wrap:wrap; justify-content:center; row-gap:1.6rem; }
+  .apto-item{ flex:0 1 calc(25% - 1.4rem); }
+}
+
+@media (max-width:760px){
+  :root{ --nav-h:58px; }
+  /* En celular la portada se aprieta todo lo que se puede para que la
+     banda de sellos quede justo al borde de la primera pantalla. */
+  /* ── Portadas en celular ── */
+  .hero-a{ padding-block:1.4rem 1rem; }
+  .hero-a .hero-ctas{ flex-wrap:wrap; }
+  .hero-a .hero-ctas .btn{ padding:.85rem 1.4rem; font-size:.94rem; }
+  .hero-a .marco-mandos{ margin-top:8px; }
+  /* En celular el marco no se apila debajo: se pone al lado del titular,
+     más pequeño. Así la banda de sellos llega a asomar. */
+  .hero-a-in{
+    grid-template-columns:minmax(0,1fr) 44%;
+    grid-template-areas:"texto marco";
+    column-gap:1rem; align-items:center;
+    padding-inline:calc((100% - min(100% - 2rem, var(--wrap))) / 2);
+  }
+  .ha-titulo{ font-size:clamp(2.4rem,11.5vw,3.1rem); margin-right:-1rem; }
+  .ha-marco-zona{ justify-self:stretch; align-self:center; align-items:center; width:100%; max-width:none; margin-top:0; }
+  .ha-marco{ height:auto; max-height:none; aspect-ratio:6/5; width:100%; }
+  .ha-cifras{ display:flex; gap:1.6rem; border-right:0; border-top:1px solid var(--linea-o); padding:.8rem 0 0; margin-top:.9rem; }
+  .ha-cifras strong{ font-size:1.5rem; }
+  .ha-pie{ margin-top:.9rem; gap:.9rem; }
+  .ha-lugar{ margin-top:.9rem; }
+  .hero-ctas{ gap:.45rem; }
+
+  /* La B también llena la primera pantalla en celular: el min-height
+     sale de la fórmula común, no se anula. */
+  /* En celular los dos paneles a 4:5 no caben flotando al lado del texto:
+     la banda pasa al flujo, debajo, a todo el ancho. */
+  .hero-card{ right:-6%; left:auto; top:auto; bottom:12%; padding:.6rem .85rem; }
+  .marco-mandos{ margin-top:.7rem; }
+
+  /* En celular la banda de sellos es un carrusel horizontal */
+  /* En celular los dos grupos van a dos columnas: una sola columna con los
+     quince nombres estiraría la sección muchísimo. */
+  .fam{ padding:.5rem .8rem; font-size:.74rem; }
+  .apto-fila{
+    flex-wrap:nowrap; overflow-x:auto; scroll-snap-type:x proximity;
+    gap:.9rem; scrollbar-width:none;
+    margin-inline:-1rem; padding-inline:1rem;
+  }
+  .apto-fila::-webkit-scrollbar{ display:none; }
+  .apto-item{ flex:0 0 122px; scroll-snap-align:start; gap:.6rem; }
+  .apto-item .ic{ width:50px; height:50px; }
+  .apto-t{ font-size:.78rem; }
+  .banda-cta{ flex-direction:column; align-items:flex-start; }
+  .marquesina-pista{ font-size:.95rem; animation-duration:21s; }
+  .wrap,.nav-in,.hero-in{ width:calc(100% - 2rem); }
+  .seccion{ padding-block:clamp(3.25rem,11vw,4.5rem); }
+  .avisobar{ font-size:.72rem; padding-block:.7rem; text-align:left; }
+  .avisobar-sep{ display:none; }
+  .hero{ padding-block:1.5rem 3rem; }
+  .hero-ctas{ flex-direction:column; align-items:stretch; }
+  .hero-ctas .btn{ width:100%; }
+  .hero-meta{ gap:1rem 1.4rem; }
+  .hero-card{ right:auto; left:-3%; top:5%; padding:.6rem .9rem; }
+  .scroll-cue{ display:none; }
+  .abordaje-par{ grid-template-columns:1fr; }
+  .paso{ grid-template-columns:1fr; gap:1.2rem; }
+  .pasos::before{ display:none; }
+  .paso figure{ max-width:200px; aspect-ratio:3/4; }
+  .paso:nth-child(even) figure{ transform:none; }
+  .paso-txt{ padding-left:0; }
+  .ciencia-par,.avisos-par,.ideas-par,.faq-lista,.descartes-lista,.opciones-2{ grid-template-columns:1fr; }
+  .tarjetas{ grid-template-columns:1fr; }
+  .fam-tabs,.sub-tabs{ flex-wrap:nowrap; overflow-x:auto; justify-content:flex-start; scrollbar-width:none; margin-inline:-1rem; padding:.25rem 1rem; }
+  .fam-tabs::-webkit-scrollbar,.sub-tabs::-webkit-scrollbar{ display:none; }
+  .fam,.sub{ flex:none; }
+  .capa-guia{ display:none; }
+  .pie-top{ grid-template-columns:1fr; gap:1.75rem; }
+  .wa-flotante{ width:50px; height:50px; right:.9rem; bottom:.9rem; }
+}
+
+@media (min-width:1600px){ :root{ --wrap:1320px; } }
+
+/* ════════════ Movimiento reducido ════════════
+   Se apagan los bucles y los desplazamientos largos. Los micro-efectos
+   siguen, porque Windows trae esta preferencia activada de fábrica en
+   muchas instalaciones y apagarlo todo deja la página muerta. */
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; }
+  .scroll-cue span{ animation:none; }
+  .marquesina-pista{ animation:none; }
+  .tarjeta{ animation:none; }
+  .escena{ transition-duration:.3s; }
+  .js .reveal{ transition-duration:.35s; transform:none; }
+  .js .ln-i{ transition-duration:.35s; }
+  .js [data-escalonado] > *{ transition-duration:.35s; transform:none; }
+  .btn:hover,.tarjeta:hover,.c-card:hover,.wa-flotante:hover{ transform:none; }
+}

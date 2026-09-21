@@ -1,0 +1,25 @@
+# ── macOS ──
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# ── Claves y configuración local: nunca al repositorio ──
+.env
+.env.*
+*.key
+*.pem
+*.p12
+secret_config.php
+gemini_api_key.php
+credenciales.*
+config.local.*
+*.local.json
+.claude/settings.local.json
+
+# ── Editores ──
+.vscode/
+.idea/
+*.swp
+
+# Nota: las imágenes SÍ se suben, incluidas las de assets/photos/source/.

@@ -1,0 +1,77 @@
+{
+ "FOTO-01": {
+  "cod": "FOTO-01",
+  "fuente": "picsum.photos (Unsplash)",
+  "id": 65,
+  "url": "https://picsum.photos/id/65/1200/1800",
+  "licencia": "Unsplash License — uso comercial permitido, sin atribución obligatoria",
+  "porque": "Melena larga a contraluz, de espaldas, hora dorada — la más cercana al retrato editorial",
+  "px": "1200x1800"
+ },
+ "FOTO-20": {
+  "cod": "FOTO-20",
+  "consulta": "curly hair",
+  "titulo": "Head curly hair 19042018",
+  "autor": "johnathan.nadarajah",
+  "licencia": "by 4.0",
+  "fuente": "sketchfab",
+  "pagina": "https://sketchfab.com/3d-models/82c8f00dd09a43049066a3dd307b46e5",
+  "px": "1920x1080"
+ },
+ "FOTO-23": {
+  "cod": "FOTO-23",
+  "consulta": "hair styling salon",
+  "titulo": "Roller hair brushes, black boar",
+  "autor": "—",
+  "licencia": "cc0 1.0",
+  "fuente": "rawpixel",
+  "pagina": "https://www.rawpixel.com/image/5803524/photo-image-public-domain-cc0",
+  "px": "3888x2592"
+ },
+ "FOTO-21": {
+  "cod": "FOTO-21",
+  "fuente": "picsum.photos (Unsplash)",
+  "id": 838,
+  "url": "https://picsum.photos/id/838/1200/1800",
+  "licencia": "Unsplash License — uso comercial permitido, sin atribución obligatoria",
+  "porque": "Cabello rizado en primer plano",
+  "px": "1200x1800"
+ },
+ "FOTO-22": {
+  "cod": "FOTO-22",
+  "consulta": "hair salon interior",
+  "titulo": "Salon red seats",
+  "autor": "—",
+  "licencia": "cc0 1.0",
+  "fuente": "rawpixel",
+  "pagina": "https://www.rawpixel.com/image/6023213/photo-image-public-domain-plant-house",
+  "px": "3264x4928"
+ },
+ "FOTO-24": {
+  "cod": "FOTO-24",
+  "fuente": "picsum.photos (Unsplash)",
+  "id": 342,
+  "url": "https://picsum.photos/id/342/1200/1800",
+  "licencia": "Unsplash License — uso comercial permitido, sin atribución obligatoria",
+  "porque": "Persona de espaldas, cabello visible",
+  "px": "1200x1800"
+ },
+ "FOTO-18": {
+  "cod": "FOTO-18",
+  "fuente": "picsum.photos (Unsplash)",
+  "id": 823,
+  "url": "https://picsum.photos/id/823/1200/1800",
+  "licencia": "Unsplash License — uso comercial permitido, sin atribución obligatoria",
+  "porque": "Cabello largo en primer plano, textura visible",
+  "px": "1200x1800"
+ },
+ "FOTO-19": {
+  "cod": "FOTO-19",
+  "fuente": "picsum.photos (Unsplash)",
+  "id": 453,
+  "url": "https://picsum.photos/id/453/1200/1800",
+  "licencia": "Unsplash License — uso comercial permitido, sin atribución obligatoria",
+  "porque": "Interior oscuro con luz cálida y gente trabajando — sustituto de ambiente de cabina",
+  "px": "1200x1800"
+ }
+}
