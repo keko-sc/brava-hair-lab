@@ -3,7 +3,7 @@
    Mecanismos reutilizados del proyecto Escobar: revelados, titulares
    partidos en líneas, cifras que cuentan, nav que se compacta, capa a
    pantalla completa y WhatsApp flotante.
-   Los 24 protocolos se leen de assets/docs/02-CATALOGO.json: ese
+   Los 24 protocolos se leen de /assets/docs/02-CATALOGO.json: ese
    archivo es el origen de los datos, aquí no hay ninguno escrito.
    ══════════════════════════════════════════════════════════════════ */
 (function () {
@@ -14,7 +14,28 @@
   var WA_MENSAJE = "Hola, vengo de la web de BRAVA y quiero agendar mi valoración.";
   var AGENDA = "https://bravahairlab.site.agendapro.com/co";
 
-  var RUTA = "assets/docs/02-CATALOGO.json";
+  var RUTA = "/assets/docs/02-CATALOGO.json";
+
+  /* Las cinco categorías de servicio. Es la misma agrupación que usa
+     tools/generar_paginas.py: la familia del catálogo manda y esto solo la
+     traduce a la dirección. Si las dos listas se separan, los enlaces del
+     buscador dejan de coincidir con las páginas generadas. */
+  var CATEGORIA = {
+    "fiber-alineacion": "alisados",
+    "fiber-ritual":     "tratamientos",
+    "scalp-experiencia": "head-spa",
+    "scalp-rootlounge": "caida",
+    "addon":            "complementarios"
+  };
+  /* Tres protocolos se escriben en la dirección distinto de como se llaman en
+     el catálogo. El id sigue mandando para identificarlos. */
+  var TROZO = { "reforce": "re-force", "reconnect": "re-connect", "split-ends": "puntas" };
+
+  function rutaProtocolo(p) {
+    var c = CATEGORIA[p.familia];
+    if (!c) return null;                       // sin categoría no hay página: no se inventa
+    return "/servicios/" + c + "/" + (TROZO[p.id] || p.id) + "/";
+  }
   var CAT = null;
 
   var q  = function (s, r) { return (r || document).querySelector(s); };
@@ -78,6 +99,59 @@
     burger.addEventListener("click", function () { abrir(burger.getAttribute("aria-expanded") !== "true"); });
     qa("a, button", menu).forEach(function (a) { a.addEventListener("click", function () { abrir(false); }); });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") abrir(false); });
+  }
+
+  /* ═══════════ 1 bis · El desplegable de Servicios ═══════════
+     Las cinco categorías con sus protocolos dentro. En escritorio se abre al
+     pasar el cursor y también al pulsar, para que funcione con teclado y con
+     pantalla táctil. Se cierra con Escape, al pulsar fuera y al salir el foco.
+     En celular no interviene: allí el menú usa el acordeón de <details>, que
+     no necesita JS. */
+  function initDesplegable() {
+    var caja = q("[data-desplegable]"); if (!caja) return;
+    var boton = q("[data-desp-boton]", caja), panel = q("[data-desp-panel]", caja);
+    if (!boton || !panel) return;
+    var cerrar_t = null;
+
+    function abrir(si) {
+      clearTimeout(cerrar_t);
+      boton.setAttribute("aria-expanded", String(si));
+      if (si) {
+        panel.hidden = false;
+        requestAnimationFrame(function () { panel.classList.add("is-abierto"); });
+      } else {
+        panel.classList.remove("is-abierto");
+        // Se espera a que acabe el atenuado antes de esconderlo del todo; si
+        // mientras tanto se ha vuelto a abrir, no se toca.
+        cerrar_t = setTimeout(function () {
+          if (boton.getAttribute("aria-expanded") === "false") panel.hidden = true;
+        }, 260);
+      }
+    }
+    function abierto() { return boton.getAttribute("aria-expanded") === "true"; }
+
+    boton.addEventListener("click", function () { abrir(!abierto()); });
+
+    // El cursor solo manda donde de verdad hay cursor: en una pantalla táctil
+    // el hover se dispara con el primer toque y el panel se abriría solo.
+    if (window.matchMedia && window.matchMedia("(hover:hover) and (min-width:901px)").matches) {
+      caja.addEventListener("mouseenter", function () { abrir(true); });
+      caja.addEventListener("mouseleave", function () { abrir(false); });
+    }
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && abierto()) { abrir(false); boton.focus(); }
+    });
+    document.addEventListener("click", function (e) {
+      if (abierto() && !caja.contains(e.target)) abrir(false);
+    });
+    caja.addEventListener("focusout", function (e) {
+      if (abierto() && !caja.contains(e.relatedTarget)) abrir(false);
+    });
+    // Al navegar a otra página desde el panel no tiene sentido dejarlo abierto.
+    qa("a", panel).forEach(function (a) {
+      a.addEventListener("click", function () { abrir(false); });
+    });
   }
 
   /* ═══════════ 2 · Titulares partidos en líneas ═══════════ */
@@ -163,7 +237,10 @@
       img.loading = "lazy";
     }
     img.addEventListener("load", function () {
-      img.alt = fig.getAttribute("title") || "";
+      // El texto descriptivo vive en data-alt, no en title: como title el
+      // navegador lo enseñaba en un globo al pasar el cursor y ahí salían las
+      // notas internas del guion de fotos.
+      img.alt = fig.getAttribute("data-alt") || "";
       fig.classList.add("llena");
       document.dispatchEvent(new CustomEvent("foto-lista", { detail: fig }));
     });
@@ -264,7 +341,7 @@
   function figuraHTML(p, clase) {
     var g = GRUPO_FOTO[p.familia] || { r: "1:1", t: "" };
     return '<figure class="' + (clase || "arco-sm") + '" data-foto="' + esc(p.foto) + '" data-ratio="' + esc(g.r) + '"' +
-      ' data-archivo="assets/img/' + esc(String(p.foto).toLowerCase()) + '.webp"' +
+      ' data-archivo="/assets/img/' + esc(String(p.foto).toLowerCase()) + '.webp"' +
       ' title="' + esc(g.t + " Protocolo: " + p.nombre + ".") + '">' +
       '<span class="trama" aria-hidden="true"></span><span class="foto-tag">' + esc(p.foto) + '</span></figure>';
   }
@@ -592,7 +669,15 @@
       '<label class="res-cab"><input type="checkbox" data-nombre="' + esc(p.nombre) + '"' + (marcado ? " checked" : "") + ">" +
       '<span><span class="res-nombre">' + esc(p.nombre) + '</span><span class="res-sub">' + esc(p.subtitulo || "") + "</span></span></label>" +
       '<p class="res-que">' + esc(frase1(p.descripcion)) + "</p>" +
-      '<p class="res-porque"><strong>Por qué encaja contigo:</strong> ' + esc(p.porQue || "") + "</p></div>";
+      '<p class="res-porque"><strong>Por qué encaja contigo:</strong> ' + esc(p.porQue || "") + "</p>" +
+      /* La web es multipágina: cada resultado lleva a su propia ficha, dentro
+         de la categoría que le toca. Si el protocolo no tuviera categoría no
+         habría página que enseñar, así que en ese caso no se pone enlace en
+         vez de inventarse uno roto. */
+      (function () {
+        var u = rutaProtocolo(p);
+        return u ? '<a class="res-ficha" href="' + u + '">Ver la ficha de ' + esc(p.nombre) + '</a>' : "";
+      })() + '</div>';
   }
 
   /* El enlace de WhatsApp del buscador se mantiene armado en todo momento:
@@ -731,7 +816,7 @@
         v.src = vid; v.muted = true; v.loop = true; v.playsInline = true;
         v.setAttribute("muted", ""); v.setAttribute("playsinline", "");
         v.preload = "metadata"; v.tabIndex = -1;
-        v.setAttribute("aria-label", hueco.getAttribute("title") || "");
+        v.setAttribute("aria-label", hueco.getAttribute("data-alt") || "");
         hueco.insertBefore(v, hueco.firstChild);
         hueco.classList.add("llena", "es-video");
         mirarVideo(v);
@@ -776,16 +861,17 @@
 
         marcos.forEach(function (marco) {
           var fotos = qa(".reel-toma", marco);
-          gsap.set(fotos, { opacity: 0, yPercent: 0 });
+          gsap.set(fotos, { opacity: 0 });
           if (fotos[0]) gsap.set(fotos[0], { opacity: 1 });
           fotos.forEach(function (f, k) {
             if (k === 0) return;
             var en = k * (ESPERA + CAMBIO) - CAMBIO;   // donde empieza el cambio
             // La que se va: se funde y sube un poco dentro del marco.
-            tl.to(fotos[k - 1], { opacity: 0, yPercent: -4, duration: CAMBIO }, en);
+            tl.to(fotos[k - 1], { opacity: 0, duration: CAMBIO }, en);
             // La que entra: se funde desde un poco más abajo.
-            tl.fromTo(f, { opacity: 0, yPercent: 4 },
-                         { opacity: 1, yPercent: 0, duration: CAMBIO }, en);
+            // Solo se funde: sin el desplazamiento vertical que llevaba antes.
+            tl.fromTo(f, { opacity: 0 },
+                         { opacity: 1, duration: CAMBIO }, en);
           });
         });
         // La última pareja también aguanta su pantalla entera antes del final.
@@ -814,6 +900,63 @@
      es el nativo: los dos bloques van con position:sticky y GSAP solo
      desplaza y atenúa enganchado al scroll (scrub), sin pin ni bloqueo.
      Solo en escritorio y solo si no se ha pedido menos movimiento. */
+  /* ═══════════ 11 bis · El relevo de las tres familias ═══════════
+     En la portada, BRAVA FIBER, BRAVA SCALP y Add-Ons se relevan al bajar,
+     uno por pantalla. Es el mismo mecanismo que el cruce de pisos: el
+     apilado lo hace position:sticky desde el CSS, así que el scroll sigue
+     siendo el del navegador —no se bloquea, no se secuestra y no hay pin de
+     ningún tipo—. GSAP solo añade el desplazamiento y el atenuado,
+     enganchados al scroll (scrub).
+     Solo en escritorio y solo si el usuario no ha pedido menos movimiento;
+     en celular los tres quedan uno debajo de otro, sin relevo. */
+  function initFamilias() {
+    var caja = q("[data-familias]"); if (!caja) return;
+    var bloques = qa(".fam-bloque", caja);
+    if (bloques.length < 2 || reducido || !window.gsap || !window.ScrollTrigger) return;
+    if (!gsap.matchMedia) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.matchMedia().add("(min-width:1081px)", function () {
+      caja.classList.add("cruce");
+      // Los reveals mueven el mismo transform que vamos a animar: aquí
+      // estorban, así que los bloques entran ya visibles.
+      bloques.forEach(function (el) { el.classList.remove("reveal"); el.classList.add("is-visible"); });
+
+      var tweens = [];
+      bloques.forEach(function (bloque, i) {
+        // Las fotos no se mueven: ni entran desplazadas, ni escalan, ni hacen
+        // parallax. Aquí la banda entraba desde el lado con un xPercent y un
+        // scale de 1.06; se quitó entero.
+        var sig = bloques[i + 1];
+        if (!sig) return;
+        // Ventana del relevo: desde que el siguiente asoma por abajo hasta que
+        // se ha colocado en su sitio.
+        var ventana = { trigger: sig, start: "top bottom", end: "top 18%", scrub: true };
+        // El relevo lo hace el apilado con position:sticky, no una
+        // transformación: los bloques se tapan unos a otros por posición.
+        // Ni escala ni desplazamiento, porque eso movía también la foto de
+        // dentro. Solo queda el atenuado del que se va, que no es movimiento,
+        // y espera a que de verdad se estén solapando: si no, el de abajo se
+        // ve apagado cuando todavía está solo en pantalla.
+        tweens.push(gsap.to(bloque, {
+          opacity: .3, ease: "none",
+          scrollTrigger: { trigger: sig, start: "top 62%", end: "top 20%", scrub: true }
+        }));
+      });
+
+      return function () {
+        tweens.forEach(function (t) {
+          t.scrollTrigger && t.scrollTrigger.kill(); t.kill();
+        });
+        gsap.set(bloques, { clearProps: "all" });
+        gsap.set(qa(".fam-bloque-fig", caja), { clearProps: "all" });
+        bloques.forEach(function (el) { el.classList.add("reveal"); });
+        caja.classList.remove("cruce");
+      };
+    });
+  }
+
+
   function initPisos() {
     var caja = q("[data-pisos]"); if (!caja) return;
     var pisos = qa(".piso", caja);
@@ -832,27 +975,18 @@
       // Antes se igualaban en píxeles desde el JS y el valor se quedaba
       // viejo al cambiar de tamaño la ventana.
 
-      var ventana = { trigger: dos, start: "top bottom", end: "top 18%", scrub: true };
-      // El primero se retira SOLO con escala y atenuado, sin desplazarse hacia
-      // arriba. Un yPercent negativo lo metía por detrás del menú fijo estando
-      // en su posición sticky, y ahí la tarjeta se recortaba por arriba. La
-      // escala encoge desde el centro, así que el borde de arriba solo puede
-      // bajar: ningún piso pasa nunca por detrás de la barra.
-      var sale = gsap.to(uno, {
-        scale: .94, ease: "none", scrollTrigger: ventana
-      });
-      // ...pero el atenuado espera a que de verdad se estén solapando: si
-      // no, el primero se ve apagado cuando todavía está solo en pantalla.
+      // El cruce lo hace el apilado con position:sticky: un piso tapa al otro
+      // por posición, sin transformarse. Se quitaron la escala y el
+      // desplazamiento porque movían también la foto de dentro.
+      // El atenuado espera a que de verdad se estén solapando: si no, el
+      // primero se ve apagado cuando todavía está solo en pantalla.
       var apaga = gsap.to(uno, {
         opacity: .3, ease: "none",
         scrollTrigger: { trigger: dos, start: "top 62%", end: "top 20%", scrub: true }
       });
-      var entra = gsap.fromTo(dos,
-        { yPercent: 7, scale: .975 },
-        { yPercent: 0, scale: 1, ease: "none", scrollTrigger: ventana });
 
       return function () {
-        [sale, apaga, entra].forEach(function (t) {
+        [apaga].forEach(function (t) {
           t.scrollTrigger && t.scrollTrigger.kill(); t.kill();
         });
         gsap.set(pisos, { clearProps: "all" });
@@ -1016,6 +1150,7 @@
   /* ═══════════ Arranque ═══════════ */
   function arrancar() {
     safe(initNav, "nav");
+    safe(initDesplegable, "desplegable");
     safe(initAnyo, "anyo");
     safe(initFotos, "fotos");
     safe(initWA, "wa");
@@ -1026,6 +1161,7 @@
     var alFinal = function () {
       safe(initSplit, "split");
       safe(initReveals, "reveals");
+      safe(initFamilias, "familias");
       safe(initPisos, "pisos");
       safe(initReel, "reel");
     };
@@ -1043,7 +1179,7 @@
         if (window.console) console.warn("[catalogo]", err);
         qa("[data-catalogo]").forEach(function (d) {
           d.innerHTML = '<p class="cargando">No se pudo leer el catálogo (' + esc(err.message || "error") +
-            "). Las tarjetas salen de assets/docs/02-CATALOGO.json y la página tiene que abrirse desde el servidor local.</p>";
+            "). Las tarjetas salen de /assets/docs/02-CATALOGO.json y la página tiene que abrirse desde el servidor local.</p>";
         });
       })
       .then(function () {

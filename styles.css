@@ -177,6 +177,21 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 .js .reveal.is-visible{ opacity:1; transform:none; }
 .js .reveal[data-split]{ opacity:1; transform:none; }
 
+/* Las fotos aparecen y ya: ni desplazamiento ni atenuado. Alcanza a los marcos
+   que llevan el revelado encima y a las tarjetas construidas alrededor de una
+   foto, porque si se desplaza la tarjeta se desplaza la foto con ella. Los
+   bloques de solo texto conservan su entrada. */
+.js .reveal.comparador,
+.js .reveal.paso,
+.js .reveal.piso,
+.js .reveal.abordaje,
+.js .reveal.fam-bloque,
+.js .reveal.arco,
+.js .reveal.arco-sm,
+.js .reveal.arco-hero{
+  opacity:1; transform:none; transition:none; animation:none;
+}
+
 .ln{
   display:block; overflow:hidden;
   /* La cursiva sobresale por los dos lados: si el recorte va justo al texto,
@@ -222,8 +237,13 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 .btn-ghost:hover{ --btn-bg:var(--arena); border-color:rgba(36,28,20,.28); }
 .btn-claro{ --btn-fg:var(--crema-texto); border-color:var(--linea-o); }
 .btn-claro:hover{ --btn-bg:rgba(244,238,228,.08); border-color:var(--camel-claro); }
-.btn-wa{ --btn-bg:#1f7a54; --btn-fg:#FFFFFF; }
-.btn-wa:hover{ --btn-bg:#1a6647; }
+/* Verde oficial de WhatsApp, #25D366.
+   El rótulo va en café, no en blanco: medido, blanco sobre este verde da
+   1.98:1, muy por debajo del 4.5:1 que necesita un texto, y sobre un botón de
+   reserva eso no se puede dejar pasar. El café da 9.02:1. El verde y la silueta
+   del glifo bastan para que se reconozca la marca. */
+.btn-wa{ --btn-bg:#25D366; --btn-fg:var(--cafe); font-weight:600; }
+.btn-wa:hover{ --btn-bg:#1DA851; --btn-fg:#FFFFFF; }
 .btn-chispa{ font-size:.85em; opacity:.9; transition:transform .5s var(--ease); }
 .btn:hover .btn-chispa{ transform:rotate(90deg) scale(1.15); }
 .ic-wa{ display:inline-flex; }
@@ -275,17 +295,6 @@ ul,ol{ margin:0; padding:0; list-style:none; }
   backdrop-filter:blur(3px);
 }
 
-/* ─────────────────── Banda de aviso de versión ────────────────────── */
-.avisobar{
-  background:var(--arena); color:var(--tinta-suave);
-  border-top:1px solid var(--linea-2);
-  font-size:.76rem; line-height:1.55; text-align:center;
-  padding-block:.8rem;
-}
-.avisobar p{ max-width:66rem; margin-inline:auto; }
-.avisobar strong{ color:var(--camel-texto); font-weight:600; }
-.avisobar-sep{ padding-inline:.5rem; opacity:.45; }
-
 /* ───────────────────────────── Nav ────────────────────────────────── */
 .nav{
   position:sticky; top:0; z-index:90;
@@ -332,16 +341,28 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 
 .menu{
   position:fixed; inset:0; z-index:88; background:var(--crema);
-  padding:calc(var(--nav-h) + 3rem) 1.5rem 2rem;
-  display:flex; flex-direction:column; justify-content:center; gap:1.5rem;
+  padding:calc(var(--nav-h) + 2rem) 1.5rem 2rem;
+  display:flex; flex-direction:column; justify-content:flex-start; gap:1.2rem;
+  /* Con el acordeón de servicios el menú puede pasar del alto de la pantalla:
+     tiene que poder desplazarse o las últimas entradas quedan inalcanzables. */
+  overflow-y:auto; overscroll-behavior:contain;
   opacity:0; transition:opacity .4s var(--ease);
 }
 .menu.is-abierto{ opacity:1; }
 .menu nav{ display:flex; flex-direction:column; gap:.3rem; }
 .menu nav a{ font-family:var(--f-disp); font-size:clamp(1.5rem,6.5vw,2rem); text-decoration:none; padding-block:.35rem; border-bottom:1px solid var(--linea-2); font-variation-settings:"SOFT" 60,"WONK" 1; }
 .menu-cta{ align-self:flex-start; }
-.menu-pie{ font-size:.85rem; color:var(--tinta-suave); }
+.menu-pie{ font-size:.85rem; color:var(--tinta-suave); font-style:normal; }
 .menu-pie span{ font-size:.75rem; opacity:.7; }
+/* La dirección es un enlace a Google Maps: se subraya para que se vea que lo
+   es, sin gritarlo. <address> viene en cursiva por defecto en el navegador y
+   aquí no la queremos. */
+.menu-pie a, .pie-datos address a{ color:inherit; text-decoration:none; border-bottom:1px solid var(--linea-o); padding-bottom:.1rem; }
+.menu-pie a{ border-bottom-color:var(--linea); }
+.menu-pie a:hover, .pie-datos address a:hover{ border-bottom-color:var(--camel); }
+.pie-datos address{ font-style:normal; line-height:1.55; }
+.c-card address a{ color:inherit; text-decoration:none; border-bottom:1px solid var(--linea-o); padding-bottom:.12rem; }
+.c-card address a:hover{ border-bottom-color:var(--camel-claro); }
 
 
 .hero{
@@ -496,13 +517,14 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 
 /* ───────────────────── Comparador antes / después ──────────────────── */
 .antesdespues{ background:var(--crema); }
-/* La sección entera tiene que caber en una pantalla de 900 px: marcos más
-   bajos, pareja más estrecha y cabecera apretada. */
+/* La sección va apretada para caber en una pantalla de 900 px: marcos más
+   bajos, pareja más estrecha y cabecera con poco aire.
+   El titular NO se achica: usa el mismo tamaño que los del resto de secciones.
+   Antes tenía una regla propia que lo topaba en 2.4rem contra los 5.5rem del
+   estándar, y cantaba al lado de los demás. */
 .antesdespues{ padding-block:clamp(1.1rem,1.9vw,1.6rem); }
 .antesdespues .seccion-cab{ margin-bottom:clamp(.7rem,1.3vw,1rem); }
-.antesdespues .titulo{ font-size:clamp(1.7rem,1.15rem + 1.5vw,2.4rem); line-height:1.04; margin-bottom:.5rem; }
 .antesdespues .seccion-cab .parrafo{ font-size:.94rem; max-width:52rem; }
-.antesdespues .nota-trabajo{ margin-top:.6rem; }
 .comparadores{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(1.2rem,3vw,2rem); max-width:900px; margin-inline:auto; }
 .comparador{
   --p:50%;
@@ -543,15 +565,22 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 .cmp-rango{ position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0; z-index:6; cursor:ew-resize; }
 .cmp-rango:focus-visible + .cmp-et{ outline:none; }
 .comparador:focus-within{ outline:2px solid var(--camel); outline-offset:3px; }
+/* Las etiquetas van ABAJO, no arriba. El marco tiene forma de arco: el radio
+   de arriba es 30 % del alto, así que cualquier cosa pegada a una esquina
+   superior queda fuera de la silueta y el overflow la corta. Ahí estas dos
+   píldoras se veían como dos medias lunas oscuras sin texto, que parecían un
+   fondo asomando por detrás de la foto. Abajo el radio es del 2 %, o sea
+   prácticamente recto, y caben enteras. */
 .cmp-et{
-  position:absolute; top:1.1rem; z-index:5;
+  /* 1.4rem, a juego con el 1.1 de los lados. Estaban a 3.4 para dejar sitio a
+     la nota que iba debajo; sin ella, ese hueco no lo justificaba nada. */
+  position:absolute; bottom:1.4rem; z-index:5;
   font-size:.62rem; letter-spacing:.18em; text-transform:uppercase;
   padding:.28rem .7rem; border-radius:999px;
   background:rgba(29,22,14,.6); color:var(--crema-texto); border:1px solid var(--linea-o);
 }
 .cmp-et-a{ left:1.1rem; }
 .cmp-et-b{ right:1.1rem; }
-.comparador figcaption{ position:absolute; left:0; right:0; bottom:1rem; z-index:5; text-align:center; }
 .comparador .foto-tag{ bottom:auto; top:3.4rem; }
 
 .banda-cta{
@@ -563,9 +592,19 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 .banda-cta p{ font-family:var(--f-disp); font-size:clamp(1.15rem,1rem + .8vw,1.6rem); letter-spacing:-.02em; max-width:34ch; }
 
 /* ─────────────────────────── Dos abordajes ────────────────────────── */
+/* La cabecera de esta sección se separa la mitad que en el resto: entre la
+   bajada y las imágenes sobraba aire. 72px medidos → 36. */
+#abordajes .seccion-cab{ margin-bottom:clamp(1.4rem,3vw,2.25rem); }
 .abordaje-par{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(1.8rem,4vw,3.5rem); }
-.abordaje .arco{ aspect-ratio:1/1; margin-bottom:1.8rem; }
-.abordaje-t{ font-size:clamp(1.6rem,1.2rem + 1.4vw,2.3rem); letter-spacing:-.025em; margin-bottom:.8rem; }
+/* El marco se queda en 1:1 y lo que baja es su tamaño: a la mitad de ancho,
+   la mitad de alto. Pasarlo a una banda 2:1 habría recortado la foto por arriba
+   y por abajo, y en la de la melena eso se come justo las puntas.
+   El ancho va explícito y por eso se puede centrar con margin auto: un figure
+   vacío no tiene contenido en flujo, así que con margin:auto y sin ancho
+   declarado se quedaría en cero. Con el 50 % puesto, el centrado es seguro. */
+.abordaje .arco{ aspect-ratio:1/1; width:62.5%; margin:0 auto 1.4rem; }
+.abordaje-cta{ margin-top:1.2rem; }
+.abordaje-t{ font-size:clamp(2rem,1.6rem + 1.8vw,3rem); letter-spacing:-.025em; margin-bottom:.8rem; }
 .abordaje-n{ margin-top:1.1rem; font-size:.75rem; letter-spacing:.16em; text-transform:uppercase; color:var(--camel-texto); }
 .abordaje-frio .arco{ background:var(--frio-alt); }
 
@@ -741,7 +780,10 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 .faq-lista{ display:grid; grid-template-columns:repeat(2,1fr); gap:.6rem 1.2rem; align-items:start; }
 .fq{ background:var(--arena); border:1px solid var(--linea-2); border-radius:14px; padding:0 1.3rem; transition:border-color .35s var(--ease), box-shadow .35s var(--ease); }
 .fq[open]{ border-color:rgba(180,146,111,.4); box-shadow:var(--sombra); }
-.fq summary{ display:flex; align-items:center; justify-content:space-between; gap:1.2rem; padding-block:1.15rem; cursor:pointer; list-style:none; font-family:var(--f-disp); font-size:clamp(1rem,.96rem + .3vw,1.16rem); letter-spacing:-.018em; line-height:1.35; }
+/* Las preguntas van en la sans del sitio. La serif de titulares, a este tamaño
+   y dentro de una caja de interfaz, se lee como una tipografía de fuera y rompe
+   el esquema del resto de la página. */
+.fq summary{ display:flex; align-items:center; justify-content:space-between; gap:1.2rem; padding-block:1.15rem; cursor:pointer; list-style:none; font-family:var(--f-body); font-size:clamp(.95rem,.9rem + .28vw,1.08rem); font-weight:500; letter-spacing:0; line-height:1.4; }
 .fq summary::-webkit-details-marker{ display:none; }
 .fq summary::after{ content:""; flex:none; width:11px; height:11px; border-right:1.5px solid var(--camel-texto); border-bottom:1.5px solid var(--camel-texto); transform:rotate(45deg) translateY(-3px); transition:transform .4s var(--ease); }
 .fq[open] summary::after{ transform:rotate(225deg) translateY(-3px); }
@@ -751,6 +793,15 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 /* ──────────────────────────── Contacto ────────────────────────────── */
 /* Las tres tarjetas miden lo mismo y sus botones se apoyan abajo: si una
    lleva dos acciones, no se dispara de alto respecto a las otras. */
+/* En /contacto/ esta sección es lo primero de la página. El menú es sticky y ya
+   ocupa su sitio en el flujo, así que este relleno ES el hueco que se ve: 40
+   arriba, sin sumarle nada por la barra. Misma solución que en las páginas de
+   categoría. */
+#contacto{ padding-block:40px clamp(3rem,6vw,4.5rem); }
+/* El mapa de la tarjeta de Ubicación. Carga diferida porque es contenido de
+   Google y no tiene que frenar la página; ocupa el ancho de la tarjeta. */
+.c-mapa{ margin-top:.9rem; border-radius:14px; overflow:hidden; border:1px solid var(--linea-o); background:var(--cafe-alt); }
+.c-mapa iframe{ display:block; width:100%; height:200px; border:0; filter:grayscale(.25) contrast(1.05); }
 .contacto-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:1rem; align-items:stretch; }
 .c-card{ display:flex; flex-direction:column; background:var(--cafe-alt); border:1px solid var(--linea-o);
   border-radius:20px; padding:1.8rem 1.6rem; transition:transform .5s var(--ease), box-shadow .5s var(--ease); }
@@ -776,6 +827,8 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 .pie-nav a{ text-decoration:none; transition:color .3s var(--ease); width:fit-content; }
 .pie-nav a:hover{ color:var(--camel-claro); }
 .pie-datos{ display:grid; gap:.55rem; align-content:start; justify-items:start; }
+.pie-redes{ display:flex; flex-wrap:wrap; gap:.9rem; align-items:center; }
+.pie-redes a::after{ content:" ↗"; font-size:.78em; opacity:.6; }
 .pie-legal{ padding-top:1.75rem; display:grid; gap:.7rem; font-size:.78rem; line-height:1.6; }
 .pie-legal strong{ color:var(--camel-claro); }
 .pie-mini{ display:flex; flex-wrap:wrap; gap:.6rem; align-items:center; margin-top:.4rem; font-size:.74rem; opacity:.8; }
@@ -784,8 +837,10 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 .wa-flotante{
   position:fixed; right:1.1rem; bottom:1.1rem; z-index:70;
   width:54px; height:54px; border-radius:50%;
-  background:#1f7a54; color:#fff; display:grid; place-items:center;
-  box-shadow:0 10px 30px -10px rgba(31,122,84,.75), 0 2px 6px rgba(0,0,0,.14);
+  /* El flotante es solo el glifo, sin texto: aquí el blanco sobre verde es la
+     marca tal cual y no hay rótulo que leer. */
+  background:#25D366; color:#fff; display:grid; place-items:center;
+  box-shadow:0 10px 30px -10px rgba(37,211,102,.7), 0 2px 6px rgba(0,0,0,.14);
   opacity:0; visibility:hidden; transform:translateY(12px);
   transition:opacity .45s var(--ease), transform .45s var(--ease), visibility .45s;
 }
@@ -1190,8 +1245,6 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
   .marquesina-pista{ font-size:.95rem; animation-duration:21s; }
   .wrap,.nav-in,.hero-in{ width:calc(100% - 2rem); }
   .seccion{ padding-block:clamp(3.25rem,11vw,4.5rem); }
-  .avisobar{ font-size:.72rem; padding-block:.7rem; text-align:left; }
-  .avisobar-sep{ display:none; }
   .hero{ padding-block:1.5rem 3rem; }
   /* .ha-pie es una rejilla con justify-items:start, así que la fila de
      botones se quedaba del ancho de su contenido. Aquí ocupa la columna. */
@@ -1227,6 +1280,387 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
    Se apagan los bucles y los desplazamientos largos. Los micro-efectos
    siguen, porque Windows trae esta preferencia activada de fábrica en
    muchas instalaciones y apagarlo todo deja la página muerta. */
+
+/* ══════════════════════════════════════════════════════════════════════════
+   MULTIPÁGINA
+   La web dejó de ser una sola página: estas clases son las que viven solo en
+   las páginas nuevas (portada → familia → ficha). Todo lo demás se reaprovecha
+   tal cual desde la versión de una sola página.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Portada · las tres familias, que se relevan al bajar ────────────────
+   Van justo después de la banda de sellos. Mismo mecanismo que el cruce de
+   pisos: position:sticky, o sea que el scroll sigue siendo el del navegador.
+   No se bloquea, no se secuestra y no hay pin de ningún tipo. GSAP solo añade
+   el desplazamiento y el atenuado, enganchados al scroll (scrub).
+   La clase .cruce la pone el JS, y solo en escritorio. Sin ella los tres
+   bloques quedan uno debajo de otro, que es lo que pasa en celular. */
+.familias{ padding-block:clamp(3rem,6vw,4.5rem) clamp(4rem,7vw,6rem); }
+.fam-bloques{ display:grid; gap:clamp(3rem,6vw,4.5rem); margin-top:clamp(2rem,4vw,3.2rem); }
+.fam-bloque{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(1.8rem,5vw,4rem); align-items:center; }
+/* La banda cambia de lado en el bloque de en medio: la fila no se lee igual
+   tres veces seguidas. */
+.fam-bloque:nth-child(even) .fam-bloque-fig{ order:2; }
+/* El marco declara 3:2 y la foto se genera a 3:2: no hay doble recorte. */
+.fam-bloque-fig{
+  position:relative; margin:0; overflow:hidden;
+  aspect-ratio:3/2; border-radius:20px;
+  background:var(--lino); box-shadow:var(--sombra);
+}
+.fam-bloque-fig img{
+  width:100%; height:100%; object-fit:cover; position:absolute; inset:0;
+  filter:saturate(.86) contrast(1.04) brightness(1.02) sepia(.08);
+}
+/* Mismo velo cálido que el resto de fotos de la página. */
+.fam-bloque-fig::after{
+  content:""; position:absolute; inset:0; pointer-events:none; z-index:2;
+  background:linear-gradient(155deg, rgba(180,146,111,.22), rgba(244,238,228,.08) 45%, rgba(29,22,14,.16));
+  mix-blend-mode:soft-light;
+}
+.fam-bloque-fig::before{
+  content:""; position:absolute; inset:0; pointer-events:none; z-index:3;
+  box-shadow:inset 0 0 0 1px rgba(244,238,228,.24); border-radius:inherit;
+}
+/* El isotipo en marca de agua, mientras el hueco esté vacío. */
+.fam-bloque-fig .trama::after{
+  content:""; position:absolute; inset:0;
+  background:url("assets/img/marca/isotipo.webp") center / min(38%,170px) no-repeat;
+  opacity:.5;
+}
+.fam-bloque-et{ font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--camel-texto); margin-bottom:.7rem; }
+.fam-bloque-t{ font-family:var(--f-disp); font-size:clamp(2.2rem,1.6rem + 2.6vw,3.6rem); line-height:1.02; letter-spacing:-.03em; margin-bottom:1rem; }
+.fam-bloque-txt .parrafo{ margin-bottom:1.2rem; max-width:44ch; }
+.fam-bloque-n{ font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; color:var(--tinta-suave); margin-bottom:1.6rem; }
+.fam-bloque-n strong{ font-family:var(--f-disp); font-size:2.2rem; font-weight:400; letter-spacing:-.02em; color:var(--tinta); margin-right:.4rem; vertical-align:-.12em; }
+
+/* ── El relevo ───────────────────────────────────────────────────────── */
+.fam-bloques.cruce{
+  /* flow-root, no block: hace falta que el margen de abajo del último bloque
+     cuente DENTRO de la caja de contenido del contenedor. Si se colapsa hacia
+     fuera —lo que hace un block normal—, el sticky del último se queda sin
+     recorrido y el bloque pasa de largo sin llegar nunca a su posición fija. */
+  display:flow-root;
+  /* El aire que queda por encima y por debajo de cada bloque cuando está fijo.
+     Un solo número: lo usan el top del sticky y el alto. */
+  --aire-fam:3vh;
+}
+.fam-bloques.cruce .fam-bloque{
+  position:sticky;
+  /* alto real del menú, medido por el JS; nunca un valor a ojo */
+  top:calc(var(--nav-real, var(--nav-h)) + var(--aire-fam));
+  /* Cada bloque ocupa casi toda la pantalla, pero no toda: queda aire por
+     arriba y por abajo para que se vea que hay algo antes y después. Y NUNCA
+     más de lo que cabe entre el menú fijo y el borde de abajo. */
+  /* Algo más bajo que el cruce de pisos: aquí la banda no se estira, así que
+     con 85vh sobraba aire por arriba y por abajo. */
+  height:min(78vh, calc(100svh - var(--nav-real, var(--nav-h)) - var(--aire-fam) * 2));
+  grid-template-columns:1.18fr 1fr;
+  grid-template-rows:1fr;
+  /* Ojo: la columna ancha es la de la banda, y en el bloque par la banda se
+     va a la derecha. Si no se gira también el reparto, esa banda sale más
+     estrecha que las otras dos y la serie deja de leerse pareja. */
+  padding:clamp(1.4rem,2.4vw,2.2rem);
+  border-radius:28px;
+  background:var(--crema);
+  box-shadow:var(--sombra);
+  /* La banda entra desplazada hacia un lado: aquí se recorta lo que se sale.
+     El overflow de un sticky no rompe su propia fijación, solo el de un
+     ancestro, y este elemento es el sticky. */
+  overflow:hidden;
+}
+/* La banda NO se estira con el bloque: mantiene su 3:2 y se centra en
+   vertical. Si se estirara, el marco pasaría a ser vertical y la foto,
+   generada en 3:2, se recortaría por los lados: doble recorte, justo lo que
+   no puede pasar. El texto también va centrado. */
+.fam-bloques.cruce .fam-bloque-fig{ align-self:center; aspect-ratio:3/2; height:auto; width:100%; }
+.fam-bloques.cruce .fam-bloque-txt{ align-self:center; }
+/* Cada bloque llega desde abajo y acaba cubriendo al anterior. */
+.fam-bloques.cruce .fam-bloque + .fam-bloque{ margin-top:32vh; }
+.fam-bloques.cruce .fam-bloque:nth-child(even){ grid-template-columns:1fr 1.18fr; }
+.fam-bloques.cruce .fam-bloque:nth-child(2){ background:var(--frio); box-shadow:var(--sombra-alta); }
+.fam-bloques.cruce .fam-bloque:nth-child(2) .fam-bloque-fig{ background:var(--frio-alt); }
+.fam-bloques.cruce .fam-bloque:nth-child(3){ background:var(--arena); box-shadow:var(--sombra-alta); }
+/* La cola: el recorrido que el último bloque necesita para quedarse fijo.
+   Solo existe con el relevo activo; sin él no pinta nada. */
+.fam-cola{ display:none; }
+.fam-bloques.cruce .fam-cola{ display:block; height:40vh; }
+
+/* ── Página de familia ───────────────────────────────────────────────────── */
+/* La cabecera de categoría: migas, etiqueta, titular y bajada, y se acabó. Su
+   alto sale del contenido, no de la pantalla: aquí no hay ningún alto mínimo.
+
+   Sobre el relleno de arriba. El menú es sticky, así que en lo alto de la
+   página ocupa su sitio en el flujo y <main> empieza justo en su borde de
+   abajo. Medido: html, body, main, la sección, el .wrap y las migas tienen
+   todos 0 de margen y de relleno, o sea que NADA se acumula: el hueco que se ve
+   entre el menú y las migas es este número y solo este. 40 aquí son 40 en
+   pantalla. Si alguna vez hay que cambiarlo, se mide y se pone el número que
+   se quiera ver, sin restarle nada al menú. */
+.fam-cab-pag{ padding-block:40px 100px; }
+/* .seccion-cab lleva un margen abajo para separarse del contenido que suele ir
+   debajo dentro de la misma sección. Aquí la cabecera ES la sección entera, así
+   que ese margen no separa nada: solo sumaba 72px de aire muerto al relleno. */
+.fam-cab-pag .seccion-cab{ margin-bottom:0; }
+.fam-contexto{ padding-block:clamp(2.5rem,5vw,4rem); }
+.fam-listado{ padding-block:clamp(2rem,4vw,3rem) clamp(4rem,7vw,6rem); }
+.prot-grupos{ display:grid; gap:clamp(2rem,4vw,3rem); margin-top:clamp(1.6rem,3vw,2.4rem); }
+.prot-grupo-t{
+  display:flex; align-items:baseline; gap:.8rem;
+  font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--camel-texto);
+  padding-bottom:.8rem; border-bottom:1px solid var(--linea);
+}
+.prot-grupo-t span{ font-size:.66rem; color:var(--tinta-suave); }
+.prot-lista{ display:grid; }
+/* Cada protocolo es una fila-enlace: nombre, bajada y llamada, con el mismo
+   gesto en toda la lista para que se lea de un golpe. */
+.prot-fila{
+  display:grid; grid-template-columns:minmax(0,.34fr) minmax(0,1fr) auto;
+  gap:1.2rem; align-items:baseline;
+  padding:1.25rem .4rem; border-bottom:1px solid var(--linea-2);
+  color:inherit; text-decoration:none;
+  transition:background .3s var(--ease), padding-inline .3s var(--ease);
+}
+.prot-fila:hover{ background:var(--arena); padding-inline:1rem .4rem; }
+.prot-nombre{ font-family:var(--f-disp); font-size:clamp(1.15rem,1rem + .5vw,1.5rem); letter-spacing:-.02em; }
+.prot-sub{ font-size:.92rem; line-height:1.5; color:var(--tinta-suave); }
+.prot-mas{ font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--camel-texto); white-space:nowrap; }
+.prot-mas::after{ content:" →"; }
+
+/* ── Ficha de protocolo ──────────────────────────────────────────────────── */
+.protocolo{ padding-block:calc(var(--nav-real, 84px) + 2.5rem) clamp(4rem,7vw,6rem); }
+.migas{ display:flex; flex-wrap:wrap; gap:.55rem; align-items:center; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; margin-bottom:clamp(1.6rem,3vw,2.4rem); color:var(--tinta-suave); }
+.migas a{ color:var(--camel-texto); text-decoration:none; border-bottom:1px solid transparent; }
+.migas a:hover{ border-bottom-color:currentColor; }
+.migas [aria-current]{ color:var(--tinta); }
+/* En la ficha el título es el h1 de la página, no el de una tarjeta. */
+.detalle-pag .detalle-t{ font-size:clamp(2.4rem,1.8rem + 2.8vw,4rem); }
+/* El .eyebrow viene centrado de la portada; aquí encabeza una columna
+   alineada a la izquierda, así que se alinea con el titular. */
+.detalle-pag .eyebrow,
+.banda-reserva .eyebrow{ justify-content:flex-start; }
+.detalle-pag .detalle-fig{ top:calc(var(--nav-real, 84px) + 1.5rem); }
+.detalle-pag .hero-ctas{ margin-top:1.8rem; }
+.detalle-porque{ padding-left:1.1rem; border-left:2px solid var(--camel); font-size:.94rem; line-height:1.6; color:var(--tinta-suave); margin-block:1.2rem; }
+.detalle-porque strong{ color:var(--tinta); font-weight:500; }
+.volver-fam{ margin-top:2rem; font-size:.78rem; letter-spacing:.06em; }
+.volver-fam a{ color:var(--camel-texto); text-decoration:none; border-bottom:1px solid var(--linea); padding-bottom:.15rem; }
+.volver-fam a:hover{ border-bottom-color:var(--camel); }
+
+/* ── Buscador · el resultado lleva a su ficha ────────────────────────────── */
+.res-ficha{
+  display:inline-block; margin-top:.9rem;
+  font-size:.7rem; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--camel-texto); text-decoration:none;
+  border-bottom:1px solid var(--linea); padding-bottom:.2rem;
+}
+.res-ficha:hover{ border-bottom-color:var(--camel); }
+.res-ficha::after{ content:" →"; }
+
+
+/* ── Banda de reserva · las dos vías de cita en todas las páginas ───────── */
+.banda-reserva{ padding-block:clamp(3rem,6vw,4.5rem); }
+.reserva-in{ display:flex; flex-wrap:wrap; gap:clamp(1.5rem,4vw,3rem); align-items:center; justify-content:space-between; }
+.reserva-t{ font-family:var(--f-disp); font-size:clamp(1.7rem,1.3rem + 1.6vw,2.6rem); line-height:1.08; letter-spacing:-.025em; color:var(--crema-texto); max-width:20ch; }
+.banda-reserva .hero-ctas{ display:flex; flex-wrap:wrap; gap:.7rem; }
+
+@media (max-width: 760px){
+  .reserva-in{ flex-direction:column; align-items:flex-start; }
+  .banda-reserva .hero-ctas{ width:100%; }
+  .banda-reserva .hero-ctas .btn{ width:100%; justify-content:center; }
+}
+
+@media (max-width: 900px){
+  .fam-bloque{ grid-template-columns:minmax(0,1fr); gap:1.4rem; }
+  /* En celular la banda va siempre arriba, aunque el bloque sea par. */
+  .fam-bloque:nth-child(even) .fam-bloque-fig{ order:0; }
+  .prot-fila{ grid-template-columns:minmax(0,1fr); gap:.35rem; }
+  .prot-mas{ margin-top:.3rem; }
+  .detalle-pag .detalle-fig{ position:static; }
+}
+
+
+/* ══════════════════════════════════════════════════════════════════════════
+   EL DESPLEGABLE DE SERVICIOS
+   Las cinco categorías con sus protocolos dentro. En escritorio es un panel
+   que cae del menú; en celular, el acordeón de <details> que hay más abajo.
+   ══════════════════════════════════════════════════════════════════════════ */
+/* Relativo, no estático: el panel ya no va a todo lo ancho de la barra, sino
+   colgando del propio botón. */
+.nav-desp{ position:relative; }
+.nav-desp-b{
+  position:relative; font:inherit; font-size:.89rem; color:var(--tinta-suave);
+  background:none; border:0; padding:.35rem 0; cursor:pointer;
+  display:inline-flex; align-items:center; gap:.4rem;
+  transition:color .3s var(--ease);
+}
+.nav-desp-b::after{
+  content:""; width:5px; height:5px; margin-top:-3px;
+  border-right:1.5px solid currentColor; border-bottom:1.5px solid currentColor;
+  transform:rotate(45deg); transition:transform .3s var(--ease);
+}
+.nav-desp-b[aria-expanded="true"]::after{ transform:rotate(-135deg); margin-top:1px; }
+.nav-desp-b:hover, .nav-desp-b.es-actual{ color:var(--tinta); }
+/* Sobre la portada el menú va en claro: el botón acompaña. */
+.nav:not(.is-fija) .nav-desp-b{ color:var(--crema-texto); }
+.nav:not(.is-fija) .nav-desp-b:hover{ color:var(--camel-claro); }
+
+/* El panel cae a todo lo ancho del menú, justo por debajo de la barra. Se
+   posiciona contra .nav, que es sticky y por tanto ya es un ancestro colocado.
+   Ojo con z-index negativo: pintaría por detrás del fondo de .nav y el panel
+   desaparecería. Como cuelga por debajo de la barra no hace falta. */
+.nav-desp-panel{
+  position:absolute; left:0; top:calc(100% + .6rem); z-index:1;
+  width:max-content; min-width:17rem; max-width:min(22rem, 90vw);
+  background:var(--crema); border:1px solid var(--linea-2); border-radius:16px;
+  box-shadow:0 18px 40px -20px rgba(29,22,14,.5);
+  opacity:0; transform:translateY(-8px);
+  transition:opacity .26s var(--ease), transform .26s var(--ease);
+}
+.nav-desp-panel.is-abierto{ opacity:1; transform:translateY(0); }
+.nav-desp-in{ padding:.7rem; display:grid; gap:.1rem; }
+/* Cinco líneas: título de la categoría y su número. Los protocolos se ven
+   dentro de cada categoría, no aquí. */
+/* Las cinco líneas van en la sans del sitio, la misma del resto del menú: la
+   serif de titulares aquí, a 14px y dentro de una caja pequeña, se leía como
+   una tipografía de fuera. */
+.nav-cat-t{
+  display:flex; align-items:baseline; gap:.6rem;
+  font-family:var(--f-body); font-size:.89rem; letter-spacing:0;
+  padding:.55rem .7rem; border-radius:10px;
+  transition:background .25s var(--ease);
+}
+.nav-cat-t:hover{ background:var(--arena); }
+.nav-cat-t span{ margin-left:auto; font-family:var(--f-body); font-size:.68rem; letter-spacing:.1em; color:var(--camel-texto); }
+
+/* Mismo tratamiento que los enlaces de acento del resto de la página
+   (.familias-todos a, .res-ficha, .volver-fam a): versal fina con su espaciado,
+   camel, subrayado que abraza el texto y la flecha detrás. */
+.nav-desp-panel .nav-desp-todo{
+  justify-self:start;
+  margin:1.1rem .7rem .35rem; padding:0 0 .2rem;
+  border-top:0; border-bottom:1px solid var(--linea);
+  font-size:.72rem; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--camel-texto); text-decoration:none;
+}
+/* Sobre la portada el menú va en claro y hay una regla que tiñe de tinta-suave
+   todo enlace del panel; pesa más que una clase suelta, así que el camel del
+   acento hay que declararlo también para ese caso. */
+.nav:not(.is-fija) .nav-desp-panel .nav-desp-todo{ color:var(--camel-texto); }
+.nav-desp-panel .nav-desp-todo:hover,
+.nav:not(.is-fija) .nav-desp-panel .nav-desp-todo:hover{ color:var(--camel-texto); border-bottom-color:var(--camel); }
+/* Sin línea separadora: los enlaces de acento del sitio no la llevan, y su
+   propio subrayado ya lo distingue de las cinco líneas de arriba. El aire lo
+   pone el margen. */
+/* La flecha. El panel vive dentro de .nav-links, así que este ::after hereda
+   el subrayado animado del menú (.nav-links a::after): absoluto, de 1px de alto
+   y con scaleX(0). Con solo cambiarle el content la flecha existía pero salía
+   invisible, así que hay que deshacer también lo demás. */
+.nav-desp-panel .nav-desp-todo::after{
+  content:" →";
+  position:static; left:auto; right:auto; bottom:auto;
+  height:auto; background:none; transform:none;
+}
+/* Dentro del panel los enlaces son texto de lista, no pestañas del menú: ni
+   heredan el color claro de la portada ni llevan el subrayado animado. */
+.nav-desp-panel a{ color:var(--tinta-suave); text-decoration:none; }
+.nav:not(.is-fija) .nav-desp-panel a{ color:var(--tinta-suave); }
+.nav-desp-panel .nav-cat-t{ color:var(--tinta); }
+.nav:not(.is-fija) .nav-desp-panel .nav-cat-t{ color:var(--tinta); }
+/* El subrayado animado del menú se apaga solo en las cinco categorías. Antes
+   esta regla alcanzaba a todos los enlaces del panel y se llevaba por delante
+   la flecha del enlace de acento, que también es un ::after. */
+.nav-desp-panel .nav-cat-t::after{ display:none; }
+.nav-desp-panel a:hover,
+.nav:not(.is-fija) .nav-desp-panel a:hover{ color:var(--camel-texto); }
+.nav-desp-panel .nav-cat-t:hover,
+.nav:not(.is-fija) .nav-desp-panel .nav-cat-t:hover{ color:var(--camel-texto); }
+
+/* ── El acordeón del menú de celular ─────────────────────────────────────
+   <details> nativo: no necesita JS y funciona aunque el JS falle. */
+.menu-et{ font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--camel-texto); margin-bottom:.2rem; }
+.menu-cat{ border-bottom:1px solid var(--linea-2); }
+.menu-cat summary{
+  display:flex; align-items:baseline; gap:.5rem; cursor:pointer; list-style:none;
+  font-family:var(--f-disp); font-size:clamp(1.25rem,5.2vw,1.6rem);
+  padding-block:.55rem;
+}
+.menu-cat summary::-webkit-details-marker{ display:none; }
+.menu-cat summary::after{
+  content:""; width:6px; height:6px; margin-left:auto; margin-top:-4px;
+  border-right:1.5px solid var(--camel-texto); border-bottom:1.5px solid var(--camel-texto);
+  transform:rotate(45deg); transition:transform .25s var(--ease);
+}
+.menu-cat[open] summary::after{ transform:rotate(-135deg); margin-top:2px; }
+.menu-cat summary span{ font-family:var(--f-body); font-size:.66rem; letter-spacing:.14em; color:var(--camel-texto); }
+.menu-cat ul{ display:grid; gap:.1rem; padding:0 0 .8rem .2rem; }
+/* Dentro del acordeón los enlaces son lista, no titulares del menú.
+   Van calificados con `.menu nav` a propósito: la regla general de las
+   entradas del menú es `.menu nav a`, que pesa más que una clase suelta y si
+   no se iguala la especificidad se los lleva por delante y salen enormes. */
+.menu nav .menu-cat li a,
+.menu nav .menu-cat-todo{
+  font-family:var(--f-body); font-size:.95rem; padding-block:.3rem;
+  border-bottom:0; text-decoration:none; color:var(--tinta-suave);
+  font-variation-settings:normal;
+}
+.menu nav .menu-cat-todo{
+  display:block; font-size:.7rem; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--camel-texto); padding-block:.5rem;
+}
+.menu nav .menu-cat-todos{ border-bottom:1px solid var(--linea-2); margin-bottom:.6rem; }
+
+/* ── Página /servicios/ · el índice de las cinco ───────────────────────── */
+.servicios{ padding-block:calc(var(--nav-real, 84px) + 2.5rem) clamp(3rem,6vw,4.5rem); }
+/* Los tres grupos de /servicios/: los dos abordajes de marca con su anclaje,
+   y los complementarios aparte. El scroll-margin-top ya lo pone la regla
+   general de las secciones, así que al llegar desde la portada el titular del
+   grupo queda por debajo del menú y no detrás. */
+.serv-grupo{ margin-top:clamp(2.6rem,5vw,4rem); scroll-margin-top:calc(var(--nav-real, var(--nav-h)) + 16px); }
+.serv-grupo-cab{ max-width:44rem; margin-bottom:clamp(1rem,2vw,1.4rem); }
+.serv-grupo-et{ font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--camel-texto); margin-bottom:.5rem; }
+.serv-grupo-t{
+  display:flex; align-items:baseline; gap:.8rem; flex-wrap:wrap;
+  font-size:clamp(1.6rem,1.3rem + 1.4vw,2.4rem); letter-spacing:-.028em; margin-bottom:.7rem;
+}
+.serv-grupo-t span{ font-family:var(--f-body); font-size:.7rem; letter-spacing:.16em; text-transform:uppercase; color:var(--camel-texto); }
+.serv-grupo-cab .parrafo{ color:var(--tinta-suave); }
+/* El grupo de fuera del par se separa con una línea: no es uno de los dos
+   abordajes y tiene que leerse como otra cosa. */
+.serv-grupo-aparte{ border-top:1px solid var(--linea-2); padding-top:clamp(2rem,4vw,3rem); }
+
+.serv-lista{ display:grid; }
+.serv-fila{
+  display:grid; grid-template-columns:auto minmax(0,1fr) auto;
+  gap:clamp(1rem,2.5vw,2rem); align-items:baseline;
+  padding:1.5rem .4rem; border-bottom:1px solid var(--linea-2);
+  color:inherit; text-decoration:none;
+  transition:background .3s var(--ease), padding-inline .3s var(--ease);
+}
+.serv-fila:hover{ background:var(--arena); padding-inline:1rem .4rem; }
+.serv-n{ font-family:var(--f-disp); font-size:1rem; color:var(--camel-texto); }
+.serv-t{ display:flex; align-items:baseline; gap:.6rem; font-family:var(--f-disp); font-size:clamp(1.35rem,1.1rem + .9vw,1.9rem); letter-spacing:-.025em; margin-bottom:.35rem; }
+.serv-t em{ font-style:normal; font-family:var(--f-body); font-size:.66rem; letter-spacing:.14em; color:var(--camel-texto); }
+.serv-x{ display:block; font-size:.86rem; line-height:1.5; color:var(--tinta-suave); }
+.serv-mas{ font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--camel-texto); white-space:nowrap; }
+.serv-mas::after{ content:" →"; }
+/* Las migas sobre fondo oscuro, en la cabecera de categoría. */
+.migas-o{ color:var(--crema-suave); }
+.migas-o a{ color:var(--camel-claro); }
+.migas-o [aria-current]{ color:var(--crema-texto); }
+.detalle-marca{ font-size:.66rem; letter-spacing:.2em; text-transform:uppercase; color:var(--camel-texto); margin-bottom:1.2rem; }
+.familias-todos{ text-align:center; margin-top:clamp(2rem,4vw,3rem); }
+.familias-todos a{ font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--camel-texto); text-decoration:none; border-bottom:1px solid var(--linea); padding-bottom:.2rem; }
+.familias-todos a:hover{ border-bottom-color:var(--camel); }
+
+@media (max-width: 1080px){
+  /* Por debajo de esto el menú de escritorio ya no se ve: manda el acordeón. */
+  .nav-desp-panel{ display:none; }
+}
+@media (max-width: 760px){
+  .serv-fila{ grid-template-columns:auto minmax(0,1fr); gap:.9rem; }
+  .serv-mas{ grid-column:2; margin-top:.4rem; }
+}
+
 @media (prefers-reduced-motion:reduce){
   html{ scroll-behavior:auto; }
   .scroll-cue span{ animation:none; }

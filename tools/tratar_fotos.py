@@ -48,6 +48,7 @@ MARCOS = {
     "paso":    (3, 4, 1200),   # los cuatro pasos verticales de "El Método"
     "compara": (3, 4, 1200),   # las dos caras de cada comparador
     "reel":    (9, 16, 1600),  # los marcos verticales de la galería
+    "banda":   (3, 2, 1400),   # las bandas anchas de los bloques de familia
 }
 # La portada se puede probar con otra proporción desde la línea de comandos:
 #   python3 tools/tratar_fotos.py 6:5
@@ -75,6 +76,26 @@ FOTOS = [
     dict(cod="FOTO-20", arch="foto-04.jpg", virar=True, modo="recorte", fx=.62, fy=.50,
          nota="rizos definidos de espaldas; la masa de rizo cae a la derecha, "
               "así que el foco se corre para no cortarla"),
+
+    # ── Portada · los cinco bloques de categoría ──
+    # Huecos nuevos y vacíos: aún no hay original. El marco de la página es una
+    # banda ancha 3:2, así que cuando lleguen las fotos basta con descomentar
+    # estas cinco líneas y dejar los archivos en assets/photos/source/.
+    # dict(cod="FOTO-21", arch="foto-21.jpg", virar=False, marco="banda",
+    #      modo="recorte", fx=.50, fy=.50,
+    #      nota="Alisados: plano ancho del Piso 1 en uso, trabajo sobre la hebra"),
+    # dict(cod="FOTO-22", arch="foto-22.jpg", virar=False, marco="banda",
+    #      modo="recorte", fx=.50, fy=.50,
+    #      nota="Tratamientos: plano ancho de un ritual en ejecución"),
+    # dict(cod="FOTO-23", arch="foto-23.jpg", virar=False, marco="banda",
+    #      modo="recorte", fx=.50, fy=.50,
+    #      nota="Head Spa: plano ancho del Piso 2, cabina privada, luz tenue"),
+    # dict(cod="FOTO-24", arch="foto-24.jpg", virar=False, marco="banda",
+    #      modo="recorte", fx=.50, fy=.50,
+    #      nota="Caída: plano ancho de una sesión de bioestimulación"),
+    # dict(cod="FOTO-25", arch="foto-25.jpg", virar=False, marco="banda",
+    #      modo="recorte", fx=.50, fy=.50,
+    #      nota="Complementarios: plano ancho de un add-on en ejecución"),
 
     # ── "Los dos espacios": la tarjeta vertical de cada piso ──
     # Llegan a 1024x1200 (0,85) y el hueco es 4:5, así que se recorta solo un

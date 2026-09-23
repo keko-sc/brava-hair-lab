@@ -4,25 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>BRAVA Hair Lab · Fiber x Scalp Studio · Bogotá</title>
-<meta name="description" content="BRAVA Hair Lab, estudio de cuidado capilar cosmético en Bogotá. Protocolos adaptados a la condición real de tu fibra y tu cuero cabelludo.">
+<meta name="description" content="Estudio de cuidado capilar cosmético en Bogotá. 24 protocolos agrupados en cinco categorías, adaptados a la condición real de tu fibra y tu cuero cabelludo.">
 <meta name="theme-color" content="#1D160E">
 <meta name="robots" content="noindex, nofollow">
 
-<link rel="icon" href="assets/img/marca/favicon.ico" sizes="any">
-<link rel="icon" href="assets/img/marca/favicon-32.png" type="image/png" sizes="32x32">
-<link rel="apple-touch-icon" href="assets/img/marca/apple-touch-icon.png">
+<link rel="icon" href="/assets/img/marca/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/marca/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/img/marca/apple-touch-icon.png">
 
-<!-- La primera imagen de la portada se pide cuanto antes: es lo primero
-     que se ve y no debe esperar a que el JS la monte. -->
-<link rel="preload" as="image" href="assets/img/foto-01.webp" type="image/webp" fetchpriority="high">
-
+<link rel="preload" as="image" href="/assets/img/foto-01.webp" type="image/webp" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="styles.css?v=20260914c">
+<link rel="stylesheet" href="/styles.css?v=06a96ce015">
 
 <!-- Marca "hay JS". Todo lo que el CSS esconde para animarlo depende de esta
-     clase: sin JavaScript no se esconde nada y la página se lee entera. -->
+     clase: sin ella no se esconde nada y la página se lee entera. -->
 <script>document.documentElement.className += " js";</script>
 </head>
 <body>
@@ -31,17 +28,33 @@
 
 <header class="nav" data-nav>
   <div class="nav-in">
-    <a class="logo" href="#inicio" aria-label="BRAVA Hair Lab, inicio">
-      <img src="assets/img/marca/isotipo.webp" alt="" width="320" height="275">
+    <a class="logo" href="/" aria-label="BRAVA Hair Lab, inicio">
+      <img src="/assets/img/marca/isotipo.webp" alt="" width="320" height="275">
       <span class="logo-txt">BRAVA<em>Hair Lab</em></span>
     </a>
     <nav class="nav-links" aria-label="Principal">
-      <a href="#espacios">Espacios</a>
-      <a href="#metodo">Método</a>
-      <a href="#resultados">Resultados</a>
-      <a href="#catalogo">Catálogo</a>
-      <a href="#faq">Preguntas</a>
-      <a href="#contacto">Contacto</a>
+      <a href="/" aria-current="page">Inicio</a>
+      <!-- Servicios abre el panel de las cinco categorías. Es un botón, no un
+           enlace, porque su función es desplegar; a la página de servicios se
+           llega desde el propio panel. -->
+      <div class="nav-desp" data-desplegable>
+        <button class="nav-desp-b" type="button" data-desp-boton
+                aria-expanded="false" aria-controls="panel-servicios">Servicios</button>
+        <div class="nav-desp-panel" id="panel-servicios" data-desp-panel hidden>
+          <div class="nav-desp-in">
+            <a class="nav-cat-t" href="/servicios/alisados/">Alisados y alineación<span>6</span></a>
+            <a class="nav-cat-t" href="/servicios/tratamientos/">Tratamientos y reparación<span>9</span></a>
+            <a class="nav-cat-t" href="/servicios/head-spa/">Head Spa<span>2</span></a>
+            <a class="nav-cat-t" href="/servicios/caida/">Caída y fortalecimiento<span>3</span></a>
+            <a class="nav-cat-t" href="/servicios/complementarios/">Servicios complementarios<span>4</span></a>
+            <a class="nav-desp-todo" href="/servicios/">Ver todos los servicios</a>
+          </div>
+        </div>
+      </div>
+      <a href="/el-lab/">El Lab</a>
+      <a href="/#resultados">Resultados</a>
+      <a href="/#faq">Preguntas</a>
+      <a href="/contacto/">Contacto</a>
     </nav>
     <button class="btn btn-sm nav-cta" type="button" data-abre-capa>Encontrar mi protocolo</button>
     <button class="burger" type="button" data-burger aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-movil">
@@ -52,25 +65,74 @@
 
 <div class="menu" id="menu-movil" data-menu hidden>
   <nav aria-label="Menú móvil">
-    <a href="#espacios">Los dos espacios</a>
-    <a href="#metodo">The Brava Method</a>
-    <a href="#resultados">Antes y después</a>
-    <a href="#catalogo">El catálogo</a>
-    <a href="#adn">ADN de marca</a>
-    <a href="#faq">Preguntas frecuentes</a>
-    <a href="#contacto">Contacto</a>
+    <a href="/" aria-current="page">Inicio</a>
+    <p class="menu-et">Servicios</p>
+    <details class="menu-cat">
+      <summary>Alisados y alineación<span>6</span></summary>
+      <a class="menu-cat-todo" href="/servicios/alisados/">Ver toda la categoría</a>
+      <ul>
+            <li><a href="/servicios/alisados/silkfusion/">SilkFusion</a></li>
+            <li><a href="/servicios/alisados/ultra-resolute/">Ultra Resolute</a></li>
+            <li><a href="/servicios/alisados/bio-cellular/">Bio-Cellular</a></li>
+            <li><a href="/servicios/alisados/hydro-botanic/">Hydro-Botanic</a></li>
+            <li><a href="/servicios/alisados/sleek-control/">Sleek Control</a></li>
+            <li><a href="/servicios/alisados/vita-flow/">Vita Flow</a></li>
+      </ul>
+    </details>
+    <details class="menu-cat">
+      <summary>Tratamientos y reparación<span>9</span></summary>
+      <a class="menu-cat-todo" href="/servicios/tratamientos/">Ver toda la categoría</a>
+      <ul>
+            <li><a href="/servicios/tratamientos/velvet/">Velvet</a></li>
+            <li><a href="/servicios/tratamientos/crystal/">Crystal</a></li>
+            <li><a href="/servicios/tratamientos/bounce/">Bounce</a></li>
+            <li><a href="/servicios/tratamientos/detox-360/">Detox 360</a></li>
+            <li><a href="/servicios/tratamientos/bloom/">Bloom</a></li>
+            <li><a href="/servicios/tratamientos/shield/">Shield</a></li>
+            <li><a href="/servicios/tratamientos/re-force/">Re:Force</a></li>
+            <li><a href="/servicios/tratamientos/core/">Core</a></li>
+            <li><a href="/servicios/tratamientos/genesis/">Genesis</a></li>
+      </ul>
+    </details>
+    <details class="menu-cat">
+      <summary>Head Spa<span>2</span></summary>
+      <a class="menu-cat-todo" href="/servicios/head-spa/">Ver toda la categoría</a>
+      <ul>
+            <li><a href="/servicios/head-spa/re-connect/">(Re)-Connect Head Spa</a></li>
+            <li><a href="/servicios/head-spa/deep-care/">Deep Care</a></li>
+      </ul>
+    </details>
+    <details class="menu-cat">
+      <summary>Caída y fortalecimiento<span>3</span></summary>
+      <a class="menu-cat-todo" href="/servicios/caida/">Ver toda la categoría</a>
+      <ul>
+            <li><a href="/servicios/caida/biostim/">Biostim</a></li>
+            <li><a href="/servicios/caida/cellular-infusion/">Cellular Infusion</a></li>
+            <li><a href="/servicios/caida/bioled/">BioLED</a></li>
+      </ul>
+    </details>
+    <details class="menu-cat">
+      <summary>Servicios complementarios<span>4</span></summary>
+      <a class="menu-cat-todo" href="/servicios/complementarios/">Ver toda la categoría</a>
+      <ul>
+            <li><a href="/servicios/complementarios/oiling/">Oiling</a></li>
+            <li><a href="/servicios/complementarios/puntas/">Bye Bye Split Ends!</a></li>
+            <li><a href="/servicios/complementarios/brushing/">Brushing</a></li>
+            <li><a href="/servicios/complementarios/diagnostico-ia/">Diagnóstico Capilar con IA</a></li>
+      </ul>
+    </details>
+    <a class="menu-cat-todo menu-cat-todos" href="/servicios/">Ver todos los servicios</a>
+    <a href="/el-lab/">El Lab por dentro</a>
+    <a href="/#resultados">Antes y después</a>
+    <a href="/#faq">Preguntas frecuentes</a>
+    <a href="/contacto/">Contacto</a>
   </nav>
   <button class="btn menu-cta" type="button" data-abre-capa>Encontrar mi protocolo</button>
-  <p class="menu-pie">Bogotá — Colina Campestre<br><span>Dirección exacta pendiente</span></p>
+  <p class="menu-pie"><a href="https://www.google.com/maps/search/?api=1&amp;query=Calle%20134A%20%23%2055A-20%2C%20local%205%2C%20Colina%20Campestre%2C%20Bogot%C3%A1%2C%20Colombia" target="_blank" rel="noopener">Calle 134A # 55A-20, local 5<br>Colina Campestre · Bogotá</a></p>
 </div>
 
 <main id="contenido">
 
-<!-- ═══════════════════════ PORTADA ═══════════════════════
-     La forma sale del isotipo: dos curvas enfrentadas y una línea vertical
-     que las parte. El titular cruza por encima de la imagen, que se va por
-     el borde derecho. Las cifras, en vertical a la izquierda.
-     ═══════════════════════════════════════════════════════════════════ -->
 <section class="hero hero-a oscuro" id="inicio">
   <span class="trama trama-fondo" aria-hidden="true"></span>
 
@@ -100,20 +162,20 @@
 
     <div class="ha-marco-zona">
       <div class="ha-marco" data-escenas>
-        <figure class="escena esta-activa" data-foto="FOTO-01" data-archivo="assets/img/foto-01.webp"
-                data-ratio="6:5" title="Portada. Melena ondulada de espaldas con brillo natural, luz cálida de ventana sobre fondo de arena.">
+        <figure class="escena esta-activa" data-foto="FOTO-01" data-archivo="/assets/img/foto-01.webp"
+                data-ratio="6:5" data-alt="Portada. Melena ondulada de espaldas con brillo natural, luz cálida de ventana sobre fondo de arena.">
           <span class="trama" aria-hidden="true"></span>
         </figure>
-        <figure class="escena" data-foto="FOTO-18" data-archivo="assets/img/foto-18.webp"
-                data-ratio="6:5" title="Portada. Macro cenital de la raíz y la partidura, cabello sano y con luz cálida.">
+        <figure class="escena" data-foto="FOTO-18" data-archivo="/assets/img/foto-18.webp"
+                data-ratio="6:5" data-alt="Portada. Macro cenital de la raíz y la partidura, cabello sano y con luz cálida.">
           <span class="trama" aria-hidden="true"></span>
         </figure>
-        <figure class="escena" data-foto="FOTO-19" data-archivo="assets/img/foto-19.webp"
-                data-ratio="6:5" title="Portada. Repisa de madera con frascos ámbar y toalla de lino: el ambiente del estudio.">
+        <figure class="escena" data-foto="FOTO-19" data-archivo="/assets/img/foto-19.webp"
+                data-ratio="6:5" data-alt="Portada. Repisa de madera con frascos ámbar y toalla de lino: el ambiente del estudio.">
           <span class="trama" aria-hidden="true"></span>
         </figure>
-        <figure class="escena" data-foto="FOTO-20" data-archivo="assets/img/foto-20.webp"
-                data-ratio="6:5" title="Portada. Rizos definidos de espaldas con luz cálida: el protocolo también es para rizado y afro.">
+        <figure class="escena" data-foto="FOTO-20" data-archivo="/assets/img/foto-20.webp"
+                data-ratio="6:5" data-alt="Portada. Rizos definidos de espaldas con luz cálida: el protocolo también es para rizado y afro.">
           <span class="trama" aria-hidden="true"></span>
         </figure>
         <span class="marco-tag"><span class="foto-tag" data-tag-escena>FOTO-01</span></span>
@@ -132,11 +194,6 @@
   </div>
 </section>
 
-<!-- ═════════ APTO PARA · banda pegada a la portada ═════════
-     En crema: el corte con la portada oscura es lo que la hace notarse.
-     Un icono grande arriba y una sola línea corta debajo. El matiz de los
-     sistemas indicados en embarazo vive en el catálogo y en las preguntas,
-     no aquí. En celular, carrusel horizontal. -->
 <section class="banda-apto" id="apto">
   <span class="trama trama-fondo" aria-hidden="true"></span>
   <div class="wrap">
@@ -173,339 +230,115 @@
   </div>
 </section>
 
+<!-- ══════════════════════════ LAS CINCO CATEGORÍAS ══════════════════════════ -->
+<section class="seccion familias" id="catalogo">
+  <div class="wrap">
+    <header class="seccion-cab">
+      <p class="eyebrow reveal">Servicios</p>
+      <h2 class="titulo titulo-c" data-split="lines">Veinticuatro protocolos.<br><em>Cinco categorías.</em></h2>
+      <p class="parrafo centro reveal">Agrupados por lo que vienes a resolver. Entra en la categoría que te interese y ahí están sus protocolos, uno a uno.</p>
+    </header>
+
+    <div class="fam-bloques" data-familias>
+      <article class="fam-bloque reveal">
+        <figure class="fam-bloque-fig" data-foto="FOTO-21" data-ratio="3:2"
+                data-archivo="/assets/img/foto-21.webp" data-alt="Alisados: plano ancho del Piso 1 en uso, trabajo sobre la hebra.">
+          <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-21</span>
+        </figure>
+        <div class="fam-bloque-txt">
+          <p class="fam-bloque-et">01 · Lo que más nos piden</p>
+          <h3 class="fam-bloque-t">Alisados y alineación</h3>
+          <p class="parrafo">No plastificamos tu cabello: lo alineamos desde su salud molecular. Seis sistemas, y la diferencia entre ellos no es el precio: es tu cabello.</p>
+          <p class="fam-bloque-n"><strong>6</strong> protocolos</p>
+          <a class="btn btn-acento" href="/servicios/alisados/">Ver Alisados y alineación</a>
+        </div>
+      </article>
+
+      <article class="fam-bloque reveal">
+        <figure class="fam-bloque-fig" data-foto="FOTO-22" data-ratio="3:2"
+                data-archivo="/assets/img/foto-22.webp" data-alt="Tratamientos: plano ancho de un ritual en ejecución.">
+          <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-22</span>
+        </figure>
+        <div class="fam-bloque-txt">
+          <p class="fam-bloque-et">02 · De medios a puntas</p>
+          <h3 class="fam-bloque-t">Tratamientos y reparación</h3>
+          <p class="parrafo">La belleza y la salud visible de tu cabello se defienden de medios a puntas. En BRAVA nos especializamos en la arquitectura, nutrición y preservación de la fibra.</p>
+          <p class="fam-bloque-n"><strong>9</strong> protocolos</p>
+          <a class="btn btn-acento" href="/servicios/tratamientos/">Ver Tratamientos y reparación</a>
+        </div>
+      </article>
+
+      <article class="fam-bloque reveal">
+        <figure class="fam-bloque-fig" data-foto="FOTO-23" data-ratio="3:2"
+                data-archivo="/assets/img/foto-23.webp" data-alt="Head Spa: plano ancho del Piso 2, cabina privada, luz tenue.">
+          <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-23</span>
+        </figure>
+        <div class="fam-bloque-txt">
+          <p class="fam-bloque-et">03 · Rooted in Care</p>
+          <h3 class="fam-bloque-t">Head Spa</h3>
+          <p class="parrafo">Una melena extraordinaria comienza desde la raíz. Experiencias largas de cuidado del cuero cabelludo, en el silencio del Piso 2.</p>
+          <p class="fam-bloque-n"><strong>2</strong> protocolos</p>
+          <a class="btn btn-acento" href="/servicios/head-spa/">Ver Head Spa</a>
+        </div>
+      </article>
+
+      <article class="fam-bloque reveal">
+        <figure class="fam-bloque-fig" data-foto="FOTO-24" data-ratio="3:2"
+                data-archivo="/assets/img/foto-24.webp" data-alt="Caída: plano ancho de una sesión de bioestimulación.">
+          <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-24</span>
+        </figure>
+        <div class="fam-bloque-txt">
+          <p class="fam-bloque-et">04 · Desde el folículo</p>
+          <h3 class="fam-bloque-t">Caída y fortalecimiento</h3>
+          <p class="parrafo">La salud, la fuerza y la calidad del cabello nacen en el folículo, y es allí donde centramos nuestra innovación. Cuidado cosmético, nunca médico.</p>
+          <p class="fam-bloque-n"><strong>3</strong> protocolos</p>
+          <a class="btn btn-acento" href="/servicios/caida/">Ver Caída y fortalecimiento</a>
+        </div>
+      </article>
+
+      <article class="fam-bloque reveal">
+        <figure class="fam-bloque-fig" data-foto="FOTO-25" data-ratio="3:2"
+                data-archivo="/assets/img/foto-25.webp" data-alt="Complementarios: plano ancho de un add-on en ejecución.">
+          <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-25</span>
+        </figure>
+        <div class="fam-bloque-txt">
+          <p class="fam-bloque-et">05 · Suman a tu protocolo</p>
+          <h3 class="fam-bloque-t">Servicios complementarios</h3>
+          <p class="parrafo">Servicios complementarios para elevar tu experiencia y personalizar aún más tu resultado.</p>
+          <p class="fam-bloque-n"><strong>4</strong> servicios</p>
+          <a class="btn btn-acento" href="/servicios/complementarios/">Ver Servicios complementarios</a>
+        </div>
+      </article>
+
+      <!-- Recorrido para que el último bloque llegue a su posición fija y se
+           quede ahí. Tiene que ser un elemento de verdad: un margen o un
+           padding no le dan recorrido al sticky. -->
+      <span class="fam-cola" aria-hidden="true"></span>
+    </div>
+
+    <p class="familias-todos reveal"><a href="/servicios/">Ver todos los servicios →</a></p>
+  </div>
+</section>
+
 <!-- Marquesina con los nombres reales de los protocolos, desde el catálogo -->
 <div class="marquesina" aria-hidden="true"><div class="marquesina-pista" data-marquesina></div></div>
 
-<!-- ══════════════════════════ LOS DOS ESPACIOS ══════════════════════════ -->
-<section class="seccion espacios" id="espacios">
-  <div class="wrap">
-    <header class="seccion-cab">
-      <p class="eyebrow reveal">Los dos espacios</p>
-      <h2 class="titulo titulo-c" data-split="lines">Dos pisos,<br><em>dos mundos.</em></h2>
-      <p class="parrafo centro reveal">El mismo estándar, dos formas de habitarlo.</p>
-    </header>
-
-    <div class="pisos" data-pisos>
-      <article class="piso reveal">
-        <figure class="arco piso-fig" data-foto="FOTO-12" data-archivo="assets/img/foto-12.webp" data-ratio="4:5"
-                title="Piso 1, plano general, luz cálida.">
-          <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-12</span>
-        </figure>
-        <div class="piso-txt">
-          <p class="num">Piso 1</p>
-          <h3>Retreat en el Desierto</h3>
-          <p class="parrafo">Tonos tierra, luz natural cálida, texturas de mármol y madera. Un espacio dinámico que integra confort, asesoría y tecnología: recepción, boutique de cuidado capilar, seis puestos de trabajo, poltronas reclinables y lavacabezas eléctricos ergonómicos. Aromas de autor, bebidas de cortesía y tecnología aplicada sobre la hebra.</p>
-        </div>
-      </article>
-
-      <article class="piso piso-frio reveal">
-        <figure class="arco piso-fig" data-foto="FOTO-13" data-archivo="assets/img/foto-13.webp" data-ratio="4:5"
-                title="Piso 2, plano general, luz tenue.">
-          <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-13</span>
-        </figure>
-        <div class="piso-txt">
-          <p class="num">Piso 2</p>
-          <h3>El Santuario</h3>
-          <p class="parrafo">Gama gris claro y blanco, iluminación tenue, privacidad absoluta. Diseñado para la desconexión profunda: cabinas privadas, salas reservadas con camas de masaje capilar, zonas de tratamiento y estación de diagnóstico con capilógrafo de alta definición.</p>
-        </div>
-      </article>
-
-      <!-- Recorrido para que el Piso 2 llegue a su posición fija y se quede
-           ahí. Tiene que ser un elemento de verdad: un margen o un padding no
-           le dan recorrido al sticky. -->
-      <span class="pisos-cola" aria-hidden="true"></span>
-    </div>
-
-    <ul class="sellos sellos-centro reveal">
-      <li>A puerta cerrada y bajo cita</li><li>Aromaterapia</li><li>Fragancias propias</li>
-      <li>Batas y cobijas</li><li>Masajes cortos</li><li>Menú de bebidas y snacks</li>
-      <li>Lockers con llave</li><li>Cronometraje visual de tiempos</li><li>Playlist de desconexión</li>
-    </ul>
-  </div>
-</section>
-
-<!-- ══════════════════════════ DOS ABORDAJES ══════════════════════════ -->
-<section class="seccion abordajes" id="abordajes">
-  <div class="wrap">
-    <header class="seccion-cab">
-      <p class="eyebrow reveal">Dos abordajes</p>
-      <h2 class="titulo titulo-c" data-split="lines">Dos abordajes.<br>Un <em>mismo cabello.</em></h2>
-      <p class="parrafo centro reveal">La belleza se defiende de medios a puntas. La salud nace en la raíz. En BRAVA trabajamos las dos, por separado y a la vez.</p>
-    </header>
-
-    <div class="abordaje-par">
-      <article class="abordaje reveal">
-        <figure class="arco" data-foto="FOTO-02" data-archivo="assets/img/foto-02.webp" data-ratio="1:1"
-                title="Detalle macro de una hebra o de un mechón con brillo. Luz cálida.">
-          <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-02</span>
-        </figure>
-        <p class="num">01 · BRAVA FIBER</p>
-        <h3 class="abordaje-t">La fibra capilar</h3>
-        <p class="parrafo">De medios a puntas. Preservar, reparar y elevar la calidad cosmética de la hebra: hidratación, nutrición, suavidad, brillo, fuerza y protección frente al desgaste.</p>
-        <p class="abordaje-n">15 protocolos</p>
-      </article>
-
-      <article class="abordaje abordaje-frio reveal">
-        <figure class="arco" data-foto="FOTO-03" data-archivo="assets/img/foto-03.webp" data-ratio="1:1"
-                title="Detalle macro de cuero cabelludo sano o de la cámara de diagnóstico sobre la raíz. Luz fría y tenue.">
-          <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-03</span>
-        </figure>
-        <p class="num">02 · BRAVA SCALP</p>
-        <h3 class="abordaje-t">El cuero cabelludo</h3>
-        <p class="parrafo">La raíz y el entorno donde nace el cabello. Equilibrio, vitalidad y bienestar, con cuidado cosmético avanzado no médico.</p>
-        <p class="abordaje-n">5 protocolos</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════ EL CATÁLOGO ══════════════════════════ -->
-<section class="seccion catalogo catalogo-entrada oscuro" id="catalogo">
-  <span class="trama trama-fondo" aria-hidden="true"></span>
-  <div class="wrap">
-    <div class="cat-entrada">
-      <p class="eyebrow reveal">El catálogo</p>
-      <h2 class="titulo titulo-c" data-split="lines">Veinticuatro protocolos.<br><em>Tres familias.</em></h2>
-      <p class="parrafo centro reveal">Alineaciones moleculares, rituales de fibra, bioestimulación del cuero cabelludo y add-ons.<br>Qué hace cada uno, para quién es y sus tiempos.</p>
-      <button class="btn btn-acento btn-grande reveal" type="button" data-abre-catalogo>
-        <span class="btn-chispa" aria-hidden="true">✦</span> Ver todos los protocolos
-      </button>
-    </div>
-  </div>
-
-  <!-- El contexto editorial de cada grupo: no se pierde, se muestra dentro de
-       la capa al abrir cualquier protocolo de ese grupo. -->
-  <div class="contexto-fuente" id="contexto-catalogo" hidden>
-      <div data-contexto="fiber-alineacion">
-        <div class="fam-cab">
-        <figure class="arco fam-fig" data-foto="FOTO-08" data-archivo="assets/img/foto-08.webp" data-ratio="21:9 · banda"
-        title="Plano ancho del Piso 1 en uso.">
-        <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-08</span>
-        </figure>
-        <div class="fam-intro">
-        <p class="num">BRAVA FIBER</p>
-        <h3 class="fam-titulo">La fibra capilar: de medios a puntas</h3>
-        <p class="parrafo">La belleza y la salud visible de tu cabello se defienden de medios a puntas. La hebra es una estructura expuesta que, aunque nazca de un folículo fuerte, enfrenta un desgaste continuo: procesos químicos, calor, fricción y la agresión del entorno.</p>
-        <p class="parrafo">El tallo capilar es tejido biológicamente inactivo: no se regenera por sí solo y requiere un cuidado externo meticuloso. De nada sirve potenciar un crecimiento sano desde el cuero cabelludo si la hebra se parte en el camino.</p>
-        <p class="parrafo destacado">En BRAVA nos especializamos en la arquitectura, nutrición y preservación de la fibra.</p>
-        </div>
-        </div>
-
-        <div class="grupo-cab">
-        <h4 class="grupo-titulo">The Alignment Edit</h4>
-        <p class="parrafo">No plastificamos tu cabello. Lo alineamos desde su salud molecular. Seis sistemas. La diferencia entre ellos no es el precio: es tu cabello.</p>
-        </div>
-
-        <div class="ciencia reveal">
-        <p class="ciencia-et">La ciencia detrás de la diferencia</p>
-        <div class="ciencia-par">
-        <div class="ciencia-col ciencia-no">
-        <p class="ciencia-cab">Lo que NO buscamos</p>
-        <ul>
-        <li>Una fibra rígida, pesada o artificial</li>
-        <li>El mismo protocolo estandarizado para todas las hebras</li>
-        <li>Asfixiar, romper o debilitar el cabello</li>
-        <li>Un liso aparente sobre una estructura dañada</li>
-        </ul>
-        </div>
-        <div class="ciencia-col ciencia-si">
-        <p class="ciencia-cab">Lo que SÍ buscamos</p>
-        <ul>
-        <li>Liso con caída y movimiento natural</li>
-        <li>Transformación personalizada según la condición real y el historial de la hebra</li>
-        <li>Un cabello permeable, cuidado y receptivo a la nutrición posterior</li>
-        <li>Una inyección molecular de materia que aporta soporte, manejabilidad y suavidad real</li>
-        </ul>
-        </div>
-        </div>
-        </div>
-
-        <ul class="sellos reveal">
-        <li>Veganas y cruelty-free</li><li>Orgánicas y botánicas</li>
-        <li>100 % libres de formol y derivados</li><li>Progresivas</li><li>Termoactivas</li>
-        </ul>
-
-        <div class="avisos-par">
-        <p class="aviso-nota reveal">Ningún protocolo se aplica sin evaluar antes el historial y el estado real de la hebra. En caso de embarazo o lactancia, se sugiere confirmar la aplicación con el médico obstetra.</p>
-        <p class="aviso-nota reveal"><strong>Recomendación de bioseguridad.</strong> Recomendamos el ritual Shield entre 7 y 10 días antes y entre 7 y 10 días después de tu alineación. Antes prepara y refuerza los puentes internos; después suelda los enlaces inestables y prolonga la vida del liso.</p>
-        </div>
-      </div>
-      <div data-contexto="fiber-ritual">
-        <div class="fam-cab">
-        <figure class="arco fam-fig" data-foto="FOTO-08" data-archivo="assets/img/foto-08.webp" data-ratio="21:9 · banda"
-        title="Plano ancho del Piso 1 en uso.">
-        <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-08</span>
-        </figure>
-        <div class="fam-intro">
-        <p class="num">BRAVA FIBER</p>
-        <h3 class="fam-titulo">La fibra capilar: de medios a puntas</h3>
-        <p class="parrafo">La belleza y la salud visible de tu cabello se defienden de medios a puntas. La hebra es una estructura expuesta que, aunque nazca de un folículo fuerte, enfrenta un desgaste continuo: procesos químicos, calor, fricción y la agresión del entorno.</p>
-        <p class="parrafo">El tallo capilar es tejido biológicamente inactivo: no se regenera por sí solo y requiere un cuidado externo meticuloso. De nada sirve potenciar un crecimiento sano desde el cuero cabelludo si la hebra se parte en el camino.</p>
-        <p class="parrafo destacado">En BRAVA nos especializamos en la arquitectura, nutrición y preservación de la fibra.</p>
-        </div>
-        </div>
-
-        <div class="grupo-cab">
-        <h4 class="grupo-titulo">The Ritual Menu</h4>
-        <p class="parrafo">En nuestro Hair Lab no aplicamos simples mascarillas: restauramos la arquitectura del cabello. Cada fórmula se selecciona bajo diagnóstico previo.</p>
-        </div>
-
-        <div class="ideas-par">
-        <article class="idea idea-marcada reveal">
-        <h5>Zero Heat Damage</h5>
-        <p>Evitamos el calor extremo cuando su única función es generar un brillo cosmético inmediato. Un cabello puede lucir deslumbrante tras una exposición térmica intensa y, aun así, quedar estructuralmente debilitado. Aquí el brillo no es un artificio final: es la consecuencia de una fibra reestructurada, protegida y respetada.</p>
-        </article>
-        <article class="idea reveal">
-        <h5>Repolarización capilar</h5>
-        <p>No es un producto, es una categoría. El cabello dañado por decoloraciones, químicos o planchas pierde sus cargas eléctricas y se llena de iones positivos, lo que causa porosidad, estática y frizz. Los tratamientos reparadores aportan activos con iones negativos que, activados con aparatología, reequilibran esa carga. Eso es repolarizar la fibra.</p>
-        <p class="idea-pie">Agrupa Shield, Re:Force, Core y Genesis.</p>
-        </article>
-        </div>
-      </div>
-      <div data-contexto="scalp-experiencia">
-        <div class="fam-cab">
-        <figure class="arco fam-fig" data-foto="FOTO-09" data-archivo="assets/img/foto-09.webp" data-ratio="21:9 · banda"
-        title="Plano del Piso 2, cabina privada, luz tenue.">
-        <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-09</span>
-        </figure>
-        <div class="fam-intro">
-        <p class="num">BRAVA SCALP</p>
-        <h3 class="fam-titulo">Rooted in Care</h3>
-        <p class="parrafo destacado">Tu cabello no necesita promesas. Necesita un entorno biológico óptimo para expresar todo su potencial.</p>
-        <p class="parrafo">Una melena extraordinaria comienza desde la raíz. La salud, la fuerza y la calidad del cabello nacen en el folículo, y es allí donde centramos nuestra innovación. Nuestro sistema de bioestimulación combina modalidades avanzadas no invasivas para optimizar el ecosistema capilar y favorecer la actividad natural del folículo.</p>
-        </div>
-        </div>
-
-        <p class="aviso-medico reveal">Nuestro enfoque es exclusivamente estético y preventivo. No realizamos diagnóstico ni tratamiento de patologías médicas. Si identificamos signos que requieran valoración clínica, recomendamos acudir a una clínica capilar, dermatólogo o tricólogo.</p>
-
-        <div class="grupo-cab">
-        <h4 class="grupo-titulo">Experiencias</h4>
-        <p class="parrafo">Dos servicios premium de 90 minutos.</p>
-        </div>
-      </div>
-      <div data-contexto="scalp-rootlounge">
-        <div class="fam-cab">
-        <figure class="arco fam-fig" data-foto="FOTO-09" data-archivo="assets/img/foto-09.webp" data-ratio="21:9 · banda"
-        title="Plano del Piso 2, cabina privada, luz tenue.">
-        <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-09</span>
-        </figure>
-        <div class="fam-intro">
-        <p class="num">BRAVA SCALP</p>
-        <h3 class="fam-titulo">Rooted in Care</h3>
-        <p class="parrafo destacado">Tu cabello no necesita promesas. Necesita un entorno biológico óptimo para expresar todo su potencial.</p>
-        <p class="parrafo">Una melena extraordinaria comienza desde la raíz. La salud, la fuerza y la calidad del cabello nacen en el folículo, y es allí donde centramos nuestra innovación. Nuestro sistema de bioestimulación combina modalidades avanzadas no invasivas para optimizar el ecosistema capilar y favorecer la actividad natural del folículo.</p>
-        </div>
-        </div>
-
-        <p class="aviso-medico reveal">Nuestro enfoque es exclusivamente estético y preventivo. No realizamos diagnóstico ni tratamiento de patologías médicas. Si identificamos signos que requieran valoración clínica, recomendamos acudir a una clínica capilar, dermatólogo o tricólogo.</p>
-
-        <div class="grupo-cab">
-        <h4 class="grupo-titulo">Root Lounge</h4>
-        <p class="parrafo">Estimulación, nutrición y fortalecimiento folicular de alta tecnología. Sin agujas médicas, sin tiempo de recuperación, 100 % libre de dolor.</p>
-        </div>
-
-        <aside class="descansos reveal">
-        <p class="descansos-t">Tiempos de descanso</p>
-        <ul>
-        <li><span aria-hidden="true">✦</span>24 horas entre sesiones de BioLED.</li>
-        <li><span aria-hidden="true">✦</span>24 a 48 horas entre BioLED y otra tecnología.</li>
-        <li><span aria-hidden="true">✦</span>7 días entre Biostim y Cellular Infusion.</li>
-        </ul>
-        </aside>
-      </div>
-      <div data-contexto="addon">
-        <div class="grupo-cab">
-        <h4 class="grupo-titulo">Add-Ons</h4>
-        <p class="parrafo">Servicios complementarios para elevar tu experiencia y personalizar aún más tu resultado.</p>
-        </div>
-      </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════ THE BRAVA METHOD ══════════════════════════ -->
-<section class="seccion metodo" id="metodo">
-  <div class="wrap">
-    <header class="seccion-cab">
-      <p class="eyebrow reveal">El método</p>
-      <h2 class="titulo titulo-c" data-split="lines">Cuidar el cabello<br>es <em>entenderlo mejor.</em></h2>
-      <p class="parrafo centro reveal">Cuidar el cabello no se trata de hacer más. Se trata de entenderlo mejor. Cuatro pasos que guían cada experiencia en el Lab, desde la primera evaluación hasta el mantenimiento en casa.</p>
-    </header>
-
-    <ol class="pasos">
-      <li class="paso reveal">
-        <figure class="arco-sm" data-foto="FOTO-04" data-archivo="assets/img/foto-04.webp" data-ratio="3:4"
-                title="La cámara de diagnóstico apoyada sobre el cuero cabelludo.">
-          <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-04</span>
-        </figure>
-        <div class="paso-txt">
-          <p class="paso-n">01</p>
-          <h3>ASSESS · Evaluamos</h3>
-          <p>Observamos el estado de la fibra y del cuero cabelludo antes de actuar. Entender sus características, necesidades y objetivos es la clave.</p>
-          <p class="paso-t">Antes de tocar la fibra</p>
-        </div>
-      </li>
-      <li class="paso reveal">
-        <figure class="arco-sm" data-foto="FOTO-05" data-archivo="assets/img/foto-05.webp" data-ratio="3:4"
-                title="Manos aplicando producto, mechón sostenido, close-up.">
-          <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-05</span>
-        </figure>
-        <div class="paso-txt">
-          <p class="paso-n">02</p>
-          <h3>TREAT · Tratamos</h3>
-          <p>Ejecutamos el protocolo seleccionado respetando la fibra que tenemos en frente. El cuidado se siente en cada aplicación y en el confort de la experiencia.</p>
-          <p class="paso-t">El protocolo, en cabina</p>
-        </div>
-      </li>
-      <li class="paso reveal">
-        <figure class="arco-sm" data-foto="FOTO-06" data-archivo="assets/img/foto-06.webp" data-ratio="3:4"
-                title="Cabello terminado en movimiento.">
-          <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-06</span>
-        </figure>
-        <div class="paso-txt">
-          <p class="paso-n">03</p>
-          <h3>TRANSFORM · Transformamos</h3>
-          <p>Donde el cuidado se convierte en resultado. Restauramos y potenciamos apariencia, textura, fuerza, brillo, suavidad y condición cosmética.</p>
-          <p class="paso-t">El resultado visible</p>
-        </div>
-      </li>
-      <li class="paso reveal">
-        <figure class="arco-sm" data-foto="FOTO-07" data-archivo="assets/img/foto-07.webp" data-ratio="3:4"
-                title="La boutique de producto para casa, o la asesoría final.">
-          <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-07</span>
-        </figure>
-        <div class="paso-txt">
-          <p class="paso-n">04</p>
-          <h3>MAINTAIN · Mantenemos</h3>
-          <p>El cuidado va más allá de tu sesión. Te acompañamos con una estrategia de mantenimiento en casa adaptada a tu cabello y a tu estilo de vida.</p>
-          <p class="paso-t">En casa, después</p>
-        </div>
-      </li>
-    </ol>
-  </div>
-</section>
-
-<!-- ══════════════════════ ANTES Y DESPUÉS ══════════════════════
-     Dos tomas del mismo caso, una encima de otra, con un tirador que
-     revela. Las fotos son casos reales de la clienta y están pendientes:
-     aquí no se afirma ningún resultado.
-     ═══════════════════════════════════════════════════════════════ -->
 <section class="seccion antesdespues" id="resultados">
   <div class="wrap">
     <header class="seccion-cab">
       <p class="eyebrow reveal">Antes y después</p>
       <h2 class="titulo titulo-c" data-split="lines">La misma cabeza,<br><em>otra fibra.</em></h2>
       <p class="parrafo centro reveal">Mismo encuadre, misma luz y misma distancia en las dos tomas. Lo único que cambia es el cabello. Arrastra el tirador para comparar.</p>
-      <p class="nota-trabajo reveal">Pendiente: casos reales del Lab, con autorización de cada clienta</p>
     </header>
 
     <div class="comparadores">
       <figure class="comparador reveal" data-comparador>
-        <div class="cmp-cara cmp-despues" data-foto="FOTO-AB1B" data-archivo="assets/img/foto-ab1b.webp" data-ratio="3:4"
-             title="Comparador 1, DESPUÉS. La misma fibra después del protocolo. Mismo encuadre, misma luz y misma distancia que la toma de antes: lo único que cambia es el cabello.">
+        <div class="cmp-cara cmp-despues" data-foto="FOTO-AB1B" data-archivo="/assets/img/foto-ab1b.webp" data-ratio="3:4"
+             data-alt="Comparador 1, DESPUÉS. La misma fibra después del protocolo. Mismo encuadre, misma luz y misma distancia que la toma de antes: lo único que cambia es el cabello.">
           <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-AB1B</span>
         </div>
-        <div class="cmp-cara cmp-antes" data-foto="FOTO-AB1A" data-archivo="assets/img/foto-ab1a.webp" data-ratio="3:4"
-             title="Comparador 1, ANTES. Fibra antes del protocolo. Mismo encuadre, misma luz y misma distancia que la toma de después.">
+        <div class="cmp-cara cmp-antes" data-foto="FOTO-AB1A" data-archivo="/assets/img/foto-ab1a.webp" data-ratio="3:4"
+             data-alt="Comparador 1, ANTES. Fibra antes del protocolo. Mismo encuadre, misma luz y misma distancia que la toma de después.">
           <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-AB1A</span>
         </div>
         <span class="cmp-tirador" aria-hidden="true"><i></i></span>
@@ -513,15 +346,14 @@
         <span class="cmp-et cmp-et-b">Después</span>
         <input class="cmp-rango" type="range" min="0" max="100" value="50" step="0.1"
                aria-label="Comparar antes y después, caso 1">
-        <figcaption><span class="pendiente">PENDIENTE: protocolo aplicado</span></figcaption>
       </figure>
       <figure class="comparador reveal" data-comparador>
-        <div class="cmp-cara cmp-despues" data-foto="FOTO-AB2B" data-archivo="assets/img/foto-ab2b.webp" data-ratio="3:4"
-             title="Comparador 2, DESPUÉS. Segundo caso, después. Mismo encuadre, misma luz y misma distancia que la toma de antes: lo único que cambia es el cabello.">
+        <div class="cmp-cara cmp-despues" data-foto="FOTO-AB2B" data-archivo="/assets/img/foto-ab2b.webp" data-ratio="3:4"
+             data-alt="Comparador 2, DESPUÉS. Segundo caso, después. Mismo encuadre, misma luz y misma distancia que la toma de antes: lo único que cambia es el cabello.">
           <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-AB2B</span>
         </div>
-        <div class="cmp-cara cmp-antes" data-foto="FOTO-AB2A" data-archivo="assets/img/foto-ab2a.webp" data-ratio="3:4"
-             title="Comparador 2, ANTES. Segundo caso, antes. Mismo encuadre, misma luz y misma distancia que la toma de después.">
+        <div class="cmp-cara cmp-antes" data-foto="FOTO-AB2A" data-archivo="/assets/img/foto-ab2a.webp" data-ratio="3:4"
+             data-alt="Comparador 2, ANTES. Segundo caso, antes. Mismo encuadre, misma luz y misma distancia que la toma de después.">
           <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-AB2A</span>
         </div>
         <span class="cmp-tirador" aria-hidden="true"><i></i></span>
@@ -529,7 +361,6 @@
         <span class="cmp-et cmp-et-b">Después</span>
         <input class="cmp-rango" type="range" min="0" max="100" value="50" step="0.1"
                aria-label="Comparar antes y después, caso 2">
-        <figcaption><span class="pendiente">PENDIENTE: protocolo aplicado</span></figcaption>
       </figure>
     </div>
 
@@ -542,93 +373,42 @@
   </div>
 </section>
 
-<!-- ══════════════════════════ GALERÍA · EL LAB POR DENTRO ══════════════════════════ -->
-<section class="seccion galeria oscuro" id="galeria">
-  <span class="trama trama-fondo" aria-hidden="true"></span>
+<section class="seccion abordajes" id="abordajes">
   <div class="wrap">
-    <header class="reel-cab">
-      <p class="eyebrow reveal">Galería</p>
-      <h2 class="reel-t" data-split="lines">El Lab, <em>por dentro.</em></h2>
+    <header class="seccion-cab">
+      <p class="eyebrow reveal">Dos abordajes</p>
+      <h2 class="titulo titulo-c" data-split="lines">Dos abordajes.<br>Un <em>mismo cabello.</em></h2>
+      <p class="parrafo centro reveal">La belleza se defiende de medios a puntas. La salud nace en la raíz. En BRAVA trabajamos las dos, por separado y a la vez.</p>
     </header>
-  </div>
 
-  <!-- Dos marcos quietos. Lo único que cambia es la imagen de dentro: las
-       cuatro parejas se relevan con el scroll. Los marcos se quedan en su
-       sitio con position:sticky, que es del navegador: el scroll no se
-       bloquea ni se secuestra y la sección se puede pasar de largo. -->
-  <div class="reel" data-reel>
-    <div class="reel-escena" data-escena-reel>
-        <figure class="reel-marco reel-marco-i" data-marco>
-          <div class="reel-toma" data-foto="FOTO-G01" data-ratio="9:16"
-               data-archivo="assets/img/foto-g01.webp" data-video="assets/video/reel-g01.mp4"
-               title="Plano del Lab en marcha: el puesto de trabajo con luz cálida. Vertical 9:16, vídeo o imagen." data-primera>
-            <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-G01</span>
-          </div>
-          <div class="reel-toma" data-foto="FOTO-G03" data-ratio="9:16"
-               data-archivo="assets/img/foto-g03.webp" data-video="assets/video/reel-g03.mp4"
-               title="Gesto de cabina: la mano trabajando la fibra. Vertical 9:16, vídeo o imagen.">
-            <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-G03</span>
-          </div>
-          <div class="reel-toma" data-foto="FOTO-G05" data-ratio="9:16"
-               data-archivo="assets/img/foto-g05.webp" data-video="assets/video/reel-g05.mp4"
-               title="Cabina privada del Piso 2, luz tenue. Vertical 9:16, vídeo o imagen.">
-            <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-G05</span>
-          </div>
-          <div class="reel-toma" data-foto="FOTO-G07" data-ratio="9:16"
-               data-archivo="assets/img/foto-g07.webp" data-video="assets/video/reel-g07.mp4"
-               title="Salida del Lab: caída natural con luz de ventana. Vertical 9:16, vídeo o imagen.">
-            <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-G07</span>
-          </div>
+    <div class="abordaje-par">
+      <article class="abordaje reveal">
+        <figure class="arco" data-foto="FOTO-02" data-archivo="/assets/img/foto-02.webp" data-ratio="1:1"
+                data-alt="Detalle macro de una hebra o de un mechón con brillo. Luz cálida.">
+          <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-02</span>
         </figure>
-        <figure class="reel-marco reel-marco-d" data-marco>
-          <div class="reel-toma" data-foto="FOTO-G02" data-ratio="9:16"
-               data-archivo="assets/img/foto-g02.webp" data-video="assets/video/reel-g02.mp4"
-               title="Detalle de textura y brillo, cabello en movimiento. Vertical 9:16, vídeo o imagen." data-primera>
-            <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-G02</span>
-          </div>
-          <div class="reel-toma" data-foto="FOTO-G04" data-ratio="9:16"
-               data-archivo="assets/img/foto-g04.webp" data-video="assets/video/reel-g04.mp4"
-               title="Rincón del Piso 1: boutique de cuidado capilar. Vertical 9:16, vídeo o imagen.">
-            <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-G04</span>
-          </div>
-          <div class="reel-toma" data-foto="FOTO-G06" data-ratio="9:16"
-               data-archivo="assets/img/foto-g06.webp" data-video="assets/video/reel-g06.mp4"
-               title="Estación de diagnóstico con el capilógrafo. Vertical 9:16, vídeo o imagen.">
-            <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-G06</span>
-          </div>
-          <div class="reel-toma" data-foto="FOTO-G08" data-ratio="9:16"
-               data-archivo="assets/img/foto-g08.webp" data-video="assets/video/reel-g08.mp4"
-               title="Detalle de ambiente: batas, bebidas y aroma de autor. Vertical 9:16, vídeo o imagen.">
-            <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-G08</span>
-          </div>
+        <p class="num">01 · BRAVA FIBER</p>
+        <h3 class="abordaje-t">La fibra capilar</h3>
+        <p class="parrafo">De medios a puntas. Preservar, reparar y elevar la calidad cosmética de la hebra: hidratación, nutrición, suavidad, brillo, fuerza y protección frente al desgaste.</p>
+        <p class="abordaje-n">15 protocolos</p>
+        <p class="abordaje-cta"><a class="btn btn-ghost btn-sm" href="/servicios/#fiber">Ver los protocolos de fibra</a></p>
+      </article>
+
+      <article class="abordaje abordaje-frio reveal">
+        <figure class="arco" data-foto="FOTO-03" data-archivo="/assets/img/foto-03.webp" data-ratio="1:1"
+                data-alt="Detalle macro de cuero cabelludo sano o de la cámara de diagnóstico sobre la raíz. Luz fría y tenue.">
+          <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-03</span>
         </figure>
+        <p class="num">02 · BRAVA SCALP</p>
+        <h3 class="abordaje-t">El cuero cabelludo</h3>
+        <p class="parrafo">La raíz y el entorno donde nace el cabello. Equilibrio, vitalidad y bienestar, con cuidado cosmético avanzado no médico.</p>
+        <p class="abordaje-n">5 protocolos</p>
+        <p class="abordaje-cta"><a class="btn btn-ghost btn-sm" href="/servicios/#scalp">Ver los protocolos de cuero cabelludo</a></p>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════ ADN DE MARCA ══════════════════════════ -->
-<section class="seccion adn" id="adn">
-  <span class="trama trama-fondo" aria-hidden="true"></span>
-  <div class="wrap">
-    <div class="adn-grid">
-      <div class="adn-txt">
-        <p class="eyebrow reveal">ADN de marca</p>
-        <h2 class="titulo" data-split="lines">Nos dijeron<br><em>bravas.</em></h2>
-        <p class="parrafo reveal">Nos llamaron bravas por no conformarnos con menos de lo que merecemos, por poner límites claros y por tomar el control de nuestra presencia.</p>
-        <p class="parrafo reveal">En BRAVA Hair Lab no le huimos a esa palabra: la elevamos. Ser brava no es ser problemática. Es tener carácter. Es saber lo que quieres. Es exigir calidad. Es elegirte.</p>
-        <p class="parrafo reveal">No queremos construir una marca que le diga a la mujer cómo debe ser. Queremos construir un espacio que celebre que ya sabe quién es.</p>
-        <p class="adn-cierre reveal">BRAVA is an attitude.</p>
-      </div>
-      <figure class="arco adn-fig reveal" data-foto="FOTO-10" data-archivo="assets/img/foto-10.webp" data-ratio="3:4"
-              title="Editorial, la mujer BRAVA. Actitud, no sonrisa.">
-        <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-10</span>
-      </figure>
-    </div>
-
-  </div>
-</section>
-
-<!-- ══════════════════════════ PREGUNTAS ══════════════════════════ -->
 <section class="seccion faq" id="faq">
   <div class="wrap">
     <header class="seccion-cab">
@@ -647,76 +427,37 @@
   </div>
 </section>
 
-<!-- ══════════════════════════ CONTACTO ══════════════════════════ -->
-<section class="seccion contacto oscuro" id="contacto">
-  <span class="trama trama-fondo" aria-hidden="true"></span>
-  <div class="wrap">
-    <header class="seccion-cab">
-      <p class="eyebrow reveal">Contacto</p>
-      <h2 class="titulo titulo-c" data-split="lines">Agenda tu<br><em>valoración.</em></h2>
-      <p class="parrafo centro reveal">Todo empieza con entender tu cabello. Escríbenos y agendamos.</p>
-    </header>
-
-    <div class="contacto-grid">
-      <div class="c-card c-card-wa reveal">
-        <p class="c-et">Reservas</p>
-        <h3>Agenda tu cita</h3>
-        <p class="c-dato"><a href="https://wa.me/573205830720" data-wa-simple>+57 320 583 0720</a></p>
-        <p class="c-txt">Como prefieras: reserva tú misma en la agenda en línea, o escríbenos por WhatsApp y lo vemos contigo.</p>
-        <a class="btn c-agenda" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en línea</a>
-        <a class="btn btn-wa" href="https://wa.me/573205830720" data-wa-simple>
-          <span class="ic-wa" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm5.6 14.2c-.2.6-1.2 1.2-1.7 1.2-.5.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6a11.4 11.4 0 0 1-4.3-3.8c-.3-.4-1-1.4-1-2.6s.6-1.8.9-2.1c.2-.2.4-.3.6-.3h.5c.2 0 .4 0 .6.4l.7 1.8c.1.2 0 .4-.1.5l-.3.4c-.1.1-.3.3-.1.6.2.3.7 1.1 1.4 1.8.9.8 1.6 1 1.9 1.2.2.1.4.1.5-.1l.6-.7c.2-.2.3-.2.5-.1l1.7.8c.3.1.4.2.5.3v1Z"/></svg></span>
-          Escribir por WhatsApp
-        </a>
-      </div>
-
-      <div class="c-card reveal">
-        <p class="c-et">Dónde estamos</p>
-        <h3>Ubicación</h3>
-        <address>Bogotá — Colina Campestre</address>
-        <p class="c-txt"><span class="pendiente">PENDIENTE: dirección exacta</span></p>
-        <p class="c-txt"><span class="pendiente">PENDIENTE: mapa</span></p>
-      </div>
-
-      <div class="c-card reveal">
-        <p class="c-et">Cuándo y dónde seguirnos</p>
-        <h3>Horarios y redes</h3>
-        <p class="c-txt"><span class="pendiente">PENDIENTE: horarios</span></p>
-        <p class="c-txt"><span class="pendiente">PENDIENTE: Instagram y TikTok</span></p>
-      </div>
-    </div>
-  </div>
-</section>
-
 </main>
-
-<!-- Aviso de versión de trabajo. Va al final, justo encima del pie: ahí deja
-     claro que la web no es definitiva sin estorbar al menú ni a la portada. -->
-<div class="avisobar" role="note">
-  <div class="wrap">
-    <p><strong>Versión de trabajo</strong><span class="avisobar-sep" aria-hidden="true">·</span>Contenido en revisión y <strong>fotografía pendiente</strong>: los huecos llevan la trama de la marca hasta que lleguen las fotos.</p>
-  </div>
-</div>
 
 <footer class="pie">
   <div class="wrap">
     <div class="pie-top">
       <div class="pie-marca">
-        <img class="pie-logo" src="assets/img/marca/imagotipo-web.svg" alt="BRAVA Hair Lab" width="416" height="351" loading="lazy">
+        <img class="pie-logo" src="/assets/img/marca/imagotipo-web.svg" alt="BRAVA Hair Lab" width="416" height="351" loading="lazy">
         <p>Fiber x Scalp Studio.<br>Bogotá — Colina Campestre.</p>
       </div>
       <nav class="pie-nav" aria-label="Pie">
-        <a href="#espacios">Espacios</a><a href="#metodo">Método</a><a href="#resultados">Resultados</a><a href="#catalogo">Catálogo</a>
-        <a href="#adn">ADN de marca</a><a href="#faq">Preguntas</a><a href="#contacto">Contacto</a>
+        <a href="/servicios/alisados/">Alisados y alineación</a>
+        <a href="/servicios/tratamientos/">Tratamientos y reparación</a>
+        <a href="/servicios/head-spa/">Head Spa</a>
+        <a href="/servicios/caida/">Caída y fortalecimiento</a>
+        <a href="/servicios/complementarios/">Servicios complementarios</a>
+        <a href="/">Inicio</a>
+        <a href="/el-lab/">El Lab por dentro</a>
+        <a href="/#resultados">Antes y después</a>
+        <a href="/#faq">Preguntas frecuentes</a>
+        <a href="/contacto/">Contacto</a>
       </nav>
       <div class="pie-datos">
-        <p><span class="pendiente pendiente-mini">PENDIENTE: dirección</span></p>
+        <address><a href="https://www.google.com/maps/search/?api=1&amp;query=Calle%20134A%20%23%2055A-20%2C%20local%205%2C%20Colina%20Campestre%2C%20Bogot%C3%A1%2C%20Colombia" target="_blank" rel="noopener">Calle 134A # 55A-20, local 5<br>Colina Campestre · Bogotá</a></address>
         <p><a href="https://wa.me/573205830720" data-wa-simple>WhatsApp +57 320 583 0720</a></p>
-        <p><span class="pendiente pendiente-mini">PENDIENTE: Instagram y TikTok</span></p>
+        <p class="pie-redes">
+          <a href="https://www.instagram.com/bravahair.lab/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.tiktok.com/@brava.hair.lab" target="_blank" rel="noopener">TikTok</a>
+        </p>
       </div>
     </div>
     <div class="pie-legal">
-      <p><strong>Versión de trabajo.</strong> BRAVA Hair Lab es un negocio real; los datos marcados como pendientes están por confirmar y la fotografía es provisional.</p>
       <p>Servicio cosmético y preventivo. No sustituye consulta, diagnóstico ni tratamiento médico o dermatológico.</p>
       <p class="pie-mini">BRAVA Hair Lab · Fiber x Scalp Studio · Bogotá<span aria-hidden="true">·</span><span>© <span data-anyo>2026</span>, BRAVA Hair Lab</span></p>
     </div>
@@ -724,16 +465,14 @@
 </footer>
 
 <a class="wa-flotante" href="https://wa.me/573205830720" data-wa-simple aria-label="Escribir por WhatsApp">
-  <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm5.6 14.2c-.2.6-1.2 1.2-1.7 1.2-.5.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6a11.4 11.4 0 0 1-4.3-3.8c-.3-.4-1-1.4-1-2.6s.6-1.8.9-2.1c.2-.2.4-.3.6-.3h.5c.2 0 .4 0 .6.4l.7 1.8c.1.2 0 .4-.1.5l-.3.4c-.1.1-.3.3-.1.6.2.3.7 1.1 1.4 1.8.9.8 1.6 1 1.9 1.2.2.1.4.1.5-.1l.6-.7c.2-.2.3-.2.5-.1l1.7.8c.3.1.4.2.5.3v1Z"/></svg>
+  <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
 </a>
 
-<!-- Capas a pantalla completa -->
-<div class="capa" id="capa-protocolo" data-capa hidden role="dialog" aria-modal="true" aria-label="Detalle del protocolo"></div>
-<div class="capa" id="capa-catalogo" data-capa hidden role="dialog" aria-modal="true" aria-label="El catálogo de protocolos"></div>
+<!-- La capa del buscador de protocolo, en todas las páginas. -->
 <div class="capa" id="capa-buscador" data-capa hidden role="dialog" aria-modal="true" aria-label="Buscador de protocolo"></div>
 
-<script defer src="lib/gsap.min.js"></script>
-<script defer src="lib/ScrollTrigger.min.js"></script>
-<script defer src="main.js?v=20260914c"></script>
+<script defer src="/lib/gsap.min.js"></script>
+<script defer src="/lib/ScrollTrigger.min.js"></script>
+<script defer src="/main.js?v=c007be8258"></script>
 </body>
 </html>

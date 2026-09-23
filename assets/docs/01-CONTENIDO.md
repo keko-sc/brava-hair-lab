@@ -12,40 +12,59 @@ de protocolos van en inglés, los textos en español). Eso es deliberado, manten
 
 Esta es una maquetación en blanco para revisión interna. Tiene que verse que lo es:
 
-1. **Banda fija de aviso** en la parte superior, por encima del menú, con fondo
-   diferenciado: `VERSIÓN DE TRABAJO — contenido y fotografía en construcción`.
-   No se puede cerrar. Se quita en una línea cuando la web sea definitiva.
+1. ~~**Banda fija de aviso** en la parte superior.~~ **Retirada.** El aviso de
+   versión de trabajo sigue vivo, pero solo en el pie: "BRAVA Hair Lab es un
+   negocio real; los datos marcados como pendientes están por confirmar y la
+   fotografía es provisional".
 2. **Huecos de foto**: cada uno es un bloque visible con borde punteado que muestra
    su código (FOTO-01…), la descripción de la foto que va ahí y la proporción.
    Nada de fotos de stock provisionales ni cuadros grises mudos.
 3. **Datos pendientes**: cada dato que falta se escribe como una etiqueta visible
-   `PENDIENTE: precio`, `PENDIENTE: dirección`. Nunca un número inventado ni un
+   `PENDIENTE: precio`, `PENDIENTE: horarios`. Nunca un número inventado ni un
    "lorem ipsum".
 
 ---
 
-## ESTRUCTURA DE LA PÁGINA (una sola página, en este orden)
+## ESTRUCTURA DEL SITIO (multipágina, 33 direcciones)
 
-1. Banda de aviso de versión de trabajo
-2. Menú fijo
-3. Portada
-4. Dos abordajes (Fiber x Scalp)
-5. The Brava Method
-6. BRAVA FIBER — introducción
-7. FIBER · Alineaciones moleculares (6)
-8. FIBER · The Ritual Menu (9)
-9. BRAVA SCALP — introducción
-10. SCALP · Experiencias (2)
-11. SCALP · Root Lounge (3)
-12. Add-ons (4)
-13. ADN de marca
-14. Los dos espacios
-15. Preguntas frecuentes
-16. Contacto
-18. Pie
+Los servicios se agrupan por **lo que busca la clienta**, no por las familias
+internas de la marca. BRAVA FIBER y BRAVA SCALP siguen existiendo como concepto
+dentro de las páginas, pero ya no son la forma de navegar.
 
-Más la **capa a pantalla completa del buscador de protocolo**, que se abre desde
-la portada y desde el final del catálogo.
+**Las cinco categorías** (los 24 protocolos son los mismos, solo cambia cómo se
+agrupan):
+
+| Dirección | Categoría | De dónde salen |
+|---|---|---|
+| `/servicios/alisados/` | Alisados y alineación (6) | §7 · FIBER · Alineaciones moleculares |
+| `/servicios/tratamientos/` | Tratamientos y reparación (9) | §8 · FIBER · The Ritual Menu |
+| `/servicios/head-spa/` | Head Spa (2) | §10 · SCALP · Experiencias |
+| `/servicios/caida/` | Caída y fortalecimiento (3) | §11 · SCALP · Root Lounge |
+| `/servicios/complementarios/` | Servicios complementarios (4) | §12 · Add-ons |
+
+Cada protocolo tiene su página en `/servicios/<categoria>/<protocolo>/`.
+
+**`/` portada**, en este orden:
+
+1. Menú fijo, con "Servicios" desplegando las cinco categorías
+2. Portada (3)
+3. Banda de sellos
+4. **Las cinco categorías** — cinco bloques que se relevan al bajar, uno por
+   pantalla. Es lo primero que se ve después del hero.
+5. Cinta de nombres de protocolos
+6. Antes y después
+7. Dos abordajes (4) — aquí, como explicación de fondo
+8. Preguntas frecuentes (15)
+9. Pie (17)
+
+**`/servicios/`** → el índice de las cinco categorías
+**`/el-lab/`** → 14, 5, la galería y 13 · **`/contacto/`** → 16
+
+El texto de introducción de cada categoría es el de §6, §9 y §12 según
+corresponda; los bloques de §7, §8, §10 y §11 pasan íntegros a su categoría.
+
+Más la **capa a pantalla completa del buscador de protocolo**, que está en todas
+las páginas y cuyo resultado enlaza a la ficha del protocolo recomendado.
 
 ---
 
@@ -63,6 +82,15 @@ condición real de tu fibra y tu cuero cabelludo.
 brillo real, luz cálida y suave, fondo neutro tipo mármol o textura de arena.
 Sensación: lujo silencioso, nada de sonrisa comercial. Vertical y horizontal
 (dos recortes). Proporción 16:9 en escritorio, 4:5 en celular.
+
+**Las tres familias** (los tres bloques que se relevan debajo de la banda de
+sellos). Tres huecos nuevos, los tres en **banda ancha 3:2 horizontal**, porque
+van al lado del texto y ocupan media pantalla. Mismo encuadre y misma distancia
+en los tres, para que los tres bloques se lean como una sola serie:
+
+`FOTO-21` — BRAVA FIBER. Plano ancho del Piso 1 en uso, trabajo sobre la hebra. 3:2.
+`FOTO-22` — BRAVA SCALP. Plano ancho del Piso 2, cabina privada, luz tenue. 3:2.
+`FOTO-23` — Add-Ons. Plano ancho de un add-on en ejecución: manos y producto. 3:2.
 
 ---
 
@@ -94,19 +122,19 @@ sobre la raíz. Luz fría y tenue. 1:1.
 Cuatro pasos que guían cada experiencia en el Lab, desde la primera evaluación
 hasta el mantenimiento en casa.
 
-**01 — ASSESS · Evaluamos**
+**01 — Evaluamos**
 Observamos el estado de la fibra y del cuero cabelludo antes de actuar. Entender sus
 características, necesidades y objetivos es la clave.
 
-**02 — TREAT · Tratamos**
+**02 — Tratamos**
 Ejecutamos el protocolo seleccionado respetando la fibra que tenemos en frente.
 El cuidado se siente en cada aplicación y en el confort de la experiencia.
 
-**03 — TRANSFORM · Transformamos**
+**03 — Transformamos**
 Donde el cuidado se convierte en resultado. Restauramos y potenciamos apariencia,
 textura, fuerza, brillo, suavidad y condición cosmética.
 
-**04 — MAINTAIN · Mantenemos**
+**04 — Mantenemos**
 El cuidado va más allá de tu sesión. Te acompañamos con una estrategia de
 mantenimiento en casa adaptada a tu cabello y a tu estilo de vida.
 
@@ -334,11 +362,14 @@ cabello.
 **Titular:** Agenda tu valoración
 **Bajada:** Todo empieza con entender tu cabello. Escríbenos y agendamos.
 
-- PENDIENTE: número de WhatsApp
-- PENDIENTE: dirección exacta
+**Dirección:** Calle 134A # 55A-20, local 5 · Colina Campestre · Bogotá
+(enlazada a Google Maps, abre en pestaña nueva)
+**WhatsApp:** +57 320 583 0720
+**Instagram:** https://www.instagram.com/bravahair.lab/
+**TikTok:** https://www.tiktok.com/@brava.hair.lab
+
 - PENDIENTE: horarios
-- PENDIENTE: Instagram y TikTok
-- PENDIENTE: mapa
+- PENDIENTE: mapa incrustado
 
 Botón principal: Escribir por WhatsApp → PENDIENTE: enlace
 Botón secundario: Encontrar mi protocolo → abre el buscador
