@@ -142,10 +142,23 @@ def trozos(html):
     return out
 
 
-def absolutas(t):
-    """assets/… → /assets/…  ·  styles.css → /styles.css  ·  lib/… → /lib/…"""
-    t = re.sub(r'(href|src|data-archivo|data-video)="(?!https?:|/|#|mailto:)([^"]+)"',
-               lambda m: '%s="/%s"' % (m.group(1), m.group(2)), t)
+# ══════════════════════════════════════════════════════════════════════════
+#  RUTAS RELATIVAS
+#  Nada apunta a "/": el sitio tiene que funcionar igual en la raíz de un
+#  dominio que dentro de una subcarpeta (GitHub Pages lo publica en
+#  /brava-hair-lab/, y ahí "/styles.css" se sale del sitio y da 404).
+#  Todo se escribe con el marcador @@BASE@@ delante, y escribe() lo sustituye
+#  por los "../" que haga falta según lo hondo que esté cada página.
+# ══════════════════════════════════════════════════════════════════════════
+def enlace(r):
+    """Una ruta del sitio ("/servicios/alisados/") a href relativo."""
+    return "@@BASE@@" + r.lstrip("/")
+
+
+def relativas(t):
+    """assets/… → @@BASE@@assets/…  ·  styles.css → @@BASE@@styles.css"""
+    t = re.sub(r'(href|src|data-archivo|data-video)="(?!https?:|/|#|mailto:|@@)([^"]+)"',
+               lambda m: '%s="@@BASE@@%s"' % (m.group(1), m.group(2)), t)
     return t
 
 
@@ -175,7 +188,7 @@ def columnas_servicios(protos):
     for c in CATEGORIAS:
         ps = [p for p in protos if p["familia"] == c["familia"]]
         items = "\n".join(
-            '            <li><a href="%s">%s</a></li>' % (ruta_protocolo(p), esc(p["nombre"]))
+            '            <li><a href="%s">%s</a></li>' % (enlace(ruta_protocolo(p)), esc(p["nombre"]))
             for p in ps)
         cols.append((c, len(ps), items))
     return cols
@@ -194,7 +207,7 @@ def nav(actual):
     # página de cada categoría.
     panel = "\n".join(
         '            <a class="nav-cat-t" href="%s">%s<span>%d</span></a>'
-        % (RUTA_CAT[c["slug"]], esc(c["nombre"]), n)
+        % (enlace(RUTA_CAT[c["slug"]]), esc(c["nombre"]), n)
         for c, n, _ in cols)
 
     acordeon = "\n".join(
@@ -205,26 +218,26 @@ def nav(actual):
 %s
       </ul>
     </details>''' % (" open" if actual == RUTA_CAT[c["slug"]] else "",
-                     esc(c["nombre"]), n, RUTA_CAT[c["slug"]], items)
+                     esc(c["nombre"]), n, enlace(RUTA_CAT[c["slug"]]), items)
         for c, n, items in cols)
 
     # "Inicio" se imprime aparte porque va DELANTE del desplegable de Servicios,
     # que está escrito a mano en la plantilla del menú.
-    links_inicio = '      <a href="/"%s>Inicio</a>' % cls("/")
+    links_inicio = '      <a href="@@BASE@@"%s>Inicio</a>' % cls("/")
     links = "\n".join(
-        '      <a href="%s"%s>%s</a>' % (u, cls(u), corto)
+        '      <a href="%s"%s>%s</a>' % (enlace(u), cls(u), corto)
         for u, corto, _ in ENLACES if u != "/")
     # En celular "Inicio" va delante del bloque de Servicios, para que sea la
     # primera entrada igual que en escritorio; el resto va detrás.
-    movil_inicio = '    <a href="/"%s>Inicio</a>' % cls("/")
+    movil_inicio = '    <a href="@@BASE@@"%s>Inicio</a>' % cls("/")
     movil = "\n".join(
-        '    <a href="%s"%s>%s</a>' % (u, cls(u), largo)
+        '    <a href="%s"%s>%s</a>' % (enlace(u), cls(u), largo)
         for u, _, largo in ENLACES if u != "/")
 
     return '''<header class="nav" data-nav>
   <div class="nav-in">
-    <a class="logo" href="/" aria-label="BRAVA Hair Lab, inicio">
-      <img src="/assets/img/marca/isotipo.webp" alt="" width="320" height="275">
+    <a class="logo" href="@@BASE@@" aria-label="BRAVA Hair Lab, inicio">
+      <img src="@@BASE@@assets/img/marca/isotipo.webp" alt="" width="320" height="275">
       <span class="logo-txt">BRAVA<em>Hair Lab</em></span>
     </a>
     <nav class="nav-links" aria-label="Principal">
@@ -238,7 +251,7 @@ def nav(actual):
         <div class="nav-desp-panel" id="panel-servicios" data-desp-panel hidden>
           <div class="nav-desp-in">
 %s
-            <a class="nav-desp-todo" href="/servicios/">Ver todos los servicios</a>
+            <a class="nav-desp-todo" href="@@BASE@@servicios/">Ver todos los servicios</a>
           </div>
         </div>
       </div>
@@ -256,7 +269,7 @@ def nav(actual):
 %s
     <p class="menu-et">Servicios</p>
 %s
-    <a class="menu-cat-todo menu-cat-todos" href="/servicios/">Ver todos los servicios</a>
+    <a class="menu-cat-todo menu-cat-todos" href="@@BASE@@servicios/">Ver todos los servicios</a>
 %s
   </nav>
   <button class="btn menu-cta" type="button" data-abre-capa>Encontrar mi protocolo</button>
@@ -270,7 +283,7 @@ def pie(pie_fuente):
     # El pie repite la navegación, con las cinco categorías desplegadas: es el
     # único sitio donde se ven todas sin desplegar nada.
     cats = [(RUTA_CAT[c["slug"]], c["nombre"]) for c in CATEGORIAS]
-    nuevo = "\n".join('        <a href="%s">%s</a>' % (u, largo)
+    nuevo = "\n".join('        <a href="%s">%s</a>' % (enlace(u), largo)
                       for u, largo in cats + [(u, l) for u, _, l in ENLACES])
     return re.sub(r'(<nav class="pie-nav" aria-label="Pie">\n)(.*?)(\n *</nav>)',
                   lambda m: m.group(1) + nuevo + m.group(3), pie_fuente, flags=re.S)
@@ -293,7 +306,7 @@ def pagina(titulo, descripcion, cuerpo, actual="", precarga=None):
     pre = ('<link rel="preload" as="image" href="%s" type="image/webp" fetchpriority="high">\n'
            % precarga) if precarga else ""
     return '''<!DOCTYPE html>
-<html lang="es-CO">
+<html lang="es-CO" data-base="@@BASE@@">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -302,14 +315,14 @@ def pagina(titulo, descripcion, cuerpo, actual="", precarga=None):
 <meta name="theme-color" content="#1D160E">
 <meta name="robots" content="noindex, nofollow">
 
-<link rel="icon" href="/assets/img/marca/favicon.ico" sizes="any">
-<link rel="icon" href="/assets/img/marca/favicon-32.png" type="image/png" sizes="32x32">
-<link rel="apple-touch-icon" href="/assets/img/marca/apple-touch-icon.png">
+<link rel="icon" href="@@BASE@@assets/img/marca/favicon.ico" sizes="any">
+<link rel="icon" href="@@BASE@@assets/img/marca/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="@@BASE@@assets/img/marca/apple-touch-icon.png">
 
 %s<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="/styles.css?v=%s">
+<link rel="stylesheet" href="@@BASE@@styles.css?v=%s">
 
 <!-- Marca "hay JS". Todo lo que el CSS esconde para animarlo depende de esta
      clase: sin ella no se esconde nada y la página se lee entera. -->
@@ -334,9 +347,9 @@ def pagina(titulo, descripcion, cuerpo, actual="", precarga=None):
 <!-- La capa del buscador de protocolo, en todas las páginas. -->
 <div class="capa" id="capa-buscador" data-capa hidden role="dialog" aria-modal="true" aria-label="Buscador de protocolo"></div>
 
-<script defer src="/lib/gsap.min.js"></script>
-<script defer src="/lib/ScrollTrigger.min.js"></script>
-<script defer src="/main.js?v=%s"></script>
+<script defer src="@@BASE@@lib/gsap.min.js"></script>
+<script defer src="@@BASE@@lib/ScrollTrigger.min.js"></script>
+<script defer src="@@BASE@@main.js?v=%s"></script>
 </body>
 </html>
 ''' % (esc(titulo), esc(descripcion), pre, VERSION_CSS, nav(actual), cuerpo,
@@ -356,6 +369,10 @@ def escribe(ruta, html):
     # vacías al no existir: se colapsan para que el HTML salga limpio.
     html = re.sub(r"\n[ \t]*\n[ \t]*\n+", "\n\n", html)
     html = html.replace("@@MAPS@@", MAPS)
+    # Cuántos "../" hay que subir desde este index.html hasta la raíz del sitio.
+    # "/" → 0 · "/contacto/" → 1 · "/servicios/alisados/silkfusion/" → 3.
+    hondura = len([x for x in ruta.strip("/").split("/") if x])
+    html = html.replace("@@BASE@@", "../" * hondura)
     with open(destino, "w", encoding="utf-8") as f:
         f.write(html)
     CREADAS.append((ruta, os.path.relpath(destino, RAIZ)))
@@ -381,7 +398,7 @@ def banda_reserva(texto):
       <div class="hero-ctas reveal">
         <a class="btn btn-acento" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en línea</a>
         <a class="btn btn-wa" href="https://wa.me/573205830720" data-wa-simple>Agendar por WhatsApp</a>
-        <a class="btn btn-claro" href="/contacto/">Cómo llegar</a>
+        <a class="btn btn-claro" href="@@BASE@@contacto/">Cómo llegar</a>
       </div>
     </div>
   </div>
@@ -439,7 +456,7 @@ def banda_familias(protos):
         bloques.append(
             '''      <article class="fam-bloque reveal">
         <figure class="fam-bloque-fig" data-foto="%(cod)s" data-ratio="3:2"
-                data-archivo="/assets/img/%(arch)s.webp" data-alt="%(foto)s">
+                data-archivo="@@BASE@@assets/img/%(arch)s.webp" data-alt="%(foto)s">
           <span class="trama" aria-hidden="true"></span><span class="foto-tag">%(cod)s</span>
         </figure>
         <div class="fam-bloque-txt">
@@ -451,7 +468,7 @@ def banda_familias(protos):
         </div>
       </article>''' % dict(d, arch=d["cod"].lower(), foto=esc(d["foto"]), orden=i,
                             nombre=esc(c["nombre"]), n=n, unidad=unidad,
-                            ruta=RUTA_CAT[c["slug"]]))
+                            ruta=enlace(RUTA_CAT[c["slug"]])))
 
     return '''<!-- ══════════════════════════ LAS CINCO CATEGORÍAS ══════════════════════════ -->
 <section class="seccion familias" id="catalogo">
@@ -471,7 +488,7 @@ def banda_familias(protos):
       <span class="fam-cola" aria-hidden="true"></span>
     </div>
 
-    <p class="familias-todos reveal"><a href="/servicios/">Ver todos los servicios →</a></p>
+    <p class="familias-todos reveal"><a href="@@BASE@@servicios/">Ver todos los servicios →</a></p>
   </div>
 </section>
 ''' % "\n\n".join(bloques)
@@ -485,7 +502,7 @@ def lista_protocolos(c, protos):
         '<span class="prot-nombre">%s</span>'
         '<span class="prot-sub">%s</span>'
         '<span class="prot-mas">Ver el protocolo</span></a></li>'
-        % (ruta_protocolo(p), esc(p["nombre"]), esc(p.get("subtitulo") or ""))
+        % (enlace(ruta_protocolo(p)), esc(p["nombre"]), esc(p.get("subtitulo") or ""))
         for p in ps)
 
 
@@ -499,8 +516,8 @@ def pagina_categoria(c, protos, contexto):
   <span class="trama trama-fondo" aria-hidden="true"></span>
   <div class="wrap">
     <nav class="migas migas-o" aria-label="Dónde estás">
-      <a href="/">Inicio</a><span aria-hidden="true">·</span>
-      <a href="/servicios/">Servicios</a><span aria-hidden="true">·</span>
+      <a href="@@BASE@@">Inicio</a><span aria-hidden="true">·</span>
+      <a href="@@BASE@@servicios/">Servicios</a><span aria-hidden="true">·</span>
       <span aria-current="page">%s</span>
     </nav>
     <header class="seccion-cab">
@@ -570,7 +587,7 @@ def pagina_servicios(protos):
             <span class="serv-x">%s</span>
           </span>
           <span class="serv-mas">Ver la categoría</span>
-        </a>''' % (RUTA_CAT[c["slug"]], n, esc(c["nombre"]), len(ps), nombres))
+        </a>''' % (enlace(RUTA_CAT[c["slug"]]), n, esc(c["nombre"]), len(ps), nombres))
 
     grupos = []
     for a in ABORDAJES:
@@ -653,7 +670,7 @@ def pagina_protocolo(p):
 
     cod = p.get("foto") or ""
     figura = ('<figure class="arco detalle-fig" data-foto="%s" data-ratio="%s"'
-              ' data-archivo="/assets/img/%s.webp"'
+              ' data-archivo="@@BASE@@assets/img/%s.webp"'
               ' data-alt="Protocolo %s. %s">'
               '<span class="trama" aria-hidden="true"></span>'
               '<span class="foto-tag">%s</span></figure>'
@@ -667,8 +684,8 @@ def pagina_protocolo(p):
 <section class="seccion protocolo" id="protocolo">
   <div class="wrap">
     <nav class="migas" aria-label="Dónde estás">
-      <a href="/">Inicio</a><span aria-hidden="true">·</span>
-      <a href="/servicios/">Servicios</a><span aria-hidden="true">·</span>
+      <a href="@@BASE@@">Inicio</a><span aria-hidden="true">·</span>
+      <a href="@@BASE@@servicios/">Servicios</a><span aria-hidden="true">·</span>
       <a href="%s">%s</a><span aria-hidden="true">·</span>
       <span aria-current="page">%s</span>
     </nav>
@@ -694,11 +711,11 @@ def pagina_protocolo(p):
     </article>
   </div>
 </section>
-''' % (RUTA_CAT[c["slug"]], esc(c["nombre"]), esc(p["nombre"]),
+''' % (enlace(RUTA_CAT[c["slug"]]), esc(c["nombre"]), esc(p["nombre"]),
        figura, esc(c["nombre"]), esc(p["nombre"]),
        esc(p.get("subtitulo") or ""), marca, esc(p.get("descripcion") or ""),
        filas, incluye, porque, aviso,
-       RUTA_CAT[c["slug"]], esc(c["nombre"]))
+       enlace(RUTA_CAT[c["slug"]]), esc(c["nombre"]))
 
     titulo = "%s · %s · BRAVA Hair Lab" % (p["nombre"], c["nombre"])
     desc = (p.get("subtitulo") or "") + ". " + primera_frase(p.get("descripcion") or "")
@@ -717,7 +734,7 @@ def main():
     html = open(FUENTE, encoding="utf-8").read()
     global T, PROTOS
     T = trozos(html)
-    T = {k: absolutas(v) for k, v in T.items()}
+    T = {k: relativas(v) for k, v in T.items()}
     T["pie_nuevo"] = pie(T["pie"])
 
     cat = json.load(open(CATALOGO, encoding="utf-8"))
@@ -739,7 +756,7 @@ def main():
         # abordajes" va detrás del antes y después, como explicación de fondo.
         "\n\n".join([T["inicio"], T["apto"], banda_familias(protos), T["marquesina"],
                      T["resultados"], T["abordajes"], T["faq"]]),
-        "/", precarga="/assets/img/foto-01.webp"))
+        "/", precarga="@@BASE@@assets/img/foto-01.webp"))
 
     # ── el índice de servicios ──
     escribe("/servicios/", pagina_servicios(protos))

@@ -14,7 +14,14 @@
   var WA_MENSAJE = "Hola, vengo de la web de BRAVA y quiero agendar mi valoración.";
   var AGENDA = "https://bravahairlab.site.agendapro.com/co";
 
-  var RUTA = "/assets/docs/02-CATALOGO.json";
+  /* La base del sitio, en relativo. El mismo main.js lo cargan páginas que
+     están a distinta profundidad (/ , /servicios/ , /servicios/x/y/), así que
+     no puede llevar rutas que empiecen por "/": en una subcarpeta —GitHub
+     Pages publica en /brava-hair-lab/— eso se sale del sitio y da 404.
+     El generador escribe en <html data-base="../../"> lo que hay que subir. */
+  var BASE = document.documentElement.getAttribute("data-base") || "";
+
+  var RUTA = BASE + "assets/docs/02-CATALOGO.json";
 
   /* Las cinco categorías de servicio. Es la misma agrupación que usa
      tools/generar_paginas.py: la familia del catálogo manda y esto solo la
@@ -34,7 +41,7 @@
   function rutaProtocolo(p) {
     var c = CATEGORIA[p.familia];
     if (!c) return null;                       // sin categoría no hay página: no se inventa
-    return "/servicios/" + c + "/" + (TROZO[p.id] || p.id) + "/";
+    return BASE + "servicios/" + c + "/" + (TROZO[p.id] || p.id) + "/";
   }
   var CAT = null;
 
@@ -341,7 +348,7 @@
   function figuraHTML(p, clase) {
     var g = GRUPO_FOTO[p.familia] || { r: "1:1", t: "" };
     return '<figure class="' + (clase || "arco-sm") + '" data-foto="' + esc(p.foto) + '" data-ratio="' + esc(g.r) + '"' +
-      ' data-archivo="/assets/img/' + esc(String(p.foto).toLowerCase()) + '.webp"' +
+      ' data-archivo="' + BASE + 'assets/img/' + esc(String(p.foto).toLowerCase()) + '.webp"' +
       ' title="' + esc(g.t + " Protocolo: " + p.nombre + ".") + '">' +
       '<span class="trama" aria-hidden="true"></span><span class="foto-tag">' + esc(p.foto) + '</span></figure>';
   }
