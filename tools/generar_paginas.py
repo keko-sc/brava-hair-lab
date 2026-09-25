@@ -68,7 +68,7 @@ CATEGORIAS = [
          ratio="1:1"),
     dict(slug="head-spa", familia="scalp-experiencia", marca="BRAVA SCALP",
          nombre="Head Spa", corto="Head Spa",
-         titular="Head Spa.<br><em>Rooted in Care.</em>",
+         titular="Head Spa.<br><em>Cuidado desde la raíz.</em>",
          bajada="Experiencias largas de cuidado del cuero cabelludo, en el silencio "
                 "del Piso 2. Desconexión profunda y cuidado cosmético avanzado.",
          titulo="Head Spa · 2 experiencias · BRAVA Hair Lab",
@@ -422,7 +422,7 @@ PORTADA = {
                                "de medios a puntas. En BRAVA nos especializamos en la "
                                "arquitectura, nutrición y preservación de la fibra.",
                          foto="Tratamientos: plano ancho de un ritual en ejecución."),
-    "head-spa": dict(sobre="Rooted in Care", cod="FOTO-23",
+    "head-spa": dict(sobre="Cuidado desde la raíz", cod="FOTO-23",
                      texto="Una melena extraordinaria comienza desde la raíz. Experiencias "
                            "largas de cuidado del cuero cabelludo, en el silencio del Piso 2.",
                      foto="Head Spa: plano ancho del Piso 2, cabina privada, luz tenue."),
@@ -538,7 +538,6 @@ def pagina_categoria(c, protos, contexto):
   <div class="wrap">
     <header class="seccion-cab">
       <h2 class="titulo titulo-c" data-split="lines">Los <em>%d protocolos.</em></h2>
-      <p class="nota-trabajo reveal">Precios pendientes de la clienta</p>
     </header>
     <ul class="prot-lista">
 %s
@@ -654,15 +653,22 @@ def pagina_protocolo(p):
         filas += "<div><dt>Indicado si</dt><dd>%s</dd></div>" % esc(p["idealPara"])
     for k, v in d.items():
         filas += "<div><dt>%s</dt><dd>%s</dd></div>" % (esc(k), esc(v))
+    # Sin precio no se enseña la fila: antes salía una etiqueta "PENDIENTE:
+    # precio" que es una nota interna, no algo que deba ver una clienta.
     precio = p.get("precio")
-    filas += ('<div><dt>Precio</dt><dd>%s</dd></div>'
-              % (esc(precio) if precio else '<span class="pendiente">PENDIENTE: precio</span>'))
+    if precio:
+        filas += '<div><dt>Precio</dt><dd>%s</dd></div>' % esc(precio)
 
     incluye = ""
     if p.get("incluye"):
         incluye = ('<p class="detalle-sub">Incluye</p><ul class="detalle-lista">%s</ul>'
                    % "".join("<li>%s</li>" % esc(i) for i in p["incluye"]))
-    aviso = ('<p class="detalle-aviso">%s</p>' % esc(p["avisoEspecial"])) if p.get("avisoEspecial") else ""
+    # Los avisos que empiezan por "PENDIENTE:" son notas internas para la
+    # clienta del proyecto, no texto para una visitante: no se publican. Se
+    # quedan en el catálogo, que es donde tienen que seguir haciendo de
+    # recordatorio.
+    av = (p.get("avisoEspecial") or "").strip()
+    aviso = '<p class="detalle-aviso">%s</p>' % esc(av) if av and not av.upper().startswith("PENDIENTE") else ""
     # porQue es la frase editorial que explica la elección; en la ficha va
     # etiquetada para que no parezca una línea suelta.
     porque = ('<p class="detalle-porque"><strong>Por qué este protocolo:</strong> %s</p>'

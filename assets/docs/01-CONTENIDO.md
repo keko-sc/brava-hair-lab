@@ -37,7 +37,7 @@ agrupan):
 | Dirección | Categoría | De dónde salen |
 |---|---|---|
 | `/servicios/alisados/` | Alisados y alineación (6) | §7 · FIBER · Alineaciones moleculares |
-| `/servicios/tratamientos/` | Tratamientos y reparación (9) | §8 · FIBER · The Ritual Menu |
+| `/servicios/tratamientos/` | Tratamientos y reparación (9) | §8 · FIBER · El menú de rituales |
 | `/servicios/head-spa/` | Head Spa (2) | §10 · SCALP · Experiencias |
 | `/servicios/caida/` | Caída y fortalecimiento (3) | §11 · SCALP · Root Lounge |
 | `/servicios/complementarios/` | Servicios complementarios (4) | §12 · Add-ons |
@@ -166,7 +166,7 @@ En BRAVA nos especializamos en la arquitectura, nutrición y preservación de la
 
 ## 7 · FIBER · ALINEACIONES MOLECULARES
 
-**Titular:** The Alignment Edit
+**Titular:** Las alineaciones
 **Bajada:** No plastificamos tu cabello. Lo alineamos desde su salud molecular.
 Seis sistemas. La diferencia entre ellos no es el precio: es tu cabello.
 
@@ -197,9 +197,9 @@ proporción 4:5: la misma clienta, mismo encuadre, cabellos distintos según el 
 
 ---
 
-## 8 · FIBER · THE RITUAL MENU
+## 8 · FIBER · EL MENÚ DE RITUALES
 
-**Titular:** The Ritual Menu
+**Titular:** El menú de rituales
 **Bajada:** En nuestro Hair Lab no aplicamos simples mascarillas: restauramos la
 arquitectura del cabello. Cada fórmula se selecciona bajo diagnóstico previo.
 
@@ -223,7 +223,7 @@ detalle de textura y producto más que de personas.
 
 ## 9 · BRAVA SCALP — INTRODUCCIÓN
 
-**Titular:** Rooted in Care
+**Titular:** Cuidado desde la raíz
 **Bajada:** Tu cabello no necesita promesas. Necesita un entorno biológico óptimo para
 expresar todo su potencial.
 
