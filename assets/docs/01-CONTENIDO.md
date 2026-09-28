@@ -25,7 +25,7 @@ Esta es una maquetación en blanco para revisión interna. Tiene que verse que l
 
 ---
 
-## ESTRUCTURA DEL SITIO (multipágina, 33 direcciones)
+## ESTRUCTURA DEL SITIO (multipágina, 34 direcciones)
 
 Los servicios se agrupan por **lo que busca la clienta**, no por las familias
 internas de la marca. BRAVA FIBER y BRAVA SCALP siguen existiendo como concepto
@@ -58,7 +58,19 @@ Cada protocolo tiene su página en `/servicios/<categoria>/<protocolo>/`.
 9. Pie (17)
 
 **`/servicios/`** → el índice de las cinco categorías
-**`/el-lab/`** → 14, 5, la galería y 13 · **`/contacto/`** → 16
+**`/el-lab/`** → 14, 5 y 13 · **`/contacto/`** → 16
+**`/resultados/`** → la galería de resultados reales del Lab: ocho tarjetas en dos
+columnas, con los huecos `FOTO-G01` a `FOTO-G08`. El enlace "Resultados" del menú
+lleva aquí; la sección de antes y después sigue en la portada, aparte.
+
+**Los ocho huecos de resultados**, en 4:5 vertical. Cada tarjeta lleva debajo dos
+líneas: el protocolo aplicado y qué se hizo. Tres de las ocho son de vídeo
+(`FOTO-G02`, `FOTO-G05`, `FOTO-G07`): la foto hace de miniatura y el vídeo corto
+va en `assets/video/reel-g02.mp4`, `reel-g05.mp4` y `reel-g07.mp4`.
+
+- PENDIENTE: las ocho fotos reales, con autorización de cada clienta
+- PENDIENTE: los tres vídeos cortos
+- PENDIENTE: la segunda línea del pie de cada tarjeta, qué se hizo en cada caso
 
 El texto de introducción de cada categoría es el de §6, §9 y §12 según
 corresponda; los bloques de §7, §8, §10 y §11 pasan íntegros a su categoría.
@@ -203,7 +215,7 @@ proporción 4:5: la misma clienta, mismo encuadre, cabellos distintos según el 
 **Bajada:** En nuestro Hair Lab no aplicamos simples mascarillas: restauramos la
 arquitectura del cabello. Cada fórmula se selecciona bajo diagnóstico previo.
 
-**Zero Heat Damage** (bloque destacado):
+**Cero daño por calor** (bloque destacado):
 Evitamos el calor extremo cuando su única función es generar un brillo cosmético
 inmediato. Un cabello puede lucir deslumbrante tras una exposición térmica intensa y,
 aun así, quedar estructuralmente debilitado. Aquí el brillo no es un artificio final:

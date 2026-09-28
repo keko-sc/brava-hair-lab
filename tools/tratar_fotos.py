@@ -154,12 +154,14 @@ FOTOS = [
          modo="recorte", fx=.50, fy=.50, nota="DEMO caso 2, después"),
 
     # ── Galería "El Lab, por dentro" ──
-    # ⚠ PRUEBA: imágenes numeradas del 1 al 8, solo para ver la transición.
+    # ⚠ PRUEBA: imágenes numeradas del 1 al 8, solo para ver la maqueta.
     # Estas ocho entradas y sus archivos se borran antes de publicar.
-    # Llegan a 1080x1920, que ya es 9:16 exacto: no se recorta nada.
+    # Son los ocho huecos de /resultados/. El marco de esa página es 4:5, así
+    # que se generan en 4:5: las fuentes llegan en 9:16 y el recorte se hace
+    # aquí, una sola vez, y no otra vez en el navegador.
 ] + [
-    dict(cod="FOTO-G%02d" % n, arch="PRUEBA-g%02d.jpg" % n, virar=False, marco="reel",
-         modo="recorte", fx=.50, fy=.50, nota="PRUEBA galería, número %d" % n)
+    dict(cod="FOTO-G%02d" % n, arch="PRUEBA-g%02d.jpg" % n, virar=False, marco="piso",
+         modo="recorte", fx=.50, fy=.42, nota="PRUEBA resultados, número %d" % n)
     for n in range(1, 9)
 ]
 

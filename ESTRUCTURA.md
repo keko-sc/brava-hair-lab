@@ -1,6 +1,6 @@
 # BRAVA Hair Lab · cómo está montada la web
 
-La web es **multipágina** y sus 33 direcciones **se generan**, no se escriben a
+La web es **multipágina** y sus 34 direcciones **se generan**, no se escriben a
 mano. Si editas un `index.html` suelto, el siguiente generado se lo lleva por
 delante.
 
@@ -91,4 +91,4 @@ No hay pestaña de Sedes: BRAVA tiene una sola sede, y está en Contacto.
 - En las páginas de categoría, `FOTO-08` y `FOTO-09` están declaradas `21:9`
   pero el CSS las dibuja en `4:5`. Cuando lleguen, se les comerán los lados.
 - Antes de publicar: borrar las imágenes `DEMO-*` de los comparadores y
-  `PRUEBA-g0*` de la galería, y sus bloques marcados en `tools/tratar_fotos.py`.
+  `PRUEBA-g0*` de /resultados/, y sus bloques marcados en `tools/tratar_fotos.py`.

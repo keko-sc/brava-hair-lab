@@ -51,8 +51,9 @@ CATEGORIAS = [
     dict(slug="alisados", familia="fiber-alineacion", marca="BRAVA FIBER",
          nombre="Alisados y alineación", corto="Alisados y alineación",
          titular="Alisados y alineación.<br><em>Sin plastificar la fibra.</em>",
-         bajada="No plastificamos tu cabello: lo alineamos desde su salud molecular. "
-                "Seis sistemas, y la diferencia entre ellos no es el precio: es tu cabello.",
+         bajada="Alisados y alineación molecular sin formol, en Colina Campestre, "
+                "Bogotá. Seis sistemas distintos: cuál te toca depende de la condición "
+                "de tu fibra, no del precio.",
          titulo="Alisados y alineación · 6 protocolos · BRAVA Hair Lab",
          desc="Los 6 protocolos de alisado y alineación molecular de BRAVA Hair Lab, "
               "en Bogotá. Alineación real sin sacrificar la fuerza de la fibra.",
@@ -60,8 +61,9 @@ CATEGORIAS = [
     dict(slug="tratamientos", familia="fiber-ritual", marca="BRAVA FIBER",
          nombre="Tratamientos y reparación", corto="Tratamientos y reparación",
          titular="Tratamientos y reparación.<br><em>De medios a puntas.</em>",
-         bajada="Hidratación, nutrición, suavidad, brillo, fuerza y protección frente "
-                "al desgaste. Nueve rituales para devolverle a la hebra lo que perdió.",
+         bajada="Tratamientos de reparación e hidratación de la fibra, en Colina "
+                "Campestre, Bogotá. Nueve rituales para devolverle a la hebra lo que "
+                "el desgaste le quitó.",
          titulo="Tratamientos y reparación · 9 protocolos · BRAVA Hair Lab",
          desc="Los 9 rituales de tratamiento y reparación capilar de BRAVA Hair Lab, "
               "en Bogotá. Hidratación, nutrición, brillo y fuerza para la fibra.",
@@ -69,8 +71,9 @@ CATEGORIAS = [
     dict(slug="head-spa", familia="scalp-experiencia", marca="BRAVA SCALP",
          nombre="Head Spa", corto="Head Spa",
          titular="Head Spa.<br><em>Cuidado desde la raíz.</em>",
-         bajada="Experiencias largas de cuidado del cuero cabelludo, en el silencio "
-                "del Piso 2. Desconexión profunda y cuidado cosmético avanzado.",
+         bajada="Head spa y cuidado del cuero cabelludo, en Colina Campestre, Bogotá. "
+                "Dos experiencias de noventa minutos en el Piso 2, cosméticas y no "
+                "médicas.",
          titulo="Head Spa · 2 experiencias · BRAVA Hair Lab",
          desc="Las 2 experiencias de Head Spa de BRAVA Hair Lab, en Bogotá. "
               "Cuidado cosmético del cuero cabelludo y desconexión profunda.",
@@ -170,7 +173,7 @@ ENLACES = [
     # pero mucha gente no lo da por hecho.
     ("/", "Inicio", "Inicio"),
     ("/el-lab/", "El Lab", "El Lab por dentro"),
-    ("/#resultados", "Resultados", "Antes y después"),
+    ("/resultados/", "Resultados", "Resultados del Lab"),
     ("/#faq", "Preguntas", "Preguntas frecuentes"),
     ("/contacto/", "Contacto", "Contacto"),
 ]
@@ -643,6 +646,71 @@ def pagina_servicios(protos):
                   cuerpo, "/servicios/")
 
 
+# ── /resultados/ ────────────────────────────────────────────────────────────
+# Ocho tarjetas con los huecos que antes ocupaba la galería de la portada:
+# FOTO-G01 a FOTO-G08. No se inventan códigos nuevos, esta página es su sitio.
+# El pie tiene dos líneas: el protocolo, que sí es un dato real del catálogo, y
+# qué se hizo, que va marcado como pendiente porque contar el resultado de una
+# clienta concreta sin tener el caso delante sería inventárselo.
+RESULTADOS = [
+    dict(cod="FOTO-G01", protocolo="SilkFusion",        video=False),
+    dict(cod="FOTO-G02", protocolo="Velvet",            video=True),
+    dict(cod="FOTO-G03", protocolo="Ultra Resolute",    video=False),
+    dict(cod="FOTO-G04", protocolo="Crystal",           video=False),
+    dict(cod="FOTO-G05", protocolo="(Re)-Connect Head Spa", video=True),
+    dict(cod="FOTO-G06", protocolo="Bio-Cellular",      video=False),
+    dict(cod="FOTO-G07", protocolo="Genesis",           video=True),
+    dict(cod="FOTO-G08", protocolo="Sleek Control",     video=False),
+]
+
+
+def pagina_resultados():
+    tarjetas = []
+    for r in RESULTADOS:
+        arch = r["cod"].lower()
+        vid = (' data-video="@@BASE@@assets/video/reel-%s.mp4"' % arch[5:]) if r["video"] else ""
+        marca = '<span class="res-play" aria-hidden="true"></span>' if r["video"] else ""
+        tarjetas.append(
+            '''      <figure class="res-tarjeta%s">
+        <div class="res-foto" data-foto="%s" data-ratio="4:5"
+             data-archivo="@@BASE@@assets/img/%s.webp"%s
+             data-alt="Resultado real del Lab: protocolo %s.">
+          <span class="trama" aria-hidden="true"></span><span class="foto-tag">%s</span>%s
+        </div>
+        <figcaption class="res-pie">
+          <span class="res-protocolo">%s</span>
+          <span class="res-que"><span class="pendiente pendiente-mini">PENDIENTE: qué se hizo</span></span>
+        </figcaption>
+      </figure>''' % (" es-video" if r["video"] else "", r["cod"], arch, vid,
+                      esc(r["protocolo"]), r["cod"], marca, esc(r["protocolo"])))
+
+    cuerpo = '''<!-- ══════════════════════════ RESULTADOS ══════════════════════════ -->
+<section class="seccion resultados-pag" id="resultados">
+  <div class="wrap">
+    <header class="seccion-cab">
+      <p class="eyebrow reveal">Resultados</p>
+      <h1 class="titulo titulo-c" data-split="lines">El trabajo del Lab,<br><em>caso a caso.</em></h1>
+      <p class="parrafo centro reveal">Cabellos reales de clientas de BRAVA, en Colina Campestre, Bogotá. Cada caso indica el protocolo que se aplicó.</p>
+    </header>
+
+    <div class="res-rejilla" data-resultados>
+%s
+    </div>
+  </div>
+</section>
+
+<!-- El vídeo se abre aquí, a pantalla completa, al pulsar una tarjeta de vídeo. -->
+<div class="capa" id="capa-video" data-capa hidden role="dialog" aria-modal="true" aria-label="Vídeo del resultado"></div>
+
+%s
+''' % ("\n\n".join(tarjetas),
+       banda_reserva("¿Quieres un resultado así? Empezamos por tu valoración."))
+    return pagina("Resultados · el trabajo del Lab · BRAVA Hair Lab",
+                  "Resultados reales de BRAVA Hair Lab en Colina Campestre, Bogotá: "
+                  "alisados, tratamientos de fibra y head spa, caso a caso.",
+                  cuerpo, "/resultados/")
+
+
 def pagina_protocolo(p):
     c = categoria(p)
     d = p.get("datos") or {}
@@ -774,6 +842,9 @@ def main():
     # ── las 24 fichas, cada una dentro de su categoría ──
     for p in protos:
         escribe(ruta_protocolo(p), pagina_protocolo(p))
+
+    # ── resultados ──
+    escribe("/resultados/", pagina_resultados())
 
     # ── el lab ──
     escribe("/el-lab/", pagina(

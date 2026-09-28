@@ -161,6 +161,49 @@
     });
   }
 
+  /* ═══════════ 1 ter · La rejilla de resultados ═══════════
+     Cada tarjeta enseña su foto. Las marcadas como vídeo comprueban primero
+     que el archivo exista: si está, la tarjeta se vuelve pulsable y abre el
+     vídeo en la capa a pantalla completa; si no, el play se queda como marca
+     del hueco y no hay clic muerto. Es la misma comprobación por HEAD que ya
+     usaba la galería. */
+  function initResultados() {
+    var rej = q("[data-resultados]"); if (!rej) return;
+    var capa = q("#capa-video");
+
+    qa(".res-foto", rej).forEach(function (hueco) {
+      montarFoto(hueco);
+      var vid = hueco.getAttribute("data-video");
+      if (!vid || !capa) return;
+      fetch(vid, { method: "HEAD" }).then(function (r) {
+        if (!r.ok) throw new Error("sin vídeo");
+        hueco.classList.add("hay-video");
+        hueco.setAttribute("role", "button");
+        hueco.setAttribute("tabindex", "0");
+        hueco.setAttribute("aria-label", "Ver el vídeo de " + textoDeLaTarjeta(hueco));
+        hueco.addEventListener("click", function () { abrirVideo(vid, hueco); });
+        hueco.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); abrirVideo(vid, hueco); }
+        });
+      }).catch(function () { /* sin vídeo: la tarjeta se queda como foto */ });
+    });
+
+    function textoDeLaTarjeta(hueco) {
+      var t = hueco.parentNode.querySelector(".res-protocolo");
+      return t ? t.textContent.trim() : "este resultado";
+    }
+
+    function abrirVideo(vid, hueco) {
+      capa.innerHTML =
+        '<button class="capa-x" type="button" data-cierra aria-label="Cerrar"></button>' +
+        '<div class="capa-scroll"><div class="capa-in"><div class="capa-video-caja">' +
+        '<video src="' + esc(vid) + '" controls autoplay playsinline ' +
+        'aria-label="' + esc(textoDeLaTarjeta(hueco)) + '"></video>' +
+        "</div></div></div>";
+      abrirCapa(capa);
+    }
+  }
+
   /* ═══════════ 2 · Titulares partidos en líneas ═══════════ */
   function partirLineas(el) {
     var nodos = [], grupos = [], texto = el.innerHTML;
@@ -1164,6 +1207,7 @@
     safe(initBotones, "botones");
     safe(initEscenas, "escenas");
     safe(initComparadores, "comparadores");
+    safe(initResultados, "resultados");
 
     var alFinal = function () {
       safe(initSplit, "split");
