@@ -54,7 +54,7 @@ CATEGORIAS = [
          bajada="Alisados y alineación molecular sin formol, en Colina Campestre, "
                 "Bogotá. Seis sistemas distintos: cuál te toca depende de la condición "
                 "de tu fibra, no del precio.",
-         titulo="Alisados y alineación · 6 protocolos · BRAVA Hair Lab",
+         titulo="Alisados sin formol en Bogotá · BRAVA Hair Lab",
          desc="Los 6 protocolos de alisado y alineación molecular de BRAVA Hair Lab, "
               "en Bogotá. Alineación real sin sacrificar la fuerza de la fibra.",
          ratio="4:5"),
@@ -64,18 +64,18 @@ CATEGORIAS = [
          bajada="Tratamientos de reparación e hidratación de la fibra, en Colina "
                 "Campestre, Bogotá. Nueve rituales para devolverle a la hebra lo que "
                 "el desgaste le quitó.",
-         titulo="Tratamientos y reparación · 9 protocolos · BRAVA Hair Lab",
+         titulo="Tratamientos capilares en Bogotá · BRAVA Hair Lab",
          desc="Los 9 rituales de tratamiento y reparación capilar de BRAVA Hair Lab, "
               "en Bogotá. Hidratación, nutrición, brillo y fuerza para la fibra.",
          ratio="1:1"),
     dict(slug="head-spa", familia="scalp-experiencia", marca="BRAVA SCALP",
-         nombre="Head Spa", corto="Head Spa",
-         titular="Head Spa.<br><em>Cuidado desde la raíz.</em>",
-         bajada="Head spa y cuidado del cuero cabelludo, en Colina Campestre, Bogotá. "
+         nombre="Spa capilar", corto="Spa capilar",
+         titular="Spa capilar.<br><em>Cuidado desde la raíz.</em>",
+         bajada="Spa capilar y cuidado del cuero cabelludo, en Colina Campestre, Bogotá. "
                 "Dos experiencias de noventa minutos en el Piso 2, cosméticas y no "
                 "médicas.",
-         titulo="Head Spa · 2 experiencias · BRAVA Hair Lab",
-         desc="Las 2 experiencias de Head Spa de BRAVA Hair Lab, en Bogotá. "
+         titulo="Spa capilar en Bogotá · BRAVA Hair Lab",
+         desc="Las 2 experiencias de spa capilar de BRAVA Hair Lab, en Bogotá. "
               "Cuidado cosmético del cuero cabelludo y desconexión profunda.",
          ratio="3:2"),
     dict(slug="caida", familia="scalp-rootlounge", marca="BRAVA SCALP",
@@ -83,7 +83,7 @@ CATEGORIAS = [
          titular="Caída y fortalecimiento.<br><em>Desde la raíz.</em>",
          bajada="La salud, la fuerza y la calidad del cabello nacen en el folículo. "
                 "Bioestimulación cosmética no invasiva para su entorno.",
-         titulo="Caída y fortalecimiento · 3 protocolos · BRAVA Hair Lab",
+         titulo="Caída del cabello en Bogotá · BRAVA Hair Lab",
          desc="Los 3 protocolos de BRAVA Hair Lab para caída y fortalecimiento, en "
               "Bogotá. Bioestimulación cosmética del cuero cabelludo, no médica.",
          ratio="4:5"),
@@ -92,7 +92,7 @@ CATEGORIAS = [
          titular="Servicios complementarios.<br><em>Suman a tu protocolo.</em>",
          bajada="Se añaden a cualquier protocolo para elevar tu experiencia y "
                 "personalizar aún más tu resultado.",
-         titulo="Servicios complementarios · 4 servicios · BRAVA Hair Lab",
+         titulo="Servicios complementarios · BRAVA Hair Lab",
          desc="Los 4 servicios complementarios de BRAVA Hair Lab, en Bogotá. "
               "Se suman a cualquier protocolo para personalizar el resultado.",
          ratio="1:1"),
@@ -428,7 +428,7 @@ PORTADA = {
     "head-spa": dict(sobre="Cuidado desde la raíz", cod="FOTO-23",
                      texto="Un cabello extraordinario comienza desde la raíz. Experiencias "
                            "largas de cuidado del cuero cabelludo, en el silencio del Piso 2.",
-                     foto="Head Spa: plano ancho del Piso 2, cabina privada, luz tenue."),
+                     foto="Spa capilar: plano ancho del Piso 2, cabina privada, luz tenue."),
     "caida": dict(sobre="Desde el folículo", cod="FOTO-24",
                   texto="La salud, la fuerza y la calidad del cabello nacen en el folículo, "
                         "y es allí donde centramos nuestra innovación. Cuidado cosmético, "
@@ -512,20 +512,20 @@ def lista_protocolos(c, protos):
     abajo queda muy lejos. Usa los colores de esta zona de la página —fondo
     claro, botón camel— y no la tarjeta café oscuro del cierre."""
     ps = [p for p in protos if p["familia"] == c["familia"]]
-    if len(ps) < 4:
-        return "\n".join(fila_protocolo(p) for p in ps)
+    return "\n".join(fila_protocolo(p) for p in ps)
 
-    corte = (len(ps) + 1) // 2
-    llamada = (
-        '        <li class="prot-llamada">\n'
-        '          <p>¿Dudas de cuál te toca? Lo vemos en la valoración, sin compromiso.</p>\n'
-        '          <span class="prot-llamada-btns">\n'
-        '            <a class="btn btn-acento btn-sm" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en línea</a>\n'
-        '            <a class="btn btn-ghost btn-sm" href="https://wa.me/573205830720" data-wa-simple>Escribir por WhatsApp</a>\n'
-        '          </span>\n'
-        '        </li>')
-    return "\n".join([fila_protocolo(p) for p in ps[:corte]] + [llamada] +
-                     [fila_protocolo(p) for p in ps[corte:]])
+
+def llamada_agendar():
+    """La llamada a agendar de las páginas de servicio. Va ANTES del titular
+    del listado, no dentro: metida en mitad de la lista partía la información.
+    Usa los colores de esta zona, no la tarjeta café del cierre."""
+    return '''    <div class="prot-llamada">
+      <p>¿Dudas de cuál te toca? Lo vemos en la valoración, sin compromiso.</p>
+      <span class="prot-llamada-btns">
+        <a class="btn btn-acento btn-sm" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en línea</a>
+        <a class="btn btn-ghost btn-sm" href="https://wa.me/573205830720" data-wa-simple>Escribir por WhatsApp</a>
+      </span>
+    </div>'''
 
 
 def pagina_categoria(c, protos, contexto):
@@ -558,6 +558,7 @@ def pagina_categoria(c, protos, contexto):
 
 <section class="seccion fam-listado" id="protocolos">
   <div class="wrap">
+%s
     <header class="seccion-cab">
       <h2 class="titulo titulo-c" data-split="lines">Los <em>%d protocolos.</em></h2>
     </header>
@@ -569,7 +570,7 @@ def pagina_categoria(c, protos, contexto):
 
 %s
 ''' % (esc(c["nombre"]), esc(et), c["titular"], esc(c["bajada"]), contexto,
-       len(ps), lista_protocolos(c, protos),
+       llamada_agendar(), len(ps), lista_protocolos(c, protos),
        banda_reserva("¿No sabes cuál es el tuyo? Lo vemos en la valoración."))
     return pagina(c["titulo"], c["desc"], cuerpo, RUTA_CAT[c["slug"]])
 
@@ -659,7 +660,7 @@ def pagina_servicios(protos):
 %s
 ''' % ("\n\n".join(grupos),
        banda_reserva("¿No sabes cuál es el tuyo? Lo vemos en la valoración."))
-    return pagina("Servicios · los 24 protocolos · BRAVA Hair Lab",
+    return pagina("Servicios capilares en Bogotá · BRAVA Hair Lab",
                   "Los 24 protocolos de BRAVA Hair Lab en Bogotá, agrupados por fibra "
                   "capilar y cuero cabelludo, más los servicios complementarios.",
                   cuerpo, "/servicios/")
@@ -724,7 +725,7 @@ def pagina_resultados():
 %s
 ''' % ("\n\n".join(tarjetas),
        banda_reserva("¿Quieres un resultado así? Empezamos por tu valoración."))
-    return pagina("Resultados · el trabajo del Lab · BRAVA Hair Lab",
+    return pagina("Resultados reales · BRAVA Hair Lab",
                   "Resultados reales de BRAVA Hair Lab en Colina Campestre, Bogotá: "
                   "alisados, tratamientos de fibra y head spa, caso a caso.",
                   cuerpo, "/resultados/")
@@ -737,7 +738,7 @@ def pagina_resultados():
 #  una promesa de resultado. Cada entrada enlaza a su página de servicio.
 # ══════════════════════════════════════════════════════════════════════════
 ENTRADAS = [
- dict(slug="alisado-sin-formol",
+ dict(slug="alisado-sin-formol", seo="Alisado sin formol: cómo saber si lo tiene", foto="FOTO-B01",
    titulo="Alisado sin formol: cómo saber si el que te hacen lo tiene",
    resumen="Cómo reconocer el formol en un salón y qué preguntar antes de sentarte en la silla.",
    desc="Cómo reconocer si un alisado lleva formol: el olor, los ojos que lloran, el humo al planchar. Y qué preguntar antes de empezar.",
@@ -764,7 +765,7 @@ ENTRADAS = [
     ("aviso", "Esta entrada es informativa y no sustituye la valoración de un profesional. Si tienes una condición médica o dudas sobre un producto, consúltalo con tu médico."),
    ]),
 
- dict(slug="que-es-un-head-spa",
+ dict(slug="que-es-un-head-spa", seo="Qué es un head spa o spa capilar", foto="FOTO-B02",
    titulo="Qué es un head spa o spa capilar, y en qué se diferencia de un lavado",
    resumen="La diferencia está en el tiempo, el masaje y en dónde se pone el foco: el cuero cabelludo, no el largo.",
    desc="Qué es un head spa o spa capilar, de dónde viene y en qué se diferencia de un lavado de salón. Duración, masaje y foco en el cuero cabelludo.",
@@ -783,7 +784,7 @@ ENTRADAS = [
     ("aviso", "Un head spa es un servicio cosmético y de bienestar, no un tratamiento médico. No diagnostica ni trata enfermedades del cuero cabelludo. Si tienes picor persistente, heridas, descamación fuerte o caída marcada, eso lo tiene que ver un dermatólogo."),
    ]),
 
- dict(slug="cada-cuanto-alisado",
+ dict(slug="cada-cuanto-alisado", seo="Cada cuánto hacerse un alisado", foto="FOTO-B03",
    titulo="Cada cuánto puedes hacerte un alisado sin maltratar el pelo",
    resumen="No lo marca el calendario: lo marca la raíz nueva que te va creciendo.",
    desc="Cada cuánto repetir un alisado sin maltratar el pelo: lo marca la raíz nueva, no el calendario. Qué hacer entre una vez y la siguiente.",
@@ -805,7 +806,7 @@ ENTRADAS = [
     ("aviso", "Los tiempos de esta entrada son orientativos. Cuánto crece tu pelo y cómo lo tolera depende de cada persona."),
    ]),
 
- dict(slug="caida-del-pelo-que-es-normal",
+ dict(slug="caida-del-pelo-que-es-normal", seo="Caída del pelo: qué es normal", foto="FOTO-B04",
    titulo="Se te está cayendo el pelo: qué es normal y qué no",
    resumen="Perder entre 50 y 100 cabellos al día entra dentro de lo normal. Lo que importa es el patrón.",
    desc="Cuánta caída de pelo es normal y qué señales merecen atención. Causas frecuentes no médicas y cuándo consultar a un dermatólogo.",
@@ -829,7 +830,7 @@ ENTRADAS = [
     ("aviso", "BRAVA es un estudio de cuidado capilar cosmético y preventivo. No diagnosticamos ni tratamos enfermedades, y no prometemos frenar la caída. Nuestros protocolos de esta categoría trabajan el entorno del cuero cabelludo desde lo cosmético. Si hay una causa médica detrás, el sitio correcto es la consulta."),
    ]),
 
- dict(slug="alisado-keratina-botox-capilar",
+ dict(slug="alisado-keratina-botox-capilar", seo="Alisado, keratina y botox capilar", foto="FOTO-B05",
    titulo="Alisado, keratina y botox capilar: en qué se diferencian",
    resumen="Uno cambia la forma del pelo. Los otros dos cambian cómo se ve y cómo se siente.",
    desc="Diferencias reales entre alisado, keratina y botox capilar: cuál cambia la forma del pelo, cuál solo su apariencia y cuánto dura cada uno.",
@@ -896,18 +897,32 @@ def pagina_post(e):
 </section>
 ''' % (esc(e["titulo"]), esc(e["titulo"]), esc(e["resumen"]),
        bloques_html(e["cuerpo"]), servicios)
-    return pagina("%s · Blog · BRAVA Hair Lab" % e["titulo"], e["desc"],
+    titulo = "%s · BRAVA Hair Lab" % e["seo"]
+    return pagina(titulo, e["desc"],
                   cuerpo, "/blog/")
 
 
 def pagina_blog():
-    filas = "\n".join(
-        '''      <a class="post-fila" href="%s">
-        <span class="post-fila-t">%s</span>
-        <span class="post-fila-x">%s</span>
-        <span class="post-fila-mas">Leer</span>
-      </a>''' % (enlace("/blog/%s/" % e["slug"]), esc(e["titulo"]), esc(e["resumen"]))
-        for e in ENTRADAS)
+    """El índice del blog: una tarjeta por entrada, con la foto arriba y debajo
+    el título y la entradilla. Los huecos FOTO-B01 a FOTO-B05 son propios del
+    blog y van marcados como el resto de la web hasta que lleguen las fotos."""
+    tarjetas = []
+    for e in ENTRADAS:
+        arch = e["foto"].lower()
+        tarjetas.append(
+            '''      <a class="post-tarjeta" href="%s">
+        <span class="post-foto" data-foto="%s" data-ratio="3:2"
+              data-archivo="@@BASE@@assets/img/%s.webp"
+              data-alt="Ilustración de la entrada: %s">
+          <span class="trama" aria-hidden="true"></span><span class="foto-tag">%s</span>
+        </span>
+        <span class="post-cuerpo-t">
+          <span class="post-fila-t">%s</span>
+          <span class="post-fila-x">%s</span>
+          <span class="post-fila-mas">Leer</span>
+        </span>
+      </a>''' % (enlace("/blog/%s/" % e["slug"]), e["foto"], arch,
+                 esc(e["titulo"]), e["foto"], esc(e["titulo"]), esc(e["resumen"])))
     cuerpo = '''<!-- ══════════════════════════ BLOG ══════════════════════════ -->
 <section class="seccion blog" id="blog">
   <div class="wrap">
@@ -916,15 +931,15 @@ def pagina_blog():
       <h1 class="titulo titulo-c" data-split="lines">Cuidado del cabello,<br><em>explicado sin humo.</em></h1>
       <p class="parrafo centro reveal">Lo que nos preguntan en el salón, respondido de frente y sin vender nada.</p>
     </header>
-    <div class="post-lista reveal">
+    <div class="post-rejilla reveal">
 %s
     </div>
   </div>
 </section>
 
 %s
-''' % (filas, banda_reserva("¿Te quedó una duda? La resolvemos en la valoración."))
-    return pagina("Blog · cuidado del cabello explicado · BRAVA Hair Lab",
+''' % ("\n\n".join(tarjetas), banda_reserva("¿Te quedó una duda? La resolvemos en la valoración."))
+    return pagina("Blog de cuidado capilar · BRAVA Hair Lab",
                   "Alisados sin formol, head spa, caída del pelo y tratamientos de fibra, "
                   "explicados de frente por BRAVA Hair Lab, en Bogotá.",
                   cuerpo, "/blog/")
@@ -1010,7 +1025,11 @@ def pagina_protocolo(p):
        filas, incluye, porque, aviso,
        enlace(RUTA_CAT[c["slug"]]), esc(c["nombre"]))
 
+    # Por debajo de 60 caracteres: si el nombre y la categoría no caben, se
+    # deja solo el nombre del protocolo, que es lo que se busca.
     titulo = "%s · %s · BRAVA Hair Lab" % (p["nombre"], c["nombre"])
+    if len(titulo) > 60:
+        titulo = "%s · BRAVA Hair Lab" % p["nombre"]
     desc = (p.get("subtitulo") or "") + ". " + primera_frase(p.get("descripcion") or "")
     return pagina(titulo, desc.strip(" ."), cuerpo, RUTA_CAT[c["slug"]])
 
@@ -1043,7 +1062,7 @@ def main():
 
     # ── portada ──
     escribe("/", pagina(
-        "Alisados sin formol, tratamientos capilares y head spa en Bogotá · BRAVA Hair Lab",
+        "Alisados sin formol y spa capilar en Bogotá · BRAVA Hair Lab",
         "Estudio de cuidado capilar cosmético en Bogotá. 24 protocolos agrupados en cinco categorías, adaptados a la condición real de tu fibra y tu cuero cabelludo.",
         # El orden manda: tras la banda de sellos, las cinco categorías. "Dos
         # abordajes" va detrás del antes y después, como explicación de fondo.
@@ -1072,7 +1091,7 @@ def main():
 
     # ── el lab ──
     escribe("/el-lab/", pagina(
-        "El Lab · los dos pisos y el método BRAVA · BRAVA Hair Lab",
+        "El Lab y el método BRAVA · BRAVA Hair Lab",
         "Los dos pisos de BRAVA en Colina Campestre y los cuatro pasos del método: evaluamos, tratamos, transformamos y mantenemos.",
         # La galería "El Lab, por dentro" NO se publica por ahora. No está
         # borrada: su HTML sigue en _plantilla/pagina-unica.html y su CSS y su
@@ -1084,7 +1103,7 @@ def main():
 
     # ── contacto ──
     escribe("/contacto/", pagina(
-        "Contacto y reservas · BRAVA Hair Lab · Bogotá",
+        "Contacto y reservas en Bogotá · BRAVA Hair Lab",
         "Agenda tu valoración en BRAVA Hair Lab: reserva en línea o escríbenos por WhatsApp. Bogotá, Colina Campestre.",
         T["contacto"], "/contacto/"))
 

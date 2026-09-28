@@ -77,6 +77,20 @@ FOTOS = [
          nota="rizos definidos de espaldas; la masa de rizo cae a la derecha, "
               "así que el foco se corre para no cortarla"),
 
+    # ── El blog: una foto por entrada ──
+    # Huecos nuevos y vacíos. El marco del índice es una banda 3:2, la misma
+    # del resto de bandas, así que cuando lleguen basta con descomentar.
+    # dict(cod="FOTO-B01", arch="foto-b01.jpg", virar=False, marco="banda",
+    #      modo="recorte", fx=.50, fy=.50, nota="Blog: alisado sin formol"),
+    # dict(cod="FOTO-B02", arch="foto-b02.jpg", virar=False, marco="banda",
+    #      modo="recorte", fx=.50, fy=.50, nota="Blog: qué es un spa capilar"),
+    # dict(cod="FOTO-B03", arch="foto-b03.jpg", virar=False, marco="banda",
+    #      modo="recorte", fx=.50, fy=.50, nota="Blog: cada cuánto un alisado"),
+    # dict(cod="FOTO-B04", arch="foto-b04.jpg", virar=False, marco="banda",
+    #      modo="recorte", fx=.50, fy=.50, nota="Blog: caída del cabello"),
+    # dict(cod="FOTO-B05", arch="foto-b05.jpg", virar=False, marco="banda",
+    #      modo="recorte", fx=.50, fy=.50, nota="Blog: alisado, keratina y botox"),
+
     # ── Portada · los cinco bloques de categoría ──
     # Huecos nuevos y vacíos: aún no hay original. El marco de la página es una
     # banda ancha 3:2, así que cuando lleguen las fotos basta con descomentar

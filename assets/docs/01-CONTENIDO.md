@@ -38,7 +38,7 @@ agrupan):
 |---|---|---|
 | `/servicios/alisados/` | Alisados y alineación (6) | §7 · FIBER · Alineaciones moleculares |
 | `/servicios/tratamientos/` | Tratamientos y reparación (9) | §8 · FIBER · El menú de rituales |
-| `/servicios/head-spa/` | Head Spa (2) | §10 · SCALP · Experiencias |
+| `/servicios/head-spa/` | Spa capilar (2) | §10 · SCALP · Experiencias |
 | `/servicios/caida/` | Caída y fortalecimiento (3) | §11 · SCALP · Root Lounge |
 | `/servicios/complementarios/` | Servicios complementarios (4) | §12 · Add-ons |
 
@@ -59,6 +59,9 @@ Cada protocolo tiene su página en `/servicios/<categoria>/<protocolo>/`.
 
 **`/servicios/`** → el índice de las cinco categorías
 **`/el-lab/`** → 14, 5 y 13 · **`/contacto/`** → 16
+**Los cinco huecos del blog**, `FOTO-B01` a `FOTO-B05`, uno por entrada, en
+banda 3:2. Van en el índice, arriba de cada tarjeta.
+
 **`/blog/`** → el índice de entradas, y `/blog/<entrada>/` una página por
 entrada. Son cinco: alisado sin formol, qué es un head spa, cada cuánto
 repetir un alisado, caída del pelo, y alisado frente a keratina y botox
