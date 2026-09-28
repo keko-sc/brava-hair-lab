@@ -25,7 +25,7 @@ Esta es una maquetación en blanco para revisión interna. Tiene que verse que l
 
 ---
 
-## ESTRUCTURA DEL SITIO (multipágina, 34 direcciones)
+## ESTRUCTURA DEL SITIO (multipágina, 40 direcciones)
 
 Los servicios se agrupan por **lo que busca la clienta**, no por las familias
 internas de la marca. BRAVA FIBER y BRAVA SCALP siguen existiendo como concepto
@@ -59,6 +59,12 @@ Cada protocolo tiene su página en `/servicios/<categoria>/<protocolo>/`.
 
 **`/servicios/`** → el índice de las cinco categorías
 **`/el-lab/`** → 14, 5 y 13 · **`/contacto/`** → 16
+**`/blog/`** → el índice de entradas, y `/blog/<entrada>/` una página por
+entrada. Son cinco: alisado sin formol, qué es un head spa, cada cuánto
+repetir un alisado, caída del pelo, y alisado frente a keratina y botox
+capilar. En el menú, "Blog" ocupa el sitio que tenía "Preguntas"; la sección
+de preguntas frecuentes sigue en la portada, sin cambios.
+
 **`/resultados/`** → la galería de resultados reales del Lab: ocho tarjetas en dos
 columnas, con los huecos `FOTO-G01` a `FOTO-G08`. El enlace "Resultados" del menú
 lleva aquí; la sección de antes y después sigue en la portada, aparte.
@@ -127,9 +133,9 @@ sobre la raíz. Luz fría y tenue. 1:1.
 
 ---
 
-## 5 · THE BRAVA METHOD
+## 5 · EL MÉTODO BRAVA
 
-**Titular:** The Brava Method
+**Titular:** El método BRAVA
 **Bajada:** Cuidar el cabello no se trata de hacer más. Se trata de entenderlo mejor.
 Cuatro pasos que guían cada experiencia en el Lab, desde la primera evaluación
 hasta el mantenimiento en casa.
@@ -240,7 +246,7 @@ detalle de textura y producto más que de personas.
 expresar todo su potencial.
 
 **Texto:**
-Una melena extraordinaria comienza desde la raíz. La salud, la fuerza y la calidad del
+Un cabello extraordinario comienza desde la raíz. La salud, la fuerza y la calidad del
 cabello nacen en el folículo, y es allí donde centramos nuestra innovación. Nuestro
 sistema de bioestimulación combina modalidades avanzadas no invasivas para optimizar el
 ecosistema capilar y favorecer la actividad natural del folículo.

@@ -1,6 +1,6 @@
 # BRAVA Hair Lab · cómo está montada la web
 
-La web es **multipágina** y sus 34 direcciones **se generan**, no se escriben a
+La web es **multipágina** y sus 40 direcciones **se generan**, no se escriben a
 mano. Si editas un `index.html` suelto, el siguiente generado se lo lleva por
 delante.
 

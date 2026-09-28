@@ -93,6 +93,8 @@ ul,ol{ margin:0; padding:0; list-style:none; }
   opacity:.07;
 }
 .oscuro .trama, .arco .trama, .arco-sm .trama, .arco-hero .trama{ opacity:.10; }
+/* El hero va liso: café sobrio, sin la trama de ondas. */
+.hero .trama-fondo{ display:none; }
 .trama-fondo{ z-index:0; opacity:.06; }
 
 /* ───────────────────────────── Utilidades ─────────────────────────── */
@@ -100,7 +102,11 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 
 .seccion{
   position:relative;
-  padding-block:clamp(4.5rem,10vw,8.5rem);
+  /* Una sola separación para todas las secciones normales: 56px arriba y
+     abajo. Antes iba de 40 a 272px según la sección y no había criterio. Las
+     bandas estrechas (marquesina, banda de iconos) tienen su propia regla y no
+     entran aquí. */
+  padding-block:56px;
   /* El titular nunca queda tapado por el menú: alto real + 16 px, lo mide el JS */
   scroll-margin-top:calc(var(--nav-real, var(--nav-h)) + 16px);
 }
@@ -250,7 +256,8 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 
 /* Iconos de línea: sin relleno. Sin esta regla el SVG se pinta en negro. */
 .ic{ width:42px; height:42px; }
-.ic path{ fill:none; stroke:var(--camel); stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+/* Vale para path y para circle: el icono de embarazo usa los dos. */
+.ic path, .ic circle{ fill:none; stroke:var(--camel); stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
 
 /* ──────────────── Marco de arco: la firma visual del sistema ───────── */
 .arco,.arco-sm,.arco-hero{
@@ -480,6 +487,17 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 .ha-cifras span{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--crema-suave); }
 
 .ha-pie{ margin-top:clamp(.9rem,1.7vh,1.35rem); display:grid; gap:1.15rem; justify-items:start; }
+/* El H1 lleva dos líneas dentro: la grande de marca y, debajo, la descriptiva
+   con el servicio y la ciudad. El partido en líneas se queda solo en la grande;
+   si envolviera a las dos, la pequeña heredaría el tamaño de titular. */
+.ha-titulo-g{ display:block; }
+.ha-titulo-sub{
+  display:block; font-family:var(--f-body); font-weight:400;
+  font-variation-settings:normal; text-transform:none;
+  margin-top:.7rem; max-width:34ch;
+  font-size:clamp(.92rem,.86rem + .3vw,1.08rem); line-height:1.45;
+  letter-spacing:.01em; color:var(--crema-suave);
+}
 .ha-sub{ color:var(--crema-suave); max-width:32rem; font-size:clamp(1.05rem,.95rem + .4vw,1.31rem); line-height:1.55; }
 /* Tres botones: envuelven si no caben, y en celular van apilados. */
 .hero-a .hero-ctas{ flex-wrap:wrap; }
@@ -522,7 +540,6 @@ ul,ol{ margin:0; padding:0; list-style:none; }
    El titular NO se achica: usa el mismo tamaño que los del resto de secciones.
    Antes tenía una regla propia que lo topaba en 2.4rem contra los 5.5rem del
    estándar, y cantaba al lado de los demás. */
-.antesdespues{ padding-block:clamp(1.1rem,1.9vw,1.6rem); }
 .antesdespues .seccion-cab{ margin-bottom:clamp(.7rem,1.3vw,1rem); }
 .antesdespues .seccion-cab .parrafo{ font-size:.94rem; max-width:52rem; }
 .comparadores{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(1.2rem,3vw,2rem); max-width:900px; margin-inline:auto; }
@@ -589,7 +606,10 @@ ul,ol{ margin:0; padding:0; list-style:none; }
   padding:clamp(1.5rem,3vw,2rem) clamp(1.5rem,4vw,2.5rem);
   display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1.2rem;
 }
-.banda-cta p{ font-family:var(--f-disp); font-size:clamp(1.15rem,1rem + .8vw,1.6rem); letter-spacing:-.02em; max-width:34ch; }
+/* En la sans del sitio, no en la serif de titulares: era el único texto
+   corrido de la web en serif y desentonaba. Sube el peso para que siga
+   pesando como llamada y no se lea como un párrafo cualquiera. */
+.banda-cta p{ font-family:var(--f-body); font-size:clamp(1.05rem,.95rem + .6vw,1.35rem); font-weight:500; line-height:1.45; letter-spacing:0; max-width:34ch; }
 
 /* ─────────────────────────── Dos abordajes ────────────────────────── */
 /* La cabecera de esta sección se separa la mitad que en el resto: entre la
@@ -797,7 +817,7 @@ ul,ol{ margin:0; padding:0; list-style:none; }
    ocupa su sitio en el flujo, así que este relleno ES el hueco que se ve: 40
    arriba, sin sumarle nada por la barra. Misma solución que en las páginas de
    categoría. */
-#contacto{ padding-block:40px clamp(3rem,6vw,4.5rem); }
+#contacto{ padding-block:40px 56px; }
 /* El mapa de la tarjeta de Ubicación. Carga diferida porque es contenido de
    Google y no tiene que frenar la página; ocupa el ancho de la tarjeta. */
 .c-mapa{ margin-top:.9rem; border-radius:14px; overflow:hidden; border:1px solid var(--linea-o); background:var(--cafe-alt); }
@@ -832,6 +852,8 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 .pie-legal{ padding-top:1.75rem; display:grid; gap:.7rem; font-size:.78rem; line-height:1.6; }
 .pie-legal strong{ color:var(--camel-claro); }
 .pie-mini{ display:flex; flex-wrap:wrap; gap:.6rem; align-items:center; margin-top:.4rem; font-size:.74rem; opacity:.8; }
+.pie-credito a{ color:var(--camel-claro); text-decoration:none; border-bottom:1px solid var(--linea-o); }
+.pie-credito a:hover{ border-bottom-color:var(--camel-claro); }
 
 /* ─────────────────────── WhatsApp flotante ────────────────────────── */
 .wa-flotante{
@@ -1091,7 +1113,7 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
    y lo deja sin efecto. Por eso el recorte lateral es overflow-x:clip. */
 /* El camel del ADN entra justo detrás: 120 px de respiro entre el final de
    las fotos y el corte de color. */
-.galeria{ padding-block:clamp(1.2rem,2vw,1.7rem) 120px; overflow-x:clip; overflow-y:visible; }
+.galeria{ overflow-x:clip; overflow-y:visible; }
 .reel-cab{ display:flex; align-items:baseline; gap:1rem 1.4rem; flex-wrap:wrap; margin-bottom:0; }
 .reel-t{ font-family:var(--f-disp); font-size:clamp(1.6rem,1.1rem + 1.5vw,2.4rem);
   line-height:1.05; letter-spacing:-.03em; color:var(--crema-texto); }
@@ -1244,7 +1266,7 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
   .banda-cta{ flex-direction:column; align-items:flex-start; }
   .marquesina-pista{ font-size:.95rem; animation-duration:21s; }
   .wrap,.nav-in,.hero-in{ width:calc(100% - 2rem); }
-  .seccion{ padding-block:clamp(3.25rem,11vw,4.5rem); }
+  .seccion{ padding-block:40px; }
   .hero{ padding-block:1.5rem 3rem; }
   /* .ha-pie es una rejilla con justify-items:start, así que la fila de
      botones se quedaba del ancho de su contenido. Aquí ocupa la columna. */
@@ -1295,7 +1317,6 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
    el desplazamiento y el atenuado, enganchados al scroll (scrub).
    La clase .cruce la pone el JS, y solo en escritorio. Sin ella los tres
    bloques quedan uno debajo de otro, que es lo que pasa en celular. */
-.familias{ padding-block:clamp(3rem,6vw,4.5rem) clamp(4rem,7vw,6rem); }
 .fam-bloques{ display:grid; gap:clamp(3rem,6vw,4.5rem); margin-top:clamp(2rem,4vw,3.2rem); }
 .fam-bloque{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(1.8rem,5vw,4rem); align-items:center; }
 /* La banda cambia de lado en el bloque de en medio: la fila no se lee igual
@@ -1396,13 +1417,11 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
    entre el menú y las migas es este número y solo este. 40 aquí son 40 en
    pantalla. Si alguna vez hay que cambiarlo, se mide y se pone el número que
    se quiera ver, sin restarle nada al menú. */
-.fam-cab-pag{ padding-block:40px 100px; }
+.fam-cab-pag{ padding-block:40px 56px; }
 /* .seccion-cab lleva un margen abajo para separarse del contenido que suele ir
    debajo dentro de la misma sección. Aquí la cabecera ES la sección entera, así
    que ese margen no separa nada: solo sumaba 72px de aire muerto al relleno. */
 .fam-cab-pag .seccion-cab{ margin-bottom:0; }
-.fam-contexto{ padding-block:clamp(2.5rem,5vw,4rem); }
-.fam-listado{ padding-block:clamp(2rem,4vw,3rem) clamp(4rem,7vw,6rem); }
 .prot-grupos{ display:grid; gap:clamp(2rem,4vw,3rem); margin-top:clamp(1.6rem,3vw,2.4rem); }
 .prot-grupo-t{
   display:flex; align-items:baseline; gap:.8rem;
@@ -1421,13 +1440,23 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
   transition:background .3s var(--ease), padding-inline .3s var(--ease);
 }
 .prot-fila:hover{ background:var(--arena); padding-inline:1rem .4rem; }
+/* La llamada que parte la lista de protocolos. Va en el tono de esta zona de
+   la página, no en la tarjeta café del final. */
+.prot-llamada{
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
+  gap:1rem 1.5rem; margin-block:1.5rem; padding:1.4rem 1.5rem;
+  background:var(--arena); border-radius:18px;
+}
+.prot-llamada p{ font-size:1rem; font-weight:500; max-width:40ch; }
+.prot-llamada-btns{ display:flex; flex-wrap:wrap; gap:.6rem; }
+
 .prot-nombre{ font-family:var(--f-disp); font-size:clamp(1.15rem,1rem + .5vw,1.5rem); letter-spacing:-.02em; }
 .prot-sub{ font-size:.92rem; line-height:1.5; color:var(--tinta-suave); }
 .prot-mas{ font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--camel-texto); white-space:nowrap; }
 .prot-mas::after{ content:" →"; }
 
 /* ── Ficha de protocolo ──────────────────────────────────────────────────── */
-.protocolo{ padding-block:calc(var(--nav-real, 84px) + 2.5rem) clamp(4rem,7vw,6rem); }
+.protocolo{ padding-block:40px 56px; }
 .migas{ display:flex; flex-wrap:wrap; gap:.55rem; align-items:center; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; margin-bottom:clamp(1.6rem,3vw,2.4rem); color:var(--tinta-suave); }
 .migas a{ color:var(--camel-texto); text-decoration:none; border-bottom:1px solid transparent; }
 .migas a:hover{ border-bottom-color:currentColor; }
@@ -1458,7 +1487,6 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
 
 
 /* ── Banda de reserva · las dos vías de cita en todas las páginas ───────── */
-.banda-reserva{ padding-block:clamp(3rem,6vw,4.5rem); }
 .reserva-in{ display:flex; flex-wrap:wrap; gap:clamp(1.5rem,4vw,3rem); align-items:center; justify-content:space-between; }
 .reserva-t{ font-family:var(--f-disp); font-size:clamp(1.7rem,1.3rem + 1.6vw,2.6rem); line-height:1.08; letter-spacing:-.025em; color:var(--crema-texto); max-width:20ch; }
 .banda-reserva .hero-ctas{ display:flex; flex-wrap:wrap; gap:.7rem; }
@@ -1610,7 +1638,7 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
 .menu nav .menu-cat-todos{ border-bottom:1px solid var(--linea-2); margin-bottom:.6rem; }
 
 /* ── Página /servicios/ · el índice de las cinco ───────────────────────── */
-.servicios{ padding-block:calc(var(--nav-real, 84px) + 2.5rem) clamp(3rem,6vw,4.5rem); }
+.servicios{ padding-block:40px 56px; }
 /* Los tres grupos de /servicios/: los dos abordajes de marca con su anclaje,
    y los complementarios aparte. El scroll-margin-top ya lo pone la regla
    general de las secciones, así que al llegar desde la portada el titular del
@@ -1668,7 +1696,7 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
    arriba de cada tarjeta y debajo un pie de dos líneas. Sin marcos ni sombras,
    fondo limpio y mucho aire entre tarjetas.
    ══════════════════════════════════════════════════════════════════════════ */
-.resultados-pag{ padding-block:40px clamp(3rem,6vw,4.5rem); }
+.resultados-pag{ padding-block:40px 56px; }
 .res-rejilla{
   display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
   gap:clamp(2.5rem,5vw,4.5rem) clamp(1.5rem,3vw,2.5rem);
@@ -1723,6 +1751,50 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
 
 @media (max-width: 760px){
   .res-rejilla{ grid-template-columns:minmax(0,1fr); gap:clamp(2rem,7vw,2.8rem); }
+}
+
+
+/* ══════════════════════════════════════════════════════════════════════════
+   EL BLOG
+   ══════════════════════════════════════════════════════════════════════════ */
+.blog{ padding-block:40px 56px; }
+.post-lista{ display:grid; margin-top:clamp(1.8rem,3vw,2.6rem); }
+.post-fila{
+  display:grid; grid-template-columns:minmax(0,1fr) auto;
+  gap:.4rem 1.5rem; align-items:baseline;
+  padding:1.5rem .4rem; border-bottom:1px solid var(--linea-2);
+  color:inherit; text-decoration:none;
+  transition:background .3s var(--ease), padding-inline .3s var(--ease);
+}
+.post-fila:hover{ background:var(--arena); padding-inline:1rem .4rem; }
+.post-fila-t{ font-family:var(--f-disp); font-size:clamp(1.2rem,1rem + .7vw,1.6rem); letter-spacing:-.025em; }
+.post-fila-x{ grid-column:1; font-size:.92rem; line-height:1.5; color:var(--tinta-suave); }
+.post-fila-mas{ grid-row:1; grid-column:2; font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--camel-texto); white-space:nowrap; }
+.post-fila-mas::after{ content:" →"; }
+
+/* ── Una entrada ─────────────────────────────────────────────────────────
+   Columna de lectura estrecha: un texto largo a todo el ancho no se lee. */
+.post{ padding-block:40px 56px; }
+.post-cuerpo{ max-width:40rem; margin-inline:auto; }
+.post-t{ font-family:var(--f-disp); font-size:clamp(2rem,1.5rem + 2.2vw,3.2rem); line-height:1.06; letter-spacing:-.03em; margin-bottom:1rem; }
+.post-entradilla{ font-size:1.1rem; line-height:1.55; color:var(--tinta-suave); margin-bottom:2rem; padding-bottom:1.5rem; border-bottom:1px solid var(--linea-2); }
+.post-cuerpo p{ margin-bottom:1.15rem; line-height:1.75; }
+.post-h2{ font-family:var(--f-disp); font-size:clamp(1.35rem,1.15rem + .8vw,1.8rem); letter-spacing:-.025em; margin:2.2rem 0 .9rem; }
+.post-lista{ display:grid; gap:.7rem; margin:0 0 1.4rem; }
+.post-cuerpo .post-lista li{ position:relative; padding-left:1.2rem; line-height:1.7; }
+.post-cuerpo .post-lista li::before{ content:"✦"; position:absolute; left:0; top:.45em; font-size:.6rem; color:var(--camel); }
+.post-cuerpo .post-lista li strong{ font-weight:600; }
+/* El aviso de cierre: es donde se dice lo que la entrada NO es. */
+.post-aviso{
+  margin-top:2rem; padding:1.2rem 1.3rem;
+  background:var(--arena); border-left:3px solid var(--camel); border-radius:0 12px 12px 0;
+  font-size:.92rem; line-height:1.65; color:var(--tinta-suave);
+}
+.post-cta{ display:flex; flex-wrap:wrap; gap:.7rem; margin-top:2.2rem; }
+
+@media (max-width: 760px){
+  .post-fila{ grid-template-columns:minmax(0,1fr); }
+  .post-fila-mas{ grid-row:auto; grid-column:1; margin-top:.3rem; }
 }
 
 @media (prefers-reduced-motion:reduce){

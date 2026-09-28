@@ -174,7 +174,7 @@ ENLACES = [
     ("/", "Inicio", "Inicio"),
     ("/el-lab/", "El Lab", "El Lab por dentro"),
     ("/resultados/", "Resultados", "Resultados del Lab"),
-    ("/#faq", "Preguntas", "Preguntas frecuentes"),
+    ("/blog/", "Blog", "Blog"),
     ("/contacto/", "Contacto", "Contacto"),
 ]
 
@@ -426,7 +426,7 @@ PORTADA = {
                                "arquitectura, nutrición y preservación de la fibra.",
                          foto="Tratamientos: plano ancho de un ritual en ejecución."),
     "head-spa": dict(sobre="Cuidado desde la raíz", cod="FOTO-23",
-                     texto="Una melena extraordinaria comienza desde la raíz. Experiencias "
+                     texto="Un cabello extraordinario comienza desde la raíz. Experiencias "
                            "largas de cuidado del cuero cabelludo, en el silencio del Piso 2.",
                      foto="Head Spa: plano ancho del Piso 2, cabina privada, luz tenue."),
     "caida": dict(sobre="Desde el folículo", cod="FOTO-24",
@@ -478,7 +478,7 @@ def banda_familias(protos):
   <div class="wrap">
     <header class="seccion-cab">
       <p class="eyebrow reveal">Servicios</p>
-      <h2 class="titulo titulo-c" data-split="lines">Veinticuatro protocolos.<br><em>Cinco categorías.</em></h2>
+      <h2 class="titulo titulo-c" data-split="lines">Alisados, tratamientos y head spa.<br><em>Veinticuatro protocolos.</em></h2>
       <p class="parrafo centro reveal">Agrupados por lo que vienes a resolver. Entra en la categoría que te interese y ahí están sus protocolos, uno a uno.</p>
     </header>
 
@@ -497,16 +497,35 @@ def banda_familias(protos):
 ''' % "\n\n".join(bloques)
 
 
+def fila_protocolo(p):
+    return ('        <li><a class="prot-fila" href="%s">'
+            '<span class="prot-nombre">%s</span>'
+            '<span class="prot-sub">%s</span>'
+            '<span class="prot-mas">Ver el protocolo</span></a></li>'
+            % (enlace(ruta_protocolo(p)), esc(p["nombre"]), esc(p.get("subtitulo") or "")))
+
+
 def lista_protocolos(c, protos):
-    """La lista de una categoría: una fila-enlace por protocolo."""
+    """La lista de una categoría, partida por una llamada a agendar.
+
+    La llamada va hacia la mitad, no solo al final: en las listas largas la de
+    abajo queda muy lejos. Usa los colores de esta zona de la página —fondo
+    claro, botón camel— y no la tarjeta café oscuro del cierre."""
     ps = [p for p in protos if p["familia"] == c["familia"]]
-    return "\n".join(
-        '        <li><a class="prot-fila" href="%s">'
-        '<span class="prot-nombre">%s</span>'
-        '<span class="prot-sub">%s</span>'
-        '<span class="prot-mas">Ver el protocolo</span></a></li>'
-        % (enlace(ruta_protocolo(p)), esc(p["nombre"]), esc(p.get("subtitulo") or ""))
-        for p in ps)
+    if len(ps) < 4:
+        return "\n".join(fila_protocolo(p) for p in ps)
+
+    corte = (len(ps) + 1) // 2
+    llamada = (
+        '        <li class="prot-llamada">\n'
+        '          <p>¿Dudas de cuál te toca? Lo vemos en la valoración, sin compromiso.</p>\n'
+        '          <span class="prot-llamada-btns">\n'
+        '            <a class="btn btn-acento btn-sm" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en línea</a>\n'
+        '            <a class="btn btn-ghost btn-sm" href="https://wa.me/573205830720" data-wa-simple>Escribir por WhatsApp</a>\n'
+        '          </span>\n'
+        '        </li>')
+    return "\n".join([fila_protocolo(p) for p in ps[:corte]] + [llamada] +
+                     [fila_protocolo(p) for p in ps[corte:]])
 
 
 def pagina_categoria(c, protos, contexto):
@@ -711,6 +730,206 @@ def pagina_resultados():
                   cuerpo, "/resultados/")
 
 
+# ══════════════════════════════════════════════════════════════════════════
+#  EL BLOG
+#  Cinco entradas. La regla de cada una: la respuesta va en el primer párrafo,
+#  no al final. Terreno general y comprobable; ni un dato del Lab inventado ni
+#  una promesa de resultado. Cada entrada enlaza a su página de servicio.
+# ══════════════════════════════════════════════════════════════════════════
+ENTRADAS = [
+ dict(slug="alisado-sin-formol",
+   titulo="Alisado sin formol: cómo saber si el que te hacen lo tiene",
+   resumen="Cómo reconocer el formol en un salón y qué preguntar antes de sentarte en la silla.",
+   desc="Cómo reconocer si un alisado lleva formol: el olor, los ojos que lloran, el humo al planchar. Y qué preguntar antes de empezar.",
+   servicios=[("/servicios/alisados/", "Ver los alisados de BRAVA")],
+   cuerpo=[
+    ("p", "Si durante el alisado te arden los ojos, sale humo blanco al pasar la plancha o en el salón abren ventanas y te pasan un tapabocas, lo más probable es que el producto lleve formol o algún ingrediente que lo libera al calentarse. Esas tres señales juntas son la pista más clara, y las puedes notar sin saber nada de química."),
+    ("h2", "Qué es el formol y por qué se usaba"),
+    ("p", "El formol —o formaldehído— es un conservante y fijador que se usa en muchas industrias. En peluquería llegó porque funciona: al aplicarlo y pasar la plancha a alta temperatura, sella la fibra en la forma lisa y el efecto dura meses. Era barato, rápido y muy efectivo."),
+    ("p", "El problema es que al calentarse se evapora y se respira. La Agencia Internacional para la Investigación sobre el Cáncer, que depende de la Organización Mundial de la Salud, lo clasifica como cancerígeno para las personas, y es un irritante conocido de ojos, nariz y garganta. Por eso su uso en cosméticos está restringido en buena parte del mundo y en Colombia los productos cosméticos deben tener registro sanitario del INVIMA."),
+    ("h2", "Cómo reconocerlo en un salón"),
+    ("ul", ["Un olor penetrante y punzante, distinto del olor a producto de peluquería.",
+            "Ojos que lloran o arden, tuyos o de quien te atiende.",
+            "Humo blanco o vapor denso al pasar la plancha.",
+            "Que te pidan ponerte tapabocas, o que abran ventanas y prendan ventiladores.",
+            "Garganta raspada o tos durante o después del servicio."]),
+    ("p", "Ninguna de estas señales prueba nada por sí sola: un salón puede ventilar por costumbre. Pero varias juntas sí dicen algo."),
+    ("h2", "Qué preguntar antes de empezar"),
+    ("ul", ["¿Qué producto van a usar y puedo ver el envase y la etiqueta?",
+            "¿Tiene registro sanitario del INVIMA?",
+            "¿Libera formaldehído al calentarse? Algunos ingredientes no se llaman formol pero lo liberan con el calor.",
+            "Si estás embarazada o lactando, dilo antes y pregunta si ese producto es apto.",
+            "¿Con qué temperatura se plancha y cuánto dura el servicio?"]),
+    ("p", "Y una advertencia honesta: que un alisado sea «sin formol» no lo convierte automáticamente en inofensivo. Hay alternativas sin formol que también tienen sus cuidados. Lo importante es que te digan con qué te están trabajando y por qué."),
+    ("aviso", "Esta entrada es informativa y no sustituye la valoración de un profesional. Si tienes una condición médica o dudas sobre un producto, consúltalo con tu médico."),
+   ]),
+
+ dict(slug="que-es-un-head-spa",
+   titulo="Qué es un head spa o spa capilar, y en qué se diferencia de un lavado",
+   resumen="La diferencia está en el tiempo, el masaje y en dónde se pone el foco: el cuero cabelludo, no el largo.",
+   desc="Qué es un head spa o spa capilar, de dónde viene y en qué se diferencia de un lavado de salón. Duración, masaje y foco en el cuero cabelludo.",
+   servicios=[("/servicios/head-spa/", "Ver los head spa de BRAVA")],
+   cuerpo=[
+    ("p", "Un head spa —o spa capilar, que es el mismo servicio con nombre en español— es un tratamiento largo centrado en el cuero cabelludo, no en el largo del pelo. Un lavado de salón dura unos minutos y busca dejarte el pelo limpio; un head spa dura entre cuarenta y cinco y noventa minutos, incluye masaje y trabaja sobre la piel de la cabeza."),
+    ("h2", "De dónde viene"),
+    ("p", "La práctica se popularizó en Japón, donde el cuidado del cuero cabelludo es una categoría propia dentro de la peluquería, y de ahí salió el nombre «head spa». En los últimos años se extendió a salones de toda América Latina, a veces con el nombre traducido y a veces no."),
+    ("h2", "En qué se diferencia de un lavado"),
+    ("ul", ["<strong>El tiempo.</strong> Un lavado son minutos. Un head spa se mide en decenas de minutos, porque el producto necesita reposar y el masaje necesita ritmo.",
+            "<strong>El masaje.</strong> No es el enjabonado rápido: es un trabajo manual sobre el cuero cabelludo, con presión y recorrido.",
+            "<strong>El foco.</strong> Un lavado atiende el largo y las puntas. Un head spa atiende la piel de donde nace el pelo.",
+            "<strong>El diagnóstico previo.</strong> Suele empezar mirando el estado del cuero cabelludo para decidir qué se aplica."]),
+    ("h2", "Para quién tiene sentido"),
+    ("p", "Suele buscarlo quien siente el cuero cabelludo graso o tenso, quien carga mucho estrés en la cabeza y el cuello, o quien simplemente quiere una hora de desconexión. También quien usa mucho producto de peinado y acumula residuo."),
+    ("aviso", "Un head spa es un servicio cosmético y de bienestar, no un tratamiento médico. No diagnostica ni trata enfermedades del cuero cabelludo. Si tienes picor persistente, heridas, descamación fuerte o caída marcada, eso lo tiene que ver un dermatólogo."),
+   ]),
+
+ dict(slug="cada-cuanto-alisado",
+   titulo="Cada cuánto puedes hacerte un alisado sin maltratar el pelo",
+   resumen="No lo marca el calendario: lo marca la raíz nueva que te va creciendo.",
+   desc="Cada cuánto repetir un alisado sin maltratar el pelo: lo marca la raíz nueva, no el calendario. Qué hacer entre una vez y la siguiente.",
+   servicios=[("/servicios/alisados/", "Ver los alisados de BRAVA"),
+              ("/servicios/tratamientos/", "Ver los tratamientos de fibra")],
+   cuerpo=[
+    ("p", "No lo marca el calendario, lo marca tu raíz. El pelo crece alrededor de un centímetro al mes, así que lo que define cuándo repetir no es «cada tantos meses», sino cuánta raíz nueva sin tratar tienes. Cuando llevas dos o tres centímetros de crecimiento —entre dos y tres meses para la mayoría— es cuando tiene sentido volver a mirarlo."),
+    ("h2", "Por qué la raíz manda"),
+    ("p", "Un alisado actúa sobre el pelo que toca. El pelo que ya salió tratado sigue tratado: no «se le va» el efecto de forma pareja, sino que va quedando atrás mientras la raíz empuja pelo nuevo con su forma original. Por eso a los dos meses se ve el contraste entre la raíz y el largo."),
+    ("h2", "El riesgo de volver a aplicar sobre pelo ya tratado"),
+    ("p", "Si se aplica producto de nuevo sobre todo el largo, el pelo que ya estaba tratado recibe una segunda pasada que no necesitaba. Eso es lo que se llama sobreprocesar: la fibra acumula tratamiento y calor, y puede volverse quebradiza, perder elasticidad y romperse, sobre todo en las puntas."),
+    ("p", "La forma de evitarlo es trabajar sobre todo la raíz nueva y dejar el largo con lo que necesite, que casi nunca es lo mismo. Eso exige mirar el pelo antes, no aplicar por rutina."),
+    ("h2", "Qué hacer entre una vez y la siguiente"),
+    ("ul", ["Espaciar el calor. La plancha y el secador a temperatura alta desgastan la fibra que ya pasó por un proceso.",
+            "Usar protector térmico siempre que vayas a aplicar calor.",
+            "Lavar con productos suaves y sin exceso de fricción.",
+            "Tratamientos de hidratación y nutrición entre servicios, que es justo lo que sostiene la fibra mientras esperas.",
+            "No encadenar procesos químicos sin dejar descansar el pelo entre uno y otro."]),
+    ("aviso", "Los tiempos de esta entrada son orientativos. Cuánto crece tu pelo y cómo lo tolera depende de cada persona."),
+   ]),
+
+ dict(slug="caida-del-pelo-que-es-normal",
+   titulo="Se te está cayendo el pelo: qué es normal y qué no",
+   resumen="Perder entre 50 y 100 cabellos al día entra dentro de lo normal. Lo que importa es el patrón.",
+   desc="Cuánta caída de pelo es normal y qué señales merecen atención. Causas frecuentes no médicas y cuándo consultar a un dermatólogo.",
+   servicios=[("/servicios/caida/", "Ver los protocolos de caída y fortalecimiento")],
+   cuerpo=[
+    ("p", "Perder entre cincuenta y cien cabellos al día es normal: el pelo tiene un ciclo y siempre hay una parte que se está cayendo para dar paso a pelo nuevo. Ver pelos en el cepillo, en la almohada o en la ducha no significa por sí solo que tengas un problema. Lo que importa no es la cantidad suelta, sino el patrón."),
+    ("h2", "Señales que sí merecen atención"),
+    ("ul", ["Pérdida a mechones, no pelo suelto repartido.",
+            "La coronilla que se ve más clara o el cuero cabelludo que empieza a transparentarse.",
+            "Picor persistente, descamación fuerte, enrojecimiento o heridas.",
+            "Entradas que avanzan rápido en pocas semanas o meses.",
+            "Zonas sin pelo con bordes definidos."]),
+    ("p", "Si te reconoces en alguna de estas, lo que toca no es un tratamiento cosmético: toca una consulta."),
+    ("h2", "Causas frecuentes que no son médicas"),
+    ("ul", ["<strong>Estrés.</strong> Un pico fuerte de estrés puede disparar una caída que aparece semanas después del episodio, no el mismo día.",
+            "<strong>Posparto.</strong> Es muy común y suele ser pasajero: el embarazo retiene pelo que después se cae todo junto.",
+            "<strong>Alimentación.</strong> Dietas muy restrictivas o carencias pueden reflejarse en el pelo.",
+            "<strong>Peinados muy tensos.</strong> Colas, trenzas o extensiones que tiran de la raíz de forma sostenida pueden dañar el folículo con el tiempo."]),
+    ("h2", "Cuándo ver a un dermatólogo"),
+    ("p", "Siempre que la caída sea repentina, por zonas, acompañada de molestias en la piel, o simplemente cuando te preocupe y quieras una respuesta. Un dermatólogo o un tricólogo puede examinar el cuero cabelludo, pedir exámenes si hace falta y decirte qué está pasando. Ningún servicio de peluquería puede hacer eso."),
+    ("aviso", "BRAVA es un estudio de cuidado capilar cosmético y preventivo. No diagnosticamos ni tratamos enfermedades, y no prometemos frenar la caída. Nuestros protocolos de esta categoría trabajan el entorno del cuero cabelludo desde lo cosmético. Si hay una causa médica detrás, el sitio correcto es la consulta."),
+   ]),
+
+ dict(slug="alisado-keratina-botox-capilar",
+   titulo="Alisado, keratina y botox capilar: en qué se diferencian",
+   resumen="Uno cambia la forma del pelo. Los otros dos cambian cómo se ve y cómo se siente.",
+   desc="Diferencias reales entre alisado, keratina y botox capilar: cuál cambia la forma del pelo, cuál solo su apariencia y cuánto dura cada uno.",
+   servicios=[("/servicios/alisados/", "Ver los alisados de BRAVA"),
+              ("/servicios/tratamientos/", "Ver los tratamientos de fibra")],
+   cuerpo=[
+    ("p", "La diferencia de fondo es una: el alisado cambia la forma del pelo; la keratina y el llamado botox capilar no. Estos dos rellenan y sellan la fibra, así que el pelo se ve más liso porque pesa más y tiene menos frizz, pero conserva su forma natural. En cuanto se va el producto, vuelve a ondularse."),
+    ("h2", "El alisado"),
+    ("p", "Trabaja sobre la estructura del pelo para relajar o eliminar la onda, y el efecto se mantiene en el pelo tratado hasta que crece raíz nueva. Es el único de los tres que transforma la forma, y por eso es el que más cuidado exige al elegirlo y al repetirlo."),
+    ("h2", "La keratina"),
+    ("p", "La keratina es la proteína de la que está hecho el pelo. Un tratamiento de keratina aporta proteína y sella la cutícula: deja el pelo más manejable, con brillo y menos frizz. No rompe ni reconstruye la forma; la disimula. Se va poco a poco, lavado a lavado."),
+    ("h2", "El botox capilar"),
+    ("p", "Aquí hay que aclarar algo: el botox capilar no tiene absolutamente nada que ver con la toxina botulínica ni con las inyecciones estéticas. Es un nombre comercial. Se trata de una mascarilla de alta concentración que rellena las zonas dañadas de la fibra con activos hidratantes y reparadores. El pelo queda más grueso al tacto y más liso a la vista, pero por relleno, no por transformación."),
+    ("h2", "Cuánto dura cada uno"),
+    ("ul", ["<strong>Alisado:</strong> meses, y lo que marca el final es el crecimiento de la raíz, no el desgaste.",
+            "<strong>Keratina:</strong> de unas semanas a un par de meses, y se va de forma gradual con los lavados.",
+            "<strong>Botox capilar:</strong> parecido a la keratina, también gradual."]),
+    ("p", "Por eso no compiten entre sí: un alisado resuelve la forma y un tratamiento de fibra resuelve el estado. Muchas veces lo que hace falta no es alisar, sino reparar."),
+    ("aviso", "Los nombres comerciales varían mucho entre salones y marcas. Antes de decidir, pregunta qué hace el producto concreto que te van a aplicar, no solo cómo se llama."),
+   ]),
+]
+
+
+def bloques_html(cuerpo):
+    out = []
+    for tipo, val in cuerpo:
+        if tipo == "p":
+            out.append("      <p>%s</p>" % val)
+        elif tipo == "h2":
+            out.append('      <h2 class="post-h2">%s</h2>' % esc(val))
+        elif tipo == "ul":
+            out.append("      <ul class=\"post-lista\">\n%s\n      </ul>"
+                       % "\n".join("        <li>%s</li>" % x for x in val))
+        elif tipo == "aviso":
+            out.append('      <p class="post-aviso">%s</p>' % val)
+    return "\n".join(out)
+
+
+def pagina_post(e):
+    servicios = "\n".join(
+        '        <a class="btn btn-acento" href="%s">%s</a>' % (enlace(u), esc(t))
+        for u, t in e["servicios"])
+    cuerpo = '''<!-- ══════════════════════════ ENTRADA ══════════════════════════ -->
+<section class="seccion post" id="post">
+  <div class="wrap">
+    <nav class="migas" aria-label="Dónde estás">
+      <a href="@@BASE@@">Inicio</a><span aria-hidden="true">·</span>
+      <a href="@@BASE@@blog/">Blog</a><span aria-hidden="true">·</span>
+      <span aria-current="page">%s</span>
+    </nav>
+
+    <article class="post-cuerpo">
+      <h1 class="post-t">%s</h1>
+      <p class="post-entradilla">%s</p>
+
+%s
+
+      <div class="post-cta">
+%s
+      </div>
+      <p class="volver-fam"><a href="@@BASE@@blog/">← Todas las entradas</a></p>
+    </article>
+  </div>
+</section>
+''' % (esc(e["titulo"]), esc(e["titulo"]), esc(e["resumen"]),
+       bloques_html(e["cuerpo"]), servicios)
+    return pagina("%s · Blog · BRAVA Hair Lab" % e["titulo"], e["desc"],
+                  cuerpo, "/blog/")
+
+
+def pagina_blog():
+    filas = "\n".join(
+        '''      <a class="post-fila" href="%s">
+        <span class="post-fila-t">%s</span>
+        <span class="post-fila-x">%s</span>
+        <span class="post-fila-mas">Leer</span>
+      </a>''' % (enlace("/blog/%s/" % e["slug"]), esc(e["titulo"]), esc(e["resumen"]))
+        for e in ENTRADAS)
+    cuerpo = '''<!-- ══════════════════════════ BLOG ══════════════════════════ -->
+<section class="seccion blog" id="blog">
+  <div class="wrap">
+    <header class="seccion-cab">
+      <p class="eyebrow reveal">Blog</p>
+      <h1 class="titulo titulo-c" data-split="lines">Cuidado del cabello,<br><em>explicado sin humo.</em></h1>
+      <p class="parrafo centro reveal">Lo que nos preguntan en el salón, respondido de frente y sin vender nada.</p>
+    </header>
+    <div class="post-lista reveal">
+%s
+    </div>
+  </div>
+</section>
+
+%s
+''' % (filas, banda_reserva("¿Te quedó una duda? La resolvemos en la valoración."))
+    return pagina("Blog · cuidado del cabello explicado · BRAVA Hair Lab",
+                  "Alisados sin formol, head spa, caída del pelo y tratamientos de fibra, "
+                  "explicados de frente por BRAVA Hair Lab, en Bogotá.",
+                  cuerpo, "/blog/")
+
+
 def pagina_protocolo(p):
     c = categoria(p)
     d = p.get("datos") or {}
@@ -824,7 +1043,7 @@ def main():
 
     # ── portada ──
     escribe("/", pagina(
-        "BRAVA Hair Lab · Fiber x Scalp Studio · Bogotá",
+        "Alisados sin formol, tratamientos capilares y head spa en Bogotá · BRAVA Hair Lab",
         "Estudio de cuidado capilar cosmético en Bogotá. 24 protocolos agrupados en cinco categorías, adaptados a la condición real de tu fibra y tu cuero cabelludo.",
         # El orden manda: tras la banda de sellos, las cinco categorías. "Dos
         # abordajes" va detrás del antes y después, como explicación de fondo.
@@ -843,12 +1062,17 @@ def main():
     for p in protos:
         escribe(ruta_protocolo(p), pagina_protocolo(p))
 
+    # ── el blog ──
+    escribe("/blog/", pagina_blog())
+    for e in ENTRADAS:
+        escribe("/blog/%s/" % e["slug"], pagina_post(e))
+
     # ── resultados ──
     escribe("/resultados/", pagina_resultados())
 
     # ── el lab ──
     escribe("/el-lab/", pagina(
-        "El Lab · Los dos pisos y The Brava Method · BRAVA Hair Lab",
+        "El Lab · los dos pisos y el método BRAVA · BRAVA Hair Lab",
         "Los dos pisos de BRAVA en Colina Campestre y los cuatro pasos del método: evaluamos, tratamos, transformamos y mantenemos.",
         # La galería "El Lab, por dentro" NO se publica por ahora. No está
         # borrada: su HTML sigue en _plantilla/pagina-unica.html y su CSS y su
