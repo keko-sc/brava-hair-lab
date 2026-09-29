@@ -522,7 +522,10 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 }
 .apto-item .ic{ width:clamp(48px,4.2vw,62px); height:clamp(48px,4.2vw,62px); flex:none; }
 /* Trazo fino: el icono es grande, así que la línea se afina para que no pese */
-.apto-item .ic path{ stroke:var(--camel-texto); stroke-width:1.15; }
+/* Alcanza a path y a circle: el icono de embarazo usa los dos, y con la
+   regla solo sobre path el círculo se quedaba con otro grosor y otro
+   color que el resto de la fila. */
+.apto-item .ic path, .apto-item .ic circle{ stroke:var(--camel-texto); stroke-width:1.15; }
 .apto-t{ font-size:clamp(.74rem,.6rem + .28vw,.82rem); line-height:1.35; color:var(--tinta); white-space:nowrap; }
 
 /* ─────────────────────────── Marquesina ───────────────────────────── */
