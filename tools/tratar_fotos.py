@@ -48,7 +48,11 @@ MARCOS = {
     "paso":    (3, 4, 1200),   # los cuatro pasos verticales de "El Método"
     "compara": (3, 4, 1200),   # las dos caras de cada comparador
     "reel":    (9, 16, 1600),  # los marcos verticales de la galería
-    "banda":   (3, 2, 1400),   # las bandas anchas de los bloques de familia
+    # Las bandas anchas: bloques de categoría de la portada y tarjetas del
+    # blog. Se dibujan a unos 620 px de ancho, así que 1500 sobra incluso en
+    # pantallas de doble densidad. Con 2100 el archivo no bajaba de 150 KB y
+    # el procesador tenía que sacrificar calidad hasta 68 para acercarse.
+    "banda":   (3, 2, 1000),
 }
 # La portada se puede probar con otra proporción desde la línea de comandos:
 #   python3 tools/tratar_fotos.py 6:5
@@ -78,18 +82,18 @@ FOTOS = [
               "así que el foco se corre para no cortarla"),
 
     # ── El blog: una foto por entrada ──
-    # Huecos nuevos y vacíos. El marco del índice es una banda 3:2, la misma
-    # del resto de bandas, así que cuando lleguen basta con descomentar.
-    # dict(cod="FOTO-B01", arch="foto-b01.jpg", virar=False, marco="banda",
-    #      modo="recorte", fx=.50, fy=.50, nota="Blog: alisado sin formol"),
-    # dict(cod="FOTO-B02", arch="foto-b02.jpg", virar=False, marco="banda",
-    #      modo="recorte", fx=.50, fy=.50, nota="Blog: qué es un spa capilar"),
-    # dict(cod="FOTO-B03", arch="foto-b03.jpg", virar=False, marco="banda",
-    #      modo="recorte", fx=.50, fy=.50, nota="Blog: cada cuánto un alisado"),
-    # dict(cod="FOTO-B04", arch="foto-b04.jpg", virar=False, marco="banda",
-    #      modo="recorte", fx=.50, fy=.50, nota="Blog: caída del cabello"),
-    # dict(cod="FOTO-B05", arch="foto-b05.jpg", virar=False, marco="banda",
-    #      modo="recorte", fx=.50, fy=.50, nota="Blog: alisado, keratina y botox"),
+    # Llegan a 1536x1024, que ya es 3:2 exacto, el mismo del marco "banda":
+    # no se recorta nada, solo se reescala y se pasa a webp.
+    dict(cod="FOTO-B01", arch="foto-b01.jpg", virar=False, marco="banda",
+         modo="recorte", fx=.50, fy=.50, nota="Blog: alisado sin formol"),
+    dict(cod="FOTO-B02", arch="foto-b02.jpg", virar=False, marco="banda",
+         modo="recorte", fx=.50, fy=.50, nota="Blog: qué es un spa capilar"),
+    dict(cod="FOTO-B03", arch="foto-b03.jpg", virar=False, marco="banda",
+         modo="recorte", fx=.50, fy=.50, nota="Blog: cada cuánto un alisado"),
+    dict(cod="FOTO-B04", arch="foto-b04.jpg", virar=False, marco="banda",
+         modo="recorte", fx=.50, fy=.50, nota="Blog: caída del cabello"),
+    dict(cod="FOTO-B05", arch="foto-b05.jpg", virar=False, marco="banda",
+         modo="recorte", fx=.50, fy=.50, nota="Blog: alisado, keratina y botox"),
 
     # ── Portada · los cinco bloques de categoría ──
     # Huecos nuevos y vacíos: aún no hay original. El marco de la página es una
