@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="../../styles.css?v=2a1420a4bf">
+<link rel="stylesheet" href="../../styles.css?v=aa03b49119">
 
 <!-- Marca "hay JS". Todo lo que el CSS esconde para animarlo depende de esta
      clase: sin ella no se esconde nada y la página se lee entera. -->
@@ -149,8 +149,13 @@
   </div>
 </section>
 
-<section class="seccion fam-contexto">
+<!-- El contexto del grupo y el listado van en UNA sola sección. Separados eran
+     dos, y cada una cargaba sus 72px arriba y abajo: se acumulaban 144 más el
+     margen del encabezado, y en complementarios la primera sección existía
+     solo para un título y una frase. -->
+<section class="seccion fam-listado" id="protocolos">
   <div class="wrap">
+    <div class="fam-contexto">
 
         <div class="fam-cab">
         <figure class="arco fam-fig" data-foto="FOTO-08" data-archivo="../../assets/img/foto-08.webp" data-ratio="21:9 · banda"
@@ -182,11 +187,7 @@
         <p class="idea-pie">Agrupa Shield, Re:Force, Core y Genesis.</p>
         </article>
         </div>
-  </div>
-</section>
-
-<section class="seccion fam-listado" id="protocolos">
-  <div class="wrap">
+    </div>
     <div class="prot-llamada">
       <p>¿Dudas de cuál te toca? Lo vemos en la valoración, sin compromiso.</p>
       <span class="prot-llamada-btns">

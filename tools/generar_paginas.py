@@ -550,14 +550,15 @@ def pagina_categoria(c, protos, contexto):
   </div>
 </section>
 
-<section class="seccion fam-contexto">
-  <div class="wrap">
-%s
-  </div>
-</section>
-
+<!-- El contexto del grupo y el listado van en UNA sola sección. Separados eran
+     dos, y cada una cargaba sus 72px arriba y abajo: se acumulaban 144 más el
+     margen del encabezado, y en complementarios la primera sección existía
+     solo para un título y una frase. -->
 <section class="seccion fam-listado" id="protocolos">
   <div class="wrap">
+    <div class="fam-contexto">
+%s
+    </div>
 %s
     <header class="seccion-cab">
       <h2 class="titulo titulo-c" data-split="lines">Los <em>%d protocolos.</em></h2>
@@ -889,10 +890,10 @@ def pagina_post(e):
     indice = "\n".join(
         '          <li><a href="#%s">%s</a></li>' % (ancla(v), esc(v))
         for t, v in e["cuerpo"] if t == "h2")
-    u, txt = e["servicios"][0]
-    otros = "\n".join(
-        '          <a class="btn btn-ghost btn-sm" href="%s">%s</a>' % (enlace(x), esc(y))
-        for x, y in e["servicios"][1:])
+    # La tarjeta cierra con los dos botones de agendar, como el resto de la
+    # web, y debajo un enlace de texto al servicio del que habla la entrada.
+    servicios = " · ".join(
+        '<a href="%s">%s</a>' % (enlace(x), esc(y)) for x, y in e["servicios"])
     arch = e["foto"].lower()
 
     cuerpo = '''<!-- ══════════════════════════ ENTRADA ══════════════════════════ -->
@@ -935,9 +936,10 @@ def pagina_post(e):
         <h2 class="post-servicio-t">Lo vemos en tu valoración</h2>
         <p class="post-servicio-x">Miramos la condición real de tu fibra y tu cuero cabelludo antes de proponerte nada.</p>
         <div class="post-servicio-btns">
-          <a class="btn btn-acento" href="%s">%s</a>
-%s
+          <a class="btn btn-acento" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en línea</a>
+          <a class="btn btn-wa" href="https://wa.me/573205830720" data-wa-simple>Escribir por WhatsApp</a>
         </div>
+        <p class="post-servicio-enlace">%s</p>
       </div>
     </aside>
 
@@ -946,7 +948,7 @@ def pagina_post(e):
 </section>
 ''' % (esc(e["titulo"]), esc(e["titulo"]), esc(e["resumen"]),
        e["foto"], arch, esc(e["titulo"]), e["foto"],
-       indice, bloques_html(e["cuerpo"]), enlace(u), esc(txt), otros)
+       indice, bloques_html(e["cuerpo"]), servicios)
     titulo = "%s · BRAVA Hair Lab" % e["seo"]
     return pagina(titulo, e["desc"], cuerpo, "/blog/")
 
