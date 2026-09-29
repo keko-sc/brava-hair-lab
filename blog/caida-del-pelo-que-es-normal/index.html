@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="../../styles.css?v=f7decf1880">
+<link rel="stylesheet" href="../../styles.css?v=2a1420a4bf">
 
 <!-- Marca "hay JS". Todo lo que el CSS esconde para animarlo depende de esta
      clase: sin ella no se esconde nada y la página se lee entera. -->
@@ -141,12 +141,30 @@
       <span aria-current="page">Se te está cayendo el pelo: qué es normal y qué no</span>
     </nav>
 
-    <article class="post-cuerpo">
+    <header class="post-cab">
       <h1 class="post-t">Se te está cayendo el pelo: qué es normal y qué no</h1>
       <p class="post-entradilla">Perder entre 50 y 100 cabellos al día entra dentro de lo normal. Lo que importa es el patrón.</p>
+    </header>
 
+    <figure class="post-portada" data-foto="FOTO-B04" data-ratio="3:2"
+            data-archivo="../../assets/img/foto-b04.webp"
+            data-alt="Ilustración de la entrada: Se te está cayendo el pelo: qué es normal y qué no">
+      <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-B04</span>
+    </figure>
+
+    <div class="post-marco">
+      <aside class="post-indice" aria-label="Secciones de la entrada">
+        <p class="post-indice-t">En esta entrada</p>
+        <ol>
+          <li><a href="#senales-que-si-merecen-atencion">Señales que sí merecen atención</a></li>
+          <li><a href="#causas-frecuentes-que-no-son-medicas">Causas frecuentes que no son médicas</a></li>
+          <li><a href="#cuando-ver-a-un-dermatologo">Cuándo ver a un dermatólogo</a></li>
+        </ol>
+      </aside>
+
+      <article class="post-cuerpo">
       <p>Perder entre cincuenta y cien cabellos al día es normal: el pelo tiene un ciclo y siempre hay una parte que se está cayendo para dar paso a pelo nuevo. Ver pelos en el cepillo, en la almohada o en la ducha no significa por sí solo que tengas un problema. Lo que importa no es la cantidad suelta, sino el patrón.</p>
-      <h2 class="post-h2">Señales que sí merecen atención</h2>
+      <h2 class="post-h2" id="senales-que-si-merecen-atencion">Señales que sí merecen atención</h2>
       <ul class="post-lista">
         <li>Pérdida a mechones, no pelo suelto repartido.</li>
         <li>La coronilla que se ve más clara o el cuero cabelludo que empieza a transparentarse.</li>
@@ -155,22 +173,34 @@
         <li>Zonas sin pelo con bordes definidos.</li>
       </ul>
       <p>Si te reconoces en alguna de estas, lo que toca no es un tratamiento cosmético: toca una consulta.</p>
-      <h2 class="post-h2">Causas frecuentes que no son médicas</h2>
+      <blockquote class="post-destacado"><p>Lo que importa no es la cantidad de pelo suelto, sino el patrón.</p></blockquote>
+      <h2 class="post-h2" id="causas-frecuentes-que-no-son-medicas">Causas frecuentes que no son médicas</h2>
       <ul class="post-lista">
         <li><strong>Estrés.</strong> Un pico fuerte de estrés puede disparar una caída que aparece semanas después del episodio, no el mismo día.</li>
         <li><strong>Posparto.</strong> Es muy común y suele ser pasajero: el embarazo retiene pelo que después se cae todo junto.</li>
         <li><strong>Alimentación.</strong> Dietas muy restrictivas o carencias pueden reflejarse en el pelo.</li>
         <li><strong>Peinados muy tensos.</strong> Colas, trenzas o extensiones que tiran de la raíz de forma sostenida pueden dañar el folículo con el tiempo.</li>
       </ul>
-      <h2 class="post-h2">Cuándo ver a un dermatólogo</h2>
+      <h2 class="post-h2" id="cuando-ver-a-un-dermatologo">Cuándo ver a un dermatólogo</h2>
       <p>Siempre que la caída sea repentina, por zonas, acompañada de molestias en la piel, o simplemente cuando te preocupe y quieras una respuesta. Un dermatólogo o un tricólogo puede examinar el cuero cabelludo, pedir exámenes si hace falta y decirte qué está pasando. Ningún servicio de peluquería puede hacer eso.</p>
       <p class="post-aviso">BRAVA es un estudio de cuidado capilar cosmético y preventivo. No diagnosticamos ni tratamos enfermedades, y no prometemos frenar la caída. Nuestros protocolos de esta categoría trabajan el entorno del cuero cabelludo desde lo cosmético. Si hay una causa médica detrás, el sitio correcto es la consulta.</p>
+      </article>
+    </div>
 
-      <div class="post-cta">
-        <a class="btn btn-acento" href="../../servicios/caida/">Ver los protocolos de caída y fortalecimiento</a>
+    <aside class="post-servicio">
+      <span class="trama trama-fondo" aria-hidden="true"></span>
+      <div class="post-servicio-in">
+        <p class="eyebrow">Si esto te suena</p>
+        <h2 class="post-servicio-t">Lo vemos en tu valoración</h2>
+        <p class="post-servicio-x">Miramos la condición real de tu fibra y tu cuero cabelludo antes de proponerte nada.</p>
+        <div class="post-servicio-btns">
+          <a class="btn btn-acento" href="../../servicios/caida/">Ver los protocolos de caída y fortalecimiento</a>
+
+        </div>
       </div>
-      <p class="volver-fam"><a href="../../blog/">← Todas las entradas</a></p>
-    </article>
+    </aside>
+
+    <p class="volver-fam"><a href="../../blog/">← Todas las entradas</a></p>
   </div>
 </section>
 

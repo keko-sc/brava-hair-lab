@@ -747,6 +747,7 @@ ENTRADAS = [
     ("p", "Si durante el alisado te arden los ojos, sale humo blanco al pasar la plancha o en el salón abren ventanas y te pasan un tapabocas, lo más probable es que el producto lleve formol o algún ingrediente que lo libera al calentarse. Esas tres señales juntas son la pista más clara, y las puedes notar sin saber nada de química."),
     ("h2", "Qué es el formol y por qué se usaba"),
     ("p", "El formol —o formaldehído— es un conservante y fijador que se usa en muchas industrias. En peluquería llegó porque funciona: al aplicarlo y pasar la plancha a alta temperatura, sella la fibra en la forma lisa y el efecto dura meses. Era barato, rápido y muy efectivo."),
+    ("destacado", "Que un alisado sea «sin formol» no lo convierte automáticamente en inofensivo. Lo importante es que te digan con qué te están trabajando."),
     ("p", "El problema es que al calentarse se evapora y se respira. La Agencia Internacional para la Investigación sobre el Cáncer, que depende de la Organización Mundial de la Salud, lo clasifica como cancerígeno para las personas, y es un irritante conocido de ojos, nariz y garganta. Por eso su uso en cosméticos está restringido en buena parte del mundo y en Colombia los productos cosméticos deben tener registro sanitario del INVIMA."),
     ("h2", "Cómo reconocerlo en un salón"),
     ("ul", ["Un olor penetrante y punzante, distinto del olor a producto de peluquería.",
@@ -774,6 +775,7 @@ ENTRADAS = [
     ("p", "Un head spa —o spa capilar, que es el mismo servicio con nombre en español— es un tratamiento largo centrado en el cuero cabelludo, no en el largo del pelo. Un lavado de salón dura unos minutos y busca dejarte el pelo limpio; un head spa dura entre cuarenta y cinco y noventa minutos, incluye masaje y trabaja sobre la piel de la cabeza."),
     ("h2", "De dónde viene"),
     ("p", "La práctica se popularizó en Japón, donde el cuidado del cuero cabelludo es una categoría propia dentro de la peluquería, y de ahí salió el nombre «head spa». En los últimos años se extendió a salones de toda América Latina, a veces con el nombre traducido y a veces no."),
+    ("destacado", "Un lavado atiende el largo y las puntas. Un spa capilar atiende la piel de donde nace el pelo."),
     ("h2", "En qué se diferencia de un lavado"),
     ("ul", ["<strong>El tiempo.</strong> Un lavado son minutos. Un head spa se mide en decenas de minutos, porque el producto necesita reposar y el masaje necesita ritmo.",
             "<strong>El masaje.</strong> No es el enjabonado rápido: es un trabajo manual sobre el cuero cabelludo, con presión y recorrido.",
@@ -794,6 +796,7 @@ ENTRADAS = [
     ("p", "No lo marca el calendario, lo marca tu raíz. El pelo crece alrededor de un centímetro al mes, así que lo que define cuándo repetir no es «cada tantos meses», sino cuánta raíz nueva sin tratar tienes. Cuando llevas dos o tres centímetros de crecimiento —entre dos y tres meses para la mayoría— es cuando tiene sentido volver a mirarlo."),
     ("h2", "Por qué la raíz manda"),
     ("p", "Un alisado actúa sobre el pelo que toca. El pelo que ya salió tratado sigue tratado: no «se le va» el efecto de forma pareja, sino que va quedando atrás mientras la raíz empuja pelo nuevo con su forma original. Por eso a los dos meses se ve el contraste entre la raíz y el largo."),
+    ("destacado", "No lo marca el calendario: lo marca cuánta raíz nueva sin tratar tienes."),
     ("h2", "El riesgo de volver a aplicar sobre pelo ya tratado"),
     ("p", "Si se aplica producto de nuevo sobre todo el largo, el pelo que ya estaba tratado recibe una segunda pasada que no necesitaba. Eso es lo que se llama sobreprocesar: la fibra acumula tratamiento y calor, y puede volverse quebradiza, perder elasticidad y romperse, sobre todo en las puntas."),
     ("p", "La forma de evitarlo es trabajar sobre todo la raíz nueva y dejar el largo con lo que necesite, que casi nunca es lo mismo. Eso exige mirar el pelo antes, no aplicar por rutina."),
@@ -820,6 +823,7 @@ ENTRADAS = [
             "Entradas que avanzan rápido en pocas semanas o meses.",
             "Zonas sin pelo con bordes definidos."]),
     ("p", "Si te reconoces en alguna de estas, lo que toca no es un tratamiento cosmético: toca una consulta."),
+    ("destacado", "Lo que importa no es la cantidad de pelo suelto, sino el patrón."),
     ("h2", "Causas frecuentes que no son médicas"),
     ("ul", ["<strong>Estrés.</strong> Un pico fuerte de estrés puede disparar una caída que aparece semanas después del episodio, no el mismo día.",
             "<strong>Posparto.</strong> Es muy común y suele ser pasajero: el embarazo retiene pelo que después se cae todo junto.",
@@ -840,6 +844,7 @@ ENTRADAS = [
     ("p", "La diferencia de fondo es una: el alisado cambia la forma del pelo; la keratina y el llamado botox capilar no. Estos dos rellenan y sellan la fibra, así que el pelo se ve más liso porque pesa más y tiene menos frizz, pero conserva su forma natural. En cuanto se va el producto, vuelve a ondularse."),
     ("h2", "El alisado"),
     ("p", "Trabaja sobre la estructura del pelo para relajar o eliminar la onda, y el efecto se mantiene en el pelo tratado hasta que crece raíz nueva. Es el único de los tres que transforma la forma, y por eso es el que más cuidado exige al elegirlo y al repetirlo."),
+    ("destacado", "El alisado cambia la forma del pelo. La keratina y el botox capilar cambian cómo se ve."),
     ("h2", "La keratina"),
     ("p", "La keratina es la proteína de la que está hecho el pelo. Un tratamiento de keratina aporta proteína y sella la cutícula: deja el pelo más manejable, con brillo y menos frizz. No rompe ni reconstruye la forma; la disimula. Se va poco a poco, lavado a lavado."),
     ("h2", "El botox capilar"),
@@ -854,25 +859,42 @@ ENTRADAS = [
 ]
 
 
+def ancla(t):
+    """Un id legible a partir del título, para que el índice pueda enlazarlo."""
+    import unicodedata
+    t = unicodedata.normalize("NFKD", t).encode("ascii", "ignore").decode()
+    return re.sub(r"[^a-z0-9]+", "-", t.lower()).strip("-")
+
+
 def bloques_html(cuerpo):
     out = []
     for tipo, val in cuerpo:
         if tipo == "p":
             out.append("      <p>%s</p>" % val)
         elif tipo == "h2":
-            out.append('      <h2 class="post-h2">%s</h2>' % esc(val))
+            out.append('      <h2 class="post-h2" id="%s">%s</h2>' % (ancla(val), esc(val)))
         elif tipo == "ul":
             out.append("      <ul class=\"post-lista\">\n%s\n      </ul>"
                        % "\n".join("        <li>%s</li>" % x for x in val))
+        elif tipo == "destacado":
+            # Sale de la columna de lectura hacia el margen: es el respiro
+            # visual de la entrada.
+            out.append('      <blockquote class="post-destacado"><p>%s</p></blockquote>' % esc(val))
         elif tipo == "aviso":
             out.append('      <p class="post-aviso">%s</p>' % val)
     return "\n".join(out)
 
 
 def pagina_post(e):
-    servicios = "\n".join(
-        '        <a class="btn btn-acento" href="%s">%s</a>' % (enlace(u), esc(t))
-        for u, t in e["servicios"])
+    indice = "\n".join(
+        '          <li><a href="#%s">%s</a></li>' % (ancla(v), esc(v))
+        for t, v in e["cuerpo"] if t == "h2")
+    u, txt = e["servicios"][0]
+    otros = "\n".join(
+        '          <a class="btn btn-ghost btn-sm" href="%s">%s</a>' % (enlace(x), esc(y))
+        for x, y in e["servicios"][1:])
+    arch = e["foto"].lower()
+
     cuerpo = '''<!-- ══════════════════════════ ENTRADA ══════════════════════════ -->
 <section class="seccion post" id="post">
   <div class="wrap">
@@ -882,24 +904,51 @@ def pagina_post(e):
       <span aria-current="page">%s</span>
     </nav>
 
-    <article class="post-cuerpo">
+    <header class="post-cab">
       <h1 class="post-t">%s</h1>
       <p class="post-entradilla">%s</p>
+    </header>
 
-%s
+    <figure class="post-portada" data-foto="%s" data-ratio="3:2"
+            data-archivo="@@BASE@@assets/img/%s.webp"
+            data-alt="Ilustración de la entrada: %s">
+      <span class="trama" aria-hidden="true"></span><span class="foto-tag">%s</span>
+    </figure>
 
-      <div class="post-cta">
+    <div class="post-marco">
+      <aside class="post-indice" aria-label="Secciones de la entrada">
+        <p class="post-indice-t">En esta entrada</p>
+        <ol>
 %s
+        </ol>
+      </aside>
+
+      <article class="post-cuerpo">
+%s
+      </article>
+    </div>
+
+    <aside class="post-servicio">
+      <span class="trama trama-fondo" aria-hidden="true"></span>
+      <div class="post-servicio-in">
+        <p class="eyebrow">Si esto te suena</p>
+        <h2 class="post-servicio-t">Lo vemos en tu valoración</h2>
+        <p class="post-servicio-x">Miramos la condición real de tu fibra y tu cuero cabelludo antes de proponerte nada.</p>
+        <div class="post-servicio-btns">
+          <a class="btn btn-acento" href="%s">%s</a>
+%s
+        </div>
       </div>
-      <p class="volver-fam"><a href="@@BASE@@blog/">← Todas las entradas</a></p>
-    </article>
+    </aside>
+
+    <p class="volver-fam"><a href="@@BASE@@blog/">← Todas las entradas</a></p>
   </div>
 </section>
 ''' % (esc(e["titulo"]), esc(e["titulo"]), esc(e["resumen"]),
-       bloques_html(e["cuerpo"]), servicios)
+       e["foto"], arch, esc(e["titulo"]), e["foto"],
+       indice, bloques_html(e["cuerpo"]), enlace(u), esc(txt), otros)
     titulo = "%s · BRAVA Hair Lab" % e["seo"]
-    return pagina(titulo, e["desc"],
-                  cuerpo, "/blog/")
+    return pagina(titulo, e["desc"], cuerpo, "/blog/")
 
 
 def pagina_blog():

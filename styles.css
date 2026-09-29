@@ -243,13 +243,13 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 .btn-ghost:hover{ --btn-bg:var(--arena); border-color:rgba(36,28,20,.28); }
 .btn-claro{ --btn-fg:var(--crema-texto); border-color:var(--linea-o); }
 .btn-claro:hover{ --btn-bg:rgba(244,238,228,.08); border-color:var(--camel-claro); }
-/* Verde oficial de WhatsApp, #25D366.
-   El rótulo va en café, no en blanco: medido, blanco sobre este verde da
-   1.98:1, muy por debajo del 4.5:1 que necesita un texto, y sobre un botón de
-   reserva eso no se puede dejar pasar. El café da 9.02:1. El verde y la silueta
-   del glifo bastan para que se reconozca la marca. */
-.btn-wa{ --btn-bg:#25D366; --btn-fg:var(--cafe); font-weight:600; }
-.btn-wa:hover{ --btn-bg:#1DA851; --btn-fg:#FFFFFF; }
+/* El botón de WhatsApp: letra blanca sobre verde, como la marca.
+   El verde oficial #25D366 con blanco da 1.98:1, inaceptable para un texto.
+   Este es el mismo tono (142°) y la misma saturación, solo bajado de
+   luminosidad hasta que el blanco pasa el 4.5:1 exigido, con un punto de
+   margen: #17833F da 4.82:1. Sigue siendo verde WhatsApp, más oscuro. */
+.btn-wa{ --btn-bg:#17833F; --btn-fg:#FFFFFF; font-weight:600; }
+.btn-wa:hover{ --btn-bg:#136E35; --btn-fg:#FFFFFF; }
 .btn-chispa{ font-size:.85em; opacity:.9; transition:transform .5s var(--ease); }
 .btn:hover .btn-chispa{ transform:rotate(90deg) scale(1.15); }
 .ic-wa{ display:inline-flex; }
@@ -862,10 +862,10 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 .wa-flotante{
   position:fixed; right:1.1rem; bottom:1.1rem; z-index:70;
   width:54px; height:54px; border-radius:50%;
-  /* El flotante es solo el glifo, sin texto: aquí el blanco sobre verde es la
-     marca tal cual y no hay rótulo que leer. */
-  background:#25D366; color:#fff; display:grid; place-items:center;
-  box-shadow:0 10px 30px -10px rgba(37,211,102,.7), 0 2px 6px rgba(0,0,0,.14);
+  /* El flotante lleva el mismo verde que el botón, para que la marca sea una
+     sola. Aquí no hay rótulo: solo el glifo blanco. */
+  background:#17833F; color:#fff; display:grid; place-items:center;
+  box-shadow:0 10px 30px -10px rgba(23,131,63,.7), 0 2px 6px rgba(0,0,0,.14);
   opacity:0; visibility:hidden; transform:translateY(12px);
   transition:opacity .45s var(--ease), transform .45s var(--ease), visibility .45s;
 }
@@ -1460,7 +1460,7 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
 
 /* ── Ficha de protocolo ──────────────────────────────────────────────────── */
 .protocolo{ padding-block:24px 72px; }
-.migas{ display:flex; flex-wrap:wrap; gap:.55rem; align-items:center; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; margin-bottom:32px; color:var(--tinta-suave); }
+.migas{ display:flex; flex-wrap:wrap; gap:.55rem; align-items:center; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; margin-bottom:28px; color:var(--tinta-suave); }
 .migas a{ color:var(--camel-texto); text-decoration:none; border-bottom:1px solid transparent; }
 .migas a:hover{ border-bottom-color:currentColor; }
 .migas [aria-current]{ color:var(--tinta); }
@@ -1778,7 +1778,6 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
 /* ── Una entrada ─────────────────────────────────────────────────────────
    Columna de lectura estrecha: un texto largo a todo el ancho no se lee. */
 .post{ padding-block:24px 72px; }
-.post-cuerpo{ max-width:40rem; margin-inline:auto; }
 .post-t{ font-family:var(--f-disp); font-size:clamp(2rem,1.5rem + 2.2vw,3.2rem); line-height:1.06; letter-spacing:-.03em; margin-bottom:1rem; }
 .post-entradilla{ font-size:1.1rem; line-height:1.55; color:var(--tinta-suave); margin-bottom:2rem; padding-bottom:1.5rem; border-bottom:1px solid var(--linea-2); }
 .post-cuerpo p{ margin-bottom:1.15rem; line-height:1.75; }
@@ -1793,7 +1792,6 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
   background:var(--arena); border-left:3px solid var(--camel); border-radius:0 12px 12px 0;
   font-size:.92rem; line-height:1.65; color:var(--tinta-suave);
 }
-.post-cta{ display:flex; flex-wrap:wrap; gap:.7rem; margin-top:2.2rem; }
 
 @media (max-width: 760px){
   .post-fila{ grid-template-columns:minmax(0,1fr); }
@@ -1835,6 +1833,106 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
 
 @media (max-width: 760px){
   .post-rejilla{ grid-template-columns:minmax(0,1fr); gap:2.4rem; }
+}
+
+
+/* ══════════════════════════════════════════════════════════════════════════
+   LA ENTRADA DEL BLOG
+   La columna de lectura NO se ensancha: 40rem es lo correcto para leer. Lo que
+   cambia es que los márgenes dejan de estar vacíos: el índice vive a la
+   izquierda y la frase destacada se sale hacia fuera.
+   ══════════════════════════════════════════════════════════════════════════ */
+.post-cab{ max-width:40rem; margin-inline:auto; }
+.post-portada{
+  position:relative; overflow:hidden; margin:2rem auto 3rem;
+  width:100%; max-width:62rem; aspect-ratio:3/2;
+  border-radius:20px; background:var(--arena);
+}
+.post-portada img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  filter:saturate(.86) contrast(1.04) brightness(1.02) sepia(.08);
+}
+.post-portada .trama::after{
+  content:""; position:absolute; inset:0;
+  background:url("assets/img/marca/isotipo.webp") center / min(30%,150px) no-repeat;
+  opacity:.5;
+}
+
+/* La rejilla: índice a la izquierda, lectura en el centro. La columna de
+   lectura se queda en su ancho; el índice ocupa el margen que estaba vacío. */
+.post-marco{
+  display:grid; grid-template-columns:14rem minmax(0,40rem) 14rem;
+  justify-content:center; column-gap:clamp(1.5rem,3vw,3rem);
+}
+.post-cuerpo{ grid-column:2; max-width:none; margin:0; }
+
+.post-indice{
+  grid-column:1; position:sticky; align-self:start;
+  top:calc(var(--nav-real, var(--nav-h)) + 28px);
+  padding-right:1rem; border-right:1px solid var(--linea-2);
+}
+.post-indice-t{
+  font-size:.66rem; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--camel-texto); margin-bottom:.9rem;
+}
+.post-indice ol{ display:grid; gap:.6rem; counter-reset:idx; }
+.post-indice li{ counter-increment:idx; }
+.post-indice a{
+  display:flex; gap:.55rem; font-size:.86rem; line-height:1.4;
+  color:var(--tinta-suave); text-decoration:none;
+  transition:color .25s var(--ease);
+}
+.post-indice a::before{ content:counter(idx,decimal-leading-zero); color:var(--camel); font-size:.7rem; }
+.post-indice a:hover{ color:var(--camel-texto); }
+/* Al saltar desde el índice, el título queda por debajo del menú. */
+.post-h2{ scroll-margin-top:calc(var(--nav-real, var(--nav-h)) + 24px); }
+
+/* La frase destacada se sale de la columna por los dos lados. */
+.post-destacado{
+  margin:2.4rem -3.5rem; padding:1.6rem 0;
+  border-block:1px solid var(--linea);
+}
+.post-destacado p{
+  margin:0; font-family:var(--f-disp);
+  font-size:clamp(1.3rem,1.1rem + .9vw,1.85rem); line-height:1.3;
+  letter-spacing:-.025em; color:var(--tinta); text-align:center;
+}
+
+/* La tarjeta de cierre, con la trama y el arco de marca. */
+.post-servicio{
+  position:relative; overflow:hidden;
+  max-width:52rem; margin:3.5rem auto 0;
+  background:var(--cafe); color:var(--crema-texto);
+  border-radius:28px; padding:clamp(2rem,4vw,3rem);
+}
+.post-servicio .trama-fondo{ opacity:.08; }
+/* El arco de marca, asomando por la esquina. */
+.post-servicio::after{
+  content:""; position:absolute; right:-70px; bottom:-90px; width:230px; height:270px;
+  border-radius:50% 50% 14px 14px / 30% 30% 2% 2%;
+  border:1px solid rgba(180,146,111,.28); pointer-events:none;
+}
+.post-servicio-in{ position:relative; z-index:2; max-width:34rem; }
+.post-servicio .eyebrow{ justify-content:flex-start; color:var(--camel-claro); }
+.post-servicio-t{ font-family:var(--f-disp); font-size:clamp(1.5rem,1.2rem + 1.2vw,2.2rem); letter-spacing:-.028em; margin-bottom:.7rem; }
+.post-servicio-x{ color:var(--crema-suave); line-height:1.6; margin-bottom:1.5rem; }
+.post-servicio-btns{ display:flex; flex-wrap:wrap; gap:.7rem; }
+.post-servicio .btn-ghost{ --btn-fg:var(--crema-texto); border-color:var(--linea-o); }
+.post-servicio .btn-ghost:hover{ --btn-bg:rgba(244,238,228,.08); border-color:var(--camel-claro); }
+
+@media (max-width: 1180px){
+  /* Sin sitio para el margen: el índice pasa arriba, en horizontal. */
+  .post-marco{ grid-template-columns:minmax(0,40rem); justify-content:center; }
+  .post-indice{
+    grid-column:1; position:static; margin-bottom:2rem;
+    padding:1.1rem 1.3rem; padding-right:1.3rem;
+    border:1px solid var(--linea-2); border-radius:14px; background:var(--arena);
+  }
+  .post-indice ol{ gap:.45rem; }
+  .post-destacado{ margin-inline:-1.5rem; }
+}
+@media (max-width: 760px){
+  .post-destacado{ margin-inline:0; }
 }
 
 @media (prefers-reduced-motion:reduce){
