@@ -420,9 +420,34 @@ ul,ol{ margin:0; padding:0; list-style:none; }
    La forma sale del isotipo: dos curvas enfrentadas partidas por una
    línea vertical. El titular cruza la imagen; las cifras van en vertical. */
 .hero-a{
+  /* La seda va a sangre: cubre toda la seccion y se recorta por el alto.
+     El archivo es cuadrado (1264x1264), con la luz entrando por la
+     izquierda y la zona oscura a la derecha. El encuadre se ancla a la
+     izquierda: la seda se ve detras del titular y la parte oscura cae
+     bajo el marco de foto, que asi resalta. */
+  background-image:url("assets/img/hero-fondo-volteada.webp");
+  background-size:cover; background-position:center left; background-repeat:no-repeat;
   padding-block:28px;
   min-height:calc(100svh - var(--tope,66px) - var(--banda-h,170px));
   display:flex; align-items:center;
+}
+/* Velo de marca sobre la seda, para que el texto se lea. Es el cafe de la
+   marca (#1D160E), no negro puro, y sube en horizontal de izquierda a
+   derecha: la seda se ve detras del titular y la parte mas oscura queda
+   bajo el marco de foto. Va en z-index 1, por debajo de .hero-a-in
+   (z-index 2), asi que cubre TODA la seccion, tambien la franja de seda
+   que rodea al marco.
+   El borde izquierdo arranca en 78 %, no en 40 %: la seda llega ahi con
+   luminancia ~207 sobre 255 y con 40 % el letrerito camel caia a 1,8:1 y
+   el titular a 3,0:1. Medido por barrido, 78 % es el primer valor que
+   deja todo el bloque de texto por encima de 5:1. */
+.hero-a::before{
+  content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:linear-gradient(to right,
+    rgba(29,22,14,.78) 0%,
+    rgba(29,22,14,.89) 24%,
+    rgba(29,22,14,.91) 60%,
+    rgba(29,22,14,.93) 100%);
 }
 .hero-a-in{
   position:relative; z-index:2; width:100%;
@@ -519,13 +544,23 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 .apto-item{
   display:flex; flex-direction:column; align-items:center; text-align:center;
   gap:.7rem; flex:1 1 auto; min-width:0;
+  --ic-caja:clamp(48px,4.2vw,62px);
 }
-.apto-item .ic{ width:clamp(48px,4.2vw,62px); height:clamp(48px,4.2vw,62px); flex:none; }
+.apto-item .ic{ width:var(--ic-caja); height:var(--ic-caja); flex:none; }
 /* Trazo fino: el icono es grande, así que la línea se afina para que no pese */
 /* Alcanza a path y a circle: el icono de embarazo usa los dos, y con la
    regla solo sobre path el círculo se quedaba con otro grosor y otro
    color que el resto de la fila. */
 .apto-item .ic path, .apto-item .ic circle{ stroke:var(--camel-texto); stroke-width:1.15; }
+/* El icono de embarazo viene con su propio grosor y tamaño ya medidos, así
+   que NO lleva la clase .ic: esas reglas le pisarían el stroke-width. Aquí
+   solo se le da el color, que su trazo toma de currentColor, para que herede
+   el mismo que los otros seis de la fila. */
+.ic-embarazo{ color:var(--camel-texto); margin-block:calc((var(--ic-caja) - 38px) / 2); }
+/* Su caja mide 38 px fijos y la de los otros seis escala de 48 a 62, así que
+   sin este hueco su etiqueta subiría 11 px y rompería la línea de la fila.
+   El margen se calcula solo a partir de --ic-caja: es hueco alrededor, el
+   icono sigue midiendo 38. */
 .apto-t{ font-size:clamp(.74rem,.6rem + .28vw,.82rem); line-height:1.35; color:var(--tinta); white-space:nowrap; }
 
 /* ─────────────────────────── Marquesina ───────────────────────────── */
@@ -1201,6 +1236,12 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
   .ha-marco-zona{ align-items:center; }
   .ha-marco{ height:auto; max-height:none; aspect-ratio:6/5; width:100%; }
   .ha-titulo{ margin-right:0; font-size:clamp(56px,8.5vw,110px); }
+  /* A una sola columna el texto cruza todo el ancho y queda encima de la
+     zona clara de la seda, asi que el degradado no sirve: el borde que
+     deja mas luz es justo donde cae el titular. Aqui el velo es parejo y
+     mas alto. El encuadre se mide mas abajo. */
+  .hero-a{ background-position:center left; }
+  .hero-a::before{ background:rgba(29,22,14,.88); }
   .apto-fila{ flex-wrap:wrap; justify-content:center; row-gap:1.6rem; }
   .apto-item{ flex:0 1 calc(25% - 1.4rem); }
 }
@@ -1264,7 +1305,7 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
   }
   .apto-fila::-webkit-scrollbar{ display:none; }
   .apto-item{ flex:0 0 122px; scroll-snap-align:start; gap:.6rem; }
-  .apto-item .ic{ width:50px; height:50px; }
+  .apto-item{ --ic-caja:50px; }
   /* En escritorio cada sello cabe en una línea; en una caja de 122 px no.
      Sin esto, «Apto en embarazo y lactancia» se salía 44 px y se montaba
      encima del sello siguiente. */
