@@ -1047,6 +1047,78 @@
   }
 
 
+  /* ═══════════ 12 · El carrusel de banners de la portada ═══════════
+     Cuatro banners que se funden. Cambia cada 5 s.
+     Se detiene al pasar el cursor por encima y al entrar el foco del
+     teclado, para que nadie pierda de vista lo que está leyendo o a punto
+     de pulsar; el botón de pausa lo detiene del todo. Si el sistema pide
+     menos movimiento, no arranca: los mandos siguen sirviendo.
+     Los banners que no tocan llevan visibility:hidden desde el CSS, así
+     que no se tabula a botones invisibles. */
+  function initBanners() {
+    var caja = q("[data-banners]"); if (!caja) return;
+    var banners = qa(".ban", caja); if (banners.length < 2) return;
+    var seccion = caja.parentNode;
+    var puntos = qa("[data-ban-puntos] button");
+    var pausa = q("[data-ban-pausa]");
+
+    var n = 0, reloj = null, aLaVista = true, encima = false, parado = reducido;
+
+    function pintar() {
+      banners.forEach(function (b, k) { b.classList.toggle("esta-activa", k === n); });
+      puntos.forEach(function (b, k) {
+        if (k === n) b.setAttribute("aria-current", "true"); else b.removeAttribute("aria-current");
+      });
+    }
+    function ir(k) {
+      n = ((k % banners.length) + banners.length) % banners.length;
+      pintar();
+    }
+    function parar() { if (reloj) { clearInterval(reloj); reloj = null; } }
+    function arrancar() {
+      parar();
+      if (parado || encima || !aLaVista) return;
+      reloj = setInterval(function () { ir(n + 1); }, 5000);
+    }
+
+    puntos.forEach(function (b, k) {
+      if (k >= banners.length) { var li = b.parentNode; if (li && li.parentNode) li.parentNode.removeChild(li); return; }
+      b.addEventListener("click", function () { ir(k); arrancar(); });
+    });
+    qa("[data-ban-ir]").forEach(function (b) {
+      b.addEventListener("click", function () { ir(n + parseInt(b.getAttribute("data-ban-ir"), 10)); arrancar(); });
+    });
+    if (pausa) {
+      // Arranca pulsado si el sistema pide menos movimiento: el botón dice
+      // la verdad de lo que está pasando, no lo contrario.
+      pausa.setAttribute("aria-pressed", parado ? "true" : "false");
+      pausa.setAttribute("aria-label", parado ? "Reanudar el carrusel" : "Pausar el carrusel");
+      pausa.addEventListener("click", function () {
+        parado = !parado;
+        pausa.setAttribute("aria-pressed", parado ? "true" : "false");
+        pausa.setAttribute("aria-label", parado ? "Reanudar el carrusel" : "Pausar el carrusel");
+        arrancar();
+      });
+    }
+
+    seccion.addEventListener("mouseenter", function () { encima = true; parar(); });
+    seccion.addEventListener("mouseleave", function () { encima = false; arrancar(); });
+    seccion.addEventListener("focusin", function () { encima = true; parar(); });
+    seccion.addEventListener("focusout", function () {
+      if (!seccion.contains(document.activeElement)) { encima = false; arrancar(); }
+    });
+
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) {
+        aLaVista = es[0].isIntersecting;
+        if (aLaVista) arrancar(); else parar();
+      }, { threshold: 0 }).observe(caja);
+    }
+
+    pintar();
+    arrancar();
+  }
+
   /* ═══════════ 12 · El marco de la portada ═══════════
      Cuatro escenas que se funden. Solo rota si hay al menos dos fotos de
      verdad cargadas: cuatro tramas idénticas rotando no aportan nada, así
@@ -1205,6 +1277,7 @@
     safe(initFotos, "fotos");
     safe(initWA, "wa");
     safe(initBotones, "botones");
+    safe(initBanners, "banners");
     safe(initEscenas, "escenas");
     safe(initComparadores, "comparadores");
     safe(initResultados, "resultados");

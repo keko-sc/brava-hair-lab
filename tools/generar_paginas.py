@@ -1119,7 +1119,7 @@ def main():
         # abordajes" va detrás del antes y después, como explicación de fondo.
         "\n\n".join([T["inicio"], T["apto"], banda_familias(protos), T["marquesina"],
                      T["resultados"], T["abordajes"], T["faq"]]),
-        "/", precarga="@@BASE@@assets/img/foto-01.webp"))
+        "/", precarga="@@BASE@@assets/img/banner-1.webp"))
 
     # ── el índice de servicios ──
     escribe("/servicios/", pagina_servicios(protos))

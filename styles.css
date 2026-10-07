@@ -416,122 +416,121 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 .marco-puntos button:hover{ background:var(--crema-suave); }
 .marco-puntos button[aria-current="true"]{ background:var(--camel); transform:scale(1.5); }
 
-/* ───────────────── A · "Monograma" ─────────────────
-   La forma sale del isotipo: dos curvas enfrentadas partidas por una
-   línea vertical. El titular cruza la imagen; las cifras van en vertical. */
-.hero-a{
-  /* La seda va a sangre: cubre toda la seccion y se recorta por el alto.
-     El archivo es cuadrado (1264x1264), con la luz entrando por la
-     izquierda y la zona oscura a la derecha. El encuadre se ancla a la
-     izquierda: la seda se ve detras del titular y la parte oscura cae
-     bajo el marco de foto, que asi resalta. */
-  background-image:url("assets/img/hero-fondo-volteada.webp");
-  background-size:cover; background-position:center left; background-repeat:no-repeat;
-  padding-block:28px;
-  min-height:calc(100svh - var(--tope,66px) - var(--banda-h,170px));
-  display:flex; align-items:center;
+/* ──────────── Portada · carrusel de cuatro banners ────────────
+   La foto va en <img> y no como background: así el generador le pone la
+   ruta relativa (relativas() toca src, no los style) y la primera se puede
+   precargar. Las cuatro traen la mitad izquierda oscura y vacía, que es
+   donde cae el texto.
+   Los cuatro banners se apilan en la MISMA celda de rejilla: así la sección
+   mide lo que el más alto y no da saltos al cambiar. */
+.hero-ban{ padding:0; display:grid; grid-template-columns:1fr;
+  min-height:calc(100svh - var(--tope,66px) - var(--banda-h,170px)); }
+.ban-pista{ grid-area:1/1; display:grid; grid-template-columns:1fr; }
+.ban{
+  grid-area:1/1; position:relative; display:flex; align-items:center;
+  padding-block:clamp(2rem,5vh,3.5rem);
+  padding-inline:calc((100% - min(100% - 2.5rem, var(--wrap))) / 2);
+  opacity:0; transition:opacity .8s ease;
 }
-/* Velo de marca sobre la seda, para que el texto se lea. Es el cafe de la
-   marca (#1D160E), no negro puro, y sube en horizontal de izquierda a
-   derecha: la seda se ve detras del titular y la parte mas oscura queda
-   bajo el marco de foto. Va en z-index 1, por debajo de .hero-a-in
-   (z-index 2), asi que cubre TODA la seccion, tambien la franja de seda
-   que rodea al marco.
-   El borde izquierdo arranca en 78 %, no en 40 %: la seda llega ahi con
-   luminancia ~207 sobre 255 y con 40 % el letrerito camel caia a 1,8:1 y
-   el titular a 3,0:1. Medido por barrido, 78 % es el primer valor que
-   deja todo el bloque de texto por encima de 5:1. */
-.hero-a::before{
-  content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+/* visibility corta el foco del teclado en los banners ocultos: sin esto se
+   tabula a botones que no se ven. */
+.ban:not(.esta-activa){ visibility:hidden; }
+.ban.esta-activa{ opacity:1; visibility:visible; }
+.ban-foto{
+  position:absolute; inset:0; z-index:0;
+  width:100%; height:100%; object-fit:cover; object-position:50% 50%;
+}
+/* El rostro del cuarto banner está bajo en la foto: con el encuadre centrado
+   el recorte le corta la barbilla en cuanto la sección es ancha y baja. */
+.ban-foto-rostro-bajo{ object-position:50% 82%; }
+/* Y el del segundo está arriba del todo: el capilógrafo empieza a un 1 % del
+   borde superior, así que el recorte tiene que arrancar en 0 o lo decapita. */
+.ban-foto-sujeto-alto{ object-position:50% 0%; }
+/* Velo del café de marca (#1D160E), no negro: fuerte sobre la mitad del
+   texto y casi nulo sobre la de la foto, para no apagar al sujeto.
+   Los valores salen de medir, no de calcular: la mitad izquierda no está
+   tan vacía como parece —la camisa clara del banner 1 llega hasta un
+   tercio del ancho— y con el velo flojo el párrafo caía a 2,2:1. */
+.ban-velo{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
   background:linear-gradient(to right,
-    rgba(29,22,14,.78) 0%,
-    rgba(29,22,14,.89) 24%,
-    rgba(29,22,14,.91) 60%,
-    rgba(29,22,14,.93) 100%);
+    rgba(29,22,14,.91) 0%,
+    rgba(29,22,14,.88) 42%,
+    rgba(29,22,14,.55) 72%,
+    rgba(29,22,14,.18) 100%);
 }
-.hero-a-in{
-  position:relative; z-index:2; width:100%;
-  /* La columna de texto se alinea con el menu; la imagen llega a 40px del
-     borde derecho de la ventana. */
-  padding-inline:calc((100% - min(100% - 2.5rem, var(--wrap))) / 2) 40px;
-  display:grid;
-  grid-template-columns:minmax(0,1fr) auto;
-  grid-template-areas:"texto marco";
-  /* Menos separación entre la columna de texto y la foto: con 3rem quedaba un
-     pasillo vacío en el medio. */
-  column-gap:clamp(1.25rem,2vw,2rem);
-  align-items:center;
+/* El ancho NO va aquí: si el contenedor lo limita, la fila de tres
+   botones se parte. Lo lleva cada texto por su cuenta. */
+.ban-txt{ position:relative; z-index:2; }
+.ban-ante{ justify-content:flex-start; margin-bottom:clamp(.7rem,1.3vh,1.05rem); }
+.ban-titulo{ max-width:38rem; line-height:.95; letter-spacing:-.03em; text-wrap:balance; }
+h1.ban-titulo{ font-size:clamp(56px,7.4vw,124px); line-height:.9; letter-spacing:-.035em; }
+/* Los otros tres no son un logotipo sino una frase: con el cuerpo del h1 se
+   comen el banner entero.
+   Y respiran más que el primero: el h1 lleva debajo su segunda línea, que
+   ya separa el titular del párrafo. Aquí no hay nada en medio, así que con
+   los 12 y 16 px de serie el antetítulo, el titular y el párrafo quedaban
+   casi pegados. El margen va en el propio h2 porque entre hermanos de
+   bloque los márgenes se funden: manda el mayor, no la suma. */
+h2.ban-titulo{
+  font-size:clamp(2.1rem,1.2rem + 2.6vw,3.7rem);
+  margin-top:clamp(1.5rem,3.2vh,2.2rem);
+  margin-bottom:clamp(1.7rem,3.6vh,2.5rem);
 }
-/* La columna izquierda es UN bloque: sus separaciones las manda este flex,
-   no el reparto de filas de la rejilla (que era lo que abria los huecos). */
-.ha-texto{ grid-area:texto; display:flex; flex-direction:column; align-items:flex-start; }
-.ha-eyebrow{ margin-bottom:clamp(.7rem,1.3vh,1.05rem); }
-
-/* El marco: curvas enfrentadas a izquierda y derecha, nada de arco.
-   Medio ancho de ventana, y de alto casi todo el hero (40px arriba/abajo). */
-.ha-marco-zona{ grid-area:marco; position:relative; align-self:center;
-  display:flex; flex-direction:column; align-items:flex-end; }
-.ha-marco{
-  /* Proporcion FIJA: es la misma a la que se preparan las fotos, asi el
-     navegador no vuelve a recortar por encima del encuadre ya decidido.
-     El alto sale del hueco libre; el ancho, de la proporcion, sin pasar
-     de medio ancho de ventana. */
-  position:relative; aspect-ratio:6/5;
-  height:min(calc(100svh - var(--tope,66px) - var(--banda-h,170px) - 102px), 41.6vw);
-  width:auto; max-height:720px;
-  /* radio horizontal corto y vertical completo: los lados se curvan,
-     arriba y abajo quedan casi rectos. Es la geometria del monograma. */
-  border-radius:30% / 50%;
-  overflow:hidden; box-shadow:var(--sombra-alta);
-  background:var(--cafe-alt);
-}
-.ha-marco::before{
-  content:""; position:absolute; inset:0; z-index:4; pointer-events:none;
-  border-radius:inherit; box-shadow:inset 0 0 0 1px rgba(244,238,228,.2);
-}
-/* Los mandos, debajo del marco y fuera de la foto. */
-.hero-a .marco-mandos{ margin-top:14px; align-self:center; }
-
-.ha-titulo{
-  position:relative; z-index:3;
-  font-size:clamp(64px,8vw,132px);
-  line-height:.9; letter-spacing:-.035em; text-wrap:balance;
-  /* asoma un poco por encima de la imagen */
-  margin-right:clamp(-5rem,-3.5vw,-1.5rem);
-}
-.ha-titulo em{ font-style:italic; }
-
-.ha-titulo-zona{ position:relative; z-index:3; }
-/* Las cifras cuelgan del titular: filete camel y en linea, se leen como
-   su pie, no como un bloque suelto. */
-.ha-cifras{
-  display:flex; gap:clamp(1.5rem,3vw,2.75rem); align-items:baseline;
-  /* Las cifras se arriman al titular: antes quedaban descolgadas. */
-  margin-top:clamp(.45rem,.9vh,.7rem); padding-top:.6rem;
-  border-top:1px solid var(--camel); width:fit-content;
-}
-.ha-cifras li{ display:flex; align-items:baseline; gap:.5rem; }
-.ha-cifras strong{ font-family:var(--f-disp); font-weight:400; font-size:clamp(2rem,1rem + 1.7vw,3.1rem); line-height:1; letter-spacing:-.02em; }
-.ha-cifras span{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--crema-suave); }
-
-.ha-pie{ margin-top:clamp(.9rem,1.7vh,1.35rem); display:grid; gap:1.15rem; justify-items:start; }
-/* El H1 lleva dos líneas dentro: la grande de marca y, debajo, la descriptiva
-   con el servicio y la ciudad. El partido en líneas se queda solo en la grande;
-   si envolviera a las dos, la pequeña heredaría el tamaño de titular. */
-.ha-titulo-g{ display:block; }
-.ha-titulo-sub{
+.ban-titulo em{ font-style:italic; }
+.ban-titulo-g{ display:block; }
+/* La segunda línea vive dentro del mismo h1, pero no hereda su cuerpo. */
+.ban-titulo-sub{
   display:block; font-family:var(--f-body); font-weight:400;
   font-variation-settings:normal; text-transform:none;
-  margin-top:.7rem; max-width:34ch;
+  margin-top:.8rem; max-width:34ch;
   font-size:clamp(.92rem,.86rem + .3vw,1.08rem); line-height:1.45;
   letter-spacing:.01em; color:var(--crema-suave);
 }
-.ha-sub{ color:var(--crema-suave); max-width:32rem; font-size:clamp(1.05rem,.95rem + .4vw,1.31rem); line-height:1.55; }
-/* Tres botones: envuelven si no caben, y en celular van apilados. */
-.hero-a .hero-ctas{ flex-wrap:wrap; }
-.hero-a .hero-ctas .btn{ padding:1.05rem 1.7rem; font-size:1rem; white-space:nowrap; }
-.ha-lugar{ margin-top:clamp(.9rem,1.7vh,1.35rem); font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--crema-suave); }
-.ha-lugar span{ color:var(--camel-claro); }
+/* 30rem y no más: con el párrafo más ancho la última palabra de cada
+   línea se metía en la zona clara de la foto. */
+.ban-sub{ margin-top:clamp(.9rem,1.7vh,1.35rem); color:var(--crema-suave);
+  max-width:30rem; font-size:clamp(1.02rem,.94rem + .36vw,1.22rem); line-height:1.55; }
+.ban-ctas{ margin-top:clamp(1.1rem,2.2vh,1.7rem); display:flex; flex-wrap:wrap; gap:.8rem; }
+/* El enlace propio de cada banner: texto con flecha, no un cuarto botón,
+   para que no compita con los tres de agendar. */
+.ban-enlace{ margin-top:clamp(.85rem,1.6vh,1.15rem); }
+.ban-enlace a{ display:inline-flex; align-items:center; gap:.5rem;
+  font-size:.95rem; letter-spacing:.01em; color:var(--camel-claro);
+  border-bottom:1px solid rgba(201,166,127,.4); padding-bottom:2px;
+  transition:color .2s, border-color .2s; }
+.ban-enlace a:hover{ color:var(--crema-texto); border-color:var(--crema-texto); }
+.ban-enlace span{ transition:transform .2s; }
+.ban-enlace a:hover span{ transform:translateX(3px); }
+.ban-ctas .btn{ padding:1.05rem 1.7rem; font-size:1rem; white-space:nowrap; }
+
+/* Los mandos, en la misma celda que los banners y abajo a la izquierda,
+   alineados con la columna de texto. */
+.ban-mandos{
+  grid-area:1/1; z-index:3; align-self:end; justify-self:end;
+  display:flex; align-items:center; gap:.5rem;
+  margin-bottom:clamp(1.1rem,2.6vh,1.9rem);
+  margin-inline-end:calc((100% - min(100% - 2.5rem, var(--wrap))) / 2);
+}
+.ban-flecha, .ban-pausa{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:34px; height:34px; border-radius:50%; cursor:pointer;
+  color:var(--crema-texto); background:rgba(29,22,14,.5);
+  border:1px solid var(--linea-o); transition:background .2s, border-color .2s;
+}
+.ban-flecha:hover, .ban-pausa:hover{ background:rgba(29,22,14,.8); border-color:var(--camel-claro); }
+/* El botón trae los dos iconos y se enseña el que toca: así no hay que
+   escribir SVG desde el JS. */
+.ban-pausa svg:last-child{ display:none; }
+.ban-pausa[aria-pressed="true"] svg:first-child{ display:none; }
+.ban-pausa[aria-pressed="true"] svg:last-child{ display:block; }
+.ban-puntos{ display:flex; align-items:center; gap:.5rem; list-style:none; margin:0 .3rem; padding:0; }
+.ban-puntos button{
+  display:block; width:8px; height:8px; padding:0; border-radius:50%; cursor:pointer;
+  background:rgba(244,238,228,.35); border:0; transition:background .25s, transform .25s;
+}
+.ban-puntos button:hover{ background:rgba(244,238,228,.6); }
+.ban-puntos button[aria-current="true"]{ background:var(--camel-claro); transform:scale(1.35); }
 
 /* ────────────── Banda de sellos, pegada a la portada ────────────── */
 .banda-apto{
@@ -1019,34 +1018,30 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
    Se aprieta lo que no es titular ni botones para que la banda de
    iconos siga entrando entera en la primera pantalla. */
 @media (max-height: 900px) and (min-height: 841px) and (min-width: 1081px){
-  .ha-titulo{ font-size:min(clamp(64px,8vw,132px), 12.2vh); }
-  .ha-eyebrow{ margin-bottom:.75rem; }
-  .ha-cifras{ margin-top:.8rem; padding-top:.65rem; }
-  .ha-pie{ margin-top:1rem; gap:.95rem; }
-  .ha-sub{ font-size:1.25rem; }
-  .ha-lugar{ margin-top:1rem; }
+  h1.ban-titulo{ font-size:min(clamp(56px,7.4vw,124px), 12.2vh); }
+  h2.ban-titulo{ font-size:min(clamp(2.1rem,1.2rem + 2.6vw,3.7rem), 7.4vh); }
+  .ban-ante{ margin-bottom:.75rem; }
+  .ban-sub{ margin-top:1rem; font-size:1.18rem; }
+  .ban-ctas{ margin-top:1.2rem; }
 }
 
 @media (max-height: 840px) and (min-width: 1081px){
-  .ha-titulo{ font-size:min(clamp(56px,8vw,132px), 13vh); }
-  .ha-eyebrow{ margin-bottom:.7rem; }
-  .ha-cifras{ margin-top:.6rem; padding-top:.55rem; }
-  .ha-cifras strong{ font-size:2.5rem; }
-  .ha-pie{ margin-top:.75rem; gap:.8rem; }
-  .ha-sub{ font-size:1.14rem; line-height:1.48; }
-  .hero-a .hero-ctas{ gap:.6rem; }
-  .hero-a .hero-ctas .btn{ padding:.82rem 1.6rem; font-size:.97rem; }
-  .ha-lugar{ margin-top:.9rem; }
+  h1.ban-titulo{ font-size:min(clamp(56px,7.4vw,124px), 13vh); }
+  h2.ban-titulo{ font-size:min(clamp(2.1rem,1.2rem + 2.6vw,3.7rem), 7.6vh); }
+  .ban-ante{ margin-bottom:.7rem; }
+  .ban-sub{ margin-top:.8rem; font-size:1.1rem; line-height:1.48; }
+  .ban-ctas{ margin-top:1rem; gap:.6rem; }
+  .ban-ctas .btn{ padding:.82rem 1.6rem; font-size:.97rem; }
 }
 
-/* Portatiles de 768 px: el marco baja de 480 px y el texto tiene que
-   caber dentro de el para no empujar la banda de sellos. */
+/* Portatiles de 768 px: lo que no es titular ni botones se aprieta para
+   que la banda de sellos siga entrando en la primera pantalla. */
 @media (max-height: 790px) and (min-width: 1081px){
-  .ha-titulo{ font-size:min(clamp(56px,8vw,132px), 11.6vh); }
-  .ha-cifras strong{ font-size:2.2rem; }
-  .ha-pie{ margin-top:.7rem; gap:.85rem; }
-  .ha-sub{ font-size:1.14rem; line-height:1.45; }
-  .ha-lugar{ margin-top:.7rem; }
+  h1.ban-titulo{ font-size:min(clamp(56px,7.4vw,124px), 11.6vh); }
+  h2.ban-titulo{ font-size:min(clamp(2.1rem,1.2rem + 2.6vw,3.7rem), 6.8vh); }
+  .ban-titulo-sub{ margin-top:.6rem; }
+  .ban-sub{ margin-top:.7rem; font-size:1.08rem; line-height:1.45; }
+  .ban-ctas{ margin-top:.9rem; }
 }
 
 /* ── El catálogo: en la página solo la entrada ──────────────────────────
@@ -1230,18 +1225,12 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
 
 @media (max-width:1080px){
   .comparadores{ grid-template-columns:1fr; max-width:460px; margin-inline:auto; }
-  .hero-a-in{ grid-template-columns:minmax(0,1fr); grid-template-areas:"texto" "marco";
-      padding-inline:calc((100% - min(100% - 2.5rem, var(--wrap))) / 2); }
-  .ha-marco-zona{ justify-self:center; width:100%; max-width:440px; margin-top:2rem; }
-  .ha-marco-zona{ align-items:center; }
-  .ha-marco{ height:auto; max-height:none; aspect-ratio:6/5; width:100%; }
-  .ha-titulo{ margin-right:0; font-size:clamp(56px,8.5vw,110px); }
-  /* A una sola columna el texto cruza todo el ancho y queda encima de la
-     zona clara de la seda, asi que el degradado no sirve: el borde que
-     deja mas luz es justo donde cae el titular. Aqui el velo es parejo y
-     mas alto. El encuadre se mide mas abajo. */
-  .hero-a{ background-position:center left; }
-  .hero-a::before{ background:rgba(29,22,14,.88); }
+  /* El texto ya no se queda en la mitad izquierda: ocupa casi todo el
+     ancho, así que el degradado horizontal deja de proteger y el velo
+     pasa a ser parejo. Medido banner a banner: con 0,72 el párrafo del
+     tercero caía a 3,0:1; 0,86 es el primer valor que deja los cuatro
+     por encima de 4,8:1 a 430, 390 y 360 px. */
+  .ban-velo{ background:rgba(29,22,14,.86); }
   .apto-fila{ flex-wrap:wrap; justify-content:center; row-gap:1.6rem; }
   .apto-item{ flex:0 1 calc(25% - 1.4rem); }
 }
@@ -1250,33 +1239,27 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
   :root{ --nav-h:58px; }
   /* En celular la portada se aprieta todo lo que se puede para que la
      banda de sellos quede justo al borde de la primera pantalla. */
-  /* ── Portadas en celular ── */
-  .hero-a{ padding-block:1.4rem 1rem; }
-  .hero-a .hero-ctas{ flex-wrap:wrap; }
-  .hero-a .hero-ctas .btn{ padding:.85rem 1.4rem; font-size:.94rem; }
-  .hero-a .marco-mandos{ margin-top:10px; }
+  /* ── Portada en celular ── */
+  /* En una pantalla estrecha el recorte se queda con la franja central de
+     la foto, que es justo la parte vacía: el sujeto se iba fuera y los
+     banners quedaban en café liso. Corriendo el encuadre al 72 % entra. */
+  .ban-foto{ object-position:72% 50%; }
+  .ban-foto-rostro-bajo{ object-position:72% 82%; }
+  .ban-foto-sujeto-alto{ object-position:72% 0%; }
+  /* Con el sujeto dentro hay más luz detrás del texto: 0,86 se quedaba en
+     4,84:1 y con 0,88 lo peor sube a 5,21:1. */
+  .ban-velo{ background:rgba(29,22,14,.88); }
+  .ban{ padding-block:1.6rem 4.6rem;
+    padding-inline:calc((100% - min(100% - 2rem, var(--wrap))) / 2); }
   /* La etiqueta iba en flex y se partía en bloques descolocados con el punto
-     colgando. Aquí fluye como texto normal, centrada, y si no cabe parte en
-     dos líneas limpias. */
-  .ha-eyebrow{ display:block; text-align:center; line-height:1.7; }
-  .ha-eyebrow .punto{ display:inline-block; vertical-align:middle; margin-inline:.5rem; }
-  /* En celular todo va apilado en una columna y nada se solapa: etiqueta,
-     titular, cifras, párrafo, botones y, debajo de todo, la imagen a ancho
-     completo con sus mandos justo después. */
-  .hero-a-in{
-    grid-template-columns:minmax(0,1fr);
-    grid-template-areas:"texto" "marco";
-    row-gap:1.5rem; align-items:start;
-    padding-inline:calc((100% - min(100% - 2rem, var(--wrap))) / 2);
-  }
-  /* El titular ya no cruza por encima de la imagen: no hay nada al lado. */
-  .ha-titulo{ font-size:clamp(2.4rem,11.5vw,3.1rem); margin-right:0; }
-  .ha-marco-zona{ justify-self:stretch; align-self:start; align-items:center; width:100%; max-width:none; margin-top:0; }
-  .ha-marco{ height:auto; max-height:none; aspect-ratio:6/5; width:100%; }
-  .ha-cifras{ display:flex; gap:1.6rem; border-right:0; border-top:1px solid var(--linea-o); padding:.8rem 0 0; margin-top:.9rem; }
-  .ha-cifras strong{ font-size:1.5rem; }
-  .ha-pie{ margin-top:.9rem; gap:.9rem; }
-  .ha-lugar{ margin-top:.9rem; }
+     colgando. Aquí fluye como texto normal y, si no cabe, parte en dos. */
+  .ban-ante{ display:block; line-height:1.7; }
+  .ban-ante .punto{ display:inline-block; vertical-align:middle; margin-inline:.5rem; }
+  h1.ban-titulo{ font-size:clamp(2.4rem,11.5vw,3.1rem); }
+  h2.ban-titulo{ font-size:clamp(1.75rem,7.6vw,2.4rem); }
+  .ban-ctas{ gap:.45rem; }
+  .ban-ctas .btn{ padding:.85rem 1.4rem; font-size:.94rem; }
+  .ban-mandos{ margin-inline-end:calc((100% - min(100% - 2rem, var(--wrap))) / 2); }
   .hero-ctas{ gap:.45rem; }
 
   /* La B también llena la primera pantalla en celular: el min-height
@@ -1315,9 +1298,8 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
   .wrap,.nav-in,.hero-in{ width:calc(100% - 2rem); }
   .seccion{ padding-block:48px; }
   .hero{ padding-block:1.5rem 3rem; }
-  /* .ha-pie es una rejilla con justify-items:start, así que la fila de
-     botones se quedaba del ancho de su contenido. Aquí ocupa la columna. */
-  .ha-pie{ justify-items:stretch; }
+  .ban-ctas{ flex-direction:column; align-items:stretch; }
+  .ban-ctas .btn{ width:100%; }
   .hero-ctas{ flex-direction:column; align-items:stretch; width:100%; }
   .hero-ctas .btn{ width:100%; }
   .hero-meta{ gap:1rem 1.4rem; }

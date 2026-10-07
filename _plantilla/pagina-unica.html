@@ -66,72 +66,91 @@
 
 <main id="contenido">
 
-<!-- ═══════════════════════ PORTADA ═══════════════════════
-     La forma sale del isotipo: dos curvas enfrentadas y una línea vertical
-     que las parte. El titular cruza por encima de la imagen, que se va por
-     el borde derecho. Las cifras, en vertical a la izquierda.
-     ═══════════════════════════════════════════════════════════════════ -->
-<section class="hero hero-a oscuro" id="inicio">
-  <span class="trama trama-fondo" aria-hidden="true"></span>
-
-  <div class="hero-a-in">
-    <div class="ha-texto">
-      <p class="eyebrow reveal ha-eyebrow">BRAVA Hair Lab<span class="punto" aria-hidden="true"></span>Estudio de cuidado capilar</p>
-
-      <div class="ha-titulo-zona">
-        <h1 class="ha-titulo">
-          <span class="ha-titulo-g" data-split="lines">Hair,<br><em>Evolved.</em></span>
-          <span class="ha-titulo-sub">Alisados, tratamientos capilares y spa capilar · Colina Campestre, Bogotá</span>
+<!-- ═════════ PORTADA · carrusel de cuatro banners ═════════
+     Las cuatro fotos traen la mitad izquierda oscura y vacía a propósito:
+     ahí va el texto, en HTML, no quemado en la imagen. Solo el primer
+     banner lleva h1; los otros tres, h2, porque en la página el h1 es uno.
+     Las rutas van sin "/" delante para que relativas() les ponga @@BASE@@:
+     el sitio tiene que funcionar igual en la raíz que en una subcarpeta. -->
+<section class="hero hero-ban oscuro" id="inicio">
+  <div class="ban-pista" data-banners aria-roledescription="carrusel" aria-label="Portada de BRAVA Hair Lab">
+    <article class="ban esta-activa" role="group" aria-roledescription="banner" aria-label="1 de 4: Hair, Evolved.">
+      <img class="ban-foto" src="assets/img/banner-1.webp" alt="" width="1536" height="1024" fetchpriority="high" decoding="async">
+      <span class="ban-velo" aria-hidden="true"></span>
+      <div class="ban-txt">
+        <p class="eyebrow ban-ante">BRAVA Hair Lab<span class="punto" aria-hidden="true"></span>Fiber x Scalp Studio</p>
+        <h1 class="ban-titulo">
+          <span class="ban-titulo-g">Hair,<br><em>Evolved.</em></span>
+          <span class="ban-titulo-sub">Estudio de cuidado capilar en Colina Campestre, Bogot&aacute;</span>
         </h1>
-        <ul class="ha-cifras reveal">
-          <li><strong>24</strong><span>protocolos</span></li>
-          <li><strong>5</strong><span>categorías</span></li>
-        </ul>
-      </div>
-
-      <div class="ha-pie">
-        <p class="ha-sub reveal">Cada protocolo se elige según la condición real de tu fibra y tu cuero cabelludo.</p>
-        <div class="hero-ctas reveal">
-          <button class="btn btn-acento" type="button" data-abre-capa><span class="btn-chispa" aria-hidden="true">✦</span>Encontrar mi protocolo</button>
-          <a class="btn btn-ghost" href="#contacto" data-wa-simple>Agendar mi valoración</a>
-          <a class="btn btn-ghost" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en línea</a>
+        <p class="ban-sub">Alisados sin formol, tratamientos de reparaci&oacute;n y spa capilar. Veinticuatro protocolos y un diagn&oacute;stico que define cu&aacute;l es el tuyo.</p>
+        <div class="ban-ctas">
+          <button class="btn btn-acento" type="button" data-abre-capa><span class="btn-chispa" aria-hidden="true">&#10022;</span>Encontrar mi protocolo</button>
+          <a class="btn btn-ghost" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en l&iacute;nea</a>
+          <a class="btn btn-ghost" href="#contacto" data-wa-simple>Agendar mi valoraci&oacute;n</a>
         </div>
       </div>
-
-      <p class="ha-lugar reveal"><span>Bogotá</span> — Colina Campestre</p>
-    </div>
-
-    <div class="ha-marco-zona">
-      <div class="ha-marco" data-escenas>
-        <figure class="escena esta-activa" data-foto="FOTO-01" data-archivo="assets/img/foto-01.webp"
-                data-ratio="6:5" data-alt="Portada. Cabello ondulado de espaldas con brillo natural, luz cálida de ventana sobre fondo de arena.">
-          <span class="trama" aria-hidden="true"></span>
-        </figure>
-        <figure class="escena" data-foto="FOTO-18" data-archivo="assets/img/foto-18.webp"
-                data-ratio="6:5" data-alt="Portada. Macro cenital de la raíz y la partidura, cabello sano y con luz cálida.">
-          <span class="trama" aria-hidden="true"></span>
-        </figure>
-        <figure class="escena" data-foto="FOTO-19" data-archivo="assets/img/foto-19.webp"
-                data-ratio="6:5" data-alt="Portada. Repisa de madera con frascos ámbar y toalla de lino: el ambiente del estudio.">
-          <span class="trama" aria-hidden="true"></span>
-        </figure>
-        <figure class="escena" data-foto="FOTO-20" data-archivo="assets/img/foto-20.webp"
-                data-ratio="6:5" data-alt="Portada. Rizos definidos de espaldas con luz cálida: el protocolo también es para rizado y afro.">
-          <span class="trama" aria-hidden="true"></span>
-        </figure>
-        <span class="marco-tag"><span class="foto-tag" data-tag-escena>FOTO-01</span></span>
-      </div>
-        <div class="marco-mandos" data-mandos hidden>
-          <button class="marco-flecha" type="button" data-escena-ir="-1" aria-label="Imagen anterior"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-          <ol class="marco-puntos" data-puntos aria-label="Imágenes de la portada">
-            <li><button type="button" data-escena="0" aria-current="true" aria-label="Imagen 1"></button></li>
-            <li><button type="button" data-escena="1" aria-label="Imagen 2"></button></li>
-            <li><button type="button" data-escena="2" aria-label="Imagen 3"></button></li>
-            <li><button type="button" data-escena="3" aria-label="Imagen 4"></button></li>
-          </ol>
-          <button class="marco-flecha" type="button" data-escena-ir="1" aria-label="Imagen siguiente"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    </article>
+    <article class="ban" role="group" aria-roledescription="banner" aria-label="2 de 4: Sabes de verdad qu necesita tu cabello?">
+      <img class="ban-foto ban-foto-sujeto-alto" src="assets/img/banner-2.webp" alt="" width="1536" height="1024" loading="lazy" decoding="async">
+      <span class="ban-velo" aria-hidden="true"></span>
+      <div class="ban-txt">
+        <p class="eyebrow ban-ante">Diagn&oacute;stico capilar</p>
+        <h2 class="ban-titulo"><span class="ban-titulo-g">&iquest;Sabes de verdad qu&eacute; necesita tu cabello?</span></h2>
+        <p class="ban-sub">Lo medimos antes de tocarlo. Capil&oacute;grafo digital e inteligencia artificial para leer densidad folicular, estado de la fibra y salud del cuero cabelludo.</p>
+        <div class="ban-ctas">
+          <button class="btn btn-acento" type="button" data-abre-capa><span class="btn-chispa" aria-hidden="true">&#10022;</span>Encontrar mi protocolo</button>
+          <a class="btn btn-ghost" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en l&iacute;nea</a>
+          <a class="btn btn-ghost" href="#contacto" data-wa-simple>Agendar mi valoraci&oacute;n</a>
         </div>
-    </div>
+        <p class="ban-enlace"><a href="servicios/complementarios/diagnostico-ia/">Descubrir mi protocolo<span aria-hidden="true">&#8594;</span></a></p>
+      </div>
+    </article>
+    <article class="ban" role="group" aria-roledescription="banner" aria-label="3 de 4: Tu fibra habla. Sabemos escucharla.">
+      <img class="ban-foto" src="assets/img/banner-3.webp" alt="" width="1536" height="1024" loading="lazy" decoding="async">
+      <span class="ban-velo" aria-hidden="true"></span>
+      <div class="ban-txt">
+        <p class="eyebrow ban-ante">BRAVA Fiber</p>
+        <h2 class="ban-titulo"><span class="ban-titulo-g">Tu fibra habla. Sabemos escucharla.</span></h2>
+        <p class="ban-sub">Alisados sin formol y tratamientos de reparaci&oacute;n para devolverle estructura, brillo y movimiento a tu cabello. Quince protocolos de fibra.</p>
+        <div class="ban-ctas">
+          <button class="btn btn-acento" type="button" data-abre-capa><span class="btn-chispa" aria-hidden="true">&#10022;</span>Encontrar mi protocolo</button>
+          <a class="btn btn-ghost" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en l&iacute;nea</a>
+          <a class="btn btn-ghost" href="#contacto" data-wa-simple>Agendar mi valoraci&oacute;n</a>
+        </div>
+        <p class="ban-enlace"><a href="servicios/#fiber">Conoce Fiber<span aria-hidden="true">&#8594;</span></a></p>
+      </div>
+    </article>
+    <article class="ban" role="group" aria-roledescription="banner" aria-label="4 de 4: Todo empieza en la raz.">
+      <img class="ban-foto ban-foto-rostro-bajo" src="assets/img/banner-4.webp" alt="" width="1536" height="1024" loading="lazy" decoding="async">
+      <span class="ban-velo" aria-hidden="true"></span>
+      <div class="ban-txt">
+        <p class="eyebrow ban-ante">BRAVA Scalp</p>
+        <h2 class="ban-titulo"><span class="ban-titulo-g">Todo empieza en la ra&iacute;z.</span></h2>
+        <p class="ban-sub">Spa capilar, detox y tratamientos anticaída. Un cabello fuerte se sostiene en una ra&iacute;z sana.</p>
+        <div class="ban-ctas">
+          <button class="btn btn-acento" type="button" data-abre-capa><span class="btn-chispa" aria-hidden="true">&#10022;</span>Encontrar mi protocolo</button>
+          <a class="btn btn-ghost" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en l&iacute;nea</a>
+          <a class="btn btn-ghost" href="#contacto" data-wa-simple>Agendar mi valoraci&oacute;n</a>
+        </div>
+        <p class="ban-enlace"><a href="servicios/#scalp">Descubre Scalp<span aria-hidden="true">&#8594;</span></a></p>
+      </div>
+    </article>
+  </div>
+
+  <div class="ban-mandos" data-ban-mandos>
+    <button class="ban-flecha" type="button" data-ban-ir="-1" aria-label="Banner anterior"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <ol class="ban-puntos" data-ban-puntos aria-label="Banners de la portada">
+        <li><button type="button" data-ban="0" aria-current="true" aria-label="Banner 1 de 4"></button></li>
+        <li><button type="button" data-ban="1" aria-label="Banner 2 de 4"></button></li>
+        <li><button type="button" data-ban="2" aria-label="Banner 3 de 4"></button></li>
+        <li><button type="button" data-ban="3" aria-label="Banner 4 de 4"></button></li>
+    </ol>
+    <button class="ban-flecha" type="button" data-ban-ir="1" aria-label="Banner siguiente"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <button class="ban-pausa" type="button" data-ban-pausa aria-label="Pausar el carrusel" aria-pressed="false">
+      <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><rect x="7" y="5" width="3.6" height="14" rx="1"/><rect x="13.4" y="5" width="3.6" height="14" rx="1"/></svg>
+      <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 5.6v12.8L18.5 12 8 5.6z"/></svg>
+    </button>
   </div>
 </section>
 
