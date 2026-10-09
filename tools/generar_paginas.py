@@ -50,7 +50,7 @@ MAPS = "https://www.google.com/maps/search/?api=1&amp;query=Calle%20134A%20%23%2
 CATEGORIAS = [
     dict(slug="alisados", familia="fiber-alineacion", marca="BRAVA FIBER",
          nombre="Alisados y alineación", corto="Alisados y alineación",
-         titular="Alisados y alineación.<br><em>Sin plastificar la fibra.</em>",
+         titular="Alisados y alineación.<br><em>Sin sacrificar la salud de tu cabello.</em>",
          bajada="Alisados y alineación molecular sin formol, en Colina Campestre, "
                 "Bogotá. Seis sistemas distintos: cuál te toca depende de la condición "
                 "de tu fibra, no del precio.",
@@ -64,19 +64,19 @@ CATEGORIAS = [
          bajada="Tratamientos de reparación e hidratación de la fibra, en Colina "
                 "Campestre, Bogotá. Nueve rituales para devolverle a la hebra lo que "
                 "el desgaste le quitó.",
-         titulo="Tratamientos capilares en Bogotá · BRAVA Hair Lab",
+         titulo="Tratamientos de reparación capilar en Bogotá · BRAVA Hair Lab",
          desc="Los 9 rituales de tratamiento y reparación capilar de BRAVA Hair Lab, "
               "en Bogotá. Hidratación, nutrición, brillo y fuerza para la fibra.",
          ratio="1:1"),
     dict(slug="head-spa", familia="scalp-experiencia", marca="BRAVA SCALP",
          nombre="Spa capilar", corto="Spa capilar",
-         titular="Spa capilar.<br><em>Cuidado desde la raíz.</em>",
-         bajada="Spa capilar y cuidado del cuero cabelludo, en Colina Campestre, Bogotá. "
+         titular="Spa capilar.<br><em>Salud desde la raíz.</em>",
+         bajada="Spa capilar y salud del cuero cabelludo, en Colina Campestre, Bogotá. "
                 "Dos experiencias de noventa minutos en el Piso 2, cosméticas y no "
                 "médicas.",
          titulo="Spa capilar en Bogotá · BRAVA Hair Lab",
          desc="Las 2 experiencias de spa capilar de BRAVA Hair Lab, en Bogotá. "
-              "Cuidado cosmético del cuero cabelludo y desconexión profunda.",
+              "Trabajo cosmético sobre el cuero cabelludo y desconexión profunda.",
          ratio="3:2"),
     dict(slug="caida", familia="scalp-rootlounge", marca="BRAVA SCALP",
          nombre="Caída y fortalecimiento", corto="Caída y fortalecimiento",
@@ -88,13 +88,14 @@ CATEGORIAS = [
               "Bogotá. Bioestimulación cosmética del cuero cabelludo, no médica.",
          ratio="4:5"),
     dict(slug="complementarios", familia="addon", marca="",
-         nombre="Servicios complementarios", corto="Complementarios",
-         titular="Servicios complementarios.<br><em>Suman a tu protocolo.</em>",
-         bajada="Se añaden a cualquier protocolo para elevar tu experiencia y "
-                "personalizar aún más tu resultado.",
-         titulo="Servicios complementarios · BRAVA Hair Lab",
-         desc="Los 4 servicios complementarios de BRAVA Hair Lab, en Bogotá. "
-              "Se suman a cualquier protocolo para personalizar el resultado.",
+         nombre="Complementarios", corto="Complementarios",
+         titular="Complementarios.<br><em>Suman a tu protocolo.</em>",
+         bajada="Se suman a cualquier protocolo para ajustar el resultado a tu "
+                "diagnóstico.",
+         titulo="Brushing, oiling y corte de puntas en Bogotá · BRAVA Hair Lab",
+         desc="Los 4 complementarios de BRAVA Hair Lab, en Bogotá: oiling, corte "
+              "de puntas, brushing y diagnóstico capilar con IA. Se suman a "
+              "cualquier protocolo.",
          ratio="1:1"),
 ]
 POR_FAMILIA = {c["familia"]: c for c in CATEGORIAS}
@@ -250,11 +251,11 @@ def nav(actual):
            llega desde el propio panel. -->
       <div class="nav-desp" data-desplegable>
         <button class="nav-desp-b%s" type="button" data-desp-boton
-                aria-expanded="false" aria-controls="panel-servicios">Servicios</button>
+                aria-expanded="false" aria-controls="panel-servicios">Protocolos</button>
         <div class="nav-desp-panel" id="panel-servicios" data-desp-panel hidden>
           <div class="nav-desp-in">
 %s
-            <a class="nav-desp-todo" href="@@BASE@@servicios/">Ver todos los servicios</a>
+            <a class="nav-desp-todo" href="@@BASE@@servicios/">Ver todos los protocolos</a>
           </div>
         </div>
       </div>
@@ -270,9 +271,9 @@ def nav(actual):
 <div class="menu" id="menu-movil" data-menu hidden>
   <nav aria-label="Menú móvil">
 %s
-    <p class="menu-et">Servicios</p>
+    <p class="menu-et">Protocolos</p>
 %s
-    <a class="menu-cat-todo menu-cat-todos" href="@@BASE@@servicios/">Ver todos los servicios</a>
+    <a class="menu-cat-todo menu-cat-todos" href="@@BASE@@servicios/">Ver todos los protocolos</a>
 %s
   </nav>
   <button class="btn menu-cta" type="button" data-abre-capa>Encontrar mi protocolo</button>
@@ -416,18 +417,18 @@ def banda_reserva(texto):
 # assets/docs/01-CONTENIDO.md; no se reescribe nada aquí.
 PORTADA = {
     "alisados": dict(sobre="Lo que más nos piden", cod="FOTO-21",
-                     texto="No plastificamos tu cabello: lo alineamos desde su salud "
-                           "molecular. Seis sistemas, y la diferencia entre ellos no es "
-                           "el precio: es tu cabello.",
+                     texto="Alineamos tu cabello desde su estructura interna, no desde "
+                           "la superficie. Seis sistemas, y la diferencia entre ellos "
+                           "no es el precio: es tu cabello.",
                      foto="Alisados: plano ancho del Piso 1 en uso, trabajo sobre la hebra."),
     "tratamientos": dict(sobre="De medios a puntas", cod="FOTO-22",
                          texto="La belleza y la salud visible de tu cabello se defienden "
                                "de medios a puntas. En BRAVA nos especializamos en la "
                                "arquitectura, nutrición y preservación de la fibra.",
                          foto="Tratamientos: plano ancho de un ritual en ejecución."),
-    "head-spa": dict(sobre="Cuidado desde la raíz", cod="FOTO-23",
+    "head-spa": dict(sobre="Salud desde la raíz", cod="FOTO-23",
                      texto="Un cabello extraordinario comienza desde la raíz. Experiencias "
-                           "largas de cuidado del cuero cabelludo, en el silencio del Piso 2.",
+                           "largas sobre el cuero cabelludo, en el silencio del Piso 2.",
                      foto="Spa capilar: plano ancho del Piso 2, cabina privada, luz tenue."),
     "caida": dict(sobre="Desde el folículo", cod="FOTO-24",
                   texto="La salud, la fuerza y la calidad del cabello nacen en el folículo, "
@@ -435,8 +436,8 @@ PORTADA = {
                         "nunca médico.",
                   foto="Caída: plano ancho de una sesión de bioestimulación."),
     "complementarios": dict(sobre="Suman a tu protocolo", cod="FOTO-25",
-                            texto="Servicios complementarios para elevar tu experiencia y "
-                                  "personalizar aún más tu resultado.",
+                            texto="Se suman a cualquier protocolo para ajustar el resultado a tu "
+                                  "diagnóstico.",
                             foto="Complementarios: plano ancho de un add-on en ejecución."),
 }
 
@@ -455,7 +456,7 @@ def banda_familias(protos):
     for i, c in enumerate(CATEGORIAS, 1):
         d = PORTADA[c["slug"]]
         n = len([p for p in protos if p["familia"] == c["familia"]])
-        unidad = "servicios" if c["slug"] == "complementarios" else "protocolos"
+        unidad = "complementarios" if c["slug"] == "complementarios" else "protocolos"
         bloques.append(
             '''      <article class="fam-bloque reveal">
         <figure class="fam-bloque-fig" data-foto="%(cod)s" data-ratio="3:2"
@@ -477,7 +478,7 @@ def banda_familias(protos):
 <section class="seccion familias" id="catalogo">
   <div class="wrap">
     <header class="seccion-cab">
-      <p class="eyebrow reveal">Servicios</p>
+      <p class="eyebrow reveal">Protocolos</p>
       <h2 class="titulo titulo-c" data-split="lines">Alisados, tratamientos y head spa.<br><em>Veinticuatro protocolos.</em></h2>
       <p class="parrafo centro reveal">Agrupados por lo que vienes a resolver. Entra en la categoría que te interese y ahí están sus protocolos, uno a uno.</p>
     </header>
@@ -491,7 +492,7 @@ def banda_familias(protos):
       <span class="fam-cola" aria-hidden="true"></span>
     </div>
 
-    <p class="familias-todos reveal"><a href="@@BASE@@servicios/">Ver todos los servicios →</a></p>
+    <p class="familias-todos reveal"><a href="@@BASE@@servicios/">Ver todos los protocolos →</a></p>
   </div>
 </section>
 ''' % "\n\n".join(bloques)
@@ -520,7 +521,7 @@ def llamada_agendar():
     del listado, no dentro: metida en mitad de la lista partía la información.
     Usa los colores de esta zona, no la tarjeta café del cierre."""
     return '''    <div class="prot-llamada">
-      <p>¿Dudas de cuál te toca? Lo vemos en la valoración, sin compromiso.</p>
+      <p>Cuál te toca lo vemos en el diagnóstico.</p>
       <span class="prot-llamada-btns">
         <a class="btn btn-acento btn-sm" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en línea</a>
         <a class="btn btn-ghost btn-sm" href="https://wa.me/573205830720" data-wa-simple>Escribir por WhatsApp</a>
@@ -539,7 +540,7 @@ def pagina_categoria(c, protos, contexto):
   <div class="wrap">
     <nav class="migas migas-o" aria-label="Dónde estás">
       <a href="@@BASE@@">Inicio</a><span aria-hidden="true">·</span>
-      <a href="@@BASE@@servicios/">Servicios</a><span aria-hidden="true">·</span>
+      <a href="@@BASE@@servicios/">Protocolos</a><span aria-hidden="true">·</span>
       <span aria-current="page">%s</span>
     </nav>
     <header class="seccion-cab">
@@ -561,7 +562,7 @@ def pagina_categoria(c, protos, contexto):
     </div>
 %s
     <header class="seccion-cab">
-      <h2 class="titulo titulo-c" data-split="lines">Los <em>%d protocolos.</em></h2>
+      <h2 class="titulo titulo-c" data-split="lines">Los <em>%d %s.</em></h2>
     </header>
     <ul class="prot-lista">
 %s
@@ -571,8 +572,10 @@ def pagina_categoria(c, protos, contexto):
 
 %s
 ''' % (esc(c["nombre"]), esc(et), c["titular"], esc(c["bajada"]), contexto,
-       llamada_agendar(), len(ps), lista_protocolos(c, protos),
-       banda_reserva("¿No sabes cuál es el tuyo? Lo vemos en la valoración."))
+       llamada_agendar(), len(ps),
+       "complementarios" if c["slug"] == "complementarios" else "protocolos",
+       lista_protocolos(c, protos),
+       banda_reserva("Cuál es el tuyo se decide en el diagnóstico."))
     return pagina(c["titulo"], c["desc"], cuerpo, RUTA_CAT[c["slug"]])
 
 
@@ -593,7 +596,7 @@ ABORDAJES = [
 
 def pagina_servicios(protos):
     """El índice de las cinco categorías, agrupadas por los dos abordajes de
-    marca. Es adonde llevan "Ver todos los servicios" del menú y del pie, y los
+    marca. Es adonde llevan "Ver todos los protocolos" del menú y del pie, y los
     dos botones de "Dos abordajes" de la portada, cada uno a su anclaje."""
     por_slug = {c["slug"]: c for c in CATEGORIAS}
     n = 0
@@ -637,7 +640,7 @@ def pagina_servicios(protos):
         '''    <section class="serv-grupo serv-grupo-aparte" aria-labelledby="t-aparte">
       <header class="serv-grupo-cab">
         <p class="serv-grupo-et">Y además</p>
-        <h2 class="serv-grupo-t" id="t-aparte">Servicios complementarios<span>%d servicios</span></h2>
+        <h2 class="serv-grupo-t" id="t-aparte">Complementarios<span>%d complementarios</span></h2>
         <p class="parrafo">No son ni fibra ni cuero cabelludo: se suman a cualquier protocolo para personalizar tu resultado.</p>
       </header>
       <div class="serv-lista">
@@ -649,7 +652,7 @@ def pagina_servicios(protos):
 <section class="seccion servicios" id="servicios">
   <div class="wrap">
     <header class="seccion-cab">
-      <p class="eyebrow reveal">Servicios</p>
+      <p class="eyebrow reveal">Protocolos</p>
       <h1 class="titulo titulo-c" data-split="lines">Veinticuatro protocolos.<br><em>Cinco categorías.</em></h1>
       <p class="parrafo centro reveal">Agrupados por lo que vienes a resolver. Entra en la categoría que te interese y ahí están sus protocolos, uno a uno.</p>
     </header>
@@ -660,10 +663,10 @@ def pagina_servicios(protos):
 
 %s
 ''' % ("\n\n".join(grupos),
-       banda_reserva("¿No sabes cuál es el tuyo? Lo vemos en la valoración."))
-    return pagina("Servicios capilares en Bogotá · BRAVA Hair Lab",
+       banda_reserva("Cuál es el tuyo se decide en el diagnóstico."))
+    return pagina("Tratamientos capilares en Bogotá: los 24 protocolos · BRAVA Hair Lab",
                   "Los 24 protocolos de BRAVA Hair Lab en Bogotá, agrupados por fibra "
-                  "capilar y cuero cabelludo, más los servicios complementarios.",
+                  "capilar y cuero cabelludo, más los complementarios.",
                   cuerpo, "/servicios/")
 
 
@@ -725,7 +728,7 @@ def pagina_resultados():
 
 %s
 ''' % ("\n\n".join(tarjetas),
-       banda_reserva("¿Quieres un resultado así? Empezamos por tu valoración."))
+       banda_reserva("Cada resultado empieza por un diagnóstico."))
     return pagina("Resultados reales · BRAVA Hair Lab",
                   "Resultados reales de BRAVA Hair Lab en Colina Campestre, Bogotá: "
                   "alisados, tratamientos de fibra y head spa, caso a caso.",
@@ -933,7 +936,7 @@ def pagina_post(e):
       <span class="trama trama-fondo" aria-hidden="true"></span>
       <div class="post-servicio-in">
         <p class="eyebrow">Si esto te suena</p>
-        <h2 class="post-servicio-t">Lo vemos en tu valoración</h2>
+        <h2 class="post-servicio-t">Lo vemos en tu diagnóstico</h2>
         <p class="post-servicio-x">Miramos la condición real de tu fibra y tu cuero cabelludo antes de proponerte nada.</p>
         <div class="post-servicio-btns">
           <a class="btn btn-acento" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en línea</a>
@@ -979,8 +982,8 @@ def pagina_blog():
   <div class="wrap">
     <header class="seccion-cab">
       <p class="eyebrow reveal">Blog</p>
-      <h1 class="titulo titulo-c" data-split="lines">Cuidado del cabello,<br><em>explicado sin humo.</em></h1>
-      <p class="parrafo centro reveal">Lo que nos preguntan en el salón, respondido de frente y sin vender nada.</p>
+      <h1 class="titulo titulo-c" data-split="lines">Salud capilar,<br><em>explicada sin humo.</em></h1>
+      <p class="parrafo centro reveal">Lo que nos preguntan en el Lab, respondido de frente y sin vender nada.</p>
     </header>
     <div class="post-rejilla reveal">
 %s
@@ -989,8 +992,8 @@ def pagina_blog():
 </section>
 
 %s
-''' % ("\n\n".join(tarjetas), banda_reserva("¿Te quedó una duda? La resolvemos en la valoración."))
-    return pagina("Blog de cuidado capilar · BRAVA Hair Lab",
+''' % ("\n\n".join(tarjetas), banda_reserva("Las dudas se resuelven en el diagnóstico."))
+    return pagina("Blog de salud capilar · BRAVA Hair Lab",
                   "Alisados sin formol, head spa, caída del pelo y tratamientos de fibra, "
                   "explicados de frente por BRAVA Hair Lab, en Bogotá.",
                   cuerpo, "/blog/")
@@ -1044,7 +1047,7 @@ def pagina_protocolo(p):
   <div class="wrap">
     <nav class="migas" aria-label="Dónde estás">
       <a href="@@BASE@@">Inicio</a><span aria-hidden="true">·</span>
-      <a href="@@BASE@@servicios/">Servicios</a><span aria-hidden="true">·</span>
+      <a href="@@BASE@@servicios/">Protocolos</a><span aria-hidden="true">·</span>
       <a href="%s">%s</a><span aria-hidden="true">·</span>
       <span aria-current="page">%s</span>
     </nav>
@@ -1114,7 +1117,7 @@ def main():
     # ── portada ──
     escribe("/", pagina(
         "Alisados sin formol y spa capilar en Bogotá · BRAVA Hair Lab",
-        "Estudio de cuidado capilar cosmético en Bogotá. 24 protocolos agrupados en cinco categorías, adaptados a la condición real de tu fibra y tu cuero cabelludo.",
+        "Laboratorio de salud capilar en Colina Campestre, Bogotá. 24 protocolos en cinco categorías, diseñados a partir del estado real de tu fibra y tu cuero cabelludo.",
         # El orden manda: tras la banda de sellos, las cinco categorías. "Dos
         # abordajes" va detrás del antes y después, como explicación de fondo.
         "\n\n".join([T["inicio"], T["apto"], banda_familias(protos), T["marquesina"],
@@ -1149,13 +1152,13 @@ def main():
         # JS (initReel) siguen en su sitio. Para volver a sacarla, se añade
         # T["galeria"] a esta lista, en el orden que se quiera.
         "\n\n".join([T["espacios"], T["metodo"], T["adn"],
-                     banda_reserva("Ven a conocer el Lab. Empezamos por tu valoración.")]),
+                     banda_reserva("Ven a conocer el Lab. Empezamos por tu diagnóstico.")]),
         "/el-lab/"))
 
     # ── contacto ──
     escribe("/contacto/", pagina(
         "Contacto y reservas en Bogotá · BRAVA Hair Lab",
-        "Agenda tu valoración en BRAVA Hair Lab: reserva en línea o escríbenos por WhatsApp. Bogotá, Colina Campestre.",
+        "Agenda tu diagnóstico en BRAVA Hair Lab: reserva en línea o escríbenos por WhatsApp. Bogotá, Colina Campestre.",
         T["contacto"], "/contacto/"))
 
     print("%d direcciones generadas\n" % len(CREADAS))

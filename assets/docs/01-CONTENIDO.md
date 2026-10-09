@@ -97,7 +97,7 @@ las páginas y cuyo resultado enlaza a la ficha del protocolo recomendado.
 condición real de tu fibra y tu cuero cabelludo.
 **Ubicación:** Bogotá — Colina Campestre
 **Botón principal:** Encontrar mi protocolo → abre el buscador
-**Botón secundario:** Agendar mi valoración → PENDIENTE: enlace de WhatsApp
+**Botón secundario:** Agendar mi diagnóstico → PENDIENTE: enlace de WhatsApp
 
 `FOTO-01` — Portada. Retrato editorial, cabello en movimiento con caída natural y
 brillo real, luz cálida y suave, fondo neutro tipo mármol o textura de arena.
@@ -188,7 +188,7 @@ En BRAVA nos especializamos en la arquitectura, nutrición y preservación de la
 ## 7 · FIBER · ALINEACIONES MOLECULARES
 
 **Titular:** Las alineaciones
-**Bajada:** No plastificamos tu cabello. Lo alineamos desde su salud molecular.
+**Bajada:** Alineamos tu cabello desde su estructura interna, no desde la superficie.
 Seis sistemas. La diferencia entre ellos no es el precio: es tu cabello.
 
 **Bloque "la ciencia detrás de la diferencia"** — tabla de dos columnas:
@@ -380,7 +380,7 @@ cabello.
 
 ## 16 · CONTACTO
 
-**Titular:** Agenda tu valoración
+**Titular:** Agenda tu diagnóstico
 **Bajada:** Todo empieza con entender tu cabello. Escríbenos y agendamos.
 
 **Dirección:** Calle 134A # 55A-20, local 5 · Colina Campestre · Bogotá
@@ -442,6 +442,6 @@ Ninguna
 - Selección con casillas y botón final que arma el mensaje de WhatsApp con los
   protocolos marcados.
 - Cierre fijo, siempre visible: *Esta es una orientación según lo que nos contaste.
-  El protocolo definitivo se define en la valoración presencial en el Lab.*
+  El protocolo definitivo se define en el diagnóstico presencial en el Lab.*
 - Si ninguna combinación da resultado, no se deja vacío: se ofrece el Diagnóstico
   Capilar con IA como punto de partida y el contacto directo.

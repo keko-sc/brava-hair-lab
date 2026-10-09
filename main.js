@@ -11,7 +11,7 @@
 
   /* WhatsApp y reservas. Un solo sitio: si cambian, cambian en toda la web. */
   var WA_NUMERO = "573205830720";          // +57 320 583 0720
-  var WA_MENSAJE = "Hola, vengo de la web de BRAVA y quiero agendar mi valoración.";
+  var WA_MENSAJE = "Hola, vengo de la web de BRAVA y quiero agendar mi diagnóstico.";
   var AGENDA = "https://bravahairlab.site.agendapro.com/co";
 
   /* La base del sitio, en relativo. El mismo main.js lo cargan páginas que
@@ -612,7 +612,7 @@
     if (marcados.length) { l.push("Me interesan estos protocolos:"); marcados.forEach(function (n) { l.push("· " + n); }); }
     else if (recomendado) l.push("El buscador me recomendó: " + recomendado);
     else l.push("Todavía no marqué ningún protocolo.");
-    l.push("", "Quiero agendar mi valoración.");
+    l.push("", "Quiero agendar mi diagnóstico.");
     return l.join("\n");
   }
   function enlaceWA(t) { return "https://wa.me/" + WA_NUMERO + "?text=" + encodeURIComponent(t || WA_MENSAJE); }
@@ -1240,6 +1240,40 @@
     pista.innerHTML = tanda + tanda;   // duplicada: el bucle no da tirones
   }
 
+  /* ═══════════ 13b · La banda de sellos, en bucle ═══════════
+     Se duplican los siete sellos y la tira se mueve media vuelta: al llegar
+     al 50 % el dibujo es idéntico al del principio, así que el salto no se
+     ve. El duplicado va con aria-hidden para que un lector de pantalla no
+     lea catorce sellos donde hay siete.
+     La duración sale del ancho real a 26 px/s: con una duración fija, en una
+     pantalla ancha la tira iría al doble de rápido y los sellos dejarían de
+     leerse. Se recalcula al cambiar el tamaño de la ventana. */
+  function initSellos() {
+    var tira = q("[data-sellos]"); if (!tira) return;
+    var sellos = qa(".apto-item", tira); if (sellos.length < 2) return;
+    if (reducido) return;                       // quieta si se pide menos movimiento
+
+    sellos.forEach(function (s) {
+      var copia = s.cloneNode(true);
+      copia.setAttribute("aria-hidden", "true");
+      tira.appendChild(copia);
+    });
+    tira.classList.add("en-bucle");
+
+    var VELOCIDAD = 26;                         // px por segundo
+    function ritmo() {
+      // la mitad de la tira es una tanda entera de siete
+      var tanda = tira.scrollWidth / 2;
+      if (!tanda) return;
+      tira.style.setProperty("--sellos-dur", (tanda / VELOCIDAD).toFixed(1) + "s");
+    }
+    ritmo();
+    var espera = null;
+    window.addEventListener("resize", function () {
+      clearTimeout(espera); espera = setTimeout(ritmo, 200);
+    });
+  }
+
   /* ═══════════ 14 · Comparador antes / después ═══════════ */
   function initComparadores() {
     qa("[data-comparador]").forEach(function (c) {
@@ -1278,6 +1312,7 @@
     safe(initWA, "wa");
     safe(initBotones, "botones");
     safe(initBanners, "banners");
+    safe(initSellos, "sellos");
     safe(initEscenas, "escenas");
     safe(initComparadores, "comparadores");
     safe(initResultados, "resultados");

@@ -94,7 +94,7 @@
     ]
   },
   "avisos": {
-    "cierre_buscador": "Esta es una orientación según lo que nos contaste. El protocolo definitivo se define en la valoración presencial en el Lab.",
+    "cierre_buscador": "Esta es una orientación según lo que nos contaste. El protocolo definitivo se define en el diagnóstico presencial en el Lab.",
     "obstetra": "En caso de embarazo o lactancia, sugerimos confirmar la aplicación con tu médico obstetra.",
     "no_medico": "Servicio cosmético y preventivo. No sustituye consulta, diagnóstico ni tratamiento médico o dermatológico."
   },
@@ -592,7 +592,7 @@
       "nombre": "(Re)-Connect Head Spa",
       "familia": "scalp-experiencia",
       "foto": "FOTO-S01",
-      "subtitulo": "Spa capilar sensorial y reinicio interior · Servicio premium de 90 minutos",
+      "subtitulo": "Spa capilar sensorial y reinicio interior · Noventa minutos en El Santuario",
       "descripcion": "Inmersión sensorial que fusiona bienestar físico, desconexión mental y terapia capilar profunda. Usa calor húmedo molecular, hidrocinesia con arco coreano y reflexología corporal para inducir relajación profunda mientras se restaura la fibra.",
       "resultado": "Relajación absoluta y una terapia capilar personalizada según tu diagnóstico.",
       "idealPara": "Quienes experimentan estrés o fatiga y buscan un escape de relajación total, priorizando el confort, el masaje y el mimo corporal.",
@@ -604,7 +604,7 @@
         "Vaporización molecular y calor húmedo",
         "Masaje corporal multizona",
         "Hidrocinesia coreana con arco de agua",
-        "Secado express y finalización",
+        "Secado y finalización",
         "Menú gourmet"
       ],
       "datos": {
@@ -637,9 +637,9 @@
       "nombre": "Deep Care",
       "familia": "scalp-experiencia",
       "foto": "FOTO-S02",
-      "subtitulo": "Detox y limpieza del cuero cabelludo · Servicio premium de 90 minutos",
+      "subtitulo": "Detox y limpieza del cuero cabelludo · Noventa minutos en El Santuario",
       "descripcion": "Experiencia de desintoxicación y renovación profunda diseñada para liberar el cuero cabelludo de la asfixia folicular. Fusiona aparatología multipasos con activos biotecnológicos para limpiar, estimular y nutrir la piel capilar en profundidad.",
-      "resultado": "Un cuero cabelludo limpio, desinflamado y con el entorno biológico ideal para un crecimiento fuerte y con vitalidad.",
+      "resultado": "Un cuero cabelludo limpio, sin residuo ni sensación de tirantez. El cabello se siente más ligero desde la raíz.",
       "idealPara": "Quien siente que su cabello no crece o está estancado, y quien nunca ha limpiado su cuero cabelludo en profundidad.",
       "incluye": [
         "Diagnóstico digital de alta tecnología",
@@ -650,7 +650,7 @@
         "Terapia capilar regenerativa y nutritiva",
         "Ultrasonido, alta frecuencia, hidrosucción, fotobioestimulación y oxigenación",
         "Hidrocinesia coreana con arco de agua",
-        "Secado express y finalización",
+        "Secado y finalización",
         "Menú gourmet"
       ],
       "datos": {
@@ -684,7 +684,7 @@
       "foto": "FOTO-S03",
       "subtitulo": "Regeneración tisular y bioestimulación capilar",
       "descripcion": "Microneedling, alta frecuencia y fotobiomodulación LED roja. Microestímulos suaves crean microcanales temporales que activan la renovación natural de la piel y aumentan la absorción de un concentrado de péptidos y factores de crecimiento.",
-      "resultado": "Un ecosistema capilar despierto y preparado para un crecimiento denso, fuerte y constante.",
+      "resultado": "Un cuero cabelludo nutrido y una raíz visiblemente más fuerte.",
       "idealPara": "Quien busca activar la raíz y mejorar la densidad de forma preventiva.",
       "datos": {
         "Descanso obligatorio": "7 días entre Biostim y Cellular Infusion"
@@ -822,7 +822,7 @@
       "familia": "addon",
       "foto": "FOTO-A02",
       "subtitulo": "Ritual de pulido capilar de alta precisión",
-      "descripcion": "Micro-escultura para eliminar la horquilla, las puntas abiertas y la fibra dañada sin sacrificar el largo. Modalidad Express, con herramienta de micro-corte que retira automáticamente solo las puntas partidas a lo largo de la hebra; y Corte Bordado, artesanal, mechón por mechón a tijera, con cita exclusiva.",
+      "descripcion": "Micro-escultura para eliminar la horquilla, las puntas abiertas y la fibra dañada sin sacrificar el largo. Micro-corte, con una herramienta que retira automáticamente solo las puntas partidas a lo largo de la hebra; y Corte Bordado, artesanal, mechón por mechón a tijera, con cita exclusiva.",
       "resultado": "Puntas selladas y fibra uniforme, conservando todo el largo.",
       "idealPara": "Quien tiene horquilla y no quiere perder centímetros.",
       "datos": {
@@ -892,7 +892,7 @@
       "datos": {},
       "precio": null,
       "destacado": true,
-      "avisoEspecial": "Servicio de análisis cosmetológico preventivo. El reporte y la asesoría son una guía de cuidado y no reemplazan una consulta, diagnóstico ni tratamiento médico o dermatológico.",
+      "avisoEspecial": "Análisis cosmetológico preventivo. El reporte y la asesoría son una guía de cuidado y no reemplazan una consulta, diagnóstico ni tratamiento médico o dermatológico.",
       "reglas": {
         "objetivo": [
           "scalp",

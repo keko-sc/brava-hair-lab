@@ -539,10 +539,18 @@ h2.ban-titulo{
   padding-block:clamp(1.35rem,2.4vw,1.9rem);
   border-bottom:1px solid var(--linea-2);
 }
-.apto-fila{ display:flex; align-items:stretch; justify-content:space-between; gap:clamp(.6rem,1.1vw,1.15rem); }
+/* La tira se desliza sola, en bucle. El JS duplica los siete sellos y pone
+   la duración a partir del ancho medido, para que la velocidad sea la misma
+   en cualquier pantalla: 26 px por segundo, que da tiempo a leer cada sello.
+   Sin JS no hay duplicado, y entonces no se anima: media tira deslizándose
+   dejaría un hueco. Se para al pasar el cursor y al entrar el foco. */
+.apto-fila{ display:flex; align-items:stretch; gap:clamp(1.6rem,3.4vw,3.2rem); }
+.apto-fila.en-bucle{ width:max-content; animation:sellos var(--sellos-dur,70s) linear infinite; }
+.banda-apto:hover .apto-fila, .banda-apto:focus-within .apto-fila{ animation-play-state:paused; }
+@keyframes sellos{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
 .apto-item{
   display:flex; flex-direction:column; align-items:center; text-align:center;
-  gap:.7rem; flex:1 1 auto; min-width:0;
+  gap:.7rem; flex:0 0 auto;
   --ic-caja:clamp(48px,4.2vw,62px);
 }
 .apto-item .ic{ width:var(--ic-caja); height:var(--ic-caja); flex:none; }
@@ -1231,8 +1239,6 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
      tercero caía a 3,0:1; 0,86 es el primer valor que deja los cuatro
      por encima de 4,8:1 a 430, 390 y 360 px. */
   .ban-velo{ background:rgba(29,22,14,.86); }
-  .apto-fila{ flex-wrap:wrap; justify-content:center; row-gap:1.6rem; }
-  .apto-item{ flex:0 1 calc(25% - 1.4rem); }
 }
 
 @media (max-width:760px){
@@ -1269,30 +1275,13 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
   .hero-card{ right:-6%; left:auto; top:auto; bottom:12%; padding:.6rem .85rem; }
   .marco-mandos{ margin-top:.7rem; }
 
-  /* En celular la banda de sellos es un carrusel horizontal */
   /* En celular los dos grupos van a dos columnas: una sola columna con los
      quince nombres estiraría la sección muchísimo. */
   .fam{ padding:.5rem .8rem; font-size:.74rem; }
-  .apto-fila{
-    /* Con justify-content:center heredado, el desbordamiento se reparte a los
-       dos lados y la tira nace con el primer sello cortado. En una tira que
-       se desliza el contenido tiene que empezar en el borde. */
-    justify-content:flex-start;
-    flex-wrap:nowrap; overflow-x:auto; scroll-snap-type:x proximity;
-    /* El ajuste por snap no contaba el relleno lateral y dejaba la tira
-       arrancada en 16 px, con el primer sello pegado al borde de la pantalla
-       en vez de al margen de la página. */
-    scroll-padding-inline-start:1rem;
-    gap:.9rem; scrollbar-width:none;
-    margin-inline:-1rem; padding-inline:1rem;
-  }
-  .apto-fila::-webkit-scrollbar{ display:none; }
-  .apto-item{ flex:0 0 122px; scroll-snap-align:start; gap:.6rem; }
-  .apto-item{ --ic-caja:50px; }
-  /* En escritorio cada sello cabe en una línea; en una caja de 122 px no.
-     Sin esto, «Apto en embarazo y lactancia» se salía 44 px y se montaba
-     encima del sello siguiente. */
-  .apto-t{ font-size:.78rem; white-space:normal; text-wrap:balance; }
+  /* Ya no hace falta el carrusel a dedo: la tira se desliza sola. */
+  .apto-fila{ gap:1.9rem; }
+  .apto-item{ gap:.6rem; --ic-caja:50px; }
+  .apto-t{ font-size:.78rem; }
   .banda-cta{ flex-direction:column; align-items:flex-start; }
   .marquesina-pista{ font-size:.95rem; animation-duration:21s; }
   .wrap,.nav-in,.hero-in{ width:calc(100% - 2rem); }
@@ -1974,6 +1963,7 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
   html{ scroll-behavior:auto; }
   .scroll-cue span{ animation:none; }
   .marquesina-pista{ animation:none; }
+  .apto-fila.en-bucle{ animation:none; }
   .tarjeta{ animation:none; }
   .escena{ transition-duration:.3s; }
   .js .reveal{ transition-duration:.35s; transform:none; }

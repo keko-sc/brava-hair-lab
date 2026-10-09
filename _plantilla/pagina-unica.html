@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>BRAVA Hair Lab · estudio de cuidado capilar · Bogotá</title>
-<meta name="description" content="BRAVA Hair Lab, estudio de cuidado capilar cosmético en Bogotá. Protocolos adaptados a la condición real de tu fibra y tu cuero cabelludo.">
+<title>BRAVA Hair Lab · laboratorio de salud capilar · Bogotá</title>
+<meta name="description" content="BRAVA Hair Lab, laboratorio de salud capilar en Colina Campestre, Bogotá. Protocolos diseñados a partir del estado real de tu fibra y tu cuero cabelludo.">
 <meta name="theme-color" content="#1D160E">
 <meta name="robots" content="noindex, nofollow">
 
@@ -81,13 +81,13 @@
         <p class="eyebrow ban-ante">BRAVA Hair Lab<span class="punto" aria-hidden="true"></span>Fiber x Scalp Studio</p>
         <h1 class="ban-titulo">
           <span class="ban-titulo-g">Hair,<br><em>Evolved.</em></span>
-          <span class="ban-titulo-sub">Estudio de cuidado capilar en Colina Campestre, Bogot&aacute;</span>
+          <span class="ban-titulo-sub">Laboratorio de salud capilar en Colina Campestre, una de las zonas m&aacute;s exclusivas de Bogot&aacute;.</span>
         </h1>
-        <p class="ban-sub">Alisados sin formol, tratamientos de reparaci&oacute;n y spa capilar. Veinticuatro protocolos y un diagn&oacute;stico que define cu&aacute;l es el tuyo.</p>
+        <p class="ban-sub">Protocolos que integran tecnolog&iacute;a de precisi&oacute;n con activos org&aacute;nicos y veganos, libres de formol. Alineaci&oacute;n, reparaci&oacute;n y spa capilar, dise&ntilde;ados a partir de tu diagn&oacute;stico.</p>
         <div class="ban-ctas">
           <button class="btn btn-acento" type="button" data-abre-capa><span class="btn-chispa" aria-hidden="true">&#10022;</span>Encontrar mi protocolo</button>
           <a class="btn btn-ghost" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en l&iacute;nea</a>
-          <a class="btn btn-ghost" href="#contacto" data-wa-simple>Agendar mi valoraci&oacute;n</a>
+          <a class="btn btn-ghost" href="#contacto" data-wa-simple>Agendar mi diagn&oacute;stico</a>
         </div>
       </div>
     </article>
@@ -97,11 +97,11 @@
       <div class="ban-txt">
         <p class="eyebrow ban-ante">Diagn&oacute;stico capilar</p>
         <h2 class="ban-titulo"><span class="ban-titulo-g">&iquest;Sabes de verdad qu&eacute; necesita tu cabello?</span></h2>
-        <p class="ban-sub">Lo medimos antes de tocarlo. Capil&oacute;grafo digital e inteligencia artificial para leer densidad folicular, estado de la fibra y salud del cuero cabelludo.</p>
+        <p class="ban-sub">Antes de tocarlo, lo leemos. Capil&oacute;grafo digital de alta definici&oacute;n e inteligencia artificial para ver la densidad folicular, el estado de tu fibra y la salud de tu cuero cabelludo.</p>
         <div class="ban-ctas">
           <button class="btn btn-acento" type="button" data-abre-capa><span class="btn-chispa" aria-hidden="true">&#10022;</span>Encontrar mi protocolo</button>
           <a class="btn btn-ghost" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en l&iacute;nea</a>
-          <a class="btn btn-ghost" href="#contacto" data-wa-simple>Agendar mi valoraci&oacute;n</a>
+          <a class="btn btn-ghost" href="#contacto" data-wa-simple>Agendar mi diagn&oacute;stico</a>
         </div>
         <p class="ban-enlace"><a href="servicios/complementarios/diagnostico-ia/">Descubrir mi protocolo<span aria-hidden="true">&#8594;</span></a></p>
       </div>
@@ -116,7 +116,7 @@
         <div class="ban-ctas">
           <button class="btn btn-acento" type="button" data-abre-capa><span class="btn-chispa" aria-hidden="true">&#10022;</span>Encontrar mi protocolo</button>
           <a class="btn btn-ghost" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en l&iacute;nea</a>
-          <a class="btn btn-ghost" href="#contacto" data-wa-simple>Agendar mi valoraci&oacute;n</a>
+          <a class="btn btn-ghost" href="#contacto" data-wa-simple>Agendar mi diagn&oacute;stico</a>
         </div>
         <p class="ban-enlace"><a href="servicios/#fiber">Conoce Fiber<span aria-hidden="true">&#8594;</span></a></p>
       </div>
@@ -131,7 +131,7 @@
         <div class="ban-ctas">
           <button class="btn btn-acento" type="button" data-abre-capa><span class="btn-chispa" aria-hidden="true">&#10022;</span>Encontrar mi protocolo</button>
           <a class="btn btn-ghost" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en l&iacute;nea</a>
-          <a class="btn btn-ghost" href="#contacto" data-wa-simple>Agendar mi valoraci&oacute;n</a>
+          <a class="btn btn-ghost" href="#contacto" data-wa-simple>Agendar mi diagn&oacute;stico</a>
         </div>
         <p class="ban-enlace"><a href="servicios/#scalp">Descubre Scalp<span aria-hidden="true">&#8594;</span></a></p>
       </div>
@@ -161,8 +161,10 @@
      no aquí. En celular, carrusel horizontal. -->
 <section class="banda-apto" id="apto">
   <span class="trama trama-fondo" aria-hidden="true"></span>
-  <div class="wrap">
-    <ul class="apto-fila" data-escalonado>
+  <!-- La tira va fuera del .wrap: tiene que cruzar la banda de lado a lado.
+       Los siete sellos se duplican desde el JS para que el bucle no dé un
+       tirón al volver al principio; sin JS se quedan los siete, quietos. -->
+  <ul class="apto-fila" data-sellos>
       <li class="apto-item">
         <svg class="ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M17 38V23a3.5 3.5 0 0 1 7 0v15M27 38V17a3.5 3.5 0 0 1 7 0v21M13 38h24"/></svg>
         <p class="apto-t">Desde los 12 años</p>
@@ -196,7 +198,7 @@
         <p class="apto-t">Rizado y afro</p>
       </li>
     </ul>
-  </div>
+  
 </section>
 
 <!-- Marquesina con los nombres reales de los protocolos, desde el catálogo -->
@@ -220,7 +222,7 @@
         <div class="piso-txt">
           <p class="num">Piso 1</p>
           <h3>Retreat en el Desierto</h3>
-          <p class="parrafo">Tonos tierra, luz natural cálida, texturas de mármol y madera. Un espacio dinámico que integra confort, asesoría y tecnología: recepción, boutique de cuidado capilar, seis puestos de trabajo, poltronas reclinables y lavacabezas eléctricos ergonómicos. Aromas de autor, bebidas de cortesía y tecnología aplicada sobre la hebra.</p>
+          <p class="parrafo">Tonos tierra, luz natural cálida, texturas de mármol y madera. Un espacio dinámico que integra confort, asesoría y tecnología: recepción, boutique capilar, seis puestos de trabajo, poltronas reclinables y lavacabezas eléctricos ergonómicos. Aromas de autor, bebidas de cortesía y tecnología aplicada sobre la hebra.</p>
         </div>
       </article>
 
@@ -321,14 +323,14 @@
 
         <div class="grupo-cab">
         <h4 class="grupo-titulo">Las alineaciones</h4>
-        <p class="parrafo">No plastificamos tu cabello. Lo alineamos desde su salud molecular. Seis sistemas. La diferencia entre ellos no es el precio: es tu cabello.</p>
+        <p class="parrafo">Alineamos tu cabello desde su estructura interna, no desde la superficie. Seis sistemas, y la diferencia entre ellos no es el precio: es tu cabello.</p>
         </div>
 
         <div class="ciencia reveal">
         <p class="ciencia-et">La ciencia detrás de la diferencia</p>
         <div class="ciencia-par">
         <div class="ciencia-col ciencia-no">
-        <p class="ciencia-cab">Lo que NO buscamos</p>
+        <p class="ciencia-cab">Lo que no buscamos</p>
         <ul>
         <li>Una fibra rígida, pesada o artificial</li>
         <li>El mismo protocolo estandarizado para todas las hebras</li>
@@ -337,7 +339,7 @@
         </ul>
         </div>
         <div class="ciencia-col ciencia-si">
-        <p class="ciencia-cab">Lo que SÍ buscamos</p>
+        <p class="ciencia-cab">Lo que sí buscamos</p>
         <ul>
         <li>Liso con caída y movimiento natural</li>
         <li>Transformación personalizada según la condición real y el historial de la hebra</li>
@@ -375,7 +377,7 @@
 
         <div class="grupo-cab">
         <h4 class="grupo-titulo">El menú de rituales</h4>
-        <p class="parrafo">En nuestro Hair Lab no aplicamos simples mascarillas: restauramos la arquitectura del cabello. Cada fórmula se selecciona bajo diagnóstico previo.</p>
+        <p class="parrafo">Cada fórmula restaura la arquitectura del cabello. Se selecciona a partir de tu diagnóstico.</p>
         </div>
 
         <div class="ideas-par">
@@ -398,7 +400,7 @@
         </figure>
         <div class="fam-intro">
         <p class="num">BRAVA SCALP</p>
-        <h3 class="fam-titulo">Cuidado desde la raíz</h3>
+        <h3 class="fam-titulo">Salud desde la raíz</h3>
         <p class="parrafo destacado">Tu cabello no necesita promesas. Necesita un entorno biológico óptimo para expresar todo su potencial.</p>
         <p class="parrafo">Un cabello extraordinario comienza desde la raíz. La salud, la fuerza y la calidad del cabello nacen en el folículo, y es allí donde centramos nuestra innovación. Nuestro sistema de bioestimulación combina modalidades avanzadas no invasivas para optimizar el ecosistema capilar y favorecer la actividad natural del folículo.</p>
         </div>
@@ -408,7 +410,7 @@
 
         <div class="grupo-cab">
         <h4 class="grupo-titulo">Experiencias</h4>
-        <p class="parrafo">Dos servicios premium de 90 minutos.</p>
+        <p class="parrafo">Dos experiencias de noventa minutos, en el Piso 2.</p>
         </div>
       </div>
       <div data-contexto="scalp-rootlounge">
@@ -419,7 +421,7 @@
         </figure>
         <div class="fam-intro">
         <p class="num">BRAVA SCALP</p>
-        <h3 class="fam-titulo">Cuidado desde la raíz</h3>
+        <h3 class="fam-titulo">Salud desde la raíz</h3>
         <p class="parrafo destacado">Tu cabello no necesita promesas. Necesita un entorno biológico óptimo para expresar todo su potencial.</p>
         <p class="parrafo">Un cabello extraordinario comienza desde la raíz. La salud, la fuerza y la calidad del cabello nacen en el folículo, y es allí donde centramos nuestra innovación. Nuestro sistema de bioestimulación combina modalidades avanzadas no invasivas para optimizar el ecosistema capilar y favorecer la actividad natural del folículo.</p>
         </div>
@@ -444,7 +446,7 @@
       <div data-contexto="addon">
         <div class="grupo-cab">
         <h4 class="grupo-titulo">Add-Ons</h4>
-        <p class="parrafo">Servicios complementarios para elevar tu experiencia y personalizar aún más tu resultado.</p>
+        <p class="parrafo">Se eligen sobre el protocolo que ya tienes.</p>
         </div>
       </div>
   </div>
@@ -456,7 +458,7 @@
     <header class="seccion-cab">
       <p class="eyebrow reveal">El método</p>
       <h2 class="titulo titulo-c" data-split="lines">El método BRAVA.<br>Cuidar el cabello es <em>entenderlo mejor.</em></h2>
-      <p class="parrafo centro reveal">Cuidar el cabello no se trata de hacer más. Se trata de entenderlo mejor. Cuatro pasos que guían cada experiencia en el Lab, desde la primera evaluación hasta el mantenimiento en casa.</p>
+      <p class="parrafo centro reveal">Cuidar el cabello no se trata de hacer más. Se trata de entenderlo mejor. Cuatro pasos que guían cada experiencia en el Lab, desde el primer diagnóstico hasta el mantenimiento en casa.</p>
     </header>
 
     <ol class="pasos">
@@ -559,7 +561,7 @@
     </div>
 
     <div class="banda-cta reveal">
-      <p>¿Quieres saber cuál de los 24 protocolos le toca a tu cabello?</p>
+      <p>Cuál de los veinticuatro protocolos le toca a tu cabello se decide en el diagnóstico.</p>
       <button class="btn btn-acento" type="button" data-abre-capa>
         <span class="btn-chispa" aria-hidden="true">✦</span> Encontrar mi protocolo
       </button>
@@ -613,7 +615,7 @@
           </div>
           <div class="reel-toma" data-foto="FOTO-G04" data-ratio="9:16"
                data-archivo="assets/img/foto-g04.webp" data-video="assets/video/reel-g04.mp4"
-               data-alt="Rincón del Piso 1: boutique de cuidado capilar. Vertical 9:16, vídeo o imagen.">
+               data-alt="Rincón del Piso 1: la boutique capilar. Vertical 9:16, vídeo o imagen.">
             <span class="trama" aria-hidden="true"></span><span class="foto-tag">FOTO-G04</span>
           </div>
           <div class="reel-toma" data-foto="FOTO-G06" data-ratio="9:16"
@@ -658,7 +660,7 @@
   <div class="wrap">
     <header class="seccion-cab">
       <p class="eyebrow reveal">Preguntas frecuentes</p>
-      <h2 class="titulo titulo-c" data-split="lines">Preguntas frecuentes sobre alisados<br>y <em>cuidado capilar.</em></h2>
+      <h2 class="titulo titulo-c" data-split="lines">Preguntas frecuentes sobre alisados<br>y <em>salud capilar.</em></h2>
       <p class="nota-trabajo reveal">Provisionales: la clienta va a mandar las 15 o 20 reales que le hacen por WhatsApp</p>
     </header>
     <div class="faq-lista">
@@ -678,8 +680,8 @@
   <div class="wrap">
     <header class="seccion-cab">
       <p class="eyebrow reveal">Contacto</p>
-      <h2 class="titulo titulo-c" data-split="lines">Agenda tu<br><em>valoración.</em></h2>
-      <p class="parrafo centro reveal">Todo empieza con entender tu cabello. Escríbenos y agendamos.</p>
+      <h2 class="titulo titulo-c" data-split="lines">Agenda tu<br><em>diagnóstico.</em></h2>
+      <p class="parrafo centro reveal">Todo empieza por entender tu cabello. Escríbenos y lo agendamos.</p>
     </header>
 
     <div class="contacto-grid">
@@ -687,7 +689,7 @@
         <p class="c-et">Reservas</p>
         <h3>Agenda tu cita</h3>
         <p class="c-dato"><a href="https://wa.me/573205830720" data-wa-simple>+57 320 583 0720</a></p>
-        <p class="c-txt">Como prefieras: reserva tú misma en la agenda en línea, o escríbenos por WhatsApp y lo vemos contigo.</p>
+        <p class="c-txt">Reserva tú misma en la agenda en línea. O escríbenos por WhatsApp y lo vemos contigo.</p>
         <a class="btn c-agenda" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en línea</a>
         <a class="btn btn-wa" href="https://wa.me/573205830720" data-wa-simple>
           <span class="ic-wa" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></span>
@@ -726,7 +728,7 @@
     <div class="pie-top">
       <div class="pie-marca">
         <img class="pie-logo" src="assets/img/marca/imagotipo-web.svg" alt="BRAVA Hair Lab" width="416" height="351" loading="lazy">
-        <p>Estudio de cuidado capilar.<br>Bogotá — Colina Campestre.</p>
+        <p>Laboratorio de salud capilar.<br>Bogotá — Colina Campestre.</p>
       </div>
       <nav class="pie-nav" aria-label="Pie">
         <a href="#espacios">Espacios</a><a href="#metodo">Método</a><a href="#resultados">Resultados</a><a href="#catalogo">Catálogo</a>
@@ -743,7 +745,7 @@
     </div>
     <div class="pie-legal">
       <p>Servicio cosmético y preventivo. No sustituye consulta, diagnóstico ni tratamiento médico o dermatológico.</p>
-      <p class="pie-mini">BRAVA Hair Lab · Estudio de cuidado capilar · Bogotá<span aria-hidden="true">·</span><span>© <span data-anyo>2026</span>, BRAVA Hair Lab</span><span aria-hidden="true">·</span><span class="pie-credito">Creado con <a href="https://agenciasincemarketing.com" target="_blank" rel="noopener">Since</a>, desde el corazón</span></p>
+      <p class="pie-mini">BRAVA Hair Lab · Laboratorio de salud capilar · Bogotá<span aria-hidden="true">·</span><span>© <span data-anyo>2026</span>, BRAVA Hair Lab</span><span aria-hidden="true">·</span><span class="pie-credito">Creado con <a href="https://agenciasincemarketing.com" target="_blank" rel="noopener">Since</a>, desde el corazón</span></p>
     </div>
   </div>
 </footer>
