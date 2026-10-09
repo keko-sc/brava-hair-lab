@@ -461,7 +461,12 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 }
 /* El ancho NO va aquí: si el contenedor lo limita, la fila de tres
    botones se parte. Lo lleva cada texto por su cuenta. */
-.ban-txt{ position:relative; z-index:2; }
+.ban-txt{ position:relative; z-index:2;
+  /* La bajada del h1 y el párrafo van uno encima del otro: cortan a la
+     misma medida o se ven desalineados. Antes eran 34ch y 30rem, que con
+     cuerpos de letra distintos daban 391 y 480 px. */
+  --ban-medida:30rem;
+}
 .ban-ante{ justify-content:flex-start; margin-bottom:clamp(.7rem,1.3vh,1.05rem); }
 .ban-titulo{ max-width:38rem; line-height:.95; letter-spacing:-.03em; text-wrap:balance; }
 h1.ban-titulo{ font-size:clamp(56px,7.4vw,124px); line-height:.9; letter-spacing:-.035em; }
@@ -483,14 +488,14 @@ h2.ban-titulo{
 .ban-titulo-sub{
   display:block; font-family:var(--f-body); font-weight:400;
   font-variation-settings:normal; text-transform:none;
-  margin-top:.8rem; max-width:34ch;
+  margin-top:.8rem; max-width:var(--ban-medida);
   font-size:clamp(.92rem,.86rem + .3vw,1.08rem); line-height:1.45;
   letter-spacing:.01em; color:var(--crema-suave);
 }
 /* 30rem y no más: con el párrafo más ancho la última palabra de cada
    línea se metía en la zona clara de la foto. */
 .ban-sub{ margin-top:clamp(.9rem,1.7vh,1.35rem); color:var(--crema-suave);
-  max-width:30rem; font-size:clamp(1.02rem,.94rem + .36vw,1.22rem); line-height:1.55; }
+  max-width:var(--ban-medida); font-size:clamp(1.02rem,.94rem + .36vw,1.22rem); line-height:1.55; }
 .ban-ctas{ margin-top:clamp(1.1rem,2.2vh,1.7rem); display:flex; flex-wrap:wrap; gap:.8rem; }
 /* El enlace propio de cada banner: texto con flecha, no un cuarto botón,
    para que no compita con los tres de agendar. */
