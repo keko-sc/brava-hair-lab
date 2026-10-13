@@ -641,7 +641,7 @@
       '<div class="capa-scroll"><div class="capa-dentro">' +
         '<section class="paso-c" data-paso="1">' +
           '<h2 class="capa-titulo" tabindex="-1">¿Qué buscas?</h2>' +
-          '<p class="capa-sub">Cuatro preguntas. Te decimos qué protocolos encajan con tu cabello y por qué, solo con lo que hacemos aquí.</p>' +
+          '<p class="capa-sub">Cuatro preguntas. Al final sabes qué protocolos de BRAVA encajan con tu cabello, y por qué.</p>' +
           '<div class="opciones opciones-2">' + e.objetivo.map(function (o) { return opcionHTML("objetivo", o); }).join("") + "</div>" +
         "</section>" +
         '<section class="paso-c" data-paso="2" hidden>' +

@@ -368,8 +368,8 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 .menu-pie a{ border-bottom-color:var(--linea); }
 .menu-pie a:hover, .pie-datos address a:hover{ border-bottom-color:var(--camel); }
 .pie-datos address{ font-style:normal; line-height:1.55; }
-.c-card address a{ color:inherit; text-decoration:none; border-bottom:1px solid var(--linea-o); padding-bottom:.12rem; }
-.c-card address a:hover{ border-bottom-color:var(--camel-claro); }
+.c-card address a{ color:inherit; text-decoration:none; border-bottom:1px solid rgba(29,22,14,.35); padding-bottom:.12rem; }
+.c-card address a:hover{ border-bottom-color:var(--cafe); }
 
 
 .hero{
@@ -691,7 +691,9 @@ h2.ban-titulo{
 .paso-n{ font-family:var(--f-disp); font-size:.8rem; letter-spacing:.22em; color:var(--camel-texto); margin-bottom:.7rem; }
 .paso-txt h3{ font-size:clamp(1.4rem,1.15rem + 1.1vw,2rem); letter-spacing:-.025em; margin-bottom:.7rem; }
 .paso-txt p{ color:var(--tinta-suave); max-width:36rem; }
-.paso-t{ margin-top:.9rem; font-size:.76rem; letter-spacing:.14em; text-transform:uppercase; color:var(--camel-texto); }
+/* Va entre el título y el párrafo, no debajo de todo: el margen de arriba
+   lo pone ya el h3. */
+.paso-t{ margin-bottom:.75rem; font-size:.76rem; letter-spacing:.14em; text-transform:uppercase; color:var(--camel-texto); }
 /* Desalineadas en vertical entre un paso y el siguiente */
 .paso:nth-child(even) figure{ transform:translateY(14px); }
 
@@ -876,20 +878,31 @@ h2.ban-titulo{
 .c-mapa{ margin-top:.9rem; border-radius:14px; overflow:hidden; border:1px solid var(--linea-o); background:var(--cafe-alt); }
 .c-mapa iframe{ display:block; width:100%; height:200px; border:0; filter:grayscale(.25) contrast(1.05); }
 .contacto-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:1rem; align-items:stretch; }
-.c-card{ display:flex; flex-direction:column; background:var(--cafe-alt); border:1px solid var(--linea-o);
+/* Las tres van en camel. Antes solo la de reservas: las otras dos eran
+   #2A2118 sobre el #1D160E de la sección, dos marrones oscuros que casi
+   no se distinguían. El color claro lo lleva .c-card, y .c-card-wa queda
+   solo para lo propio de la tarjeta de reservas (sus dos botones). */
+.c-card{ display:flex; flex-direction:column; background:var(--camel); color:var(--cafe);
+  border:1px solid transparent;
   border-radius:20px; padding:1.8rem 1.6rem; transition:transform .5s var(--ease), box-shadow .5s var(--ease); }
 .c-card .btn:first-of-type{ margin-top:auto; }
 .c-card .btn{ justify-content:center; }
 .c-card:hover{ transform:translateY(-4px); box-shadow:var(--sombra-alta); }
-.c-card-wa{ background:var(--camel); color:var(--cafe); border-color:transparent; }
 .c-et{ font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--camel-claro); margin-bottom:.55rem; }
-.c-card-wa .c-et{ color:var(--cafe); opacity:.72; }
-.c-card h3{ font-size:1.5rem; letter-spacing:-.025em; margin-bottom:.8rem; }
-.c-card-wa h3{ color:var(--cafe); }
+/* 0,72 dejaba el letrerito en 3,86:1 sobre el camel, por debajo del
+   mínimo para texto pequeño; con 0,85 sube a 4,92:1 y sigue viéndose
+   más apagado que el título. Lo mismo con el alfa del párrafo. */
+.c-card .c-et{ color:var(--cafe); opacity:.85; }
+.c-card h3{ font-size:1.5rem; letter-spacing:-.025em; margin-bottom:.8rem; color:var(--cafe); }
 .c-dato{ margin-bottom:.9rem; }
 .c-txt{ font-size:.9rem; line-height:1.65; color:var(--crema-suave); margin-bottom:1rem; }
-.c-card-wa .c-txt{ color:rgba(29,22,14,.8); }
+.c-card .c-txt{ color:rgba(29,22,14,.88); }
+.c-card .c-txt a{ color:var(--cafe); }
 .c-card address{ font-style:normal; font-family:var(--f-disp); font-size:1.18rem; line-height:1.45; margin-bottom:.9rem; }
+/* El recuadro del mapa y el aviso pendiente también cambian de fondo: sus
+   bordes claros desaparecían sobre el camel. */
+.c-card .c-mapa{ border-color:rgba(29,22,14,.25); background:rgba(29,22,14,.06); }
+.c-card .pendiente{ color:var(--cafe); background:rgba(29,22,14,.1); border-color:rgba(29,22,14,.3); }
 
 /* ────────────────────────────── Pie ───────────────────────────────── */
 .pie{ background:var(--cafe); color:var(--crema-suave); padding-block:clamp(3rem,6vw,4.5rem) 2rem; font-size:.9rem; }
