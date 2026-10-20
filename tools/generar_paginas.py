@@ -325,9 +325,16 @@ def nav(actual):
 <div class="menu" id="menu-movil" data-menu hidden>
   <nav aria-label="Menú móvil">
 %s
-    <p class="menu-et">Protocolos</p>
+    <!-- En celular el menú abre con los seis apartados a la vista y nada más.
+         "Protocolos" es lo único que despliega: dentro van los dos ejes con
+         sus categorías. Cerrado de salida, aunque estemos dentro. -->
+    <details class="menu-princ">
+      <summary>Protocolos</summary>
+      <div class="menu-princ-in">
 %s
-    <a class="menu-cat-todo menu-cat-todos" href="@@BASE@@servicios/">Ver todos los protocolos</a>
+        <a class="menu-cat-todo menu-cat-todos" href="@@BASE@@servicios/">Ver todos los protocolos</a>
+      </div>
+    </details>
 %s
   </nav>
   <button class="btn menu-cta" type="button" data-abre-capa>Encontrar mi protocolo</button>

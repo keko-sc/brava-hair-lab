@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="../../../styles.css?v=81ff167e25">
+<link rel="stylesheet" href="../../../styles.css?v=91f1ad13e9">
 
 <!-- Marca "hay JS". Todo lo que el CSS esconde para animarlo depende de esta
      clase: sin ella no se esconde nada y la página se lee entera. -->
@@ -76,7 +76,12 @@
 <div class="menu" id="menu-movil" data-menu hidden>
   <nav aria-label="Menú móvil">
     <a href="../../../">Inicio</a>
-    <p class="menu-et">Protocolos</p>
+    <!-- En celular el menú abre con los seis apartados a la vista y nada más.
+         "Protocolos" es lo único que despliega: dentro van los dos ejes con
+         sus categorías. Cerrado de salida, aunque estemos dentro. -->
+    <details class="menu-princ">
+      <summary>Protocolos</summary>
+      <div class="menu-princ-in">
     <a class="menu-eje" href="../../../servicios/fiber/">Fiber<span>de medios a puntas</span></a>
     <details class="menu-cat">
       <summary>Alineación Molecular y Terapias Disciplinantes<span>Alisados sin formol · 7</span></summary>
@@ -132,7 +137,9 @@
     <a class="menu-cat-uno" href="../../../servicios/head-spa/deep-care/">Deep Care</a>
     <a class="menu-cat-uno" href="../../../servicios/head-spa/root-awakening/">The Root Awakening Ritual</a>
     <a class="menu-cat-uno" href="../../../servicios/head-spa/diagnostico-ia/">Diagnóstico Capilar con IA</a>
-    <a class="menu-cat-todo menu-cat-todos" href="../../../servicios/">Ver todos los protocolos</a>
+        <a class="menu-cat-todo menu-cat-todos" href="../../../servicios/">Ver todos los protocolos</a>
+      </div>
+    </details>
     <a href="../../../el-lab/">El Lab por dentro</a>
     <a href="../../../resultados/">Resultados del Lab</a>
     <a href="../../../blog/">Blog</a>

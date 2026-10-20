@@ -357,7 +357,10 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 }
 .menu.is-abierto{ opacity:1; }
 .menu nav{ display:flex; flex-direction:column; gap:.3rem; }
-.menu nav a{ font-family:var(--f-disp); font-size:clamp(1.5rem,6.5vw,2rem); text-decoration:none; padding-block:.35rem; border-bottom:1px solid var(--linea-2); font-variation-settings:"SOFT" 60,"WONK" 1; }
+/* Sin filete por fila: con veinte filas rayadas no se distinguía un
+   apartado de un protocolo. Las únicas líneas que quedan separan un
+   bloque de otro, no una fila de la siguiente. */
+.menu nav a{ font-family:var(--f-disp); font-size:clamp(1.5rem,6.5vw,2rem); text-decoration:none; padding-block:.5rem; font-variation-settings:"SOFT" 60,"WONK" 1; }
 .menu-cta{ align-self:flex-start; }
 .menu-pie{ font-size:.85rem; color:var(--tinta-suave); font-style:normal; }
 .menu-pie span{ font-size:.75rem; opacity:.7; }
@@ -1675,7 +1678,19 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
 .nav-desp-panel a.nav-eje-t{ color:var(--camel-texto); }
 .nav-desp-panel a.nav-eje-t:hover, .nav-desp-panel a.nav-eje-t:hover span{ color:var(--tinta); }
 .nav-desp-panel a.nav-eje-t::after{ display:none; }
-.menu nav a.menu-eje{ display:block; text-decoration:none; color:var(--camel-texto); }
+/* Nivel 2: FIBER y SCALP. Salían a 28 px, como "Inicio", porque
+   `.menu nav a` pesa más que `.menu-eje` y le ganaba el font-size. Aquí la
+   pelea de especificidad se gana a propósito. */
+.menu nav a.menu-eje{
+  display:block; text-decoration:none; color:var(--camel-texto);
+  font-family:var(--f-body); font-size:.72rem; letter-spacing:.2em;
+  text-transform:uppercase; padding-block:0;
+  margin:1.5rem 0 .7rem; padding-top:1.1rem; border-top:1px solid var(--linea-2);
+}
+.menu nav a.menu-eje:first-of-type{ margin-top:.2rem; padding-top:0; border-top:0; }
+.menu nav a.menu-eje span{ display:block; margin-top:.25rem;
+  text-transform:none; letter-spacing:.02em; font-size:.8rem; color:var(--tinta-suave); }
+.menu nav a.menu-eje span::before{ content:none; }
 .nav-eje-t span::before{ content:" · "; }
 .nav-desp-pie{ padding:.2rem 1rem 1rem; }
 .nav-cat-n{ display:block; }
@@ -1746,28 +1761,51 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
 .menu-eje:first-of-type{ margin-top:.2rem; }
 .menu-eje span{ text-transform:none; letter-spacing:.02em; color:var(--tinta-suave); }
 .menu-eje span::before{ content:" · "; }
+/* Las cuatro Experiencias: mismo nivel que una categoría, pero sin flecha,
+   porque no abren nada: llevan directas a su ficha. */
 .menu nav .menu-cat-uno{
-  display:block; padding:.75rem .2rem; border-bottom:1px solid var(--linea-2);
-  text-decoration:none; color:var(--tinta);
-  /* El mismo cuerpo que las categorías: heredaba el de los enlaces sueltos
-     del menú, más grande, y las cuatro parecían de otro nivel. */
-  font-family:var(--f-disp); font-size:clamp(1.25rem,5.2vw,1.5rem); line-height:1.2;
+  display:block; padding:.5rem 0; text-decoration:none; color:var(--tinta);
+  font-family:var(--f-disp); font-size:clamp(1.12rem,4.4vw,1.34rem); line-height:1.2;
 }
 .menu-et{ font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--camel-texto); margin-bottom:.2rem; }
-.menu-cat{ border-bottom:1px solid var(--linea-2); }
+/* Nivel 1: los seis apartados. "Protocolos" es el único que abre, y por eso
+   es el único de los seis con flecha. */
+.menu-princ > summary{
+  display:flex; align-items:center; justify-content:space-between; gap:.5rem;
+  cursor:pointer; list-style:none;
+  font-family:var(--f-disp); font-size:clamp(1.5rem,6.5vw,2rem);
+  font-variation-settings:"SOFT" 60,"WONK" 1;
+  padding-block:.5rem; color:var(--tinta);
+}
+.menu-princ > summary::-webkit-details-marker{ display:none; }
+.menu-princ > summary::after{
+  content:""; width:.5rem; height:.5rem; flex:none;
+  border-right:1.5px solid var(--camel-texto); border-bottom:1.5px solid var(--camel-texto);
+  transform:rotate(45deg); margin-top:-.25rem; transition:transform .25s var(--ease);
+}
+.menu-princ[open] > summary::after{ transform:rotate(-135deg); margin-top:.2rem; }
+/* Lo de dentro va sangrado y con filete a la izquierda: se ve de un golpe
+   que cuelga de "Protocolos" y no está a su altura. */
+.menu-princ-in{
+  padding:.4rem 0 1rem .9rem; margin-left:.2rem;
+  border-left:1px solid var(--linea-2);
+}
+.menu-cat{ border-bottom:0; }
+/* El nombre arriba y el término de búsqueda debajo, como en escritorio. En
+   paralelo los dos partían a mitad y no se leía ninguno. */
 .menu-cat summary{
-  display:flex; align-items:baseline; gap:.5rem; cursor:pointer; list-style:none;
-  font-family:var(--f-disp); font-size:clamp(1.25rem,5.2vw,1.6rem);
-  padding-block:.55rem;
+  display:block; cursor:pointer; list-style:none; position:relative;
+  font-family:var(--f-disp); font-size:clamp(1.12rem,4.4vw,1.34rem);
+  line-height:1.2; padding:.5rem 1.6rem .5rem 0;
 }
 .menu-cat summary::-webkit-details-marker{ display:none; }
 .menu-cat summary::after{
-  content:""; width:6px; height:6px; margin-left:auto; margin-top:-4px;
+  content:""; width:6px; height:6px; position:absolute; right:.2rem; top:1rem;
   border-right:1.5px solid var(--camel-texto); border-bottom:1.5px solid var(--camel-texto);
   transform:rotate(45deg); transition:transform .25s var(--ease);
 }
-.menu-cat[open] summary::after{ transform:rotate(-135deg); margin-top:2px; }
-.menu-cat summary span{ font-family:var(--f-body); font-size:.66rem; letter-spacing:.14em; color:var(--camel-texto); }
+.menu-cat[open] summary::after{ transform:rotate(-135deg); top:.85rem; }
+.menu-cat summary span{ display:block; margin-top:.22rem; font-family:var(--f-body); font-size:.72rem; letter-spacing:.1em; color:var(--camel-texto); }
 .menu-cat ul{ display:grid; gap:.1rem; padding:0 0 .8rem .2rem; }
 /* Dentro del acordeón los enlaces son lista, no titulares del menú.
    Van calificados con `.menu nav` a propósito: la regla general de las
@@ -1783,7 +1821,7 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
   display:block; font-size:.7rem; letter-spacing:.16em; text-transform:uppercase;
   color:var(--camel-texto); padding-block:.5rem;
 }
-.menu nav .menu-cat-todos{ border-bottom:1px solid var(--linea-2); margin-bottom:.6rem; }
+.menu nav .menu-cat-todos{ margin-top:1.1rem; padding-top:1rem; border-top:1px solid var(--linea-2); }
 
 /* ── Página /servicios/ · el índice de las cinco ───────────────────────── */
 .servicios{ padding-block:72px; }
