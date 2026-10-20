@@ -96,7 +96,8 @@
   "avisos": {
     "cierre_buscador": "Esta es una orientación según lo que nos contaste. El protocolo definitivo se define en el diagnóstico presencial en el Lab.",
     "obstetra": "En caso de embarazo o lactancia, sugerimos confirmar la aplicación con tu médico obstetra.",
-    "no_medico": "Servicio cosmético y preventivo. No sustituye consulta, diagnóstico ni tratamiento médico o dermatológico."
+    "no_medico": "Servicio cosmético y preventivo. No sustituye consulta, diagnóstico ni tratamiento médico o dermatológico.",
+    "duracion": "La duración estimada depende del patrón natural de la hebra, la velocidad de crecimiento, la frecuencia de lavado y el mantenimiento en casa."
   },
   "reglas_extra": [
     {
@@ -126,6 +127,10 @@
       "resultado": "Cabello pulido y disciplinado, con control total de volumen y frizz. Textura de seda, brillo espejo tridimensional y caída con movimiento natural.",
       "idealPara": "Cabellos naturales, ondulados, rebeldes y rizados de fibra sana y resistente. Hebras finas, medianas y gruesas.",
       "datos": {
+        "Patrón de rizo": "Patrones 2A a 3B/C. Cabellos naturales o procesados, ondulados, rizados y rebeldes.",
+        "Textura de la hebra": "Hebras finas, medianas y gruesas.",
+        "Estado de la fibra": "Sana, resistente y con su estructura interna óptima.",
+        "Coloración compatible": "Tonos oscuros, castaños, tintes globales y rubios estables.",
         "Nivel de alineación": "85 a 90 %",
         "Duración estimada": "4 a 5 meses"
       },
@@ -146,7 +151,11 @@
           "menor"
         ]
       },
-      "porQue": "Es el sistema de alto brillo para fibra sana: alinea de verdad sin sacrificar el movimiento."
+      "porQue": "Es el sistema de alto brillo para fibra sana: alinea de verdad sin sacrificar el movimiento.",
+      "sellos": [
+        "Vegano",
+        "Apto para rubios y decolorados"
+      ]
     },
     {
       "id": "ultra-resolute",
@@ -158,7 +167,11 @@
       "resultado": "Liso impecable y uniforme de raíz a puntas con brillo espejo. Control absoluto del volumen extremo y del frizz, textura sedosa y alta manejabilidad.",
       "idealPara": "Cabellos crespos, muy rizados y afro, de hebra mediana a gruesa, densa y de volumen difícil de disciplinar. Fibra sana y resistente.",
       "datos": {
-        "Nivel de alineación": "95 a 99 %",
+        "Patrón de rizo": "Patrones 3C a 4C. Cabellos naturales o procesados, crespos, muy rizados, apretados y afro.",
+        "Textura de la hebra": "Hebras medianas a gruesas.",
+        "Estado de la fibra": "Sana, levemente reseca o áspera, resistente y con su estructura interna óptima. Densidad alta y volumen rebelde.",
+        "Coloración compatible": "Tonos oscuros, castaños y tintes globales estables.",
+        "Nivel de alineación": "Hasta 99 %",
         "Duración estimada": "5 a 6 meses"
       },
       "precio": null,
@@ -179,7 +192,10 @@
           "rubia"
         ]
       },
-      "porQue": "Es el único sistema que disciplina por completo una textura muy rizada o afro sana."
+      "porQue": "Es el único sistema que disciplina por completo una textura muy rizada o afro sana.",
+      "sellos": [
+        "Vegano"
+      ]
     },
     {
       "id": "bio-cellular",
@@ -191,8 +207,12 @@
       "resultado": "Cabello alineado con movimiento ultraligero y natural, apariencia rejuvenecida, mayor control del frizz y brillo saludable.",
       "idealPara": "Cabellos ondulados y rizados, de hebra fina a mediana, frágil o que ha perdido densidad. Fibra sensibilizada con daño leve a moderado que conserva su estructura.",
       "datos": {
+        "Patrón de rizo": "Patrones 2A a 3A. Cabellos naturales o procesados, ondulados y rizados que buscan máxima seguridad.",
+        "Textura de la hebra": "Hebras finas a medianas.",
+        "Estado de la fibra": "Sensibilizada o frágil. Conserva su estructura interna básica, con apariencia opaca o daño leve a moderado en la cutícula.",
+        "Coloración compatible": "Tonos oscuros, castaños, tintes globales y rubios estables.",
         "Nivel de alineación": "80 a 85 %",
-        "Duración estimada": "3 a 4 meses"
+        "Duración estimada": "4 a 5 meses"
       },
       "precio": null,
       "reglas": {
@@ -209,7 +229,13 @@
         ],
         "excluye": []
       },
-      "porQue": "Es el sistema más seguro del Lab: alinea sin exigirle a una fibra que ya viene tocada."
+      "porQue": "Es el sistema más seguro del Lab: alinea sin exigirle a una fibra que ya viene tocada.",
+      "sellos": [
+        "Vegano",
+        "Apto para rubios y decolorados",
+        "Apto en embarazo y lactancia",
+        "Apto desde los 12 años"
+      ]
     },
     {
       "id": "hydro-botanic",
@@ -221,6 +247,10 @@
       "resultado": "Cabello liso y flexible, muy nutrido y sedoso. Reducción drástica del volumen, eliminación del frizz y soltura al tacto.",
       "idealPara": "Cabellos ondulados y rizados con resequedad extrema, hebra mediana a gruesa con rigidez nativa. Fibra sana pero seca, áspera u opaca.",
       "datos": {
+        "Patrón de rizo": "Patrones 2B a 3B. Cabellos naturales o procesados, ondulados, rebeldes y rizados que sufren de resequedad.",
+        "Textura de la hebra": "Hebras medianas a gruesas.",
+        "Estado de la fibra": "Altamente deshidratada, rígida, áspera u opaca, con estructura interna óptima. Deficiencia notable de lípidos.",
+        "Coloración compatible": "Tonos oscuros, castaños, tintes globales y rubios estables.",
         "Nivel de alineación": "75 a 80 %",
         "Duración estimada": "3 a 4 meses"
       },
@@ -240,7 +270,13 @@
         ],
         "excluye": []
       },
-      "porQue": "Alisa y nutre en el mismo paso: pensado para el cabello duro y reseco, no solo para el rebelde."
+      "porQue": "Alisa y nutre en el mismo paso: pensado para el cabello duro y reseco, no solo para el rebelde.",
+      "sellos": [
+        "Vegano",
+        "Apto para rubios y decolorados",
+        "Apto en embarazo y lactancia",
+        "Apto desde los 12 años"
+      ]
     },
     {
       "id": "sleek-control",
@@ -252,6 +288,10 @@
       "resultado": "Fibra dócil con blindaje continuo contra la humedad. Reducción notable de la onda superficial y del volumen por estática, manteniendo la elasticidad natural.",
       "idealPara": "Cabellos lisos con frizz, ondulados o rizados suaves que necesitan control de volumen y pulitura sin un lacio plano. Hebra delgada a mediana.",
       "datos": {
+        "Patrón de rizo": "Patrones 1A a 2C. Cabellos lisos o con ondas suaves que buscan control y manejabilidad.",
+        "Textura de la hebra": "Hebras finas a medianas.",
+        "Estado de la fibra": "Sana en su estructura interna, pero deshidratada, rígida o seca. Frizz por estática o por cambios de clima.",
+        "Coloración compatible": "Tonos oscuros, castaños, tintes globales y rubios estables.",
         "Nivel de alineación": "0 % de transformación estructural · hasta 60 % de relajación visual de la onda",
         "Duración estimada": "2 a 3 meses"
       },
@@ -270,7 +310,13 @@
         ],
         "excluye": []
       },
-      "porQue": "No alisa: disciplina. Es lo indicado si el problema es el frizz y no la forma de tu cabello."
+      "porQue": "No alisa: disciplina. Es lo indicado si el problema es el frizz y no la forma de tu cabello.",
+      "sellos": [
+        "Vegano",
+        "Apto para rubios y decolorados",
+        "Apto en embarazo y lactancia",
+        "Apto desde los 12 años"
+      ]
     },
     {
       "id": "vita-flow",
@@ -282,8 +328,12 @@
       "resultado": "Eliminación inmediata de la rigidez y el efecto paja, suavizado natural de la onda por densidad hídrica y nutrición profunda sin pesadez.",
       "idealPara": "Cabellos ondulados y rizados que buscan suavizar la onda y ganar manejabilidad sin un lacio marcado. Hebra mediana a gruesa con rigidez nativa. Compatible con canas y rubios decolorados sin barrido de pigmento.",
       "datos": {
-        "Nivel de alineación": "0 % de transformación estructural · 100 % recarga hidro-lipídica",
-        "Duración estimada": "1 a 2 meses"
+        "Patrón de rizo": "Patrones 2A a 3B. Cabellos ondulados y rizados que requieren suavidad, control y manejabilidad.",
+        "Textura de la hebra": "Hebras medianas a gruesas.",
+        "Estado de la fibra": "Sana, seca, deshidratada, rígida y áspera, con estructura interna óptima. Encrespamiento y enredo constantes.",
+        "Coloración compatible": "Tonos oscuros, castaños, tintes globales y rubios estables.",
+        "Nivel de alineación": "0 % de transformación estructural · hasta 60 % de relajación visual de la onda",
+        "Duración estimada": "2 a 3 meses"
       },
       "precio": null,
       "reglas": {
@@ -302,7 +352,50 @@
         ],
         "excluye": []
       },
-      "porQue": "Suaviza por hidratación, no por química: el más respetuoso si solo buscas soltura y manejo."
+      "porQue": "Suaviza por hidratación, no por química: el más respetuoso si solo buscas soltura y manejo.",
+      "sellos": [
+        "Vegano",
+        "Apto para rubios y decolorados",
+        "Apto en embarazo y lactancia",
+        "Apto desde los 12 años"
+      ]
+    },
+    {
+      "id": "liso-lock",
+      "nombre": "Liso Lock",
+      "familia": "fiber-alineacion",
+      "foto": "FOTO-F07",
+      "subtitulo": "Prolongador de la alineación",
+      "descripcion": "Protocolo termoactivo para blindar, fijar y prolongar el resultado de tu alineación molecular. A partir del segundo mes, cuando la onda nueva y el frizz empiezan a asomar, relaja mecánicamente el crecimiento y reactiva la memoria técnica del liso original.",
+      "resultado": "El liso se extiende de cuatro a seis semanas más, con el cabello más manejable y blindado contra la humedad entre una alineación y la siguiente.",
+      "idealPara": "Quien ya tiene una alineación molecular hecha y quiere estirarla, a partir de la semana 6 u 8.",
+      "datos": {
+        "Frecuencia recomendada": "Sesión mensual, a partir de la semana 6 u 8 posterior a la alineación.",
+        "Cuánto alarga el liso": "De 4 a 6 semanas adicionales"
+      },
+      "precio": null,
+      "reglas": {
+        "objetivo": [
+          "alisar",
+          "frizz"
+        ],
+        "patron": [
+          "ondulado",
+          "rizado"
+        ],
+        "estado": [
+          "sana",
+          "leve"
+        ],
+        "excluye": []
+      },
+      "sellos": [
+        "Vegano",
+        "Apto para rubios y decolorados",
+        "Apto en embarazo y lactancia",
+        "Apto desde los 12 años"
+      ],
+      "porQue": "No es una alineación nueva: es lo que hace que la que ya tienes dure más."
     },
     {
       "id": "velvet",
@@ -333,7 +426,12 @@
         ],
         "excluye": []
       },
-      "porQue": "Es el ritual de hidratación y suavidad para una fibra que solo está seca, no dañada."
+      "porQue": "Es el ritual de hidratación y suavidad para una fibra que solo está seca, no dañada.",
+      "sellos": [
+        "Apto en embarazo y lactancia",
+        "Apto desde los 12 años",
+        "Apto para rubios y decolorados"
+      ]
     },
     {
       "id": "crystal",
@@ -363,7 +461,12 @@
         ],
         "excluye": []
       },
-      "porQue": "Color con fibra sana: este es el ritual que protege el tono sin tener que reparar antes."
+      "porQue": "Color con fibra sana: este es el ritual que protege el tono sin tener que reparar antes.",
+      "sellos": [
+        "Apto en embarazo y lactancia",
+        "Apto desde los 12 años",
+        "Apto para rubios y decolorados"
+      ]
     },
     {
       "id": "bounce",
@@ -392,7 +495,12 @@
         ],
         "excluye": []
       },
-      "porQue": "Nutre en profundidad el rizo grueso sin tocar su forma: alimenta el patrón, no lo cambia."
+      "porQue": "Nutre en profundidad el rizo grueso sin tocar su forma: alimenta el patrón, no lo cambia.",
+      "sellos": [
+        "Apto en embarazo y lactancia",
+        "Apto desde los 12 años",
+        "Apto para rubios y decolorados"
+      ]
     },
     {
       "id": "detox-360",
@@ -423,7 +531,12 @@
         ],
         "excluye": []
       },
-      "porQue": "Cuando el problema no es la hebra sino lo que se acumuló encima, esto lo resetea todo."
+      "porQue": "Cuando el problema no es la hebra sino lo que se acumuló encima, esto lo resetea todo.",
+      "sellos": [
+        "Apto en embarazo y lactancia",
+        "Apto desde los 12 años",
+        "Apto para rubios y decolorados"
+      ]
     },
     {
       "id": "bloom",
@@ -455,7 +568,12 @@
         ],
         "excluye": []
       },
-      "porQue": "Es el único protocolo del Lab que trabaja el grosor de la hebra, no solo su superficie."
+      "porQue": "Es el único protocolo del Lab que trabaja el grosor de la hebra, no solo su superficie.",
+      "sellos": [
+        "Apto en embarazo y lactancia",
+        "Apto desde los 12 años",
+        "Apto para rubios y decolorados"
+      ]
     },
     {
       "id": "shield",
@@ -488,7 +606,12 @@
         ],
         "excluye": []
       },
-      "porQue": "Protege la fibra antes y después de cualquier proceso químico: es lo que hace que el resultado dure."
+      "porQue": "Protege la fibra antes y después de cualquier proceso químico: es lo que hace que el resultado dure.",
+      "sellos": [
+        "Apto en embarazo y lactancia",
+        "Apto desde los 12 años",
+        "Apto para rubios y decolorados"
+      ]
     },
     {
       "id": "reforce",
@@ -520,7 +643,12 @@
         ],
         "excluye": []
       },
-      "porQue": "Blindaje para una fibra que todavía está bien: refuerza antes de que aparezca el daño."
+      "porQue": "Blindaje para una fibra que todavía está bien: refuerza antes de que aparezca el daño.",
+      "sellos": [
+        "Apto en embarazo y lactancia",
+        "Apto desde los 12 años",
+        "Apto para rubios y decolorados"
+      ]
     },
     {
       "id": "core",
@@ -552,7 +680,12 @@
         ],
         "excluye": []
       },
-      "porQue": "Es el protocolo principal cuando la fibra ya está porosa y sensibilizada, pero todavía no se rompe."
+      "porQue": "Es el protocolo principal cuando la fibra ya está porosa y sensibilizada, pero todavía no se rompe.",
+      "sellos": [
+        "Apto en embarazo y lactancia",
+        "Apto desde los 12 años",
+        "Apto para rubios y decolorados"
+      ]
     },
     {
       "id": "genesis",
@@ -585,202 +718,50 @@
         ],
         "excluye": []
       },
-      "porQue": "Cuando la fibra ya no admite reparación sino reconstrucción, este es el rescate."
+      "porQue": "Cuando la fibra ya no admite reparación sino reconstrucción, este es el rescate.",
+      "sellos": [
+        "Apto en embarazo y lactancia",
+        "Apto desde los 12 años",
+        "Apto para rubios y decolorados"
+      ]
     },
     {
-      "id": "reconnect",
-      "nombre": "(Re)-Connect Head Spa",
-      "familia": "scalp-experiencia",
-      "foto": "FOTO-S01",
-      "subtitulo": "Spa capilar sensorial y reinicio interior · Noventa minutos en El Santuario",
-      "descripcion": "Inmersión sensorial que fusiona bienestar físico, desconexión mental y terapia capilar profunda. Usa calor húmedo molecular, hidrocinesia con arco coreano y reflexología corporal para inducir relajación profunda mientras se restaura la fibra.",
-      "resultado": "Relajación absoluta y una terapia capilar personalizada según tu diagnóstico.",
-      "idealPara": "Quienes experimentan estrés o fatiga y buscan un escape de relajación total, priorizando el confort, el masaje y el mimo corporal.",
-      "incluye": [
-        "Experiencia sensorial y sonoterapia",
-        "Ritual facial de limpieza y masaje",
-        "Lavado profundo y masaje de estimulación capilar",
-        "Terapia capilar personalizada",
-        "Vaporización molecular y calor húmedo",
-        "Masaje corporal multizona",
-        "Hidrocinesia coreana con arco de agua",
-        "Secado y finalización",
-        "Menú gourmet"
+      "id": "aqua",
+      "nombre": "Aqua",
+      "familia": "fiber-ritual",
+      "foto": "FOTO-R10",
+      "subtitulo": "Ritual de hidratación intensiva",
+      "descripcion": "Ritual de tres fases que devuelve el equilibrio hídrico a la fibra. Actúa como un shot inmediato de humedad: es el único que recomendamos aplicar en la primera semana tras una alineación, cuando el resto deben esperar al día quince.",
+      "resultado": "Una fibra rehidratada desde el núcleo, con movimiento natural y máxima ligereza.",
+      "idealPara": "Hebras muy deshidratadas y opacas, sobre todo tras altas temperaturas o procesos químicos.",
+      "datos": {
+        "Frecuencia recomendada": "Según necesidad. Ideal el día 7 después de una alineación molecular."
+      },
+      "precio": null,
+      "reglas": {
+        "objetivo": [
+          "nutrir",
+          "reparar"
+        ],
+        "patron": [
+          "liso",
+          "ondulado",
+          "rizado",
+          "afro"
+        ],
+        "estado": [
+          "sana",
+          "leve",
+          "danada"
+        ],
+        "excluye": []
+      },
+      "sellos": [
+        "Apto en embarazo y lactancia",
+        "Apto desde los 12 años",
+        "Apto para rubios y decolorados"
       ],
-      "datos": {
-        "Duración": "90 minutos"
-      },
-      "precio": null,
-      "reglas": {
-        "objetivo": [
-          "scalp",
-          "nutrir"
-        ],
-        "patron": [
-          "liso",
-          "ondulado",
-          "rizado",
-          "afro"
-        ],
-        "estado": [
-          "sana",
-          "leve",
-          "danada",
-          "sos"
-        ],
-        "excluye": []
-      },
-      "porQue": "Cuida el cabello y a ti al mismo tiempo: terapia capilar dentro de una experiencia de desconexión."
-    },
-    {
-      "id": "deep-care",
-      "nombre": "Deep Care",
-      "familia": "scalp-experiencia",
-      "foto": "FOTO-S02",
-      "subtitulo": "Detox y limpieza del cuero cabelludo · Noventa minutos en El Santuario",
-      "descripcion": "Experiencia de desintoxicación y renovación profunda diseñada para liberar el cuero cabelludo de la asfixia folicular. Fusiona aparatología multipasos con activos biotecnológicos para limpiar, estimular y nutrir la piel capilar en profundidad.",
-      "resultado": "Un cuero cabelludo limpio, sin residuo ni sensación de tirantez. El cabello se siente más ligero desde la raíz.",
-      "idealPara": "Quien siente que su cabello no crece o está estancado, y quien nunca ha limpiado su cuero cabelludo en profundidad.",
-      "incluye": [
-        "Diagnóstico digital de alta tecnología",
-        "Experiencia sensorial",
-        "Limpieza facial profunda",
-        "Lavado profundo y masaje de estimulación capilar",
-        "Desincrustación y vaporización molecular",
-        "Terapia capilar regenerativa y nutritiva",
-        "Ultrasonido, alta frecuencia, hidrosucción, fotobioestimulación y oxigenación",
-        "Hidrocinesia coreana con arco de agua",
-        "Secado y finalización",
-        "Menú gourmet"
-      ],
-      "datos": {
-        "Duración": "90 minutos"
-      },
-      "precio": null,
-      "reglas": {
-        "objetivo": [
-          "scalp"
-        ],
-        "patron": [
-          "liso",
-          "ondulado",
-          "rizado",
-          "afro"
-        ],
-        "estado": [
-          "sana",
-          "leve",
-          "danada",
-          "sos"
-        ],
-        "excluye": []
-      },
-      "porQue": "Si sientes el cuero cabelludo saturado o el cabello estancado, la causa suele estar debajo de la superficie."
-    },
-    {
-      "id": "biostim",
-      "nombre": "Biostim",
-      "familia": "scalp-rootlounge",
-      "foto": "FOTO-S03",
-      "subtitulo": "Regeneración tisular y bioestimulación capilar",
-      "descripcion": "Microneedling, alta frecuencia y fotobiomodulación LED roja. Microestímulos suaves crean microcanales temporales que activan la renovación natural de la piel y aumentan la absorción de un concentrado de péptidos y factores de crecimiento.",
-      "resultado": "Un cuero cabelludo nutrido y una raíz visiblemente más fuerte.",
-      "idealPara": "Quien busca activar la raíz y mejorar la densidad de forma preventiva.",
-      "datos": {
-        "Descanso obligatorio": "7 días entre Biostim y Cellular Infusion"
-      },
-      "precio": null,
-      "reglas": {
-        "objetivo": [
-          "scalp",
-          "grosor"
-        ],
-        "patron": [
-          "liso",
-          "ondulado",
-          "rizado",
-          "afro"
-        ],
-        "estado": [
-          "sana",
-          "leve",
-          "danada",
-          "sos"
-        ],
-        "excluye": []
-      },
-      "porQue": "Trabaja el entorno de la raíz para que el cabello que viene nazca más fuerte."
-    },
-    {
-      "id": "cellular-infusion",
-      "nombre": "Cellular Infusion",
-      "familia": "scalp-rootlounge",
-      "foto": "FOTO-S04",
-      "subtitulo": "Nutrición profunda y optimización cosmética del cuero cabelludo",
-      "descripcion": "Protocolo indoloro y no invasivo en dos pasos. Radiofrecuencia capilar con cabezal tipo peine que favorece la circulación y flexibiliza el tejido; y electroporación que abre microcanales temporales para infundir un cóctel multivitamínico directamente en la raíz, sin agujas.",
-      "resultado": "Folículo oxigenado y nutrido, con mejor calidad de la piel capilar y estímulo del grosor de la hebra.",
-      "idealPara": "Quien busca nutrición profunda del cuero cabelludo sin procedimientos invasivos.",
-      "datos": {
-        "Descanso obligatorio": "7 días entre Cellular Infusion y Biostim"
-      },
-      "precio": null,
-      "reglas": {
-        "objetivo": [
-          "scalp",
-          "grosor"
-        ],
-        "patron": [
-          "liso",
-          "ondulado",
-          "rizado",
-          "afro"
-        ],
-        "estado": [
-          "sana",
-          "leve",
-          "danada",
-          "sos"
-        ],
-        "excluye": []
-      },
-      "porQue": "Lleva la nutrición hasta la raíz sin agujas, sin dolor y sin tiempo de recuperación."
-    },
-    {
-      "id": "bioled",
-      "nombre": "BioLED",
-      "familia": "scalp-rootlounge",
-      "foto": "FOTO-S05",
-      "subtitulo": "Control anticaída y anclaje folicular",
-      "descripcion": "Tratamiento lumínico de baja intensidad con un sistema híbrido de 82 láseres y 200 LEDs a 650 nm, con cobertura total y uniforme del cuero cabelludo. Durante los 25 minutos de sesión, el tren inferior recibe presoterapia neumática.",
-      "resultado": "Mitigación del proceso de miniaturización folicular, mayor anclaje de la raíz y extensión de la fase activa del cabello.",
-      "idealPara": "Quien nota adelgazamiento de la hebra o mayor caída y busca un control preventivo cosmético.",
-      "datos": {
-        "Duración": "25 minutos",
-        "Modalidad": "Sesión individual, pack de 8 o pack de 12",
-        "Descanso obligatorio": "24 horas entre sesiones; 24 a 48 horas respecto a otra tecnología"
-      },
-      "precio": null,
-      "avisoEspecial": "PENDIENTE: verificar y respaldar la certificación FDA del equipo antes de mencionarla en la web.",
-      "reglas": {
-        "objetivo": [
-          "scalp",
-          "grosor"
-        ],
-        "patron": [
-          "liso",
-          "ondulado",
-          "rizado",
-          "afro"
-        ],
-        "estado": [
-          "sana",
-          "leve",
-          "danada",
-          "sos"
-        ],
-        "excluye": []
-      },
-      "porQue": "Es el protocolo del Lab orientado a frenar la caída y sostener la raíz, sin nada invasivo."
+      "porQue": "Es el único ritual que entra en la primera semana tras un alisado: devuelve el agua que se llevó la plancha."
     },
     {
       "id": "oiling",
@@ -881,15 +862,228 @@
       "porQue": "El acabado, siempre con protección térmica de por medio."
     },
     {
+      "id": "lab-shots",
+      "nombre": "Lab Shots",
+      "familia": "addon",
+      "foto": "FOTO-A05",
+      "subtitulo": "Membresía mensual de cuatro sesiones",
+      "descripcion": "Sistema mensual de cócteles concentrados, preparados en el momento en el Lab. Cada semana entra una dosis distinta de activos, que van rotando: hidratación, nutrición, regeneración y brillo. No sustituyen a los rituales, que trabajan la estructura interna y sí necesitan diagnóstico.",
+      "resultado": "Cuatro semanas de mantenimiento, cada una con un activo distinto, para sostener la fibra entre un ritual y el siguiente.",
+      "idealPara": "Todo tipo de hebra con su estructura interna óptima. No necesita diagnóstico previo: el cronograma es el mismo para todas.",
+      "incluye": [
+        "Semana 1 · Hidratación molecular, con aloe vera, colágeno hidrolizado y ácido hialurónico",
+        "Semana 2 · Nutrición lipídica, con aceite de marula y vitamina E",
+        "Semana 3 · Rescate y regeneración, con células madre, argán y aminoácidos estructurales",
+        "Semana 4 · Brillo espejo, con semillas de lino, vitamina E y proteínas de seda"
+      ],
+      "datos": {
+        "Cómo se vende": "Membresía mensual prepagada, no sesión suelta",
+        "Qué incluye": "Cuatro sesiones, una por semana, combinadas con tu cepillado"
+      },
+      "precio": null,
+      "reglas": {
+        "objetivo": [
+          "nutrir"
+        ],
+        "patron": [
+          "liso",
+          "ondulado",
+          "rizado",
+          "afro"
+        ],
+        "estado": [
+          "sana",
+          "leve"
+        ],
+        "excluye": []
+      },
+      "sellos": [],
+      "avisoEspecial": "Los shots no sustituyen a los rituales. No transforman la estructura interna ni resuelven una necesidad puntual de la fibra: son mantenimiento entre sesiones.",
+      "esComplemento": true,
+      "porQue": "Es una membresía, no una cita: cuatro semanas seguidas, un activo distinto cada una."
+    },
+    {
+      "id": "diagnostico-fibra",
+      "nombre": "Diagnóstico personalizado de la fibra",
+      "familia": "addon",
+      "foto": "FOTO-A06",
+      "subtitulo": "Evaluación de la hebra con cámara microscópica",
+      "descripcion": "Evaluación profesional de la fibra capilar con cámara microscópica: estado, elasticidad, resistencia, historial, patrón, puntas y grosor. Mira la hebra, no el cuero cabelludo.",
+      "resultado": "Un reporte personalizado de tu fibra, que recibes por WhatsApp.",
+      "idealPara": "Quien quiere saber en qué estado está su hebra antes de elegir un protocolo.",
+      "datos": {
+        "Qué mira": "La fibra: estado, elasticidad, resistencia, patrón, puntas y grosor",
+        "Con qué": "Cámara microscópica y evaluación de nuestras profesionales",
+        "Qué te llevas": "Un reporte personalizado por WhatsApp"
+      },
+      "precio": null,
+      "reglas": {
+        "objetivo": [
+          "reparar",
+          "nutrir",
+          "alisar",
+          "frizz",
+          "color",
+          "grosor"
+        ],
+        "patron": [
+          "liso",
+          "ondulado",
+          "rizado",
+          "afro"
+        ],
+        "estado": [
+          "sana",
+          "leve",
+          "danada",
+          "sos"
+        ],
+        "excluye": []
+      },
+      "sellos": [],
+      "esComplemento": true,
+      "porQue": "Es el diagnóstico de la hebra. Si lo que quieres mirar es el cuero cabelludo, el que toca es el Diagnóstico Capilar con IA."
+    },
+    {
+      "id": "reconnect",
+      "nombre": "(Re)-Connect Head Spa",
+      "familia": "scalp-experiencia",
+      "foto": "FOTO-S01",
+      "subtitulo": "Spa capilar sensorial y reinicio interior · Noventa minutos en El Santuario",
+      "descripcion": "Inmersión sensorial que fusiona bienestar físico, desconexión mental y terapia capilar profunda. Usa calor húmedo molecular, hidrocinesia con arco coreano y reflexología corporal para inducir relajación profunda mientras se restaura la fibra.",
+      "resultado": "Relajación absoluta y una terapia capilar personalizada según tu diagnóstico.",
+      "idealPara": "Quienes experimentan estrés o fatiga y buscan un escape de relajación total, priorizando el confort, el masaje y el mimo corporal.",
+      "incluye": [
+        "Experiencia sensorial y sonoterapia",
+        "Ritual facial de limpieza y masaje",
+        "Lavado profundo y masaje de estimulación capilar",
+        "Terapia capilar personalizada",
+        "Vaporización molecular y calor húmedo",
+        "Masaje corporal multizona",
+        "Hidrocinesia coreana con arco de agua",
+        "Secado y finalización",
+        "Menú gourmet"
+      ],
+      "datos": {
+        "Duración": "90 minutos"
+      },
+      "precio": null,
+      "reglas": {
+        "objetivo": [
+          "scalp",
+          "nutrir"
+        ],
+        "patron": [
+          "liso",
+          "ondulado",
+          "rizado",
+          "afro"
+        ],
+        "estado": [
+          "sana",
+          "leve",
+          "danada",
+          "sos"
+        ],
+        "excluye": []
+      },
+      "porQue": "Cuida el cabello y a ti al mismo tiempo: terapia capilar dentro de una experiencia de desconexión."
+    },
+    {
+      "id": "deep-care",
+      "nombre": "Deep Care",
+      "familia": "scalp-experiencia",
+      "foto": "FOTO-S02",
+      "subtitulo": "Detox y limpieza del cuero cabelludo · Noventa minutos en El Santuario",
+      "descripcion": "Experiencia de desintoxicación y renovación profunda diseñada para liberar el cuero cabelludo de la asfixia folicular. Fusiona aparatología multipasos con activos biotecnológicos para limpiar, estimular y nutrir la piel capilar en profundidad.",
+      "resultado": "Un cuero cabelludo limpio, sin residuo ni sensación de tirantez. El cabello se siente más ligero desde la raíz.",
+      "idealPara": "Quien siente que su cabello no crece o está estancado, y quien nunca ha limpiado su cuero cabelludo en profundidad.",
+      "incluye": [
+        "Diagnóstico digital de alta tecnología",
+        "Experiencia sensorial",
+        "Limpieza facial profunda",
+        "Lavado profundo y masaje de estimulación capilar",
+        "Desincrustación y vaporización molecular",
+        "Terapia capilar regenerativa y nutritiva",
+        "Ultrasonido, alta frecuencia, hidrosucción, fotobioestimulación y oxigenación",
+        "Hidrocinesia coreana con arco de agua",
+        "Secado y finalización",
+        "Menú gourmet"
+      ],
+      "datos": {
+        "Duración": "90 minutos"
+      },
+      "precio": null,
+      "reglas": {
+        "objetivo": [
+          "scalp"
+        ],
+        "patron": [
+          "liso",
+          "ondulado",
+          "rizado",
+          "afro"
+        ],
+        "estado": [
+          "sana",
+          "leve",
+          "danada",
+          "sos"
+        ],
+        "excluye": []
+      },
+      "porQue": "Si sientes el cuero cabelludo saturado o el cabello estancado, la causa suele estar debajo de la superficie."
+    },
+    {
+      "id": "root-awakening",
+      "nombre": "The Root Awakening Ritual",
+      "familia": "scalp-experiencia",
+      "foto": "FOTO-S06",
+      "subtitulo": "Ritual de prevención y anticaída del cuero cabelludo",
+      "descripcion": "Ritual pensado para regular el microambiente de la raíz, fortalecer el anclaje del cabello y despertar el cabello debilitado por el estrés diario o por el quiebre. Fusiona la línea profesional de BRAVA a base de aceite de romero y extractos botánicos con estimulación capilar avanzada.",
+      "resultado": "Un ecosistema capilar en equilibrio, con la raíz más fuerte y el cabello con más vitalidad.",
+      "idealPara": "Quien quiere trabajar la prevención desde la raíz, a lo largo de varios meses.",
+      "datos": {
+        "Cómo se vende": "Por programa de tres fases, no por sesión suelta",
+        "Fase 1 · mes 1": "Cuatro sesiones de activación profunda, una por semana",
+        "Fase 2 · mes 2": "Transición y estabilización, una sesión cada quince días",
+        "Fase 3 · mantenimiento": "Una sesión cada tres o cuatro semanas"
+      },
+      "precio": null,
+      "reglas": {
+        "objetivo": [
+          "scalp"
+        ],
+        "patron": [
+          "liso",
+          "ondulado",
+          "rizado",
+          "afro"
+        ],
+        "estado": [
+          "sana",
+          "leve",
+          "danada"
+        ],
+        "excluye": []
+      },
+      "sellos": [],
+      "porQue": "Es un programa de meses, no una cita: la prevención en la raíz se trabaja con constancia."
+    },
+    {
       "id": "diagnostico-ia",
       "nombre": "Diagnóstico Capilar con IA",
-      "familia": "addon",
+      "familia": "scalp-experiencia",
       "foto": "FOTO-A04",
-      "subtitulo": "Diagnóstico de cuero cabelludo y análisis folicular",
+      "subtitulo": "Diagnóstico del cuero cabelludo con capilógrafo e IA",
       "descripcion": "Combina la visión aumentada de un capilógrafo digital de alta definición con el análisis por inteligencia artificial, siempre acompañado de la evaluación de nuestras profesionales. Explora en tiempo real la densidad folicular, la acumulación de sebo o descamación, el nivel de vascularización y el grosor de la fibra.",
       "resultado": "Un reporte fotográfico y analítico con indicadores claros sobre el estado de tu cuero cabelludo, enviado a tu WhatsApp o correo, más un plan de cuidado personalizado.",
       "idealPara": "Todo el mundo, antes de cualquier protocolo. Es la puerta de entrada al Lab.",
-      "datos": {},
+      "datos": {
+        "Qué mira": "El cuero cabelludo: densidad folicular, sebo, descamación, vascularización y grosor de la fibra",
+        "Con qué": "Capilógrafo digital de alta definición, inteligencia artificial y la evaluación de nuestras profesionales",
+        "Qué te llevas": "Un reporte fotográfico y numérico por WhatsApp o correo, más un plan de cuidado"
+      },
       "precio": null,
       "destacado": true,
       "avisoEspecial": "Análisis cosmetológico preventivo. El reporte y la asesoría son una guía de cuidado y no reemplazan una consulta, diagnóstico ni tratamiento médico o dermatológico.",
@@ -917,7 +1111,127 @@
         ],
         "excluye": []
       },
-      "porQue": "Antes de decidir cualquier protocolo, esto nos dice en qué estado está realmente tu cabello."
+      "porQue": "Es el diagnóstico del cuero cabelludo, con lectura numérica de la IA. Si lo que quieres mirar es la hebra, el que toca es el Diagnóstico personalizado de la fibra."
+    },
+    {
+      "id": "biostim",
+      "nombre": "Biostim",
+      "familia": "scalp-rootlounge",
+      "foto": "FOTO-S03",
+      "subtitulo": "Regeneración tisular y bioestimulación capilar",
+      "descripcion": "Microneedling, alta frecuencia y fotobiomodulación LED roja. Microestímulos suaves crean microcanales temporales que activan la renovación natural de la piel y aumentan la absorción de un concentrado de péptidos y factores de crecimiento.",
+      "resultado": "Un cuero cabelludo nutrido y una raíz visiblemente más fuerte.",
+      "idealPara": "Quien busca activar la raíz y mejorar la densidad de forma preventiva.",
+      "datos": {
+        "Descanso obligatorio": "7 días entre Biostim y Cellular Infusion"
+      },
+      "precio": null,
+      "reglas": {
+        "objetivo": [
+          "scalp",
+          "grosor"
+        ],
+        "patron": [
+          "liso",
+          "ondulado",
+          "rizado",
+          "afro"
+        ],
+        "estado": [
+          "sana",
+          "leve",
+          "danada",
+          "sos"
+        ],
+        "excluye": [
+          "embarazo",
+          "menor"
+        ]
+      },
+      "porQue": "Trabaja el entorno de la raíz para que el cabello que viene nazca más fuerte.",
+      "sellos": [],
+      "avisoEspecial": "No es apto si llevas marcapasos, desfibrilador o bomba de insulina, si tienes implantes metálicos o prótesis en cabeza o cuello, ni en caso de epilepsia, antecedentes de cáncer de piel en la zona o problemas severos de coagulación."
+    },
+    {
+      "id": "cellular-infusion",
+      "nombre": "Cellular Infusion",
+      "familia": "scalp-rootlounge",
+      "foto": "FOTO-S04",
+      "subtitulo": "Nutrición profunda y optimización cosmética del cuero cabelludo",
+      "descripcion": "Protocolo indoloro y no invasivo en dos pasos. Radiofrecuencia capilar con cabezal tipo peine que favorece la circulación y flexibiliza el tejido; y electroporación que abre microcanales temporales para infundir un cóctel multivitamínico directamente en la raíz, sin agujas.",
+      "resultado": "Folículo oxigenado y nutrido, con mejor calidad de la piel capilar y estímulo del grosor de la hebra.",
+      "idealPara": "Quien busca nutrición profunda del cuero cabelludo sin procedimientos invasivos.",
+      "datos": {
+        "Descanso obligatorio": "7 días entre Cellular Infusion y Biostim"
+      },
+      "precio": null,
+      "reglas": {
+        "objetivo": [
+          "scalp",
+          "grosor"
+        ],
+        "patron": [
+          "liso",
+          "ondulado",
+          "rizado",
+          "afro"
+        ],
+        "estado": [
+          "sana",
+          "leve",
+          "danada",
+          "sos"
+        ],
+        "excluye": [
+          "embarazo",
+          "menor"
+        ]
+      },
+      "porQue": "Lleva la nutrición hasta la raíz sin agujas, sin dolor y sin tiempo de recuperación.",
+      "sellos": [],
+      "avisoEspecial": "No es apto si llevas marcapasos, desfibrilador o bomba de insulina, si tienes implantes metálicos o prótesis en cabeza o cuello, ni en caso de epilepsia, antecedentes de cáncer de piel en la zona o problemas severos de coagulación."
+    },
+    {
+      "id": "bioled",
+      "nombre": "BioLED",
+      "familia": "scalp-rootlounge",
+      "foto": "FOTO-S05",
+      "subtitulo": "Control anticaída y anclaje folicular",
+      "descripcion": "Tratamiento lumínico de baja intensidad con un sistema híbrido de 82 láseres y 200 LEDs a 650 nm, con cobertura total y uniforme del cuero cabelludo. Durante los 25 minutos de sesión, el tren inferior recibe presoterapia neumática.",
+      "resultado": "Mitigación del proceso de miniaturización folicular, mayor anclaje de la raíz y extensión de la fase activa del cabello.",
+      "idealPara": "Quien nota adelgazamiento de la hebra o mayor caída y busca un control preventivo cosmético.",
+      "datos": {
+        "Duración": "25 minutos",
+        "Modalidad": "Sesión individual, pack de 8 o pack de 12",
+        "Descanso obligatorio": "48 horas entre sesiones de BioLED; 24 horas respecto a otra tecnología"
+      },
+      "precio": null,
+      "avisoEspecial": "No es apto si llevas marcapasos, desfibrilador o bomba de insulina, si tienes implantes metálicos o prótesis en cabeza o cuello, ni en caso de epilepsia, antecedentes de cáncer de piel en la zona o problemas severos de coagulación.",
+      "reglas": {
+        "objetivo": [
+          "scalp",
+          "grosor"
+        ],
+        "patron": [
+          "liso",
+          "ondulado",
+          "rizado",
+          "afro"
+        ],
+        "estado": [
+          "sana",
+          "leve",
+          "danada",
+          "sos"
+        ],
+        "excluye": [
+          "menor"
+        ]
+      },
+      "porQue": "Es el protocolo del Lab orientado a frenar la caída y sostener la raíz, sin nada invasivo.",
+      "sellos": [
+        "Apto en embarazo y lactancia"
+      ]
     }
   ],
   "mensajes_sin_resultado": {

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Alisados sin formol y spa capilar en Bogotá · BRAVA Hair Lab</title>
-<meta name="description" content="Laboratorio de salud capilar en Colina Campestre, Bogotá. 24 protocolos en cinco categorías, diseñados a partir del estado real de tu fibra y tu cuero cabelludo.">
+<meta name="description" content="Laboratorio de salud capilar en Colina Campestre, Bogotá. 29 protocolos en cinco categorías, diseñados a partir del estado real de tu fibra y tu cuero cabelludo.">
 <meta name="theme-color" content="#1D160E">
 <meta name="robots" content="noindex, nofollow">
 
@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="styles.css?v=677213f7d1">
+<link rel="stylesheet" href="styles.css?v=81ff167e25">
 
 <!-- Marca "hay JS". Todo lo que el CSS esconde para animarlo depende de esta
      clase: sin ella no se esconde nada y la página se lee entera. -->
@@ -40,13 +40,24 @@
       <div class="nav-desp" data-desplegable>
         <button class="nav-desp-b" type="button" data-desp-boton
                 aria-expanded="false" aria-controls="panel-servicios">Protocolos</button>
-        <div class="nav-desp-panel" id="panel-servicios" data-desp-panel hidden>
-          <div class="nav-desp-in">
-            <a class="nav-cat-t" href="servicios/alisados/">Alisados y alineación<span>6</span></a>
-            <a class="nav-cat-t" href="servicios/tratamientos/">Tratamientos y reparación<span>9</span></a>
-            <a class="nav-cat-t" href="servicios/head-spa/">Spa capilar<span>2</span></a>
-            <a class="nav-cat-t" href="servicios/caida/">Caída y fortalecimiento<span>3</span></a>
-            <a class="nav-cat-t" href="servicios/complementarios/">Complementarios<span>4</span></a>
+        <div class="nav-desp-panel nav-desp-ancho" id="panel-servicios" data-desp-panel hidden>
+          <div class="nav-desp-in nav-desp-ejes">
+          <section class="nav-eje">
+            <a class="nav-eje-t" href="servicios/fiber/">Fiber<span>de medios a puntas</span></a>
+            <a class="nav-cat-t" href="servicios/alisados/"><span class="nav-cat-n">Alineación Molecular y Terapias Disciplinantes</span><span class="nav-cat-b">Alisados sin formol · 7</span></a>
+            <a class="nav-cat-t" href="servicios/tratamientos/"><span class="nav-cat-n">The Ritual Menu</span><span class="nav-cat-b">Tratamientos capilares · 10</span></a>
+            <a class="nav-cat-t" href="servicios/complementarios/"><span class="nav-cat-n">Lab Essentials</span><span class="nav-cat-b">Complementos · 5</span></a>
+          </section>
+          <section class="nav-eje">
+            <a class="nav-eje-t" href="servicios/scalp/">Scalp<span>la raíz y el cuero cabelludo</span></a>
+            <a class="nav-cat-t" href="servicios/caida/"><span class="nav-cat-n">Root Lounge</span><span class="nav-cat-b">Caída y fortalecimiento · 3</span></a>
+            <a class="nav-cat-t nav-cat-uno" href="servicios/head-spa/re-connect/"><span class="nav-cat-n">(Re)-Connect Head Spa</span></a>
+            <a class="nav-cat-t nav-cat-uno" href="servicios/head-spa/deep-care/"><span class="nav-cat-n">Deep Care</span></a>
+            <a class="nav-cat-t nav-cat-uno" href="servicios/head-spa/root-awakening/"><span class="nav-cat-n">The Root Awakening Ritual</span></a>
+            <a class="nav-cat-t nav-cat-uno" href="servicios/head-spa/diagnostico-ia/"><span class="nav-cat-n">Diagnóstico Capilar con IA</span></a>
+          </section>
+          </div>
+          <div class="nav-desp-pie">
             <a class="nav-desp-todo" href="servicios/">Ver todos los protocolos</a>
           </div>
         </div>
@@ -67,8 +78,9 @@
   <nav aria-label="Menú móvil">
     <a href="" aria-current="page">Inicio</a>
     <p class="menu-et">Protocolos</p>
+    <a class="menu-eje" href="servicios/fiber/">Fiber<span>de medios a puntas</span></a>
     <details class="menu-cat">
-      <summary>Alisados y alineación<span>6</span></summary>
+      <summary>Alineación Molecular y Terapias Disciplinantes<span>Alisados sin formol · 7</span></summary>
       <a class="menu-cat-todo" href="servicios/alisados/">Ver toda la categoría</a>
       <ul>
             <li><a href="servicios/alisados/silkfusion/">SilkFusion</a></li>
@@ -77,10 +89,11 @@
             <li><a href="servicios/alisados/hydro-botanic/">Hydro-Botanic</a></li>
             <li><a href="servicios/alisados/sleek-control/">Sleek Control</a></li>
             <li><a href="servicios/alisados/vita-flow/">Vita Flow</a></li>
+            <li><a href="servicios/alisados/liso-lock/">Liso Lock</a></li>
       </ul>
     </details>
     <details class="menu-cat">
-      <summary>Tratamientos y reparación<span>9</span></summary>
+      <summary>The Ritual Menu<span>Tratamientos capilares · 10</span></summary>
       <a class="menu-cat-todo" href="servicios/tratamientos/">Ver toda la categoría</a>
       <ul>
             <li><a href="servicios/tratamientos/velvet/">Velvet</a></li>
@@ -92,18 +105,23 @@
             <li><a href="servicios/tratamientos/re-force/">Re:Force</a></li>
             <li><a href="servicios/tratamientos/core/">Core</a></li>
             <li><a href="servicios/tratamientos/genesis/">Genesis</a></li>
+            <li><a href="servicios/tratamientos/aqua/">Aqua</a></li>
       </ul>
     </details>
     <details class="menu-cat">
-      <summary>Spa capilar<span>2</span></summary>
-      <a class="menu-cat-todo" href="servicios/head-spa/">Ver toda la categoría</a>
+      <summary>Lab Essentials<span>Complementos · 5</span></summary>
+      <a class="menu-cat-todo" href="servicios/complementarios/">Ver toda la categoría</a>
       <ul>
-            <li><a href="servicios/head-spa/re-connect/">(Re)-Connect Head Spa</a></li>
-            <li><a href="servicios/head-spa/deep-care/">Deep Care</a></li>
+            <li><a href="servicios/complementarios/oiling/">Oiling</a></li>
+            <li><a href="servicios/complementarios/puntas/">Bye Bye Split Ends!</a></li>
+            <li><a href="servicios/complementarios/brushing/">Brushing</a></li>
+            <li><a href="servicios/complementarios/lab-shots/">Lab Shots</a></li>
+            <li><a href="servicios/complementarios/diagnostico-fibra/">Diagnóstico personalizado de la fibra</a></li>
       </ul>
     </details>
+    <a class="menu-eje" href="servicios/scalp/">Scalp<span>la raíz y el cuero cabelludo</span></a>
     <details class="menu-cat">
-      <summary>Caída y fortalecimiento<span>3</span></summary>
+      <summary>Root Lounge<span>Caída y fortalecimiento · 3</span></summary>
       <a class="menu-cat-todo" href="servicios/caida/">Ver toda la categoría</a>
       <ul>
             <li><a href="servicios/caida/biostim/">Biostim</a></li>
@@ -111,16 +129,10 @@
             <li><a href="servicios/caida/bioled/">BioLED</a></li>
       </ul>
     </details>
-    <details class="menu-cat">
-      <summary>Complementarios<span>4</span></summary>
-      <a class="menu-cat-todo" href="servicios/complementarios/">Ver toda la categoría</a>
-      <ul>
-            <li><a href="servicios/complementarios/oiling/">Oiling</a></li>
-            <li><a href="servicios/complementarios/puntas/">Bye Bye Split Ends!</a></li>
-            <li><a href="servicios/complementarios/brushing/">Brushing</a></li>
-            <li><a href="servicios/complementarios/diagnostico-ia/">Diagnóstico Capilar con IA</a></li>
-      </ul>
-    </details>
+    <a class="menu-cat-uno" href="servicios/head-spa/re-connect/">(Re)-Connect Head Spa</a>
+    <a class="menu-cat-uno" href="servicios/head-spa/deep-care/">Deep Care</a>
+    <a class="menu-cat-uno" href="servicios/head-spa/root-awakening/">The Root Awakening Ritual</a>
+    <a class="menu-cat-uno" href="servicios/head-spa/diagnostico-ia/">Diagnóstico Capilar con IA</a>
     <a class="menu-cat-todo menu-cat-todos" href="servicios/">Ver todos los protocolos</a>
     <a href="el-lab/">El Lab por dentro</a>
     <a href="resultados/">Resultados del Lab</a>
@@ -163,7 +175,7 @@
           <a class="btn btn-ghost" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en l&iacute;nea</a>
           <a class="btn btn-ghost" href="#contacto" data-wa-simple>Agendar mi diagn&oacute;stico</a>
         </div>
-        <p class="ban-enlace"><a href="servicios/complementarios/diagnostico-ia/">Descubrir mi protocolo<span aria-hidden="true">&#8594;</span></a></p>
+        <p class="ban-enlace"><a href="servicios/head-spa/diagnostico-ia/">Descubrir mi protocolo<span aria-hidden="true">&#8594;</span></a></p>
       </div>
     </article>
     <article class="ban" role="group" aria-roledescription="banner" aria-label="3 de 4: Tu fibra habla. Sabemos escucharla.">
@@ -172,13 +184,13 @@
       <div class="ban-txt">
         <p class="eyebrow ban-ante">BRAVA Fiber</p>
         <h2 class="ban-titulo"><span class="ban-titulo-g">Tu fibra habla. Sabemos escucharla.</span></h2>
-        <p class="ban-sub">Alisados sin formol y tratamientos de reparaci&oacute;n para devolverle estructura, brillo y movimiento a tu cabello. Quince protocolos de fibra.</p>
+        <p class="ban-sub">Alisados sin formol y tratamientos de reparaci&oacute;n para devolverle estructura, brillo y movimiento a tu cabello. Diecisiete protocolos de fibra.</p>
         <div class="ban-ctas">
           <button class="btn btn-acento" type="button" data-abre-capa><span class="btn-chispa" aria-hidden="true">&#10022;</span>Encontrar mi protocolo</button>
           <a class="btn btn-ghost" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en l&iacute;nea</a>
           <a class="btn btn-ghost" href="#contacto" data-wa-simple>Agendar mi diagn&oacute;stico</a>
         </div>
-        <p class="ban-enlace"><a href="servicios/#fiber">Conoce Fiber<span aria-hidden="true">&#8594;</span></a></p>
+        <p class="ban-enlace"><a href="servicios/fiber/">Conoce Fiber<span aria-hidden="true">&#8594;</span></a></p>
       </div>
     </article>
     <article class="ban" role="group" aria-roledescription="banner" aria-label="4 de 4: Todo empieza en la raz.">
@@ -193,7 +205,7 @@
           <a class="btn btn-ghost" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en l&iacute;nea</a>
           <a class="btn btn-ghost" href="#contacto" data-wa-simple>Agendar mi diagn&oacute;stico</a>
         </div>
-        <p class="ban-enlace"><a href="servicios/#scalp">Descubre Scalp<span aria-hidden="true">&#8594;</span></a></p>
+        <p class="ban-enlace"><a href="servicios/scalp/">Descubre Scalp<span aria-hidden="true">&#8594;</span></a></p>
       </div>
     </article>
   </div>
@@ -256,13 +268,43 @@
   
 </section>
 
+<section class="seccion quienes" id="quienes">
+  <span class="trama trama-fondo" aria-hidden="true"></span>
+  <div class="wrap">
+    <header class="seccion-cab">
+      <p class="eyebrow reveal">Quiénes somos</p>
+      <h2 class="titulo titulo-c" data-split="lines">Un laboratorio de fibra<br>y <em>cuero cabelludo.</em></h2>
+      <p class="parrafo centro reveal">BRAVA Hair Lab es un estudio especializado en salud capilar, de la raíz a las puntas. No es una peluquería y no es un centro clínico. Aquí tu cabello se lee antes de tocarlo, y lo que viene después sale de ese diagnóstico.</p>
+    </header>
+
+    <ul class="pilares" data-escalonado>
+      <li class="pilar">
+        <p class="num">01</p>
+        <h3 class="pilar-t">Cosmética de alto rendimiento</h3>
+        <p class="parrafo">Activos profesionales, con formulaciones orgánicas y veganas, libres de formol y de derivados agresivos.</p>
+      </li>
+      <li class="pilar">
+        <p class="num">02</p>
+        <h3 class="pilar-t">Tecnología con propósito</h3>
+        <p class="parrafo">Aparatología aplicada para potenciar cada protocolo. Nunca por sí misma, nunca como espectáculo.</p>
+      </li>
+      <li class="pilar">
+        <p class="num">03</p>
+        <h3 class="pilar-t">La experiencia</h3>
+        <p class="parrafo">A puerta cerrada, con cita previa y en privado. Cada sesión se diseña a partir de la condición real de tu fibra.</p>
+      </li>
+    </ul>
+
+    <p class="quienes-pie reveal">Cuidado cosmético y preventivo. No diagnosticamos ni tratamos patologías médicas.</p>
+  </div>
+</section>
+
 <!-- ══════════════════════════ LAS CINCO CATEGORÍAS ══════════════════════════ -->
 <section class="seccion familias" id="catalogo">
   <div class="wrap">
     <header class="seccion-cab">
       <p class="eyebrow reveal">Protocolos</p>
-      <h2 class="titulo titulo-c" data-split="lines">Alisados, tratamientos y head spa.<br><em>Veinticuatro protocolos.</em></h2>
-      <p class="parrafo centro reveal">Agrupados por lo que vienes a resolver. Entra en la categoría que te interese y ahí están sus protocolos, uno a uno.</p>
+      <h2 class="titulo titulo-c" data-split="lines">Alisados, tratamientos y spa capilar.<br><em>Veintinueve protocolos.</em></h2>
     </header>
 
     <div class="fam-bloques" data-familias>
@@ -273,10 +315,10 @@
         </figure>
         <div class="fam-bloque-txt">
           <p class="fam-bloque-et">01 · Lo que más nos piden</p>
-          <h3 class="fam-bloque-t">Alisados y alineación</h3>
-          <p class="parrafo">Alineamos tu cabello desde su estructura interna, no desde la superficie. Seis sistemas, y la diferencia entre ellos no es el precio: es tu cabello.</p>
-          <p class="fam-bloque-n"><strong>6</strong> protocolos</p>
-          <a class="btn btn-acento" href="servicios/alisados/">Ver Alisados y alineación</a>
+          <h3 class="fam-bloque-t">Alineación Molecular y Terapias Disciplinantes</h3>
+          <p class="parrafo">Alineamos tu cabello desde su estructura interna, no desde la superficie. Siete sistemas, y la diferencia entre ellos no es el precio: es tu cabello.</p>
+          <p class="fam-bloque-n"><strong>7</strong> protocolos</p>
+          <a class="btn btn-acento" href="servicios/alisados/">Ver Alineación Molecular y Terapias Disciplinantes</a>
         </div>
       </article>
 
@@ -287,10 +329,10 @@
         </figure>
         <div class="fam-bloque-txt">
           <p class="fam-bloque-et">02 · De medios a puntas</p>
-          <h3 class="fam-bloque-t">Tratamientos y reparación</h3>
+          <h3 class="fam-bloque-t">The Ritual Menu</h3>
           <p class="parrafo">La belleza y la salud visible de tu cabello se defienden de medios a puntas. En BRAVA nos especializamos en la arquitectura, nutrición y preservación de la fibra.</p>
-          <p class="fam-bloque-n"><strong>9</strong> protocolos</p>
-          <a class="btn btn-acento" href="servicios/tratamientos/">Ver Tratamientos y reparación</a>
+          <p class="fam-bloque-n"><strong>10</strong> protocolos</p>
+          <a class="btn btn-acento" href="servicios/tratamientos/">Ver The Ritual Menu</a>
         </div>
       </article>
 
@@ -301,10 +343,10 @@
         </figure>
         <div class="fam-bloque-txt">
           <p class="fam-bloque-et">03 · Salud desde la raíz</p>
-          <h3 class="fam-bloque-t">Spa capilar</h3>
+          <h3 class="fam-bloque-t">Experiencias y diagnóstico del cuero cabelludo</h3>
           <p class="parrafo">Un cabello extraordinario comienza desde la raíz. Experiencias largas sobre el cuero cabelludo, en el silencio del Piso 2.</p>
-          <p class="fam-bloque-n"><strong>2</strong> protocolos</p>
-          <a class="btn btn-acento" href="servicios/head-spa/">Ver Spa capilar</a>
+          <p class="fam-bloque-n"><strong>4</strong> protocolos</p>
+          <a class="btn btn-acento" href="servicios/head-spa/">Ver Experiencias y diagnóstico del cuero cabelludo</a>
         </div>
       </article>
 
@@ -315,10 +357,10 @@
         </figure>
         <div class="fam-bloque-txt">
           <p class="fam-bloque-et">04 · Desde el folículo</p>
-          <h3 class="fam-bloque-t">Caída y fortalecimiento</h3>
+          <h3 class="fam-bloque-t">Root Lounge</h3>
           <p class="parrafo">La salud, la fuerza y la calidad del cabello nacen en el folículo, y es allí donde centramos nuestra innovación. Cuidado cosmético, nunca médico.</p>
           <p class="fam-bloque-n"><strong>3</strong> protocolos</p>
-          <a class="btn btn-acento" href="servicios/caida/">Ver Caída y fortalecimiento</a>
+          <a class="btn btn-acento" href="servicios/caida/">Ver Root Lounge</a>
         </div>
       </article>
 
@@ -329,10 +371,10 @@
         </figure>
         <div class="fam-bloque-txt">
           <p class="fam-bloque-et">05 · Suman a tu protocolo</p>
-          <h3 class="fam-bloque-t">Complementarios</h3>
+          <h3 class="fam-bloque-t">Lab Essentials</h3>
           <p class="parrafo">Se suman a cualquier protocolo para ajustar el resultado a tu diagnóstico.</p>
-          <p class="fam-bloque-n"><strong>4</strong> complementarios</p>
-          <a class="btn btn-acento" href="servicios/complementarios/">Ver Complementarios</a>
+          <p class="fam-bloque-n"><strong>5</strong> complementarios</p>
+          <a class="btn btn-acento" href="servicios/complementarios/">Ver Lab Essentials</a>
         </div>
       </article>
 
@@ -416,8 +458,8 @@
         <p class="num">01 · BRAVA FIBER</p>
         <h3 class="abordaje-t">La fibra capilar</h3>
         <p class="parrafo">De medios a puntas. Preservar, reparar y elevar la calidad cosmética de la hebra: hidratación, nutrición, suavidad, brillo, fuerza y protección frente al desgaste.</p>
-        <p class="abordaje-n">15 protocolos</p>
-        <p class="abordaje-cta"><a class="btn btn-ghost btn-sm" href="servicios/#fiber">Ver los protocolos de fibra</a></p>
+        <p class="abordaje-n">22 protocolos</p>
+        <p class="abordaje-cta"><a class="btn btn-ghost btn-sm" href="servicios/fiber/">Ver los protocolos de fibra</a></p>
       </article>
 
       <article class="abordaje abordaje-frio reveal">
@@ -428,8 +470,8 @@
         <p class="num">02 · BRAVA SCALP</p>
         <h3 class="abordaje-t">El cuero cabelludo</h3>
         <p class="parrafo">La raíz y el entorno donde nace el cabello. Equilibrio, vitalidad y bienestar, con cuidado cosmético avanzado no médico.</p>
-        <p class="abordaje-n">5 protocolos</p>
-        <p class="abordaje-cta"><a class="btn btn-ghost btn-sm" href="servicios/#scalp">Ver los protocolos de cuero cabelludo</a></p>
+        <p class="abordaje-n">7 protocolos</p>
+        <p class="abordaje-cta"><a class="btn btn-ghost btn-sm" href="servicios/scalp/">Ver los protocolos de cuero cabelludo</a></p>
       </article>
     </div>
   </div>
@@ -463,11 +505,11 @@
         <p>Laboratorio de salud capilar.<br>Bogotá — Colina Campestre.</p>
       </div>
       <nav class="pie-nav" aria-label="Pie">
-        <a href="servicios/alisados/">Alisados y alineación</a>
-        <a href="servicios/tratamientos/">Tratamientos y reparación</a>
-        <a href="servicios/head-spa/">Spa capilar</a>
-        <a href="servicios/caida/">Caída y fortalecimiento</a>
-        <a href="servicios/complementarios/">Complementarios</a>
+        <a href="servicios/alisados/">Alineación Molecular y Terapias Disciplinantes</a>
+        <a href="servicios/tratamientos/">The Ritual Menu</a>
+        <a href="servicios/head-spa/">Experiencias y diagnóstico del cuero cabelludo</a>
+        <a href="servicios/caida/">Root Lounge</a>
+        <a href="servicios/complementarios/">Lab Essentials</a>
         <a href="">Inicio</a>
         <a href="el-lab/">El Lab por dentro</a>
         <a href="resultados/">Resultados del Lab</a>
@@ -499,6 +541,6 @@
 
 <script defer src="lib/gsap.min.js"></script>
 <script defer src="lib/ScrollTrigger.min.js"></script>
-<script defer src="main.js?v=48ccfc37f8"></script>
+<script defer src="main.js?v=f75383d2e1"></script>
 </body>
 </html>

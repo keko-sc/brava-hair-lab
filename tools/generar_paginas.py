@@ -11,7 +11,7 @@ y el pie, que se componen una vez y se reparten idénticos.
 Las rutas internas son absolutas desde la raíz (/assets/…, /fiber/…) para
 que el mismo marcado sirva a cualquier profundidad de carpeta.
 """
-import json, os, re, shutil, sys
+import codecs, json, os, re, shutil, sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FUENTE = os.path.join(RAIZ, "_plantilla", "pagina-unica.html")
@@ -48,28 +48,31 @@ MAPS = "https://www.google.com/maps/search/?api=1&amp;query=Calle%20134A%20%23%2
 #  las páginas (campo "marca"), pero ya no son la forma de navegar.
 # ══════════════════════════════════════════════════════════════════════════
 CATEGORIAS = [
-    dict(slug="alisados", familia="fiber-alineacion", marca="BRAVA FIBER",
-         nombre="Alisados y alineación", corto="Alisados y alineación",
+    dict(slug="alisados", seo_cat="Alisados y alineación", familia="fiber-alineacion", marca="BRAVA FIBER",
+         nombre="Alineación Molecular y Terapias Disciplinantes", corto="Alineación Molecular",
+         buscado="Alisados sin formol", eje="fiber",
          titular="Alisados y alineación.<br><em>Sin sacrificar la salud de tu cabello.</em>",
          bajada="Alisados y alineación molecular sin formol, en Colina Campestre, "
-                "Bogotá. Seis sistemas distintos: cuál te toca depende de la condición "
+                "Bogotá. Siete sistemas distintos: cuál te toca depende de la condición "
                 "de tu fibra, no del precio.",
          titulo="Alisados sin formol en Bogotá · BRAVA Hair Lab",
-         desc="Los 6 protocolos de alisado y alineación molecular de BRAVA Hair Lab, "
+         desc="Los 7 protocolos de alisado y alineación molecular de BRAVA Hair Lab, "
               "en Bogotá. Alineación real sin sacrificar la fuerza de la fibra.",
          ratio="4:5"),
-    dict(slug="tratamientos", familia="fiber-ritual", marca="BRAVA FIBER",
-         nombre="Tratamientos y reparación", corto="Tratamientos y reparación",
+    dict(slug="tratamientos", seo_cat="Tratamientos y reparación", familia="fiber-ritual", marca="BRAVA FIBER",
+         nombre="The Ritual Menu", corto="The Ritual Menu",
+         buscado="Tratamientos capilares", eje="fiber",
          titular="Tratamientos y reparación.<br><em>De medios a puntas.</em>",
          bajada="Tratamientos de reparación e hidratación de la fibra, en Colina "
-                "Campestre, Bogotá. Nueve rituales para devolverle a la hebra lo que "
+                "Campestre, Bogotá. Diez rituales para devolverle a la hebra lo que "
                 "el desgaste le quitó.",
          titulo="Tratamientos de reparación capilar en Bogotá · BRAVA Hair Lab",
-         desc="Los 9 rituales de tratamiento y reparación capilar de BRAVA Hair Lab, "
+         desc="Los 10 rituales de tratamiento y reparación capilar de BRAVA Hair Lab, "
               "en Bogotá. Hidratación, nutrición, brillo y fuerza para la fibra.",
          ratio="1:1"),
-    dict(slug="head-spa", familia="scalp-experiencia", marca="BRAVA SCALP",
-         nombre="Spa capilar", corto="Spa capilar",
+    dict(slug="head-spa", seo_cat="Spa capilar", familia="scalp-experiencia", marca="BRAVA SCALP",
+         nombre="Experiencias y diagnóstico del cuero cabelludo", corto="Experiencias",
+         buscado="Spa capilar", eje="scalp",
          titular="Spa capilar.<br><em>Salud desde la raíz.</em>",
          bajada="Spa capilar y salud del cuero cabelludo, en Colina Campestre, Bogotá. "
                 "Dos experiencias de noventa minutos en el Piso 2, cosméticas y no "
@@ -78,22 +81,24 @@ CATEGORIAS = [
          desc="Las 2 experiencias de spa capilar de BRAVA Hair Lab, en Bogotá. "
               "Trabajo cosmético sobre el cuero cabelludo y desconexión profunda.",
          ratio="3:2"),
-    dict(slug="caida", familia="scalp-rootlounge", marca="BRAVA SCALP",
-         nombre="Caída y fortalecimiento", corto="Caída y fortalecimiento",
+    dict(slug="caida", seo_cat="Caída y fortalecimiento", familia="scalp-rootlounge", marca="BRAVA SCALP",
+         nombre="Root Lounge", corto="Root Lounge",
+         buscado="Caída y fortalecimiento", eje="scalp",
          titular="Caída y fortalecimiento.<br><em>Desde la raíz.</em>",
          bajada="La salud, la fuerza y la calidad del cabello nacen en el folículo. "
                 "Bioestimulación cosmética no invasiva para su entorno.",
          titulo="Caída del cabello en Bogotá · BRAVA Hair Lab",
-         desc="Los 3 protocolos de BRAVA Hair Lab para caída y fortalecimiento, en "
+         desc="Los 4 protocolos de BRAVA Hair Lab para caída y fortalecimiento, en "
               "Bogotá. Bioestimulación cosmética del cuero cabelludo, no médica.",
          ratio="4:5"),
-    dict(slug="complementarios", familia="addon", marca="",
-         nombre="Complementarios", corto="Complementarios",
+    dict(slug="complementarios", seo_cat="Complementarios", familia="addon", marca="",
+         nombre="Lab Essentials", corto="Lab Essentials",
+         buscado="Complementos", eje="fiber",
          titular="Complementarios.<br><em>Suman a tu protocolo.</em>",
          bajada="Se suman a cualquier protocolo para ajustar el resultado a tu "
                 "diagnóstico.",
          titulo="Brushing, oiling y corte de puntas en Bogotá · BRAVA Hair Lab",
-         desc="Los 4 complementarios de BRAVA Hair Lab, en Bogotá: oiling, corte "
+         desc="Los 6 complementarios de BRAVA Hair Lab, en Bogotá: oiling, corte "
               "de puntas, brushing y diagnóstico capilar con IA. Se suman a "
               "cualquier protocolo.",
          ratio="1:1"),
@@ -206,24 +211,71 @@ def nav(actual):
     # ¿Estamos dentro de servicios? Entonces la entrada del menú va marcada.
     en_servicios = actual.startswith("/servicios/")
 
-    # El panel enseña solo las cinco categorías con su número. Listar dentro los
-    # 24 protocolos lo convertía en una pantalla entera; para verlos está la
-    # página de cada categoría.
-    panel = "\n".join(
-        '            <a class="nav-cat-t" href="%s">%s<span>%d</span></a>'
-        % (enlace(RUTA_CAT[c["slug"]]), esc(c["nombre"]), n)
-        for c, n, _ in cols)
+    # El panel va a dos columnas, una por eje. Cada línea lleva arriba el
+    # nombre de marca y abajo el término por el que se busca, que no es el
+    # mismo: "The Ritual Menu" no lo escribe nadie en Google.
+    # Las cuatro Experiencias van sueltas y enlazan a su ficha: son cuatro y
+    # tienen nombre propio, así que una página intermedia solo estorba.
+    EJES_MENU = [("fiber", "Fiber", "de medios a puntas"),
+                 ("scalp", "Scalp", "la raíz y el cuero cabelludo")]
+    # En Scalp manda Root Lounge y debajo van las cuatro Experiencias sueltas,
+    # que es el orden del encargo; en CATEGORIAS head-spa va antes.
+    ORDEN_MENU = ["alisados", "tratamientos", "complementarios", "caida", "head-spa"]
+    SUELTA = "head-spa"
 
-    acordeon = "\n".join(
-        '''    <details class="menu-cat"%s>
-      <summary>%s<span>%d</span></summary>
+    def linea(c, n):
+        return ('            <a class="nav-cat-t" href="%s"><span class="nav-cat-n">%s</span>'
+                '<span class="nav-cat-b">%s · %d</span></a>'
+                % (enlace(RUTA_CAT[c["slug"]]), esc(c["nombre"]), esc(c["buscado"]), n))
+
+    def suelta(p):
+        return ('            <a class="nav-cat-t nav-cat-uno" href="%s">'
+                '<span class="nav-cat-n">%s</span></a>'
+                % (enlace(ruta_protocolo(p)), esc(p["nombre"])))
+
+    bloques = []
+    for eje, et, pie_et in EJES_MENU:
+        filas = []
+        for c, n, _ in sorted(cols, key=lambda x: ORDEN_MENU.index(x[0]["slug"])):
+            if c["eje"] != eje:
+                continue
+            if c["slug"] == SUELTA:
+                filas += [suelta(p) for p in PROTOS if p["familia"] == c["familia"]]
+            else:
+                filas.append(linea(c, n))
+        bloques.append('          <section class="nav-eje">\n'
+                       '            <a class="nav-eje-t" href="%s">%s<span>%s</span></a>\n%s\n'
+                       '          </section>'
+                       % (enlace(EJES[eje]["ruta"]), esc(et), esc(pie_et), "\n".join(filas)))
+    panel = "\n".join(bloques)
+
+    # En celular no hay dos columnas: se apilan, primero el bloque Fiber con
+    # su cabecera y debajo el de Scalp.
+    def acordeon_cat(c, n, items):
+        return ('''    <details class="menu-cat"%s>
+      <summary>%s<span>%s · %d</span></summary>
       <a class="menu-cat-todo" href="%s">Ver toda la categoría</a>
       <ul>
 %s
       </ul>
     </details>''' % (" open" if actual == RUTA_CAT[c["slug"]] else "",
-                     esc(c["nombre"]), n, enlace(RUTA_CAT[c["slug"]]), items)
-        for c, n, items in cols)
+                     esc(c["nombre"]), esc(c["buscado"]), n,
+                     enlace(RUTA_CAT[c["slug"]]), items))
+
+    trozos = []
+    for eje, et, pie_et in EJES_MENU:
+        trozos.append('    <a class="menu-eje" href="%s">%s<span>%s</span></a>'
+                      % (enlace(EJES[eje]["ruta"]), esc(et), esc(pie_et)))
+        for c, n, items in sorted(cols, key=lambda x: ORDEN_MENU.index(x[0]["slug"])):
+            if c["eje"] != eje:
+                continue
+            if c["slug"] == SUELTA:
+                trozos += ['    <a class="menu-cat-uno" href="%s">%s</a>'
+                           % (enlace(ruta_protocolo(p)), esc(p["nombre"]))
+                           for p in PROTOS if p["familia"] == c["familia"]]
+            else:
+                trozos.append(acordeon_cat(c, n, items))
+    acordeon = "\n".join(trozos)
 
     # "Inicio" se imprime aparte porque va DELANTE del desplegable de Servicios,
     # que está escrito a mano en la plantilla del menú.
@@ -252,9 +304,11 @@ def nav(actual):
       <div class="nav-desp" data-desplegable>
         <button class="nav-desp-b%s" type="button" data-desp-boton
                 aria-expanded="false" aria-controls="panel-servicios">Protocolos</button>
-        <div class="nav-desp-panel" id="panel-servicios" data-desp-panel hidden>
-          <div class="nav-desp-in">
+        <div class="nav-desp-panel nav-desp-ancho" id="panel-servicios" data-desp-panel hidden>
+          <div class="nav-desp-in nav-desp-ejes">
 %s
+          </div>
+          <div class="nav-desp-pie">
             <a class="nav-desp-todo" href="@@BASE@@servicios/">Ver todos los protocolos</a>
           </div>
         </div>
@@ -417,7 +471,7 @@ def banda_reserva(texto):
 PORTADA = {
     "alisados": dict(sobre="Lo que más nos piden", cod="FOTO-21",
                      texto="Alineamos tu cabello desde su estructura interna, no desde "
-                           "la superficie. Seis sistemas, y la diferencia entre ellos "
+                           "la superficie. Siete sistemas, y la diferencia entre ellos "
                            "no es el precio: es tu cabello.",
                      foto="Alisados: plano ancho del Piso 1 en uso, trabajo sobre la hebra."),
     "tratamientos": dict(sobre="De medios a puntas", cod="FOTO-22",
@@ -478,8 +532,7 @@ def banda_familias(protos):
   <div class="wrap">
     <header class="seccion-cab">
       <p class="eyebrow reveal">Protocolos</p>
-      <h2 class="titulo titulo-c" data-split="lines">Alisados, tratamientos y head spa.<br><em>Veinticuatro protocolos.</em></h2>
-      <p class="parrafo centro reveal">Agrupados por lo que vienes a resolver. Entra en la categoría que te interese y ahí están sus protocolos, uno a uno.</p>
+      <h2 class="titulo titulo-c" data-split="lines">Alisados, tratamientos y spa capilar.<br><em>Veintinueve protocolos.</em></h2>
     </header>
 
     <div class="fam-bloques" data-familias>
@@ -579,13 +632,44 @@ def pagina_categoria(c, protos, contexto):
 
 
 # Los dos abordajes de marca, que en la portada llevan aquí por anclaje.
-# Complementarios queda fuera a propósito: no es ni fibra ni cuero cabelludo, y
-# por eso va aparte y sin anclaje.
+# Lab Essentials entra en FIBER: son complementos de la hebra, no del cuero
+# cabelludo, y con ellos el eje queda en 22 protocolos.
+# Texto propio de cada eje para su página. No es un recorte del de /servicios/
+# ni de los bloques de contexto del catálogo: si las tres dicen lo mismo,
+# compiten entre ellas en el buscador.
+EJES = {
+ "fiber": dict(
+   ruta="/servicios/fiber/", et="BRAVA FIBER",
+   titular="Tratamientos para la fibra capilar.<br><em>De medios a puntas.</em>",
+   entrada="Lo que ya salió de la raíz no vuelve a crecer: solo conserva lo que se le "
+           "devuelve desde fuera. Los procesos químicos, el calor, la fricción y el "
+           "entorno la van gastando, y una hebra gastada se afina y se parte. Aquí se "
+           "trabaja su estructura, su nutrición y su resistencia.",
+   pie="Veintidós protocolos: alineación molecular, rituales de reparación y los "
+       "complementos que los sostienen entre una cita y la siguiente.",
+   titulo="Tratamientos para la fibra capilar en Bogotá · BRAVA Hair Lab",
+   desc="Los 22 protocolos de BRAVA Hair Lab para la fibra capilar, en Bogotá: "
+        "alineación molecular sin formol, rituales de reparación y complementos."),
+ "scalp": dict(
+   ruta="/servicios/scalp/", et="BRAVA SCALP",
+   titular="Tratamientos del cuero cabelludo.<br><em>La raíz y su entorno.</em>",
+   entrada="El cabello nace en el folículo, y de lo que pase ahí depende con qué fuerza "
+           "sale. Trabajamos el cuero cabelludo con bioestimulación no invasiva: "
+           "limpieza profunda, equilibrio y descanso. Sin agujas y sin tiempo de "
+           "recuperación.",
+   pie="Siete protocolos, entre las experiencias largas de El Santuario y las "
+       "tecnologías del Root Lounge. Enfoque exclusivamente estético y preventivo: "
+       "no diagnosticamos ni tratamos patologías médicas.",
+   titulo="Tratamientos del cuero cabelludo en Bogotá · BRAVA Hair Lab",
+   desc="Los 7 protocolos de BRAVA Hair Lab para el cuero cabelludo, en Bogotá: spa "
+        "capilar, detox, bioestimulación y diagnóstico. Cosmético y preventivo."),
+}
+
 ABORDAJES = [
     dict(ancla="fiber", marca="BRAVA FIBER", titulo="La fibra capilar",
          bajada="De medios a puntas: preservar, reparar y elevar la calidad "
                 "cosmética de la hebra.",
-         slugs=["alisados", "tratamientos"]),
+         slugs=["alisados", "tratamientos", "complementarios"]),
     dict(ancla="scalp", marca="BRAVA SCALP", titulo="El cuero cabelludo",
          bajada="La raíz y el entorno donde nace el cabello. Cuidado cosmético "
                 "avanzado, nunca médico.",
@@ -593,19 +677,12 @@ ABORDAJES = [
 ]
 
 
-def pagina_servicios(protos):
-    """El índice de las cinco categorías, agrupadas por los dos abordajes de
-    marca. Es adonde llevan "Ver todos los protocolos" del menú y del pie, y los
-    dos botones de "Dos abordajes" de la portada, cada uno a su anclaje."""
-    por_slug = {c["slug"]: c for c in CATEGORIAS}
-    n = 0
-
-    def fila(c):
-        nonlocal n
-        n += 1
-        ps = [p for p in protos if p["familia"] == c["familia"]]
-        nombres = " · ".join(esc(p["nombre"]) for p in ps)
-        return ('''        <a class="serv-fila" href="%s">
+def fila_categoria(c, protos, n):
+    """La tarjeta de una categoría. La misma en /servicios/ y en las dos
+    páginas de eje: si se tocan, se tocan en los tres sitios a la vez."""
+    ps = [p for p in protos if p["familia"] == c["familia"]]
+    nombres = " · ".join(esc(p["nombre"]) for p in ps)
+    return ('''        <a class="serv-fila" href="%s">
           <span class="serv-n">%02d</span>
           <span class="serv-cuerpo">
             <span class="serv-t">%s<em>%d</em></span>
@@ -614,57 +691,99 @@ def pagina_servicios(protos):
           <span class="serv-mas">Ver la categoría</span>
         </a>''' % (enlace(RUTA_CAT[c["slug"]]), n, esc(c["nombre"]), len(ps), nombres))
 
-    grupos = []
-    for a in ABORDAJES:
-        cats = [por_slug[sl] for sl in a["slugs"]]
-        total = sum(len([p for p in protos if p["familia"] == c["familia"]]) for c in cats)
-        grupos.append(
-            '''    <section class="serv-grupo" id="%s" aria-labelledby="t-%s">
+
+def pagina_eje(ancla, protos):
+    """Una página por eje, con sus categorías y nada más. Existe para que quien
+    busca "tratamientos del cuero cabelludo" caiga en algo que habla solo de
+    eso, y no en el índice completo."""
+    e = EJES[ancla]
+    ab = [a for a in ABORDAJES if a["ancla"] == ancla][0]
+    por_slug = {c["slug"]: c for c in CATEGORIAS}
+    cats = [por_slug[sl] for sl in ab["slugs"]]
+    total = sum(len([p for p in protos if p["familia"] == c["familia"]]) for c in cats)
+    filas = "\n".join(fila_categoria(c, protos, i + 1) for i, c in enumerate(cats))
+    cuerpo = '''<!-- ══════════════════════════ EJE ══════════════════════════ -->
+<section class="seccion servicios" id="eje">
+  <div class="wrap">
+    <nav class="migas" aria-label="Dónde estás">
+      <a href="@@BASE@@">Inicio</a><span aria-hidden="true">·</span>
+      <a href="@@BASE@@servicios/">Protocolos</a><span aria-hidden="true">·</span>
+      <span aria-current="page">%s</span>
+    </nav>
+
+    <header class="seccion-cab">
+      <p class="eyebrow reveal">%s</p>
+      <h1 class="titulo titulo-c" data-split="lines">%s</h1>
+      <p class="parrafo centro reveal">%s</p>
+    </header>
+
+    <section class="serv-grupo">
       <header class="serv-grupo-cab">
-        <p class="serv-grupo-et">%s</p>
-        <h2 class="serv-grupo-t" id="t-%s">%s<span>%d protocolos</span></h2>
+        <h2 class="serv-grupo-t">%s<span>%d protocolos</span></h2>
         <p class="parrafo">%s</p>
       </header>
       <div class="serv-lista">
 %s
       </div>
-    </section>''' % (a["ancla"], a["ancla"], esc(a["marca"]), a["ancla"],
-                     esc(a["titulo"]), total, esc(a["bajada"]),
-                     "\n".join(fila(c) for c in cats)))
+    </section>
 
-    # El quinto grupo: los complementarios, aparte y sin anclaje.
-    suelto = por_slug["complementarios"]
-    ns = len([p for p in protos if p["familia"] == suelto["familia"]])
-    grupos.append(
-        '''    <section class="serv-grupo serv-grupo-aparte" aria-labelledby="t-aparte">
-      <header class="serv-grupo-cab">
-        <p class="serv-grupo-et">Y además</p>
-        <h2 class="serv-grupo-t" id="t-aparte">Complementarios<span>%d complementarios</span></h2>
-        <p class="parrafo">No son ni fibra ni cuero cabelludo: se suman a cualquier protocolo para personalizar tu resultado.</p>
-      </header>
-      <div class="serv-lista">
+    <p class="eje-otro reveal"><a href="%s">%s</a></p>
+  </div>
+</section>
+
 %s
-      </div>
-    </section>''' % (ns, fila(suelto)))
+''' % (esc(e["et"]), esc(e["et"]), e["titular"], esc(e["entrada"]),
+       esc(ab["titulo"]), total, esc(e["pie"]), filas,
+       enlace(EJES["scalp" if ancla == "fiber" else "fiber"]["ruta"]),
+       "Ver el cuero cabelludo →" if ancla == "fiber" else "Ver la fibra capilar →",
+       banda_reserva("Cuál es el tuyo se decide en el diagnóstico."))
+    return pagina(e["titulo"], e["desc"], cuerpo, e["ruta"])
+
+
+def pagina_servicios(protos):
+    """La bifurcación: dos puertas, Fiber y Scalp, y nada más. El listado de
+    categorías vive dentro de cada eje; repetirlo aquí convertía la página en
+    un índice largo donde no había que decidir nada."""
+    por_slug = {c["slug"]: c for c in CATEGORIAS}
 
     cuerpo = '''<!-- ══════════════════════════ SERVICIOS ══════════════════════════ -->
 <section class="seccion servicios" id="servicios">
   <div class="wrap">
     <header class="seccion-cab">
       <p class="eyebrow reveal">Protocolos</p>
-      <h1 class="titulo titulo-c" data-split="lines">Veinticuatro protocolos.<br><em>Cinco categorías.</em></h1>
-      <p class="parrafo centro reveal">Agrupados por lo que vienes a resolver. Entra en la categoría que te interese y ahí están sus protocolos, uno a uno.</p>
+      <h1 class="titulo titulo-c" data-split="lines">Veintinueve protocolos.<br><em>Cinco categorías.</em></h1>
     </header>
 
-%s
+    <!-- La bifurcación: dos puertas de entrada para quien no sabe por dónde
+         empezar. No tapan la lista; quien ya sabe lo que busca sigue bajando. -->
+    <p class="bifurca-p reveal">¿Tu problema es el cabello que ya tienes, o la raíz de donde sale?</p>
+    <div class="bifurca reveal">
+      <a class="bifurca-c" href="@@BASE@@servicios/fiber/">
+        <span class="bifurca-et">Fiber</span>
+        <span class="bifurca-t">De medios a puntas</span>
+        <span class="bifurca-x">El cabello que ya tienes: alisarlo, repararlo, devolverle brillo y movimiento.</span>
+        <span class="bifurca-si">Si te preocupa el frizz, el daño o la sequedad, o quieres liso.</span>
+        <span class="bifurca-n">%d protocolos</span>
+      </a>
+      <a class="bifurca-c" href="@@BASE@@servicios/scalp/">
+        <span class="bifurca-et">Scalp</span>
+        <span class="bifurca-t">La raíz y el cuero cabelludo</span>
+        <span class="bifurca-x">Donde nace el cabello: limpieza profunda, equilibrio y descanso.</span>
+        <span class="bifurca-si">Si lo sientes saturado, graso, o notas más caída de la normal.</span>
+        <span class="bifurca-n">%d protocolos</span>
+      </a>
+    </div>
   </div>
 </section>
 
 %s
-''' % ("\n\n".join(grupos),
+''' % (sum(len([p for p in protos if p["familia"] == por_slug[sl]["familia"]])
+            for sl in ABORDAJES[0]["slugs"]),
+       sum(len([p for p in protos if p["familia"] == por_slug[sl]["familia"]])
+            for sl in ABORDAJES[1]["slugs"]),
        banda_reserva("Cuál es el tuyo se decide en el diagnóstico."))
-    return pagina("Tratamientos capilares en Bogotá: los 24 protocolos · BRAVA Hair Lab",
-                  "Los 24 protocolos de BRAVA Hair Lab en Bogotá, agrupados por fibra "
+    return pagina("Tratamientos capilares en Bogotá: los 29 protocolos · BRAVA Hair Lab",
+                  "Los 29 protocolos de BRAVA Hair Lab en Bogotá, agrupados por fibra "
                   "capilar y cuero cabelludo, más los complementarios.",
                   cuerpo, "/servicios/")
 
@@ -1014,6 +1133,13 @@ def pagina_protocolo(p):
     if precio:
         filas += '<div><dt>Precio</dt><dd>%s</dd></div>' % esc(precio)
 
+    # Los sellos del brief ("vegano", "apto en embarazo"...) van como pastillas
+    # y no como una fila más de la lista: son lo que una clienta busca primero.
+    sellos = ""
+    if p.get("sellos"):
+        sellos = ('<ul class="detalle-sellos">%s</ul>'
+                  % "".join("<li>%s</li>" % esc(x) for x in p["sellos"]))
+
     incluye = ""
     if p.get("incluye"):
         incluye = ('<p class="detalle-sub">Incluye</p><ul class="detalle-lista">%s</ul>'
@@ -1063,6 +1189,7 @@ def pagina_protocolo(p):
         %s
         %s
         %s
+        %s
         <div class="hero-ctas reveal">
           <a class="btn btn-acento" href="https://bravahairlab.site.agendapro.com/co" data-agenda>Agendar en línea</a>
           <a class="btn btn-wa" href="https://wa.me/573205830720" data-wa-simple>Escribir por WhatsApp</a>
@@ -1075,12 +1202,12 @@ def pagina_protocolo(p):
 ''' % (enlace(RUTA_CAT[c["slug"]]), esc(c["nombre"]), esc(p["nombre"]),
        figura, esc(c["nombre"]), esc(p["nombre"]),
        esc(p.get("subtitulo") or ""), marca, esc(p.get("descripcion") or ""),
-       filas, incluye, porque, aviso,
+       filas, sellos, incluye, porque, aviso,
        enlace(RUTA_CAT[c["slug"]]), esc(c["nombre"]))
 
     # Por debajo de 60 caracteres: si el nombre y la categoría no caben, se
     # deja solo el nombre del protocolo, que es lo que se busca.
-    titulo = "%s · %s · BRAVA Hair Lab" % (p["nombre"], c["nombre"])
+    titulo = "%s · %s · BRAVA Hair Lab" % (p["nombre"], c["seo_cat"])
     if len(titulo) > 60:
         titulo = "%s · BRAVA Hair Lab" % p["nombre"]
     desc = (p.get("subtitulo") or "") + ". " + primera_frase(p.get("descripcion") or "")
@@ -1093,6 +1220,48 @@ def primera_frase(t):
 
 
 # ──────────────────── textos propios de cada página ────────────────────
+def abrir(ruta):
+    with codecs.open(ruta, encoding="utf-8") as f:
+        return f.read()
+
+
+def eje_n(protos, abordaje):
+    """Cuántos protocolos hay en un eje. Sale de ABORDAJES, que es quien decide
+    qué categoría va en Fiber y cuál en Scalp: contar las familias a mano se
+    quedó viejo en cuanto Lab Essentials pasó a Fiber."""
+    fams = {c["familia"] for c in CATEGORIAS if c["slug"] in abordaje["slugs"]}
+    return len([p for p in protos if p["familia"] in fams])
+
+
+def revisa_cifras(protos):
+    """Hay números escritos a mano en los titulares y en las descripciones.
+    Si entra un protocolo nuevo y nadie los toca, la web miente. Esto avisa:
+    no arregla nada, pero no deja que pase callando."""
+    n = len(protos)
+    por_fam = {}
+    for p in protos:
+        por_fam[p["familia"]] = por_fam.get(p["familia"], 0) + 1
+    esperado = {
+        "total": n,
+        "fiber": eje_n(protos, ABORDAJES[0]),
+        "scalp": eje_n(protos, ABORDAJES[1]),
+        "alineacion": por_fam.get("fiber-alineacion", 0),
+        "ritual": por_fam.get("fiber-ritual", 0),
+        "addon": por_fam.get("addon", 0),
+    }
+    fuentes = (abrir(os.path.join(RAIZ, "_plantilla", "pagina-unica.html"))
+               + abrir(__file__))
+    fallos = []
+    for texto, cuantos in (("%d protocolos" % esperado["total"], 1),
+                           ("%d protocolos</p>" % esperado["fiber"], 1),
+                           ("%d protocolos</p>" % esperado["scalp"], 1)):
+        if texto not in fuentes:
+            fallos.append(texto)
+    if fallos:
+        sys.stderr.write("AVISO: estas cifras no cuadran con el catálogo: %s\n" % ", ".join(fallos))
+    return esperado
+
+
 def main():
     if not os.path.exists(FUENTE):
         sys.exit("Falta la plantilla: %s" % FUENTE)
@@ -1114,17 +1283,23 @@ def main():
         ctx[m.group(1)] = m.group(2)
 
     # ── portada ──
+    revisa_cifras(protos)
+
     escribe("/", pagina(
         "Alisados sin formol y spa capilar en Bogotá · BRAVA Hair Lab",
-        "Laboratorio de salud capilar en Colina Campestre, Bogotá. 24 protocolos en cinco categorías, diseñados a partir del estado real de tu fibra y tu cuero cabelludo.",
+        "Laboratorio de salud capilar en Colina Campestre, Bogotá. 29 protocolos en cinco categorías, diseñados a partir del estado real de tu fibra y tu cuero cabelludo.",
         # El orden manda: tras la banda de sellos, las cinco categorías. "Dos
         # abordajes" va detrás del antes y después, como explicación de fondo.
-        "\n\n".join([T["inicio"], T["apto"], banda_familias(protos), T["marquesina"],
+        "\n\n".join([T["inicio"], T["apto"], T["quienes"], banda_familias(protos), T["marquesina"],
                      T["resultados"], T["abordajes"], T["faq"]]),
         "/", precarga="@@BASE@@assets/img/banner-1.webp"))
 
     # ── el índice de servicios ──
     escribe("/servicios/", pagina_servicios(protos))
+
+    # ── las dos páginas de eje ──
+    for ancla in ("fiber", "scalp"):
+        escribe(EJES[ancla]["ruta"], pagina_eje(ancla, protos))
 
     # ── las cinco categorías ──
     for c in CATEGORIAS:

@@ -3,7 +3,7 @@
    Mecanismos reutilizados del proyecto Escobar: revelados, titulares
    partidos en líneas, cifras que cuentan, nav que se compacta, capa a
    pantalla completa y WhatsApp flotante.
-   Los 24 protocolos se leen de /assets/docs/02-CATALOGO.json: ese
+   Los protocolos se leen de /assets/docs/02-CATALOGO.json: ese
    archivo es el origen de los datos, aquí no hay ninguno escrito.
    ══════════════════════════════════════════════════════════════════ */
 (function () {
@@ -120,11 +120,24 @@
     if (!boton || !panel) return;
     var cerrar_t = null;
 
+    /* El panel va centrado bajo el botón. Si al centrarlo se saldría por un
+       borde, se corre lo justo para dejar aire a los dos lados. El ajuste va
+       en --desp-x, que el CSS suma al translateX del centrado. */
+    var AIRE = 16;
+    function recolocar() {
+      panel.style.setProperty("--desp-x", "0px");
+      var r = panel.getBoundingClientRect(), x = 0;
+      if (r.left < AIRE) x = AIRE - r.left;
+      else if (r.right > window.innerWidth - AIRE) x = (window.innerWidth - AIRE) - r.right;
+      if (x) panel.style.setProperty("--desp-x", Math.round(x) + "px");
+    }
+
     function abrir(si) {
       clearTimeout(cerrar_t);
       boton.setAttribute("aria-expanded", String(si));
       if (si) {
         panel.hidden = false;
+        recolocar();
         requestAnimationFrame(function () { panel.classList.add("is-abierto"); });
       } else {
         panel.classList.remove("is-abierto");
@@ -138,6 +151,12 @@
     function abierto() { return boton.getAttribute("aria-expanded") === "true"; }
 
     boton.addEventListener("click", function () { abrir(!abierto()); });
+
+    var espera = null;
+    window.addEventListener("resize", function () {
+      if (!abierto()) return;
+      clearTimeout(espera); espera = setTimeout(recolocar, 120);
+    });
 
     // El cursor solo manda donde de verdad hay cursor: en una pantalla táctil
     // el hover se dispara con el primer toque y el panel se abriría solo.
@@ -421,7 +440,7 @@
     var capa = q("#capa-catalogo"); if (!capa || !CAT) return;
     capa.innerHTML =
       '<header class="capa-cab">' +
-        '<p class="capa-marca">El catálogo · 24 protocolos</p>' +
+        '<p class="capa-marca">El catálogo · 29 protocolos</p>' +
         '<button class="capa-x" type="button" data-capa-cerrar aria-label="Cerrar el catálogo">' +
           '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>' +
         '</button></header>' +
