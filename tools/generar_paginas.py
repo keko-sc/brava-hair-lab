@@ -51,10 +51,10 @@ CATEGORIAS = [
     dict(slug="alisados", seo_cat="Alisados y alineación", familia="fiber-alineacion", marca="BRAVA FIBER",
          nombre="Alineación Molecular y Terapias Disciplinantes", corto="Alineación Molecular",
          buscado="Alisados sin formol", eje="fiber",
-         titular="Alisados y alineación.<br><em>Sin sacrificar la salud de tu cabello.</em>",
-         bajada="Alisados y alineación molecular sin formol, en Colina Campestre, "
-                "Bogotá. Siete sistemas distintos: cuál te toca depende de la condición "
-                "de tu fibra, no del precio.",
+         titular="Alisados y Terapias.<br><em>Sin sacrificar la salud de tu cabello.</em>",
+         bajada="Alineación Molecular y Terapias Disciplinantes sin formol, en "
+                "Colina Campestre, Bogotá. Siete sistemas distintos: cuál te toca "
+                "depende de la condición de tu fibra.",
          titulo="Alisados sin formol en Bogotá · BRAVA Hair Lab",
          desc="Los 7 protocolos de alisado y alineación molecular de BRAVA Hair Lab, "
               "en Bogotá. Alineación real sin sacrificar la fuerza de la fibra.",
@@ -188,6 +188,9 @@ ENLACES = [
 # El catálogo, para que el menú pueda listar los protocolos sin que haya que
 # ir pasándolo por cada función. Lo rellena main().
 PROTOS = []
+# Los avisos del catálogo, igual: los usa la ficha de protocolo para la nota
+# del asterisco de la duración.
+AVISOS = {}
 
 
 def columnas_servicios(protos):
@@ -565,6 +568,32 @@ def fila_protocolo(p):
             % (enlace(ruta_protocolo(p)), esc(p["nombre"]), esc(p.get("subtitulo") or "")))
 
 
+# Una división dentro de The Ritual Menu, no una sección aparte: a partir de
+# aquí los cuatro rituales son de otra naturaleza. Es una categoría de la
+# clienta, no un protocolo: no entra al catálogo ni tiene página propia.
+DIVISOR = {
+ ("fiber-ritual", "shield"): dict(
+   titulo="Repolarización capilar",
+   cuales="Shield · Re:Force · Core · Genesis",
+   texto="No es un producto: es la categoría que agrupa los protocolos intensivos "
+         "que recuperan la hebra dañada con un cóctel de aminoácidos, proteínas y "
+         "lípidos, aplicados con aparatología que favorece su penetración. El cabello "
+         "dañado por decoloraciones, químicos o exceso de plancha pierde sus cargas "
+         "eléctricas y se llena de iones positivos: de ahí la porosidad, la estática y "
+         "el frizz. Los activos reparadores llevan iones negativos; al unirse y "
+         "activarse con aparatología se equilibra la carga magnética de la fibra. Eso "
+         "es, literalmente, repolarizar."),
+}
+
+
+def fila_divisor(x):
+    return ('        <li class="prot-divisor">'
+            '<p class="prot-divisor-t">%s</p>'
+            '<p class="prot-divisor-n">%s</p>'
+            '<p class="prot-divisor-x">%s</p></li>'
+            % (esc(x["titulo"]), esc(x["cuales"]), esc(x["texto"])))
+
+
 def lista_protocolos(c, protos):
     """La lista de una categoría, partida por una llamada a agendar.
 
@@ -572,7 +601,13 @@ def lista_protocolos(c, protos):
     abajo queda muy lejos. Usa los colores de esta zona de la página —fondo
     claro, botón camel— y no la tarjeta café oscuro del cierre."""
     ps = [p for p in protos if p["familia"] == c["familia"]]
-    return "\n".join(fila_protocolo(p) for p in ps)
+    out = []
+    for p in ps:
+        x = DIVISOR.get((c["familia"], p["id"]))
+        if x:
+            out.append(fila_divisor(x))
+        out.append(fila_protocolo(p))
+    return "\n".join(out)
 
 
 def llamada_agendar():
@@ -828,7 +863,6 @@ def pagina_resultados():
         </div>
         <figcaption class="res-pie">
           <span class="res-protocolo">%s</span>
-          <span class="res-que"><span class="pendiente pendiente-mini">PENDIENTE: qué se hizo</span></span>
         </figcaption>
       </figure>''' % (" es-video" if r["video"] else "", r["cod"], arch, vid,
                       esc(r["protocolo"]), r["cod"], marca, esc(r["protocolo"])))
@@ -1140,17 +1174,46 @@ def pagina_protocolo(p):
     if precio:
         filas += '<div><dt>Precio</dt><dd>%s</dd></div>' % esc(precio)
 
+    # La frase de marca con la que la clienta cierra cada ritual. Va al final
+    # de la ficha, antes de los botones: es un cierre, no un dato.
+    firma = ('<p class="detalle-firma">%s</p>' % esc(p["firma"])) if p.get("firma") else ""
+
+    # El asterisco de la duración necesita su nota, pero solo donde aparece:
+    # en la lista de la categoría no se ven los datos, así que allí no va.
+    hay_asterisco = ("*" in (p.get("descripcion") or "")
+                     or any("*" in v for v in d.values()))
+    nota = ('<p class="detalle-nota">* %s</p>' % esc(AVISOS.get("duracion", ""))
+            ) if hay_asterisco and AVISOS.get("duracion") else ""
+
     # Los sellos del brief ("vegano", "apto en embarazo"...) van como pastillas
     # y no como una fila más de la lista: son lo que una clienta busca primero.
+    # Un sello que niega se dibuja distinto de uno que autoriza: la regla es
+    # del sistema, no de BioLED. Cualquier sello que empiece por "No " se
+    # marca como negación, así que las exclusiones que vengan después salen
+    # bien sin tocar el código.
     sellos = ""
     if p.get("sellos"):
         sellos = ('<ul class="detalle-sellos">%s</ul>'
-                  % "".join("<li>%s</li>" % esc(x) for x in p["sellos"]))
+                  % "".join('<li%s>%s</li>'
+                            % (' class="sello-no"' if x.strip().lower().startswith("no ") else "",
+                               esc(x))
+                            for x in p["sellos"]))
 
     incluye = ""
     if p.get("incluye"):
         incluye = ('<p class="detalle-sub">Incluye</p><ul class="detalle-lista">%s</ul>'
                    % "".join("<li>%s</li>" % esc(i) for i in p["incluye"]))
+    # Bloques con título propio. Lab Shots los necesita: es el único servicio
+    # que se vende por suscripción y sus cuatro partes —qué es, por qué
+    # sumarlo, el cronograma y la membresía— tienen que leerse por separado.
+    if p.get("bloques"):
+        incluye += "".join(
+            '<div class="detalle-bloque"><p class="detalle-sub">%s</p>%s'
+            '<ul class="detalle-lista">%s</ul></div>'
+            % (esc(b["titulo"]),
+               ('<p class="detalle-bloque-intro">%s</p>' % esc(b["intro"])) if b.get("intro") else "",
+               "".join("<li>%s</li>" % esc(i) for i in b["items"]))
+            for b in p["bloques"])
     # Los avisos que empiezan por "PENDIENTE:" son notas internas para la
     # clienta del proyecto, no texto para una visitante: no se publican. Se
     # quedan en el catálogo, que es donde tienen que seguir haciendo de
@@ -1161,6 +1224,8 @@ def pagina_protocolo(p):
     # etiquetada para que no parezca una línea suelta.
     porque = ('<p class="detalle-porque"><strong>Por qué este protocolo:</strong> %s</p>'
               % esc(p["porQue"])) if p.get("porQue") else ""
+
+    lista_datos = ('<dl class="detalle-datos">%s</dl>' % filas) if filas else ""
 
     cod = p.get("foto") or ""
     figura = ('<figure class="arco detalle-fig" data-foto="%s" data-ratio="%s"'
@@ -1192,7 +1257,9 @@ def pagina_protocolo(p):
         <p class="detalle-sub">%s</p>
         %s
         <p>%s</p>
-        <dl class="detalle-datos">%s</dl>
+        %s
+        %s
+        %s
         %s
         %s
         %s
@@ -1209,7 +1276,7 @@ def pagina_protocolo(p):
 ''' % (enlace(RUTA_CAT[c["slug"]]), esc(c["nombre"]), esc(p["nombre"]),
        figura, esc(c["nombre"]), esc(p["nombre"]),
        esc(p.get("subtitulo") or ""), marca, esc(p.get("descripcion") or ""),
-       filas, sellos, incluye, porque, aviso,
+       lista_datos, nota, sellos, incluye, porque, aviso, firma,
        enlace(RUTA_CAT[c["slug"]]), esc(c["nombre"]))
 
     # Por debajo de 60 caracteres: si el nombre y la categoría no caben, se
@@ -1281,6 +1348,7 @@ def main():
     cat = json.load(open(CATALOGO, encoding="utf-8"))
     protos = cat["protocolos"]
     PROTOS[:] = protos
+    AVISOS.update(cat.get("avisos") or {})
 
     # Los bloques de contexto editorial. En la fuente van marcados con la
     # familia del catálogo, y cada familia es hoy una categoría, así que el
@@ -1339,7 +1407,10 @@ def main():
     # ── contacto ──
     escribe("/contacto/", pagina(
         "Contacto y reservas en Bogotá · BRAVA Hair Lab",
-        "Agenda tu diagnóstico en BRAVA Hair Lab: reserva en línea o escríbenos por WhatsApp. Bogotá, Colina Campestre.",
+        # VUELVE EL VIERNES, con el botón de agenda: "Agenda tu diagnóstico en
+        # BRAVA Hair Lab: reserva en línea o escríbenos por WhatsApp. Bogotá,
+        # Colina Campestre."
+        "Agenda tu diagnóstico en BRAVA Hair Lab: escríbenos por WhatsApp. Bogotá, Colina Campestre.",
         T["contacto"], "/contacto/"))
 
     print("%d direcciones generadas\n" % len(CREADAS))

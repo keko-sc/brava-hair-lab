@@ -957,8 +957,35 @@ h2.ban-titulo{
 .pilar{ border-top:1px solid var(--linea-2); padding-top:1.4rem; }
 .pilar-t{ font-size:clamp(1.3rem,1.1rem + .62vw,1.62rem); letter-spacing:-.02em; margin:.55rem 0 .7rem; }
 .pilar .parrafo{ font-size:clamp(1.04rem,.98rem + .3vw,1.22rem); line-height:1.62; }
+/* La frase de marca, entre el titular y el párrafo. Va en la serif y en
+   camel para que pese sin gritar: es lo que la clienta quiere que quede. */
+.quienes-lema{
+  text-align:center; font-family:var(--f-disp); font-style:italic;
+  font-size:clamp(1.35rem,1.1rem + 1.1vw,2rem); line-height:1.2;
+  letter-spacing:-.01em; color:var(--camel-texto);
+  margin:clamp(.2rem,1vw,.6rem) 0 clamp(1.1rem,2.2vw,1.6rem);
+}
 .quienes-pie{ margin-top:clamp(2.2rem,4.2vw,3.2rem); text-align:center;
   font-size:.88rem; color:var(--tinta-suave); }
+/* El cierre de la sección. Separado del aviso legal, que es otra cosa. */
+/* Sin text-transform: la clienta lo escribe #PonteBrava, con las mayúsculas
+   donde van, y en mayúsculas de caja se pierde esa lectura. */
+.quienes-firma{ margin-top:clamp(1.1rem,2.2vw,1.6rem); text-align:center;
+  font-family:var(--f-disp); font-size:clamp(1rem,.92rem + .35vw,1.18rem);
+  letter-spacing:.04em; color:var(--camel-texto); }
+
+/* ───────────── RESERVA EN LÍNEA · APAGADA TEMPORALMENTE ─────────────
+   La clienta está cambiando de software de agenda y el enlace viejo ya no
+   sirve. Un botón que no lleva a ninguna parte parece roto, así que se
+   esconde en todo el sitio. El de WhatsApp va al lado y hace el trabajo.
+
+   PARA VOLVER A ENCENDERLO, dos cosas y ninguna más:
+     1. la URL nueva en la variable AGENDA de main.js
+     2. borrar esta regla
+
+   Va con display:none a propósito: visibility o opacity lo dejarían en el
+   orden de tabulación y se podría llegar a él con el teclado. */
+[data-agenda]{ display:none !important; }
 
 /* ────────────────────────────── Pie ───────────────────────────────── */
 .pie{ background:var(--cafe); color:var(--crema-suave); padding-block:clamp(3rem,6vw,4.5rem) 2rem; font-size:.9rem; }
@@ -1038,12 +1065,62 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
 /* Los sellos de la ficha: lo que una clienta mira primero (vegano, apto en
    embarazo, desde los 12). Van como pastillas y no como una fila más de la
    lista de datos, que es larga. */
-.detalle-sellos{ display:flex; flex-wrap:wrap; gap:.5rem; list-style:none; margin:1.2rem 0 0; padding:0; }
+/* La nota del asterisco de la duración. Va debajo de la lista de datos,
+   pequeña: es una salvedad, no información de la ficha. */
+/* El cierre de marca de cada ritual: la frase en inglés que escribe la
+   clienta. Va suelta al final, en la serif y en camel, para que se lea como
+   una firma y no como un dato más. */
+/* Bloques con título dentro de la ficha. Cada uno se separa del anterior
+   para que se lean como partes distintas y no como una lista larga. */
+.detalle-bloque + .detalle-bloque{ margin-top:1.6rem; }
+/* Algún bloque abre con una frase antes de la lista: no es una viñeta. */
+.detalle-bloque-intro{ margin-bottom:.6rem; font-size:.94rem; line-height:1.6; color:var(--tinta-suave); }
+.detalle-bloque .detalle-sub{ margin-bottom:.5rem; }
+
+.detalle-firma{ margin-top:1.6rem; font-family:var(--f-disp); font-style:italic;
+  font-size:clamp(1.1rem,1rem + .5vw,1.35rem); line-height:1.3; color:var(--camel-texto); }
+
+/* La división dentro de la lista de rituales. Comparte la lista con los
+   protocolos: ni filete arriba ni fondo propio, para que no parezca otra
+   sección. Lo que la separa es el aire y el antetítulo en camel. */
+.prot-divisor{ padding:clamp(2rem,4vw,3rem) 0 clamp(1rem,2vw,1.4rem); }
+.prot-divisor-t{ font-size:.74rem; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--camel-texto); margin-bottom:.5rem; }
+.prot-divisor-n{ font-family:var(--f-disp); font-size:clamp(1.2rem,1.05rem + .6vw,1.5rem);
+  line-height:1.25; margin-bottom:.7rem; }
+.prot-divisor-x{ max-width:52rem; font-size:.95rem; line-height:1.65; color:var(--tinta-suave); }
+
+.detalle-nota{ margin-top:.9rem; font-size:.82rem; line-height:1.55; color:var(--tinta-suave); }
+/* Aire por los dos lados, no solo por arriba: sin el de abajo las
+   pastillas quedaban pegadas al bloque siguiente y se leían como su
+   encabezado. 1,4rem es la separación que usan entre sí los demás
+   bloques de la ficha. */
+.detalle-sellos{ display:flex; flex-wrap:wrap; gap:.5rem; list-style:none; margin:1.4rem 0; padding:0; }
 .detalle-sellos li{
+  display:inline-flex; align-items:center; gap:.4rem;
   font-size:.74rem; letter-spacing:.06em; line-height:1.3;
   color:var(--camel-texto); background:rgba(180,146,111,.12);
   border:1px solid rgba(180,146,111,.4); border-radius:999px;
   padding:.4rem .8rem;
+}
+/* El que autoriza lleva una marca de visto; el que niega, un aspa, el filete
+   partido y el fondo vacío. Son tres señales a la vez —forma, trazo y
+   relleno— para que la diferencia se vea antes de leer la palabra y no
+   dependa solo del color. */
+.detalle-sellos li::before{
+  content:""; flex:none; width:.62rem; height:.34rem;
+  border-left:1.6px solid currentColor; border-bottom:1.6px solid currentColor;
+  transform:rotate(-45deg) translate(.05rem,-.1rem);
+}
+.detalle-sellos li.sello-no{
+  background:none; border-style:dashed; color:var(--tinta-suave);
+}
+.detalle-sellos li.sello-no::before{
+  width:.6rem; height:.6rem; border:0; transform:none;
+  background:
+    linear-gradient(currentColor,currentColor) center/100% 1.6px no-repeat,
+    linear-gradient(currentColor,currentColor) center/1.6px 100% no-repeat;
+  rotate:45deg;
 }
 .detalle-datos{ display:grid; gap:1rem; padding:1.4rem 0; border-block:1px solid var(--linea-2); margin-bottom:1.4rem; }
 .detalle-datos dt{ font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; color:var(--camel-texto); margin-bottom:.2rem; }

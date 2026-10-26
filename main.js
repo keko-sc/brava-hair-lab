@@ -12,6 +12,9 @@
   /* WhatsApp y reservas. Un solo sitio: si cambian, cambian en toda la web. */
   var WA_NUMERO = "573205830720";          // +57 320 583 0720
   var WA_MENSAJE = "Hola, vengo de la web de BRAVA y quiero agendar mi diagnóstico.";
+  /* PENDIENTE: la clienta está cambiando de software de agenda. Mientras
+     tanto el botón está escondido desde styles.css, con la regla
+     [data-agenda]{display:none}. Aquí va la URL nueva cuando llegue. */
   var AGENDA = "https://bravahairlab.site.agendapro.com/co";
 
   /* La base del sitio, en relativo. El mismo main.js lo cargan páginas que
@@ -428,7 +431,7 @@
       (corto ? '<span class="tarjeta-meta">' + esc(corto) + '</span>' : '') + '</span>' +
       '<span class="tarjeta-sub">' + esc(p.subtitulo || "") + '</span>' +
       '<span class="tarjeta-txt">' + esc(frase1(p.descripcion)) + '</span>' +
-      '<span class="tarjeta-para"><span class="tarjeta-para-et">Indicado si</span> ' + esc(frase1(p.idealPara || "—")) + '</span>' +
+      (p.idealPara ? '<span class="tarjeta-para"><span class="tarjeta-para-et">Indicado si</span> ' + esc(frase1(p.idealPara)) + '</span>' : '') +
       '<span class="tarjeta-mas">Ver el protocolo</span>' +
     '</button>';
   }
@@ -738,7 +741,7 @@
       '<label class="res-cab"><input type="checkbox" data-nombre="' + esc(p.nombre) + '"' + (marcado ? " checked" : "") + ">" +
       '<span><span class="res-nombre">' + esc(p.nombre) + '</span><span class="res-sub">' + esc(p.subtitulo || "") + "</span></span></label>" +
       '<p class="res-que">' + esc(frase1(p.descripcion)) + "</p>" +
-      '<p class="res-porque"><strong>Por qué encaja contigo:</strong> ' + esc(p.porQue || "") + "</p>" +
+      (p.porQue ? '<p class="res-porque"><strong>Por qué encaja contigo:</strong> ' + esc(p.porQue) + "</p>" : "") +
       /* La web es multipágina: cada resultado lleva a su propia ficha, dentro
          de la categoría que le toca. Si el protocolo no tuviera categoría no
          habría página que enseñar, así que en ese caso no se pone enlace en
@@ -779,7 +782,10 @@
       return '<div class="wa-caja"><h3>Llévate tu selección</h3>' +
         '<p class="res-que">Marca los protocolos que te interesan y armamos el mensaje con tu selección.</p>' +
         '<div class="capa-acciones">' +
-          '<a class="btn btn-acento" href="' + AGENDA + '" target="_blank" rel="noopener">Agendar en línea</a>' +
+          /* VUELVE EL VIERNES, con el resto del botón de agenda. Este no
+             lleva data-agenda porque lo arma el JS, así que la regla de
+             styles.css no lo escondía: había que quitarlo aquí.
+          '<a class="btn btn-acento" href="' + AGENDA + '" target="_blank" rel="noopener">Agendar en línea</a>' + */
           '<a class="btn btn-wa" href="#" target="_blank" rel="noopener" data-wa-buscador>Escribir por WhatsApp</a>' +
           '<button class="volver" type="button" data-reiniciar>← Empezar de nuevo</button>' +
         "</div><pre class=\"wa-msg\" data-wa-msg hidden></pre></div>";

@@ -209,11 +209,13 @@ Ningún protocolo se aplica sin evaluar antes el historial y el estado real de l
 En caso de embarazo o lactancia, se sugiere confirmar la aplicación con el médico obstetra.
 
 **Recomendación de bioseguridad:**
-Recomendamos el ritual Shield entre 7 y 10 días antes y entre 7 y 10 días después de
-tu alineación. Antes prepara y refuerza los puentes internos; después suelda los
-enlaces inestables y prolonga la vida del liso.
+Recomendamos seguir la siguiente ruta dentro del Lab: Dos sesiones de Shield
+(1era: 7 a 15 días pre. 2nda: Día 15 post alineación) + Una sesión de Aqua
+(Día 7 post alineación). Así, preparamos y reforzamos los puentes internos del
+calor, y posteriormente soldamos los enlaces inestables y rehidratamos la hebra,
+cuidando tu fibra y prolongando la vida del liso.
 
-Las seis tarjetas salen de `02-CATALOGO.json`. Cada tarjeta lleva `FOTO-F01`…`FOTO-F06`,
+Las siete tarjetas salen de `02-CATALOGO.json`. Cada tarjeta lleva `FOTO-F01`…`FOTO-F07`,
 proporción 4:5: la misma clienta, mismo encuadre, cabellos distintos según el sistema.
 
 ---

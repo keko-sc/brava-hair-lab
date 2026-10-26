@@ -53,6 +53,10 @@ MARCOS = {
     # pantallas de doble densidad. Con 2100 el archivo no bajaba de 150 KB y
     # el procesador tenía que sacrificar calidad hasta 68 para acercarse.
     "banda":   (3, 2, 1000),
+    # La foto de una ficha de protocolo. Se dibuja como mucho a 533 px de
+    # ancho, así que 880 ya va sobrada; subir más solo serviría para
+    # ampliar unos originales que no llegan a 900 px.
+    "ficha":   (4, 5, 1100),
 }
 # La portada se puede probar con otra proporción desde la línea de comandos:
 #   python3 tools/tratar_fotos.py 6:5
@@ -80,6 +84,38 @@ FOTOS = [
     dict(cod="FOTO-20", arch="foto-04.jpg", virar=True, modo="recorte", fx=.62, fy=.50,
          nota="rizos definidos de espaldas; la masa de rizo cae a la derecha, "
               "así que el foco se corre para no cortarla"),
+
+    # ── Las fichas de alineación ──
+    # Fotos de la clienta. Van SIN virar: son fotos de resultado y se publican
+    # con el color que ella mandó, no con el grado cálido de la portada.
+    # El encuadre de cada una está medido, no puesto a ojo:
+    #   · f01 y f02 son más estrechas que 4:5 y se recortan arriba y abajo.
+    #   · f03 y f04 son más anchas y se recortan por los lados. Las dos llevan
+    #     el logo BRAVA incrustado y el recorte no puede partirlo.
+    dict(cod="FOTO-F01", arch="foto-f01.jpg", virar=False, marco="ficha",
+         modo="recorte", fx=.50, fy=.35,
+         nota="SilkFusion. Se recortan 75 px de alto; la coronilla está al 15 %, "
+              "así que sobra sitio: 26 px arriba y 49 abajo, donde solo hay ropa"),
+    # El original mide 753 px de lado corto, por debajo del mínimo de 800:
+    # se amplía un 17 % hasta los 880 del marco. Es el único de los cuatro
+    # que se amplía, y a este tamaño no se nota.
+    dict(cod="FOTO-F02", arch="foto-f02.jpg", virar=False, marco="ficha",
+         modo="recorte", fx=.50, fy=.00, salta_minimo=True,
+         nota="Ultra Resolute. fy=0 a propósito: lleva el logo pegado al borde "
+              "de arriba y la coronilla al 5,7 %, así que los 59 px de recorte "
+              "salen enteros de abajo"),
+    dict(cod="FOTO-F03", arch="foto-f03.jpg", virar=False, marco="ficha",
+         modo="recorte", fx=1.00, fy=.50,
+         nota="Bio-Cellular. El logo acaba en el 95 % del ancho: con fx por "
+              "debajo de .59 se parte. A la izquierda solo hay pared, así que "
+              "los 110 px de recorte salen todos de ahí"),
+    dict(cod="FOTO-F04", arch="foto-f04.jpg", virar=False, marco="ficha",
+         modo="recorte", fx=1.00, fy=.50,
+         nota="Hydro-Botanic. El logo llega al 97,5 % del ancho —más de lo que "
+              "parece a simple vista— así que fx tiene que ser .89 o más o se "
+              "parte la A final. Va a 1.00: los 8 px que se ganarían bajándolo "
+              "no compensan jugársela con el logo. Los 148 px de recorte salen "
+              "de la izquierda, donde está su brazo: aquí no es pared"),
 
     # ── El blog: una foto por entrada ──
     # Llegan a 1536x1024, que ya es 3:2 exacto, el mismo del marco "banda":
