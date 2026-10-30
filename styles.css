@@ -1061,6 +1061,10 @@ body.capa-abierta{ position:fixed; left:0; right:0; width:100%; overflow:hidden;
 .detalle-fig{ aspect-ratio:4/5; position:sticky; top:0; }
 .detalle-t{ font-family:var(--f-disp); font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem); line-height:1.03; letter-spacing:-.03em; margin-bottom:.5rem; }
 .detalle-sub{ font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--camel-texto); margin-bottom:1.5rem; }
+/* Términos donde la caja significa algo ("pH") dentro de un rótulo que va en
+   mayúsculas. El texto se publica como lo escribe la clienta; esto solo evita
+   que la hoja de estilo lo convierta en otra cosa al pintarlo. */
+.caja-propia{ text-transform:none; }
 .detalle-cuerpo > p{ color:var(--tinta-suave); margin-bottom:1.2rem; }
 /* Los sellos de la ficha: lo que una clienta mira primero (vegano, apto en
    embarazo, desde los 12). Van como pastillas y no como una fila más de la

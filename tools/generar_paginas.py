@@ -428,6 +428,20 @@ def esc(s):
             .replace(">", "&gt;").replace('"', "&quot;"))
 
 
+# Los subtítulos se publican en mayúsculas por hoja de estilo, y hay términos
+# donde la caja significa algo: "pH" salía como "PH". Estos van envueltos para
+# que la mayúscula no los alcance. El texto del catálogo no se toca: se escribe
+# como lo manda la clienta y es la página la que respeta su caja.
+CAJA_PROPIA = ("pH",)
+
+
+def caja(html_ya_escapado):
+    for termino in CAJA_PROPIA:
+        html_ya_escapado = html_ya_escapado.replace(
+            termino, '<span class="caja-propia">%s</span>' % termino)
+    return html_ya_escapado
+
+
 def escribe(ruta, html):
     destino = os.path.join(RAIZ, ruta.strip("/"), "index.html") if ruta != "/" \
         else os.path.join(RAIZ, "index.html")
@@ -1275,7 +1289,7 @@ def pagina_protocolo(p):
 </section>
 ''' % (enlace(RUTA_CAT[c["slug"]]), esc(c["nombre"]), esc(p["nombre"]),
        figura, esc(c["nombre"]), esc(p["nombre"]),
-       esc(p.get("subtitulo") or ""), marca, esc(p.get("descripcion") or ""),
+       caja(esc(p.get("subtitulo") or "")), marca, esc(p.get("descripcion") or ""),
        lista_datos, nota, sellos, incluye, porque, aviso, firma,
        enlace(RUTA_CAT[c["slug"]]), esc(c["nombre"]))
 

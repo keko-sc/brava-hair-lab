@@ -380,12 +380,12 @@
       "nombre": "Aqua",
       "familia": "fiber-ritual",
       "foto": "FOTO-R10",
-      "subtitulo": "The Intensive Hydration Ritual · Hidratación Molecular · Control de Frizz",
-      "descripcion": "¿Cabello rígido y deshidratado tras tu alisado o por la exposición al sol y cloro de las vacaciones? Un ritual diseñado para aportar hidratación intensiva y recuperar el equilibrio hídrico de la fibra capilar. A través de un sistema de 3 fases, AQUA actúa como un shot inmediato de humedad celular. Su fórmula con ácido hialurónico, componente clave para la retención de agua en la fibra, ayuda a restaurar su flexibilidad y confort tras la exposición ambiental, química y térmica.",
-      "resultado": "Una fibra completamente rehidratada desde el núcleo, con movimiento natural y máxima ligereza.",
-      "idealPara": "Hebras altamente deshidratadas y opacas, especialmente tras haber sido sometidas a altas temperaturas y tratamientos químicos.",
+      "subtitulo": "The Intensive Hydration Ritual · Hidratación Molecular · Regulación del pH",
+      "descripcion": "¿Cabello altamente deshidratado tras una sesión química o post vacaciones? Hidratación intensiva que ayuda a recuperar el equilibrio hídrico de la fibra. Su fórmula con ácido hialurónico y biotina aporta flexibilidad y confort, regula el pH y mantiene la cutícula sellada.",
+      "resultado": "Cabello completamente rehidratado desde el núcleo, sin frizz, con máxima ligereza y brillo.",
+      "idealPara": "Hebras muy deshidratadas, opacas o expuestas a herramientas de calor y procesos químicos.",
       "datos": {
-        "Frecuencia recomendada": "Según necesidad. Ideal al día 7 post-alineación molecular."
+        "Frecuencia recomendada": "Según necesidad de tu cabello. Ideal al día 7 post-alineación molecular."
       },
       "precio": null,
       "reglas": {
@@ -882,10 +882,10 @@
         {
           "titulo": "Cronograma capilar, los 4 pilares",
           "items": [
-            "Semana 1 · Hidratación molecular. Flexibilidad y docilidad. Aloe vera, colágeno hidrolizado y complejo de ácido hialurónico.",
-            "Semana 2 · Nutrición lipídica. Caída efecto pasarela y cero frizz. Aceite de marula, vitamina E y elíxir de nutrición celular activa.",
-            "Semana 3 · Rescate y regeneración. Fuerza preventiva y elasticidad. Células madre, argán y aminoácidos estructurales.",
-            "Semana 4 · Brillo espejo. Reflejo cristalino y textura satinada. Semillas de lino, vitamina E y proteínas de seda."
+            "Semana 1: Hidratación y Flexibilidad",
+            "Semana 2: Nutrición y Antienvejecimiento",
+            "Semana 3: Reparación y Fuerza",
+            "Semana 4: Brillo y Control del frizz"
           ]
         },
         {

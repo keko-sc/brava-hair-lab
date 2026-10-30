@@ -22,6 +22,7 @@ trae su modo, su zoom y su punto de foco. Reglas:
 Las piezas que ya traen el tono de la marca no se viran.
 """
 import os, sys
+import numpy
 from PIL import Image, ImageDraw, ImageEnhance, ImageOps, ImageFilter
 
 SRC = "assets/photos/source"
@@ -88,34 +89,46 @@ FOTOS = [
     # ── Las fichas de alineación ──
     # Fotos de la clienta. Van SIN virar: son fotos de resultado y se publican
     # con el color que ella mandó, no con el grado cálido de la portada.
-    # El encuadre de cada una está medido, no puesto a ojo:
-    #   · f01 y f02 son más estrechas que 4:5 y se recortan arriba y abajo.
-    #   · f03 y f04 son más anchas y se recortan por los lados. Las dos llevan
-    #     el logo BRAVA incrustado y el recorte no puede partirlo.
+    #
+    # Las cuatro llevan un encuadre CALCULADO, no puesto a ojo. Se midió en
+    # cada original el eje de la modelo, la coronilla y el final de la melena,
+    # y de ahí salen zoom/fx/fy con una sola regla: el eje de la modelo cae en
+    # el centro del marco (440 px de 880) y la coronilla a la misma altura. El
+    # zoom es el MÍNIMO que permite centrarla, porque cada décima de más
+    # recorta campo y amplía píxeles que no sobran.
+    #
+    # Tres llevaban el logo BRAVA quemado en la foto. Se borra ("borra"): la
+    # marca ya está en la cabecera de la página y repetida dentro de la foto
+    # resta, además de obligar a un encuadre torcido para no partirla.
     dict(cod="FOTO-F01", arch="foto-f01.jpg", virar=False, marco="ficha",
-         modo="recorte", fx=.50, fy=.35,
-         nota="SilkFusion. Se recortan 75 px de alto; la coronilla está al 15 %, "
-              "así que sobra sitio: 26 px arriba y 49 abajo, donde solo hay ropa"),
-    # El original mide 753 px de lado corto, por debajo del mínimo de 800:
-    # se amplía un 17 % hasta los 880 del marco. Es el único de los cuatro
-    # que se amplía, y a este tamaño no se nota.
+         modo="recorte", zoom=1.331, fx=1.00, fy=.404,
+         nota="SilkFusion. Sin logo. Es más estrecha que 4:5, así que a zoom 1 "
+              "no hay holgura lateral y la modelo se quedaba corrida a la "
+              "izquierda: su eje está en 410 de 896. Zoom 1.10 es el mínimo "
+              "que da los 88 px de holgura para centrarla, y se van todos por "
+              "la derecha, que es la pared vacía"),
+    # El original mide 753 px de lado corto, por debajo del mínimo de 800.
     dict(cod="FOTO-F02", arch="foto-f02.jpg", virar=False, marco="ficha",
-         modo="recorte", fx=.50, fy=.00, salta_minimo=True,
-         nota="Ultra Resolute. fy=0 a propósito: lleva el logo pegado al borde "
-              "de arriba y la coronilla al 5,7 %, así que los 59 px de recorte "
-              "salen enteros de abajo"),
+         modo="recorte", zoom=1.064, fx=.00, fy=.165, salta_minimo=True,
+         borra=[(.650, .020, 1.000, .140)],
+         nota="Ultra Resolute. Logo borrado arriba a la derecha. También es más "
+              "estrecha que 4:5: zoom 1.07 para centrarla. La coronilla está a "
+              "45 px del borde de arriba, y eso manda: fy bajo o se descabeza"),
     dict(cod="FOTO-F03", arch="foto-f03.jpg", virar=False, marco="ficha",
-         modo="recorte", fx=1.00, fy=.50,
-         nota="Bio-Cellular. El logo acaba en el 95 % del ancho: con fx por "
-              "debajo de .59 se parte. A la izquierda solo hay pared, así que "
-              "los 110 px de recorte salen todos de ahí"),
+         modo="recorte", zoom=1.00, fx=.331, fy=.50,
+         borra=[(.695, .000, .975, .128)],
+         nota="Bio-Cellular. Logo borrado arriba a la derecha. Más ancha que "
+              "4:5: con zoom 1 ya sobran 123 px de holgura lateral, de sobra "
+              "para centrarla, así que no se amplía. Es la más cerrada de las "
+              "cuatro y no hay forma de abrirla: la coronilla está a 18 px del "
+              "borde y el alto da justo, sin un píxel de holgura"),
     dict(cod="FOTO-F04", arch="foto-f04.jpg", virar=False, marco="ficha",
-         modo="recorte", fx=1.00, fy=.50,
-         nota="Hydro-Botanic. El logo llega al 97,5 % del ancho —más de lo que "
-              "parece a simple vista— así que fx tiene que ser .89 o más o se "
-              "parte la A final. Va a 1.00: los 8 px que se ganarían bajándolo "
-              "no compensan jugársela con el logo. Los 148 px de recorte salen "
-              "de la izquierda, donde está su brazo: aquí no es pared"),
+         modo="recorte", zoom=1.00, fx=.483, fy=.50,
+         borra=[(.800, .915, 1.000, 1.000)],
+         nota="Hydro-Botanic. Logo borrado abajo a la derecha. Su eje está en "
+              "345 de 869, bien a la izquierda: a zoom 1 ni con fx=0 se "
+              "centra, hace falta 1.05. El recorte se va por la derecha y los "
+              "dos codos siguen dentro"),
 
     # ── El blog: una foto por entrada ──
     # Llegan a 1536x1024, que ya es 3:2 exacto, el mismo del marco "banda":
@@ -229,6 +242,54 @@ def ajustar(im):
     return Image.merge("RGB", (r, g, b))
 
 
+def _difunde(ch, m, pasos):
+    """Un canal: cada píxel del hueco pasa a ser el promedio de sus vecinos."""
+    for _ in range(pasos):
+        p = numpy.pad(ch, 1, mode="edge")      # borde de la imagen = sin salto
+        prom = .25 * (p[:-2, 1:-1] + p[2:, 1:-1] + p[1:-1, :-2] + p[1:-1, 2:])
+        ch = numpy.where(m, prom, ch)
+    return ch
+
+
+def _rellena(ch, m, pasos=60):
+    """Promediar vecinos tal cual necesitaría miles de pasos para cerrar un
+    hueco ancho: la información del borde avanza un píxel por paso. Así que
+    se baja de escala hasta que el hueco es estrecho, se resuelve ahí, y la
+    solución sube como punto de partida del siguiente nivel."""
+    if min(ch.shape) > 24 and m.any():
+        h, w = ch.shape
+        mitad = lambda a, t: numpy.asarray(Image.fromarray(a).resize(t, Image.BILINEAR))
+        peq = _rellena(mitad(ch, (w // 2, h // 2)),
+                       mitad(m.astype("uint8") * 255, (w // 2, h // 2)) > 0, pasos)
+        ch = numpy.where(m, mitad(peq, (w, h)), ch)
+    return _difunde(ch, m, pasos)
+
+
+def borra(im, zonas, margen=.04):
+    """Borra una marca quemada en la foto rellenando su hueco con el fondo.
+
+    Cada zona va en fracciones del ancho y del alto —no en píxeles— para que
+    siga valiendo si el original llega otro día a otra resolución. Solo sirve
+    sobre fondo liso: el relleno reconstruye un degradado suave, no inventa
+    pelo ni ropa. Si la zona pisa a la modelo, se nota."""
+    a = numpy.asarray(im, dtype=numpy.float32)
+    H, W, _ = a.shape
+    for (fx0, fy0, fx1, fy1) in zonas:
+        x0, y0, x1, y1 = int(fx0 * W), int(fy0 * H), int(fx1 * W), int(fy1 * H)
+        # Se trabaja sobre un recorte con margen: basta el fondo de alrededor
+        # y evita pasear el cálculo por toda la foto.
+        mx, my = int(margen * W), int(margen * H)
+        rx0, ry0 = max(0, x0 - mx), max(0, y0 - my)
+        rx1, ry1 = min(W, x1 + mx), min(H, y1 + my)
+        trozo = a[ry0:ry1, rx0:rx1].copy()
+        m = numpy.zeros(trozo.shape[:2], bool)
+        m[y0 - ry0:y1 - ry0, x0 - rx0:x1 - rx0] = True
+        for c in range(3):
+            trozo[:, :, c] = _rellena(trozo[:, :, c], m)
+        a[ry0:ry1, rx0:rx1] = trozo
+    return Image.fromarray(numpy.clip(a, 0, 255).astype("uint8"))
+
+
 def cubrir(im, zoom, fx, fy, ANCHO, ALTO):
     """Amplía lo justo para llenar el marco (por zoom) y coloca la ventana."""
     w, h = im.size
@@ -278,6 +339,8 @@ for f in FOTOS:
     corto = min(im.size)
     if corto < LADO_MINIMO and not f.get("salta_minimo"):
         fuera.append((f["cod"], f["arch"], f"lado corto {corto} px < {LADO_MINIMO}")); continue
+    if f.get("borra"):
+        im = borra(im, f["borra"])
     if f["virar"]:
         im = ajustar(im)
     ANCHO, ALTO, prop = lienzo(f.get("marco", "portada"))

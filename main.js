@@ -392,12 +392,17 @@
 
   /* ═══════════ 7 · Catálogo ═══════════ */
   var PESTANAS = { fiber: ["fiber-alineacion", "fiber-ritual"], scalp: ["scalp-experiencia", "scalp-rootlounge"], addon: ["addon"] };
+  /* La proporción del hueco de foto de cada grupo. El guion de cada uno —qué
+     se fotografía y con qué encuadre— vive en el documento de fotos, no aquí:
+     antes viajaba en este objeto y acababa en el atributo title, o sea en un
+     globo al pasar el cursor, que es justo lo que advierte el comentario de
+     montarFoto. */
   var GRUPO_FOTO = {
-    "fiber-alineacion":  { r: "4:5", t: "Alineaciones moleculares: la misma clienta, mismo encuadre, cabello distinto según el sistema." },
-    "fiber-ritual":      { r: "1:1", t: "The Ritual Menu: detalle de textura y producto más que de personas." },
-    "scalp-experiencia": { r: "3:2", t: "SCALP · Experiencias." },
-    "scalp-rootlounge":  { r: "4:5", t: "SCALP · Root Lounge." },
-    "addon":             { r: "1:1", t: "Add-ons." }
+    "fiber-alineacion":  { r: "4:5" },
+    "fiber-ritual":      { r: "1:1" },
+    "scalp-experiencia": { r: "3:2" },
+    "scalp-rootlounge":  { r: "4:5" },
+    "addon":             { r: "1:1" }
   };
   var NOMBRE_GRUPO = {
     "fiber-alineacion": "BRAVA FIBER · Alineaciones moleculares",
@@ -410,11 +415,18 @@
   var famActiva = "fiber";
 
   function protocolo(id) { return CAT.protocolos.filter(function (p) { return p.id === id; })[0] || null; }
+  /* Igual que en el generador: los subtítulos van en mayúsculas por hoja de
+     estilo y "pH" no puede salir como "PH". */
+  function caja(s) {
+    return esc(s).replace(/pH/g, '<span class="caja-propia">pH</span>');
+  }
   function figuraHTML(p, clase) {
-    var g = GRUPO_FOTO[p.familia] || { r: "1:1", t: "" };
+    var g = GRUPO_FOTO[p.familia] || { r: "1:1" };
+    // data-alt, como en las páginas que escribe el generador: montarFoto lo
+    // pasa al alt de la imagen cuando carga.
     return '<figure class="' + (clase || "arco-sm") + '" data-foto="' + esc(p.foto) + '" data-ratio="' + esc(g.r) + '"' +
       ' data-archivo="' + BASE + 'assets/img/' + esc(String(p.foto).toLowerCase()) + '.webp"' +
-      ' title="' + esc(g.t + " Protocolo: " + p.nombre + ".") + '">' +
+      ' data-alt="' + esc("Protocolo " + p.nombre + ". " + (NOMBRE_GRUPO[p.familia] || "")) + '">' +
       '<span class="trama" aria-hidden="true"></span><span class="foto-tag">' + esc(p.foto) + '</span></figure>';
   }
   function datoCorto(p) {
@@ -429,7 +441,7 @@
     return '<button class="tarjeta' + (p.destacado ? " tarjeta-destacada" : "") + '" type="button" data-protocolo="' + esc(p.id) + '">' +
       '<span class="tarjeta-top"><span class="tarjeta-nombre">' + esc(p.nombre) + '</span>' +
       (corto ? '<span class="tarjeta-meta">' + esc(corto) + '</span>' : '') + '</span>' +
-      '<span class="tarjeta-sub">' + esc(p.subtitulo || "") + '</span>' +
+      '<span class="tarjeta-sub">' + caja(p.subtitulo || "") + '</span>' +
       '<span class="tarjeta-txt">' + esc(frase1(p.descripcion)) + '</span>' +
       (p.idealPara ? '<span class="tarjeta-para"><span class="tarjeta-para-et">Indicado si</span> ' + esc(frase1(p.idealPara)) + '</span>' : '') +
       '<span class="tarjeta-mas">Ver el protocolo</span>' +
@@ -537,7 +549,7 @@
         figuraHTML(p, "arco detalle-fig") +
         '<div class="detalle-cuerpo">' +
           '<h2 class="detalle-t" tabindex="-1">' + esc(p.nombre) + '</h2>' +
-          '<p class="detalle-sub">' + esc(p.subtitulo || "") + '</p>' +
+          '<p class="detalle-sub">' + caja(p.subtitulo || "") + '</p>' +
           '<p>' + esc(p.descripcion) + '</p>' +
           '<dl class="detalle-datos">' + dl + '</dl>' +
           (p.incluye && p.incluye.length
